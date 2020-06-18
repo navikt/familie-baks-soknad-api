@@ -16,4 +16,4 @@ management:
     base-path: "/internal"
   metrics.export.prometheus.enabled: true
 
-FAMILIE_BA_MOTTAK_URL: http://familie-ba-mottak.nais.preprod.local
+FAMILIE_BA_MOTTAK_URL: https://familie-ba-mottak.dev-fss-pub.nais.io
