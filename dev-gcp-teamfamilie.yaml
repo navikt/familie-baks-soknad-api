@@ -22,7 +22,9 @@ spec:
     max: 2
   prometheus:
     enabled: true
-    path: /internal/metrics/prometheus
+    path: /internal/prometheus
+  istio:
+    enabled: false
   resources:
     limits:
       memory: 1024Mi
