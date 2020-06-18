@@ -1,3 +1,5 @@
+application.name: familie-ba-soknad-api
+
 server:
   servlet:
     context-path: /
@@ -13,3 +15,5 @@ management:
     exposure.include: info, health, metrics, prometheus
     base-path: "/internal"
   metrics.export.prometheus.enabled: true
+
+FAMILIE_BA_MOTTAK_URL: http://familie-ba-mottak.nais.preprod.local
