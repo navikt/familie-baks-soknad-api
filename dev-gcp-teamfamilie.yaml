@@ -37,7 +37,7 @@ spec:
   accessPolicy:
     outbound:
       external:
-        - host: familie-ba-mottak.nais.preprod.local
+        - host: familie-ba-mottak.dev-fss-pub.nais.io
   vault:
     enabled: false
   env:
