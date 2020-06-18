@@ -36,7 +36,6 @@ spec:
     outbound:
       external:
         - host: familie-ba-mottak.nais.preprod.local
-        - host: https://pdl-api.nais.preprod.local
   vault:
     enabled: false
   env:
