@@ -35,13 +35,15 @@ spec:
   ingresses:
     - https://familie-ba-soknad-api.dev-nav.no
   accessPolicy:
+    inbound:
+      rules:
+        - application: familie-ba-soknad
     outbound:
       external:
         - host: familie-ba-mottak.dev-fss-pub.nais.io
+        - host: pdl-api.dev-fss.nais.io
   vault:
     enabled: false
   env:
     - name: APP_TEAM
       value: teamfamilie
-    - name: SPRING_PROFILES_ACTIVE
-      value: preprod
