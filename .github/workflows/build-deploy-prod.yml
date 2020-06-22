@@ -42,9 +42,9 @@ jobs:
         run: docker push ${IMAGE}
       - name: Push Docker image med 'latest' tag
         run: docker push ${IMAGE_LATEST}
-      #- name: Deploy til dev-gcp
-      #    uses: nais/deploy/actions/deploy@v1
-      #    env:
-      #      APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
-      #      CLUSTER: dev-gcp
-      #      RESOURCE: dev-gcp-teamfamilie.yaml
+      - name: Deploy til dev-gcp
+        uses: nais/deploy/actions/deploy@v1
+        env:
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          CLUSTER: dev-gcp
+          RESOURCE: dev-gcp-teamfamilie.yaml
