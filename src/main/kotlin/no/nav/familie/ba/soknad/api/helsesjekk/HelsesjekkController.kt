@@ -24,13 +24,8 @@ class HelsesjekkController(private val mottakClient: MottakClient) {
     fun pingMottak(): Ressurs<String> {
         return Result.runCatching { mottakClient.ping() }
                 .fold(
-                        onSuccess = {
-                            Ressurs.success("Ping mot mottak OK")
-                        },
-                        onFailure = {
-                            Ressurs.failure(errorMessage = "Ping mot mottak feilet", error = it)
-                        }
+                        onSuccess = { Ressurs.success("Ping mot mottak OK") },
+                        onFailure = { throw it }
                 )
-
     }
 }

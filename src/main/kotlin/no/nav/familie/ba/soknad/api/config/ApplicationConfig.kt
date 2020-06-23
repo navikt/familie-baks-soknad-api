@@ -1,6 +1,5 @@
 package no.nav.familie.ba.soknad.api.config
 
-import no.nav.familie.http.config.NaisProxyCustomizer
 import no.nav.familie.http.interceptor.ConsumerIdClientInterceptor
 import no.nav.familie.http.interceptor.MdcValuesPropagatingClientInterceptor
 import no.nav.familie.kontrakter.felles.objectMapper
@@ -32,7 +31,6 @@ class ApplicationConfig {
     @Bean("restOperations")
     fun restTemplateConsumerIdMDC(consumerIdClientInterceptor: ConsumerIdClientInterceptor): RestOperations {
         return RestTemplateBuilder()
-                .additionalCustomizers(NaisProxyCustomizer())
                 .interceptors(consumerIdClientInterceptor,
                               MdcValuesPropagatingClientInterceptor())
                 .additionalMessageConverters(MappingJackson2HttpMessageConverter(objectMapper))
