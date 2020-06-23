@@ -1,0 +1,48 @@
+apiVersion: "nais.io/v1alpha1"
+kind: "Application"
+metadata:
+  name: familie-ba-soknad-api
+  namespace: teamfamilie
+  labels:
+    team: teamfamilie
+spec:
+  image: {{ image }}
+  team: teamfamilie
+  port: 8080
+  liveness:
+    path: /internal/health
+    initialDelay: 30
+    failureThreshold: 10
+  readiness:
+    path: /internal/health
+    initialDelay: 30
+    failureThreshold: 10
+  replicas:
+    min: 1
+    max: 2
+  prometheus:
+    enabled: true
+    path: /internal/prometheus
+  istio:
+    enabled: false
+  resources:
+    limits:
+      memory: 1024Mi
+      cpu: "1"
+    requests:
+      memory: 512Mi
+      cpu: 200m
+  ingresses:
+    - https://familie-ba-soknad-api.dev-nav.no
+  accessPolicy:
+    inbound:
+      rules:
+        - application: familie-ba-soknad
+    outbound:
+      external:
+        - host: familie-ba-mottak.dev-fss-pub.nais.io
+  vault:
+    enabled: false
+  env:
+    - name: APP_TEAM
+      value: teamfamilie
