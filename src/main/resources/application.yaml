@@ -17,3 +17,4 @@ management:
   metrics.export.prometheus.enabled: true
 
 FAMILIE_BA_MOTTAK_URL: https://familie-ba-mottak.dev-fss-pub.nais.io
+PDL_API_URL: https://api-gw-q1.oera.no/pdl-api

@@ -12,22 +12,22 @@ import java.lang.IllegalStateException
 import java.net.URI
 
 @Component
-class MottakClient(@Value("\${FAMILIE_BA_MOTTAK_URL}") private val mottakBaseUrl: String,
-                   restOperations: RestOperations)
+class PdlClient(@Value("\${PDL_API_URL}") private val pdlBaseUrl: String,
+                @Qualifier("restKlientMedApiKey") restOperations: RestOperations)
     : AbstractRestClient(restOperations, "integrasjon"), Pingable {
 
     override fun ping() {
-        val uri = URI.create("$mottakBaseUrl/internal/health")
+        val uri = URI.create("$pdlBaseUrl/internal/isAlive")
         try {
             getForEntity<JsonNode>(uri)
-            LOG.debug("Ping mot familie-ba-mottak OK")
+            LOG.debug("Ping mot PDL-API OK")
         } catch (e: Exception) {
-            LOG.warn("Ping mot familie-ba-mottak feilet")
-            throw IllegalStateException("Ping mot familie-ba-mottak feilet", e)
+            LOG.warn("Ping mot PDL-API feilet")
+            throw IllegalStateException("Ping mot PDL-API feilet", e)
         }
     }
 
     companion object {
-        private val LOG = LoggerFactory.getLogger(MottakClient::class.java)
+        private val LOG = LoggerFactory.getLogger(PdlClient::class.java)
     }
 }
