@@ -17,7 +17,7 @@ class PdlClient(@Value("\${PDL_API_URL}") private val pdlBaseUrl: String,
     : AbstractRestClient(restOperations, "integrasjon"), Pingable {
 
     override fun ping() {
-        val uri = URI.create("$pdlBaseUrl/internal/isAlive")
+        val uri = URI.create("$pdlBaseUrl/graphql")
         try {
             getForEntity<JsonNode>(uri)
             LOG.debug("Ping mot PDL-API OK")
