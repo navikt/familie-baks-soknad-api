@@ -47,3 +47,5 @@ spec:
   env:
     - name: APP_TEAM
       value: teamfamilie
+  envFrom:
+    - secret: ba-soknad-api
