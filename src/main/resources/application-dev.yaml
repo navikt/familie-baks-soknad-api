@@ -1,7 +1,7 @@
 FAMILIE_BA_MOTTAK_URL: http://localhost:8090
-PDL_API_URL: http://familie-mock-server:1337
+PDL_API_URL: http://localhost:1337/rest/api/pdl
 
-PDL_API_APIKEY: #secret
+PDL_API_APIKEY: test-apikey
 
 cors:
   allowed_origins:

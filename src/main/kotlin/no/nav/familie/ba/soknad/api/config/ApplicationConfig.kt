@@ -38,7 +38,7 @@ internal class ApplicationConfig {
     @Bean
     fun apiKeyInjectingClientInterceptor(@Value("\${PDL_API_APIKEY}") pdlApiKey: String,
                                          @Value("\${PDL_API_URL}") pdlBaseUrl: String): ClientHttpRequestInterceptor {
-        val apiKeyPdlMap = mapOf(Pair(URI.create(pdlBaseUrl), Pair(apiKey, pdlApiKey)))
+        val apiKeyPdlMap = mapOf(Pair(URI.create(pdlBaseUrl), Pair(apiKeyHeader, pdlApiKey)))
         return ApiKeyInjectingClientInterceptor(apiKeyPdlMap)
     }
 
@@ -75,6 +75,6 @@ internal class ApplicationConfig {
     companion object {
         private val log = LoggerFactory.getLogger(ApplicationConfig::class.java)
         const val pakkenavn = "no.nav.familie.ba.soknad.api"
-        private const val apiKey = "x-nav-apiKey"
+        private const val apiKeyHeader = "x-nav-apiKey"
     }
 }

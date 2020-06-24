@@ -15,13 +15,12 @@ import java.net.URI
 
 @Component
 class PdlClient(@Value("\${PDL_API_URL}") private val pdlBaseUrl: String,
-                @Qualifier("restKlientMedApiKey") val restOperations: RestOperations)
+                @Qualifier("restKlientMedApiKey") private val restOperations: RestOperations)
     : AbstractRestClient(restOperations, "integrasjon"), Pingable {
 
     override fun ping() {
         val uri = URI.create("$pdlBaseUrl/graphql")
         try {
-            //getForEntity<JsonNode>(uri)
             restOperations.exchange<JsonNode>(uri, HttpMethod.OPTIONS)
             LOG.debug("Ping mot PDL-API OK")
         } catch (e: Exception) {
