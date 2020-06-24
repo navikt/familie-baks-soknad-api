@@ -16,4 +16,9 @@ management:
     base-path: "/internal"
   metrics.export.prometheus.enabled: true
 
+cors:
+  allowed_origins:
+    - "https://familie-ba-soknad.dev-adeo.no"
+    - "https://familie-ba-soknad.dev-nav.no"
+
 FAMILIE_BA_MOTTAK_URL: https://familie-ba-mottak.dev-fss-pub.nais.io

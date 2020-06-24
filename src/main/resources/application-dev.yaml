@@ -1,1 +1,6 @@
 FAMILIE_BA_MOTTAK_URL: http://localhost:8090
+
+cors:
+  allowed_origins:
+    - "http://localhost:3000"
+    - "http://localhost:8080"
