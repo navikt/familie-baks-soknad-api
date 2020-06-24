@@ -41,8 +41,11 @@ spec:
     outbound:
       external:
         - host: familie-ba-mottak.dev-fss-pub.nais.io
+        - host: api-gw-q1.oera.no
   vault:
     enabled: false
   env:
     - name: APP_TEAM
       value: teamfamilie
+  envFrom:
+    - secret: ba-soknad-api
