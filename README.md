@@ -1,2 +1,35 @@
 # familie-ba-soknad-api
-Søknadsdialog for barnetrygd
+API for søknadsdialog for barnetrygd
+
+## Kjøring lokalt
+Applikasjonen kan startes lokalt fra filen `DevLauncher`. Serveren blir da tilgjengelig på `localhost:8080`. Applikasjonen er avhengig av to tjenester: familie-ba-mottak og pdl-api. 
+Lokalt er disse mocket ut og mockene er knyttet til spring-profilene `mock-mottak` og `mock-pdl`. Man kan velge å kjøre appen sammen med familie-ba-mottak og familie-mock-server,
+dette gjøres ved å fjerne disse spring-profilene fra `DevLauncher`. familie-mock-server fungerer som en ekstern mock for pdl-api.
+
+## Bygging
+Appen bygges ved hjelp av maven. Den bruker pakker både fra Maven Central og Github Package Registry. For å hente pakkene fra Github Package Registry kan man
+eksempelvis bruke følgende settings.xml:
+```$xslt
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
+                      http://maven.apache.org/xsd/settings-1.0.0.xsd">  
+  <servers>
+    <server>
+      <id>github</id>
+      <username>navikt</username>
+      <password>[personal access token]</password>
+    </server>
+  </servers>
+</settings>
+```
+
+Her må man legge inn sitt personal access token fra github i password-feltet. Tokenet må ha SSO mot navikt enablet og må minst ha tilgang
+til `read:packages`.  
+
+## Deploy
+Applikasjonen kjører i clusteret `dev-gcp`. Deploy gjøres via Github Actions, der det er satt opp to ulike workflows. 
+Den ene workflowen kjører for brancher med en åpen pull request og inkluderer sonar-analyse. Den andre kjører ved push til master.
+
+## Kontaktinformasjon
+For NAV-interne kan henvendelser rettes til #team-familie på slack. Ellers kan man opprette et issue her på github.
