@@ -8,7 +8,6 @@ import no.nav.familie.log.filter.LogFilter
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.SpringBootConfiguration
-import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.boot.web.client.RestTemplateBuilder
 import org.springframework.boot.web.servlet.FilterRegistrationBean
 import org.springframework.context.annotation.Bean
@@ -23,7 +22,6 @@ import java.net.URI
 @SpringBootConfiguration
 @ComponentScan(ApplicationConfig.pakkenavn)
 @Import(ConsumerIdClientInterceptor::class)
-@EnableConfigurationProperties(CorsProperties::class)
 internal class ApplicationConfig {
 
     @Bean
@@ -61,15 +59,6 @@ internal class ApplicationConfig {
                               MdcValuesPropagatingClientInterceptor())
                 .additionalMessageConverters(MappingJackson2HttpMessageConverter(objectMapper))
                 .build()
-    }
-
-    @Bean
-    fun corsFilter(corsProperties: CorsProperties): FilterRegistrationBean<CORSResponseFilter> {
-        log.info("Registrerer CORSResponseFilter")
-        val filterRegistration = FilterRegistrationBean<CORSResponseFilter>()
-        filterRegistration.filter = CORSResponseFilter(corsProperties)
-        filterRegistration.order = 0
-        return filterRegistration
     }
 
     companion object {
