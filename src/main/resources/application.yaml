@@ -18,3 +18,10 @@ management:
 
 FAMILIE_BA_MOTTAK_URL: https://familie-ba-mottak.dev-fss-pub.nais.io
 PDL_API_URL: https://api-gw-q1.oera.no/pdl-api
+
+no.nav.security.jwt:
+  issuers: selvbetjening
+  issuer.selvbetjening:
+    discoveryurl: https://login.microsoftonline.com/navnob2c.onmicrosoft.com/v2.0/.well-known/openid-configuration?p=B2C_1A_idporten
+    accepted_audience: ${ACCEPTEDAUDIENCE}
+    cookie_name: selvbetjening-idtoken
