@@ -6,6 +6,6 @@ PDL_API_APIKEY: test-apikey
 no.nav.security.jwt:
   issuers: selvbetjening
   issuer.selvbetjening:
-    discoveryurl: https://login.microsoftonline.com/NAVtestB2C.onmicrosoft.com/v2.0/.well-known/openid-configuration?p=B2C_1A_idporten_ver1
-    accepted_audience: ${ACCEPTEDAUDIENCE}
-    cookie_name: selvbetjening-idtoken
+    discoveryurl: http://metadata
+    accepted_audience: aud-localhost
+    cookie_name: localhost-idtoken
