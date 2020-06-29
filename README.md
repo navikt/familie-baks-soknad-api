@@ -2,9 +2,9 @@
 API for søknadsdialog for barnetrygd
 
 ## Kjøring lokalt
-Applikasjonen kan startes lokalt fra filen `DevLauncher`. Serveren blir da tilgjengelig på `localhost:8080`. Applikasjonen er avhengig av to tjenester: familie-ba-mottak og pdl-api. 
+Applikasjonen kan startes lokalt fra filen `LokalLauncher`. Serveren blir da tilgjengelig på `localhost:8080`. Applikasjonen er avhengig av to tjenester: familie-ba-mottak og pdl-api. 
 Lokalt er disse mocket ut og mockene er knyttet til spring-profilene `mock-mottak` og `mock-pdl`. Man kan velge å kjøre appen sammen med familie-ba-mottak og familie-mock-server,
-dette gjøres ved å fjerne disse spring-profilene fra `DevLauncher`. familie-mock-server fungerer som en ekstern mock for pdl-api.
+dette gjøres ved å fjerne disse spring-profilene fra `LokalLauncher`. familie-mock-server fungerer som en ekstern mock for pdl-api.
 
 ## Bygging
 Appen bygges ved hjelp av maven. Den bruker pakker både fra Maven Central og Github Package Registry. For å hente pakkene fra Github Package Registry kan man

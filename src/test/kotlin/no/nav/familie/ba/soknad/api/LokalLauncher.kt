@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 
 @SpringBootApplication(scanBasePackages = ["no.nav.familie.ba.soknad.api"])
-class DevLauncher
+class LokalLauncher
 
 fun main(args: Array<String>) {
-    val springApp = SpringApplication(DevLauncher::class.java)
-    springApp.setAdditionalProfiles("dev", "mock-mottak", "mock-pdl")
+    val springApp = SpringApplication(LokalLauncher::class.java)
+    springApp.setAdditionalProfiles("lokal", "mock-mottak", "mock-pdl")
     springApp.run(*args)
 }
