@@ -24,61 +24,47 @@ class PdlClient(@Value("\${PDL_API_URL}") private val pdlBaseUrl: String,
     val pdlUri: URI = URI.create("$pdlBaseUrl/graphql")
     private val personInfoQuery = this::class.java.getResource("/pdl/hentperson-med-relasjoner.graphql").readText().graphqlCompatible()
 
-    fun hentPerson(personIdent: String): Person {
+    private fun hentPersonData(personIdent: String): PdlHentPersonResponse {
         val pdlPersonRequest = PdlPersonRequest(variables = personIdent, query = personInfoQuery)
-
         try {
-            val response = postForEntity<PdlHentPersonResponse>(uri = pdlUri, payload = pdlPersonRequest, httpHeaders = HttpHeaders())
-
-            if (response != null && !response.harFeil()) {
-                return Result.runCatching {
-                    val barn: Set<Barn> = response.data.person!!.familierelasjoner.filter { relasjon ->
-                        relasjon.relatertPersonsRolle == FAMILIERELASJONSROLLE.BARN
-                    }.map { relasjon ->
-                        Barn(personIdent = Personident(id = relasjon.relatertPersonsIdent), navn = hentNavn(relasjon.relatertPersonsIdent))
-                    }.toSet()
-
-                    response.data.person!!.let {
-                        Person(navn = it.navn.first().fulltNavn(),
-                                barn = barn)
-                    }
-                }.fold(
-                        onSuccess = { it },
-                        onFailure = { throw it }
-                )
+            val response = postForEntity<PdlHentPersonResponse>(uri = pdlUri, payload = pdlPersonRequest)
+            if (!response.harFeil()) {
+                return response
             } else {
                 responsFailure.increment()
                 throw Exception("feil:S")
             }
-
         } catch (e: Exception) {
             throw e
         }
     }
 
-    fun hentNavn(personIdent: String): String {
-        val pdlPersonRequest = PdlPersonRequest(variables = personIdent, query = personInfoQuery)
+    private fun hentNavn(personIdent: String): String {
+        val response = hentPersonData(personIdent)
+        return Result.runCatching {
+            response.data.person!!.navn.first().fulltNavn()
+        }.fold(
+                onSuccess = { it },
+                onFailure = { throw it}
+        )
+    }
 
-        try {
-            val response = postForEntity<PdlHentPersonResponse>(uri = pdlUri, payload = pdlPersonRequest, httpHeaders = HttpHeaders())
+    fun hentPerson(personIdent: String): Person {
+        val response = hentPersonData(personIdent)
+        return Result.runCatching {
+            val barn: Set<Barn> = response.data.person!!.familierelasjoner.filter {
+                relasjon -> relasjon.relatertPersonsRolle == FAMILIERELASJONSROLLE.BARN
+            }.map {
+                relasjon -> Barn(Personident(relasjon.relatertPersonsIdent), hentNavn(relasjon.relatertPersonsIdent))
+            }.toSet()
 
-            if (response != null && !response.harFeil()) {
-                return Result.runCatching {
-
-                    response.data.person!!.navn.first().fulltNavn()
-
-                }.fold(
-                        onSuccess = { it },
-                        onFailure = { throw it }
-                )
-            } else {
-                responsFailure.increment()
-                throw Exception("feil:S")
+            response.data.person.let {
+                Person(navn = it.navn.first().fulltNavn(), barn = barn)
             }
-
-        } catch (e: Exception) {
-            throw e
-        }
+        }.fold(
+                onSuccess = { it },
+                onFailure = { throw it}
+        )
     }
 
     override fun ping() {

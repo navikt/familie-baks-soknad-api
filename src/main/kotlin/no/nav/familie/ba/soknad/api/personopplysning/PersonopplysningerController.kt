@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @ProtectedWithClaims(issuer = "selvbetjening", claimMap = ["acr=Level4"])
 @RequestMapping(path=["/api"], produces = [MediaType.APPLICATION_JSON_VALUE])
-class PersonopplysningerController() {
+class PersonopplysningerController(private val personopplysningerService: PersonopplysningerService) {
 
     @PostMapping("/personopplysning")
-    fun personInfo(@RequestBody( required = true) ident: Ident): ResponseEntity<Ressurs<String>> {
-        return ResponseEntity.ok(Ressurs.success("jippi"))
+    fun personInfo(@RequestBody( required = true) ident: Ident): ResponseEntity<Ressurs<Person>> {
+        return ResponseEntity.ok(Ressurs.success(personopplysningerService.hentPersoninfo(ident.ident)))
     }
 }
