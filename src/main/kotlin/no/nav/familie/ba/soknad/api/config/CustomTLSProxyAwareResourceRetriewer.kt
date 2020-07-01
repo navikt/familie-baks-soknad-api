@@ -4,6 +4,7 @@ import com.nimbusds.jose.util.BoundedInputStream
 import com.nimbusds.jose.util.IOUtils
 import com.nimbusds.jose.util.Resource
 import no.nav.security.token.support.core.configuration.ProxyAwareResourceRetriever
+import org.slf4j.LoggerFactory
 import java.io.IOException
 import java.io.InputStream
 import java.lang.ClassCastException
@@ -19,6 +20,7 @@ class CustomTLSProxyAwareResourceRetriewer(usePlainTextForHttps: Boolean)
     : ProxyAwareResourceRetriever(null, usePlainTextForHttps) {
 
     override fun retrieveResource(url: URL?): Resource {
+        LOG.info("Bruker custom resource retriewer")
         val ssl = SSLContext.getInstance("TLSv1.2")
         ssl.init(null, null, SecureRandom())
 
@@ -62,5 +64,9 @@ class CustomTLSProxyAwareResourceRetriewer(usePlainTextForHttps: Boolean)
         val inputStream = con.inputStream
 
         return if (sizeLimit > 0) BoundedInputStream(inputStream, getSizeLimit().toLong()) else inputStream
+    }
+
+    companion object {
+        private val LOG = LoggerFactory.getLogger(CustomTLSProxyAwareResourceRetriewer::class.java)
     }
 }
