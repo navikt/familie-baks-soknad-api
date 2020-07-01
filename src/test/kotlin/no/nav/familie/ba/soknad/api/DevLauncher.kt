@@ -8,6 +8,6 @@ class DevLauncher
 
 fun main(args: Array<String>) {
     val springApp = SpringApplication(DevLauncher::class.java)
-    springApp.setAdditionalProfiles("dev", "mock-mottak", "mock-pdl")
+    springApp.setAdditionalProfiles("dev", "mock-mottak")
     springApp.run(*args)
 }
