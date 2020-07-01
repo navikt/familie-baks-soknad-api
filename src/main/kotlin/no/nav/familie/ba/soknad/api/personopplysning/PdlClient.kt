@@ -50,7 +50,7 @@ class PdlClient(@Value("\${PDL_API_URL}") private val pdlBaseUrl: String,
             val barn: Set<Barn> = response.data.person!!.familierelasjoner.filter {
                 relasjon -> relasjon.relatertPersonsRolle == FAMILIERELASJONSROLLE.BARN
             }.map {
-                relasjon -> Barn(Personident(relasjon.relatertPersonsIdent), hentNavn(relasjon.relatertPersonsIdent))
+                relasjon -> Barn(relasjon.relatertPersonsIdent, hentNavn(relasjon.relatertPersonsIdent))
             }.toSet()
 
             response.data.person.let {

@@ -6,12 +6,9 @@ data class Person(
 )
 
 data class Barn(
-        val personIdent: Personident,
+        val ident: String,
         val navn: String
 )
 
-data class Personident(
-        val id: String
-)
 
 
