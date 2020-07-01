@@ -4,6 +4,8 @@ server:
   servlet:
     context-path: /
   port: 8080
+  ssl:
+    enabled-protocols: TLSv1.2
 
 spring:
   autoconfigure.exclude: org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConfiguration
