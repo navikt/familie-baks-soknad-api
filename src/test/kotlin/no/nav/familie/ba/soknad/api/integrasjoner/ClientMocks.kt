@@ -29,22 +29,20 @@ class ClientMocks {
     fun mockPdlClient(): PdlClient {
         val mockPdlClient = mockk<PdlClient>()
 
-        val voksenNavn = PdlNavn("Voksen", etternavn = "Voksnessen")
-        val relasjonBarn = PdlFamilierelasjon("12345678987", FAMILIERELASJONSROLLE.BARN)
-        val relasjonMor = PdlFamilierelasjon("12345678989", FAMILIERELASJONSROLLE.MOR)
-        val barneNavn = PdlNavn("Barn", etternavn = "Barnessen")
-
         every { mockPdlClient.ping() } just Runs
         every { mockPdlClient.hentNavnOgRelasjoner(any()) } returns PdlHentPersonResponse(
                 data = PdlPerson(person = PdlPersonData(
-                        navn = listOf(voksenNavn),
-                        familierelasjoner = listOf(relasjonBarn, relasjonMor)
+                        navn = listOf(PdlNavn("Voksen", etternavn = "Voksnessen")),
+                        familierelasjoner = listOf(
+                                PdlFamilierelasjon("12345678987", FAMILIERELASJONSROLLE.BARN),
+                                PdlFamilierelasjon("12345678989", FAMILIERELASJONSROLLE.MOR)
+                                )
                 )),
                 errors = null
         )
         every { mockPdlClient.hentNavn(any()) } returns PdlHentPersonResponse(
                 data = PdlPerson(person = PdlPersonData(
-                        navn = listOf(barneNavn),
+                        navn = listOf(PdlNavn("Barn", etternavn = "Barnessen")),
                         familierelasjoner = emptyList()
                 )),
                 errors = null
