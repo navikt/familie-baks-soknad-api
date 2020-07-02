@@ -62,14 +62,6 @@ internal class ApplicationConfig {
                 .build()
     }
 
-/*    @Bean
-    @Primary
-    fun proxyAwareResourceRetriever(
-            @Value("\${no.nav.security.jwt.issuer.selvbetjening.usePlaintextForHttps}") usePlaintextForHttps: String
-    ): ProxyAwareResourceRetriever {
-        return CustomTLSProxyAwareResourceRetriewer(usePlaintextForHttps.toBoolean())
-    }*/
-
     companion object {
         private val log = LoggerFactory.getLogger(ApplicationConfig::class.java)
         const val pakkenavn = "no.nav.familie.ba.soknad.api"
