@@ -9,6 +9,3 @@ data class Barn(
         val ident: String,
         val navn: String
 )
-
-
-
