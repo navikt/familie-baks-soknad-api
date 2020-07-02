@@ -1,0 +1,19 @@
+{
+  "errors": [
+    {
+      "message": "Fant ikke person",
+      "path": [
+        "person"
+      ]
+    },
+    {
+      "message": "Ikke tilgang",
+      "path": [
+        "person"
+      ]
+    }
+  ],
+  "data": {
+    "person": null
+  }
+}
