@@ -5,7 +5,6 @@ import no.nav.familie.http.interceptor.ConsumerIdClientInterceptor
 import no.nav.familie.http.interceptor.MdcValuesPropagatingClientInterceptor
 import no.nav.familie.kontrakter.felles.objectMapper
 import no.nav.familie.log.filter.LogFilter
-import no.nav.security.token.support.core.configuration.ProxyAwareResourceRetriever
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.SpringBootConfiguration
