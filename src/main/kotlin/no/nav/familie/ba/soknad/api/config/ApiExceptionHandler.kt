@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
+import org.springframework.web.client.HttpClientErrorException
 
 @ControllerAdvice
 class ApiExceptionHandler {
@@ -15,7 +16,11 @@ class ApiExceptionHandler {
         val feilmelding = (throwable.cause?.message ?: throwable.message).toString()
         secureLogger.info("En feil har oppstått: $feilmelding", throwable)
         LOG.error("En feil har oppstått: $feilmelding")
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Ressurs.failure(feilmelding))
+        return if (throwable is HttpClientErrorException) {
+            ResponseEntity.status(throwable.statusCode).body(Ressurs.failure(feilmelding))
+        } else {
+            ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Ressurs.failure(feilmelding))
+        }
     }
 
     companion object {
