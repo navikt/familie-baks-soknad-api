@@ -17,7 +17,7 @@ class PdlGraphqlTest {
         val resp = mapper.readValue(File(getFile("pdl/pdlPersonUtenRelasjoner.json")), PdlHentPersonResponse::class.java)
 
         assertEquals("ENGASJERT", resp.data.person!!.navn.first().fornavn)
-        assertEquals("FYR", resp.data.person!!.navn.first().fornavn)
+        assertEquals("FYR", resp.data.person!!.navn.first().etternavn)
         assertEquals(emptyList<PdlFamilierelasjon>(), resp.data.person!!.familierelasjoner)
     }
 
