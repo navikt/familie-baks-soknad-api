@@ -11,17 +11,17 @@ class PersonopplysningerService(private val pdlClient: PdlClient) {
             response.data.person!!.navn.first().fulltNavn()
         }.fold(
                 onSuccess = { it },
-                onFailure = { throw it}
+                onFailure = { throw it }
         )
     }
 
     fun hentPersoninfo(personIdent: String): Person {
         val response = pdlClient.hentNavnOgRelasjoner(personIdent)
         return Result.runCatching {
-            val barn: Set<Barn> = response.data.person!!.familierelasjoner.filter {
-                relasjon -> relasjon.relatertPersonsRolle == FAMILIERELASJONSROLLE.BARN
-            }.map {
-                relasjon -> Barn(relasjon.relatertPersonsIdent, hentNavn(relasjon.relatertPersonsIdent))
+            val barn: Set<Barn> = response.data.person!!.familierelasjoner.filter { relasjon ->
+                relasjon.relatertPersonsRolle == FAMILIERELASJONSROLLE.BARN
+            }.map { relasjon ->
+                Barn(relasjon.relatertPersonsIdent, hentNavn(relasjon.relatertPersonsIdent))
             }.toSet()
 
             response.data.person.let {
@@ -29,7 +29,7 @@ class PersonopplysningerService(private val pdlClient: PdlClient) {
             }
         }.fold(
                 onSuccess = { it },
-                onFailure = { throw it}
+                onFailure = { throw it }
         )
     }
 

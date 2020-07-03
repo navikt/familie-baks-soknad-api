@@ -29,7 +29,6 @@ class PdlClient(@Value("\${PDL_API_URL}") private val pdlBaseUrl: String,
             if (!response.harFeil()) {
                 return response
             } else {
-                responsFailure.increment()
                 throw Exception(response.errorMessages())
             }
         } catch (e: Exception) {
