@@ -7,7 +7,9 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import java.io.File
+import java.lang.IllegalStateException
 
 class PersonopplysningerServiceTest {
 
@@ -22,14 +24,11 @@ class PersonopplysningerServiceTest {
 
         every { client.hentNavn(any()) } returns
                 mapper.readValue(File(getFile("pdl/pdlPersonNavn.json")), PdlHentPersonResponse::class.java)
-
     }
 
     @Test
     fun `hentPersonInfo skal kun returnere familierelasjoner av type BARN`() {
-        every { client.hentNavnOgRelasjoner(any()) } returns
-                mapper.readValue(File(getFile("pdl/pdlPersonMedFlereRelasjoner.json")), PdlHentPersonResponse::class.java)
-
+        settNavnOgRelasjonerFil("pdlPersonMedFlereRelasjoner")
         val person = personopplysningerService.hentPersoninfo("1")
 
         assertEquals(1, person.barn.size)
@@ -39,25 +38,32 @@ class PersonopplysningerServiceTest {
 
     @Test
     fun `hentPersonInfo skal returnere tom liste hvis det er familierelasjoner, men ingen barn`() {
-        every { client.hentNavnOgRelasjoner(any()) } returns
-                mapper.readValue(File(getFile("pdl/pdlPersonMedRelasjonerIngenBarn.json")), PdlHentPersonResponse::class.java)
-
+        settNavnOgRelasjonerFil("pdlPersonMedRelasjonerIngenBarn")
         val person = personopplysningerService.hentPersoninfo("1")
-
         assertTrue(person.barn.isEmpty())
     }
 
     @Test
     fun `henPersonInfo skal returnere tom liste hvis ingen familierelasjoner`() {
-        every { client.hentNavnOgRelasjoner(any()) } returns
-                mapper.readValue(File(getFile("pdl/pdlPersonUtenRelasjoner.json")), PdlHentPersonResponse::class.java)
-
+        settNavnOgRelasjonerFil("pdlPersonUtenRelasjoner")
         val person = personopplysningerService.hentPersoninfo("1")
-
         assertTrue(person.barn.isEmpty())
     }
 
+    @Test
+    fun `hentPersoninfo kaster exception hvis person ikke blir funnet`() {
+        settNavnOgRelasjonerFil("pdlPersonIkkeFunnetReponse")
+        val e = assertThrows<IllegalStateException> {
+            personopplysningerService.hentPersoninfo("1")
+        }
+    }
 
+    private fun settNavnOgRelasjonerFil(filNavn: String) {
+        every { client.hentNavnOgRelasjoner(any()) } returns
+                mapper.readValue(File(getFile("pdl/$filNavn.json")), PdlHentPersonResponse::class.java)
+    }
+
+    // TODO: Brukes også i PdlGraphqlTest. Flytt ut til noe felles?
     private fun getFile(name: String): String {
         return javaClass.classLoader?.getResource(name)?.file ?: error("Testkonfigurasjon feil")
     }
