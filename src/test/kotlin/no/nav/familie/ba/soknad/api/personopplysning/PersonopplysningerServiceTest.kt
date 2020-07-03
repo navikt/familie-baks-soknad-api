@@ -1,13 +1,10 @@
 package no.nav.familie.ba.soknad.api.personopplysning
 
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.module.kotlin.registerKotlinModule
-import io.mockk.Runs
 import io.mockk.every
-import io.mockk.just
 import io.mockk.mockk
-import no.nav.familie.ba.soknad.api.integrasjoner.ClientMocks
 import no.nav.familie.kontrakter.felles.objectMapper
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import java.io.File
@@ -22,16 +19,42 @@ class PersonopplysningerServiceTest {
     fun setUp() {
         client = mockk()
         personopplysningerService = PersonopplysningerService(client)
+
+        every { client.hentNavn(any()) } returns
+                mapper.readValue(File(getFile("pdl/pdlPersonNavn.json")), PdlHentPersonResponse::class.java)
+
     }
 
     @Test
     fun `hentPersonInfo skal kun returnere familierelasjoner av type BARN`() {
         every { client.hentNavnOgRelasjoner(any()) } returns
-                mapper.readValue(File(getFile("pdl/pdlPersonMedEttBarn.json")), PdlHentPersonResponse::class.java)
-        every { client.hentNavn(any()) } returns
-                mapper.readValue(File(getFile("pdl/pdlPersonNavn.json")), PdlHentPersonResponse::class.java)
+                mapper.readValue(File(getFile("pdl/pdlPersonMedFlereRelasjoner.json")), PdlHentPersonResponse::class.java)
 
         val person = personopplysningerService.hentPersoninfo("1")
+
+        assertEquals(1, person.barn.size)
+        assertEquals("ENGASJERT FYR", person.barn.first().navn)
+        assertEquals("12345678910", person.barn.first().ident)
+    }
+
+    @Test
+    fun `hentPersonInfo skal returnere tom liste hvis det er familierelasjoner, men ingen barn`() {
+        every { client.hentNavnOgRelasjoner(any()) } returns
+                mapper.readValue(File(getFile("pdl/pdlPersonMedRelasjonerIngenBarn.json")), PdlHentPersonResponse::class.java)
+
+        val person = personopplysningerService.hentPersoninfo("1")
+
+        assertTrue(person.barn.isEmpty())
+    }
+
+    @Test
+    fun `henPersonInfo skal returnere tom liste hvis ingen familierelasjoner`() {
+        every { client.hentNavnOgRelasjoner(any()) } returns
+                mapper.readValue(File(getFile("pdl/pdlPersonUtenRelasjoner.json")), PdlHentPersonResponse::class.java)
+
+        val person = personopplysningerService.hentPersoninfo("1")
+
+        assertTrue(person.barn.isEmpty())
     }
 
 
