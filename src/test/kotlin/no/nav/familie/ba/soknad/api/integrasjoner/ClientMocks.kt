@@ -4,6 +4,7 @@ import io.mockk.Runs
 import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
+import no.nav.familie.ba.soknad.api.personopplysning.*
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Primary
 import org.springframework.context.annotation.Profile
@@ -26,7 +27,26 @@ class ClientMocks {
     @Profile("mock-pdl")
     fun mockPdlClient(): PdlClient {
         val mockPdlClient = mockk<PdlClient>()
+
         every { mockPdlClient.ping() } just Runs
+        every { mockPdlClient.hentNavnOgRelasjoner(any()) } returns PdlHentPersonResponse(
+                data = PdlPerson(person = PdlPersonData(
+                        navn = listOf(PdlNavn("Voksen", etternavn = "Voksnessen")),
+                        familierelasjoner = listOf(
+                                PdlFamilierelasjon("12345678987", FAMILIERELASJONSROLLE.BARN),
+                                PdlFamilierelasjon("12345678989", FAMILIERELASJONSROLLE.MOR)
+                        )
+                )),
+                errors = null
+        )
+        every { mockPdlClient.hentNavn(any()) } returns PdlHentPersonResponse(
+                data = PdlPerson(person = PdlPersonData(
+                        navn = listOf(PdlNavn("Barn", etternavn = "Barnessen")),
+                        familierelasjoner = emptyList()
+                )),
+                errors = null
+        )
         return mockPdlClient
     }
+
 }

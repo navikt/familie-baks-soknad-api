@@ -1,0 +1,22 @@
+{
+  "data": {
+    "person": {
+      "navn": [
+        {
+          "fornavn": "ENGASJERT",
+          "etternavn": "FYR"
+        }
+      ],
+      "familierelasjoner": [
+        {
+          "relatertPersonsIdent": "12345678910",
+          "relatertPersonsRolle": "BARN"
+        },
+        {
+          "relatertPersonsIdent": "12345678911",
+          "relatertPersonsRolle": "MOR"
+        }
+      ]
+    }
+  }
+}
