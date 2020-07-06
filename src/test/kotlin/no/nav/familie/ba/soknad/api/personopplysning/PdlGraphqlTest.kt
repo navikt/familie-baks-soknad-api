@@ -29,7 +29,7 @@ class PdlGraphqlTest {
         assertTrue(resp.errorMessages().contains("Ikke tilgang"))
     }
 
-    @Test  // Stjålet nesten ordrett fra familie-integrasjon: PdlGraphqlTest.
+    @Test
     fun testFulltNavn() {
         assertEquals(
                 "For Mellom Etter",

@@ -7,9 +7,7 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertThrows
 import java.io.File
-import java.lang.IllegalStateException
 
 class PersonopplysningerServiceTest {
 
@@ -50,20 +48,11 @@ class PersonopplysningerServiceTest {
         assertTrue(person.barn.isEmpty())
     }
 
-    @Test
-    fun `hentPersoninfo kaster exception hvis person ikke blir funnet`() {
-        settNavnOgRelasjonerFil("pdlPersonIkkeFunnetReponse")
-        val e = assertThrows<IllegalStateException> {
-            personopplysningerService.hentPersoninfo("1")
-        }
-    }
-
     private fun settNavnOgRelasjonerFil(filNavn: String) {
         every { client.hentNavnOgRelasjoner(any()) } returns
                 mapper.readValue(File(getFile("pdl/$filNavn.json")), PdlHentPersonResponse::class.java)
     }
 
-    // TODO: Brukes også i PdlGraphqlTest. Flytt ut til noe felles?
     private fun getFile(name: String): String {
         return javaClass.classLoader?.getResource(name)?.file ?: error("Testkonfigurasjon feil")
     }

@@ -5,7 +5,6 @@ import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
 import no.nav.familie.ba.soknad.api.personopplysning.*
-import org.assertj.core.groups.Tuple
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Primary
 import org.springframework.context.annotation.Profile
@@ -36,7 +35,7 @@ class ClientMocks {
                         familierelasjoner = listOf(
                                 PdlFamilierelasjon("12345678987", FAMILIERELASJONSROLLE.BARN),
                                 PdlFamilierelasjon("12345678989", FAMILIERELASJONSROLLE.MOR)
-                                )
+                        )
                 )),
                 errors = null
         )
