@@ -49,6 +49,6 @@ spec:
     - name: APP_TEAM
       value: teamfamilie
     - name: SPRING_PROFILES_ACTIVE
-      value: preprod
+      value: dev
   envFrom:
     - secret: ba-soknad-api
