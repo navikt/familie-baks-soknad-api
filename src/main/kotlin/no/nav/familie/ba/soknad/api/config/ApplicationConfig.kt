@@ -1,12 +1,11 @@
 package no.nav.familie.ba.soknad.api.config
 
+import no.nav.familie.ba.soknad.api.util.TokenBehandler
 import no.nav.familie.http.interceptor.ApiKeyInjectingClientInterceptor
 import no.nav.familie.http.interceptor.ConsumerIdClientInterceptor
 import no.nav.familie.http.interceptor.MdcValuesPropagatingClientInterceptor
 import no.nav.familie.kontrakter.felles.objectMapper
 import no.nav.familie.log.filter.LogFilter
-import no.nav.security.token.support.core.context.TokenValidationContextHolder
-import no.nav.security.token.support.spring.SpringTokenValidationContextHolder
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.SpringBootConfiguration
@@ -50,29 +49,36 @@ internal class ApplicationConfig {
     fun restTemplate(consumerIdClientInterceptor: ConsumerIdClientInterceptor): RestOperations {
         return RestTemplateBuilder()
                 .interceptors(consumerIdClientInterceptor,
-                              MdcValuesPropagatingClientInterceptor())
+                        MdcValuesPropagatingClientInterceptor())
                 .additionalMessageConverters(MappingJackson2HttpMessageConverter(objectMapper))
                 .build()
     }
 
     @Bean
-    fun testInterceptor(@Value("\${PDL_API_APIKEY}") pdlApiKey: String,
-                                         @Value("\${PDL_API_URL}") pdlBaseUrl: String): ClientHttpRequestInterceptor {
+    fun testInterceptor(): ClientHttpRequestInterceptor {
         return TestInterceptor()
+    }
+
+    @Bean
+    fun jwtTokenInjectingInterceptor(): ClientHttpRequestInterceptor {
+        return AddJwtTokenInterceptor()
     }
 
     @Bean("restKlientMedApiKey")
     fun restTemplateMedApiKey(consumerIdClientInterceptor: ConsumerIdClientInterceptor,
                               apiKeyInjectingClientInterceptor: ClientHttpRequestInterceptor,
-                                testInterceptor: ClientHttpRequestInterceptor): RestOperations {
+                              jwtTokenInjectingInterceptor: ClientHttpRequestInterceptor,
+                              testInterceptor: ClientHttpRequestInterceptor): RestOperations {
         return RestTemplateBuilder()
                 .interceptors(consumerIdClientInterceptor,
-                              apiKeyInjectingClientInterceptor,
-                              testInterceptor,
-                              MdcValuesPropagatingClientInterceptor())
+                        apiKeyInjectingClientInterceptor,
+                        jwtTokenInjectingInterceptor,
+                        testInterceptor,
+                        MdcValuesPropagatingClientInterceptor())
                 .additionalMessageConverters(MappingJackson2HttpMessageConverter(objectMapper))
                 .build()
     }
+
     companion object {
         val log = LoggerFactory.getLogger(ApplicationConfig::class.java)
         const val pakkenavn = "no.nav.familie.ba.soknad.api"
@@ -80,18 +86,18 @@ internal class ApplicationConfig {
     }
 }
 
-class TestInterceptor: ClientHttpRequestInterceptor {
+class AddJwtTokenInterceptor : ClientHttpRequestInterceptor {
+    override fun intercept(request: HttpRequest, body: ByteArray, execution: ClientHttpRequestExecution): ClientHttpResponse {
+        request.headers["Authorization"] = TokenBehandler.hentToken()
+        return execution.execute(request, body)
+    }
+}
+
+class TestInterceptor : ClientHttpRequestInterceptor {
 
     override fun intercept(request: HttpRequest, body: ByteArray, execution: ClientHttpRequestExecution): ClientHttpResponse {
-        val contextHolder = SpringTokenValidationContextHolder()
-
-        log.info("\nFØR")
+        log.info("\nDEBUG_LOGGING:")
         log.info(request.headers.toString())
-        log.info(body.toString(Charsets.UTF_8))
-        log.info(contextHolder.tokenValidationContext.getClaims("selvbetjening").allClaims.toString())
-        log.info(contextHolder.tokenValidationContext.getJwtToken("selvbetjening").tokenAsString)
-        log.info(contextHolder.tokenValidationContext.issuers.toString())
-        log.info("ETTER")
         return execution.execute(request, body)
     }
 
