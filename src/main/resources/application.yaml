@@ -16,8 +16,8 @@ management:
     base-path: "/internal"
   metrics.export.prometheus.enabled: true
 
-FAMILIE_BA_MOTTAK_URL: https://familie-ba-mottak.dev-fss-pub.nais.io
-PDL_API_URL: https://api-gw-q1.oera.no/pdl-api
+FAMILIE_BA_MOTTAK_URL: dummy
+PDL_API_URL: dummy
 
 no.nav.security.jwt:
   issuers: selvbetjening
@@ -27,3 +27,5 @@ no.nav.security.jwt:
     cookie_name: selvbetjening-idtoken
 
 STS_URL: https://api-gw-q1.oera.no/security-token-service
+
+logging.level.no.nav.security: DEBUG

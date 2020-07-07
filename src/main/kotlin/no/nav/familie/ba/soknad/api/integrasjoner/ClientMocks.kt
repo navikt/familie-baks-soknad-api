@@ -6,9 +6,6 @@ import io.mockk.just
 import io.mockk.mockk
 import no.nav.familie.ba.soknad.api.personopplysning.*
 import no.nav.familie.http.sts.StsRestClient
-import org.mockito.Mockito
-import org.mockito.Mockito.`when`
-import org.mockito.Mockito.mock
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Primary
 import org.springframework.context.annotation.Profile
