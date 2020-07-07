@@ -1,9 +1,11 @@
 package no.nav.familie.ba.soknad.api.config
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import no.nav.familie.ba.soknad.api.util.TokenBehandler
 import no.nav.familie.http.interceptor.ApiKeyInjectingClientInterceptor
 import no.nav.familie.http.interceptor.ConsumerIdClientInterceptor
 import no.nav.familie.http.interceptor.MdcValuesPropagatingClientInterceptor
+import no.nav.familie.http.sts.StsRestClient
 import no.nav.familie.kontrakter.felles.objectMapper
 import no.nav.familie.log.filter.LogFilter
 import org.slf4j.LoggerFactory
@@ -49,14 +51,9 @@ internal class ApplicationConfig {
     fun restTemplate(consumerIdClientInterceptor: ConsumerIdClientInterceptor): RestOperations {
         return RestTemplateBuilder()
                 .interceptors(consumerIdClientInterceptor,
-                        MdcValuesPropagatingClientInterceptor())
+                              MdcValuesPropagatingClientInterceptor())
                 .additionalMessageConverters(MappingJackson2HttpMessageConverter(objectMapper))
                 .build()
-    }
-
-    @Bean
-    fun testInterceptor(): ClientHttpRequestInterceptor {
-        return TestInterceptor()
     }
 
     @Bean
@@ -67,20 +64,18 @@ internal class ApplicationConfig {
     @Bean("restKlientMedApiKey")
     fun restTemplateMedApiKey(consumerIdClientInterceptor: ConsumerIdClientInterceptor,
                               apiKeyInjectingClientInterceptor: ClientHttpRequestInterceptor,
-                              jwtTokenInjectingInterceptor: ClientHttpRequestInterceptor,
-                              testInterceptor: ClientHttpRequestInterceptor): RestOperations {
+                              jwtTokenInjectingInterceptor: ClientHttpRequestInterceptor): RestOperations {
         return RestTemplateBuilder()
                 .interceptors(consumerIdClientInterceptor,
-                        apiKeyInjectingClientInterceptor,
-                        jwtTokenInjectingInterceptor,
-                        testInterceptor,
-                        MdcValuesPropagatingClientInterceptor())
+                              apiKeyInjectingClientInterceptor,
+                              jwtTokenInjectingInterceptor,
+                              MdcValuesPropagatingClientInterceptor())
                 .additionalMessageConverters(MappingJackson2HttpMessageConverter(objectMapper))
                 .build()
     }
 
     companion object {
-        val log = LoggerFactory.getLogger(ApplicationConfig::class.java)
+        private val log = LoggerFactory.getLogger(ApplicationConfig::class.java)
         const val pakkenavn = "no.nav.familie.ba.soknad.api"
         private const val apiKeyHeader = "x-nav-apiKey"
     }
@@ -90,18 +85,5 @@ class AddJwtTokenInterceptor : ClientHttpRequestInterceptor {
     override fun intercept(request: HttpRequest, body: ByteArray, execution: ClientHttpRequestExecution): ClientHttpResponse {
         request.headers["Authorization"] = TokenBehandler.hentToken()
         return execution.execute(request, body)
-    }
-}
-
-class TestInterceptor : ClientHttpRequestInterceptor {
-
-    override fun intercept(request: HttpRequest, body: ByteArray, execution: ClientHttpRequestExecution): ClientHttpResponse {
-        log.info("\nDEBUG_LOGGING:")
-        log.info(request.headers.toString())
-        return execution.execute(request, body)
-    }
-
-    companion object {
-        private val log = LoggerFactory.getLogger(ApplicationConfig::class.java)
     }
 }

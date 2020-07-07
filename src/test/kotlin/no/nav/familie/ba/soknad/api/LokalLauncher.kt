@@ -13,6 +13,6 @@ class LokalLauncher
 
 fun main(args: Array<String>) {
     val springApp = SpringApplication(LokalLauncher::class.java)
-    springApp.setAdditionalProfiles("lokal", "mock-mottak")
+    springApp.setAdditionalProfiles("lokal", "mock-mottak", "mock-sts")
     springApp.run(*args)
 }

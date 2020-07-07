@@ -27,5 +27,3 @@ no.nav.security.jwt:
     cookie_name: selvbetjening-idtoken
 
 STS_URL: https://api-gw-q1.oera.no/sts
-CREDENTIAL_USERNAME: ${CREDENTIAL_USERNAME}
-CREDENTIAL_PASSWORD: ${CREDENTIAL_PASSWORD}
