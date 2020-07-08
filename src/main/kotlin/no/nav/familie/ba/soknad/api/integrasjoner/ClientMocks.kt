@@ -5,6 +5,7 @@ import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
 import no.nav.familie.ba.soknad.api.personopplysning.*
+import no.nav.familie.http.sts.StsRestClient
 import no.nav.familie.kontrakter.felles.personinfo.Bostedsadresse
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Primary
@@ -52,5 +53,14 @@ class ClientMocks {
         )
         return mockPdlClient
     }
+
+    @Bean
+    @Primary
+    @Profile("mock-sts") fun stsRestClientMock(): StsRestClient {
+        val mockStsClient = mockk<StsRestClient>()
+        every {mockStsClient.systemOIDCToken} returns ("MOCKED-OIDC-TOKEN")
+        return mockStsClient
+    }
+
 
 }

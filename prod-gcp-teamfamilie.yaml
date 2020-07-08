@@ -32,16 +32,14 @@ spec:
     requests:
       memory: 512Mi
       cpu: 200m
-  ingresses:
-    - https://familie-ba-soknad-api.dev-nav.no
   accessPolicy:
     inbound:
       rules:
         - application: familie-ba-soknad
     outbound:
       external:
-        - host: familie-ba-mottak.dev-fss-pub.nais.io
-        - host: api-gw-q1.oera.no
+        - host: familie-ba-mottak.prod-fss-pub.nais.io
+        - host: api-gw.oera.no
         - host: login.microsoftonline.com
   vault:
     enabled: false
@@ -49,6 +47,6 @@ spec:
     - name: APP_TEAM
       value: teamfamilie
     - name: SPRING_PROFILES_ACTIVE
-      value: dev
+      value: prod
   envFrom:
     - secret: ba-soknad-api
