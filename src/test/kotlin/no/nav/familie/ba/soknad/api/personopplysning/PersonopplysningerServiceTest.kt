@@ -20,8 +20,8 @@ class PersonopplysningerServiceTest {
         client = mockk()
         personopplysningerService = PersonopplysningerService(client)
 
-        every { client.hentNavn(any()) } returns
-                mapper.readValue(File(getFile("pdl/pdlPersonNavn.json")), PdlHentPersonResponse::class.java)
+        every { client.hentBarn(any()) } returns
+                mapper.readValue(File(getFile("pdl/pdlPersonNavn.json")), PdlHentBarnResponse::class.java)
     }
 
     @Test
@@ -49,8 +49,8 @@ class PersonopplysningerServiceTest {
     }
 
     private fun settNavnOgRelasjonerFil(filNavn: String) {
-        every { client.hentNavnOgRelasjoner(any()) } returns
-                mapper.readValue(File(getFile("pdl/$filNavn.json")), PdlHentPersonResponse::class.java)
+        every { client.hentSøker(any()) } returns
+                mapper.readValue(File(getFile("pdl/$filNavn.json")), PdlHentSøkerResponse::class.java)
     }
 
     private fun getFile(name: String): String {

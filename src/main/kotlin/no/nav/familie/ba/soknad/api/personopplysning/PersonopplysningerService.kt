@@ -5,10 +5,10 @@ import org.springframework.stereotype.Service
 @Service
 class PersonopplysningerService(private val pdlClient: PdlClient) {
 
-    private fun hentNavn(personIdent: String): String {
-        val response = pdlClient.hentNavn(personIdent)
+    private fun hentBarn(personIdent: String): Barn {
+        val response = pdlClient.hentBarn(personIdent)
         return Result.runCatching {
-            response.data.person!!.navn.first().fulltNavn()
+            Barn(ident = personIdent, navn = response.data.person!!.navn.first().fulltNavn(), fødselsdato = response.data.person!!.foedsel.first().foedselsdato!!, borMedSøker = true)
         }.fold(
                 onSuccess = { it },
                 onFailure = { throw it }
@@ -16,12 +16,12 @@ class PersonopplysningerService(private val pdlClient: PdlClient) {
     }
 
     fun hentPersoninfo(personIdent: String): Person {
-        val response = pdlClient.hentNavnOgRelasjoner(personIdent)
+        val response = pdlClient.hentSøker(personIdent)
         return Result.runCatching {
             val barn: Set<Barn> = response.data.person!!.familierelasjoner.filter { relasjon ->
                 relasjon.relatertPersonsRolle == FAMILIERELASJONSROLLE.BARN
             }.map { relasjon ->
-                Barn(relasjon.relatertPersonsIdent, hentNavn(relasjon.relatertPersonsIdent))
+                hentBarn(relasjon.relatertPersonsIdent)
             }.toSet()
 
             response.data.person.let {

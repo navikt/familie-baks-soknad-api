@@ -14,7 +14,7 @@ class PdlGraphqlTest {
 
     @Test
     fun testDeserialization() {
-        val resp = mapper.readValue(File(getFile("pdl/pdlPersonUtenRelasjoner.json")), PdlHentPersonResponse::class.java)
+        val resp = mapper.readValue(File(getFile("pdl/pdlPersonUtenRelasjoner.json")), PdlHentSøkerResponse::class.java)
 
         assertEquals("ENGASJERT", resp.data.person!!.navn.first().fornavn)
         assertEquals("FYR", resp.data.person!!.navn.first().etternavn)
@@ -23,7 +23,7 @@ class PdlGraphqlTest {
 
     @Test
     fun testDeserializationOfResponseWithErrors() {
-        val resp = mapper.readValue(File(getFile("pdl/pdlPersonIkkeFunnetResponse.json")), PdlHentPersonResponse::class.java)
+        val resp = mapper.readValue(File(getFile("pdl/pdlPersonIkkeFunnetResponse.json")), PdlHentSøkerResponse::class.java)
         assertTrue(resp.harFeil())
         assertTrue(resp.errorMessages().contains("Fant ikke person"))
         assertTrue(resp.errorMessages().contains("Ikke tilgang"))

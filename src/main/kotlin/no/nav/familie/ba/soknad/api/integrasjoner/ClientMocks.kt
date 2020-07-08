@@ -5,6 +5,7 @@ import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
 import no.nav.familie.ba.soknad.api.personopplysning.*
+import no.nav.familie.kontrakter.felles.personinfo.Bostedsadresse
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Primary
 import org.springframework.context.annotation.Profile
@@ -29,20 +30,23 @@ class ClientMocks {
         val mockPdlClient = mockk<PdlClient>()
 
         every { mockPdlClient.ping() } just Runs
-        every { mockPdlClient.hentNavnOgRelasjoner(any()) } returns PdlHentPersonResponse(
-                data = PdlPerson(person = PdlPersonData(
+        every { mockPdlClient.hentSøker(any()) } returns PdlHentSøkerResponse(
+                data = PdlSøker(person = PdlSøkerData(
                         navn = listOf(PdlNavn("Voksen", etternavn = "Voksnessen")),
                         familierelasjoner = listOf(
                                 PdlFamilierelasjon("12345678987", FAMILIERELASJONSROLLE.BARN),
                                 PdlFamilierelasjon("12345678989", FAMILIERELASJONSROLLE.MOR)
-                        )
+                        ),
+                        bostedsadresse = listOf(Bostedsadresse(vegadresse = null, ukjentBosted = null, matrikkeladresse = null))
+
                 )),
                 errors = null
         )
-        every { mockPdlClient.hentNavn(any()) } returns PdlHentPersonResponse(
-                data = PdlPerson(person = PdlPersonData(
+        every { mockPdlClient.hentBarn(any()) } returns PdlHentBarnResponse(
+                data = PdlBarn(person = PdlBarnData(
                         navn = listOf(PdlNavn("Barn", etternavn = "Barnessen")),
-                        familierelasjoner = emptyList()
+                        foedsel = listOf(PdlFødselsDato("1990-01-01")),
+                        bostedsadresse = listOf(Bostedsadresse(vegadresse = null, ukjentBosted = null, matrikkeladresse = null))
                 )),
                 errors = null
         )
