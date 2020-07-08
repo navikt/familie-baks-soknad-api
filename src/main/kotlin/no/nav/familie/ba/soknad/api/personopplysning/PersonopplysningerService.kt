@@ -11,7 +11,7 @@ class PersonopplysningerService(private val pdlClient: PdlClient) {
         val response = pdlClient.hentBarn(personIdent)
         return Result.runCatching {
 
-            HentBarnResponse(navn = response.data.person!!.navn.first().fulltNavn(), fødselsdato = response.data.person!!.foedsel.first().foedselsdato!!, adresse = Bostedsadresse(null, null, null))
+            HentBarnResponse(navn = response.data.person!!.navn.first().fulltNavn(), fødselsdato = response.data.person!!.foedsel.first().foedselsdato!!, adresse = response.data.person!!.bostedsadresse.firstOrNull())
         }.fold(
                 onSuccess = { it },
                 onFailure = { throw it }
@@ -19,27 +19,24 @@ class PersonopplysningerService(private val pdlClient: PdlClient) {
     }
 
     private fun fraBostedsadresse(bostedsadresse: Bostedsadresse?): Any? {
-        if(bostedsadresse == null){
-            return null
-        }else if (bostedsadresse.vegadresse != null) {
-            return bostedsadresse.vegadresse!!
+        return if (bostedsadresse == null) {
+            null
+        } else if (bostedsadresse.vegadresse != null) {
+            bostedsadresse.vegadresse!!
         } else if (bostedsadresse.matrikkeladresse != null) {
-            return bostedsadresse.matrikkeladresse!!
+            bostedsadresse.matrikkeladresse!!
         } else if (bostedsadresse.ukjentBosted != null) {
-            return bostedsadresse.ukjentBosted!!
+            bostedsadresse.ukjentBosted!!
         } else {
-            return null
+            null
         }
     }
 
-    fun borMedSøker(søkerAdresse : Bostedsadresse?, barneAdresse : Bostedsadresse?) : Boolean {
+    fun borMedSøker(søkerAdresse: Bostedsadresse?, barneAdresse: Bostedsadresse?): Boolean {
         val sAdresse = fraBostedsadresse(søkerAdresse)
         val bAdresse = fraBostedsadresse(barneAdresse)
 
-        if (sAdresse != null && sAdresse !is UkjentBosted && sAdresse == bAdresse) {
-            return true
-        }
-        return false
+        return (sAdresse != null && sAdresse !is UkjentBosted && sAdresse == bAdresse)
     }
 
     fun hentPersoninfo(personIdent: String): Person {
