@@ -52,6 +52,8 @@ class PdlClient(@Value("\${PDL_API_URL}") private val pdlBaseUrl: String,
         }
     }
 
+
+
     override fun ping() {
         try {
             restOperations.exchange<JsonNode>(pdlUri, HttpMethod.OPTIONS)
