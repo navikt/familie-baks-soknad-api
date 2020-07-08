@@ -9,3 +9,6 @@ no.nav.security.jwt:
     discoveryurl: http://metadata
     accepted_audience: aud-localhost
     cookie_name: localhost-idtoken
+
+CREDENTIAL_USERNAME: dummy
+CREDENTIAL_PASSWORD: dummy
