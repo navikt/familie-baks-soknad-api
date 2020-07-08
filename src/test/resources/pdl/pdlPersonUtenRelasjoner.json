@@ -7,6 +7,14 @@
           "etternavn": "FYR"
         }
       ],
+      "bostedsadresse": [
+        {
+          "vegadresse":null,
+          "matrikkeladresse": null,
+          "ukjentBosted": null
+
+        }
+      ],
       "familierelasjoner": []
     }
   }

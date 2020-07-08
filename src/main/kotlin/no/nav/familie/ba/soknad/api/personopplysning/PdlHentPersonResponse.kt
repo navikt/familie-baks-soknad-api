@@ -11,7 +11,6 @@ private fun errorMessages(errors: List<PdlError>?): String {
     return errors?.joinToString { it -> it.message } ?: ""
 }
 
-
 data class PdlHentSøkerResponse(val data: PdlSøker,
                                  val errors: List<PdlError>?) {
 

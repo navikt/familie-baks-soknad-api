@@ -15,14 +15,9 @@
 
         }
       ],
-      "familierelasjoner": [
+      "foedsel": [
         {
-          "relatertPersonsIdent": "12345678910",
-          "relatertPersonsRolle": "BARN"
-        },
-        {
-          "relatertPersonsIdent": "12345678911",
-          "relatertPersonsRolle": "MOR"
+          "foedselsdato": "1920-02-10"
         }
       ]
     }

@@ -32,15 +32,9 @@ class PersonopplysningerService(private val pdlClient: PdlClient) {
         }
     }
 
-    private fun borMedSøker(søkerAdresse : Bostedsadresse?, barneAdresse : Bostedsadresse?) : Boolean {
-        println(søkerAdresse)
-        println(barneAdresse)
-
+    fun borMedSøker(søkerAdresse : Bostedsadresse?, barneAdresse : Bostedsadresse?) : Boolean {
         val sAdresse = fraBostedsadresse(søkerAdresse)
         val bAdresse = fraBostedsadresse(barneAdresse)
-
-        println(sAdresse)
-        println(bAdresse)
 
         if (sAdresse != null && sAdresse !is UkjentBosted && sAdresse == bAdresse) {
             return true

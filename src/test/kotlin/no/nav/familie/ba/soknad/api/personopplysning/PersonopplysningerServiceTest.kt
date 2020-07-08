@@ -3,8 +3,10 @@ package no.nav.familie.ba.soknad.api.personopplysning
 import io.mockk.every
 import io.mockk.mockk
 import no.nav.familie.kontrakter.felles.objectMapper
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertTrue
+import no.nav.familie.kontrakter.felles.personinfo.Bostedsadresse
+import no.nav.familie.kontrakter.felles.personinfo.Matrikkeladresse
+import no.nav.familie.kontrakter.felles.personinfo.UkjentBosted
+import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import java.io.File
@@ -21,7 +23,7 @@ class PersonopplysningerServiceTest {
         personopplysningerService = PersonopplysningerService(client)
 
         every { client.hentBarn(any()) } returns
-                mapper.readValue(File(getFile("pdl/pdlPersonNavn.json")), PdlHentBarnResponse::class.java)
+                mapper.readValue(File(getFile("pdl/pdlPersonBarn.json")), PdlHentBarnResponse::class.java)
     }
 
     @Test
@@ -46,6 +48,42 @@ class PersonopplysningerServiceTest {
         settNavnOgRelasjonerFil("pdlPersonUtenRelasjoner")
         val person = personopplysningerService.hentPersoninfo("1")
         assertTrue(person.barn.isEmpty())
+    }
+
+    @Test
+    fun `borMedSøker skal returnere false når søkerAdressen er null` () {
+        val søkerAdresse = null;
+        val barneAdresse = Bostedsadresse(null, Matrikkeladresse(1, "E2", "tillegg", "1456", "1223"), null)
+        val borMedSøker = personopplysningerService.borMedSøker(søkerAdresse, barneAdresse)
+
+        assertFalse(borMedSøker)
+    }
+
+    @Test
+    fun `borMedSøker skal returnere true når adressene til barn og søker er like`(){
+        val barneAdresse = Bostedsadresse(null, Matrikkeladresse(1, "E2", "tillegg", "1456", "1223"), null)
+        val søkerAdresse = Bostedsadresse(null, Matrikkeladresse(1, "E2", "tillegg", "1456", "1223"), null)
+        val borMedSøker = personopplysningerService.borMedSøker(søkerAdresse, barneAdresse)
+
+        assertTrue(borMedSøker)
+    }
+
+    @Test
+    fun `borMedSøker skal returnere false når søker og barn har ulik adresse, men lik type`(){
+        val barneAdresse = Bostedsadresse(null, Matrikkeladresse(3, "E67", "tillegg", "1456", "1223"), null)
+        val søkerAdresse = Bostedsadresse(null, Matrikkeladresse(1, "E2", "tillegg", "1456", "1223"), null)
+        val borMedSøker = personopplysningerService.borMedSøker(søkerAdresse, barneAdresse)
+
+        assertFalse(borMedSøker)
+    }
+
+    @Test
+    fun `borMedSøker skal returnere false hvis søkerAdresse er ukjent`() {
+        val barneAdresse = Bostedsadresse(null, Matrikkeladresse(1, "E2", "tillegg", "1456", "1223"), null)
+        val søkerAdresse = Bostedsadresse(null, null, UkjentBosted("oslo"))
+        val borMedSøker = personopplysningerService.borMedSøker(søkerAdresse, barneAdresse)
+
+        assertFalse(borMedSøker)
     }
 
     private fun settNavnOgRelasjonerFil(filNavn: String) {
