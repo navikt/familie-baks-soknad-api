@@ -29,6 +29,7 @@ class PdlClient(@Value("\${PDL_API_URL}") private val pdlBaseUrl: String,
     private fun hentPersonData(personIdent: String, query: String): PdlHentPersonResponse {
         val pdlPersonRequest = PdlPersonRequest(variables = PdlPersonRequestVariables(personIdent), query = query)
         try {
+            log.info("Henter persondata fra pdl")
             val response = postForEntity<PdlHentPersonResponse>(uri = pdlUri, payload = pdlPersonRequest, httpHeaders = httpHeaders())
             if (!response.harFeil()) {
                 return response
@@ -36,6 +37,7 @@ class PdlClient(@Value("\${PDL_API_URL}") private val pdlBaseUrl: String,
                 throw Exception(response.errorMessages())
             }
         } catch (e: Exception) {
+            log.info("Feilet ved henting av persondata fra pdl: " + e)
             throw e
         }
     }
@@ -48,11 +50,13 @@ class PdlClient(@Value("\${PDL_API_URL}") private val pdlBaseUrl: String,
     }
 
     fun hentNavn(personIdent: String): PdlHentPersonResponse {
+        log.info("Henter navn fra pdl")
         val query = this::class.java.getResource("/pdl/hentnavn.graphql").readText().graphqlCompatible()
         return hentPersonData(personIdent, query)
     }
 
     fun hentNavnOgRelasjoner(personIdent: String): PdlHentPersonResponse {
+        log.info("Henter person med relasjoner fra pdl")
         val query = this::class.java.getResource("/pdl/hentperson-med-relasjoner.graphql").readText().graphqlCompatible()
         return hentPersonData(personIdent, query)
     }
