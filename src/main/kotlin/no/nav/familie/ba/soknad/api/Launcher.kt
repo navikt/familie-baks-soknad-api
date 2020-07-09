@@ -11,6 +11,5 @@ class Launcher
 
 fun main(args: Array<String>) {
     val app = SpringApplication(ApplicationConfig::class.java)
-    app.setAdditionalProfiles("mock-pdl")
     app.run(*args)
 }

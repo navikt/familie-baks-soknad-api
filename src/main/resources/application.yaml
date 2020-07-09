@@ -28,4 +28,3 @@ no.nav.security.jwt:
 
 STS_URL: https://api-gw-q1.oera.no/security-token-service
 
-logging.level.no.nav.security: DEBUG
