@@ -26,5 +26,5 @@ no.nav.security.jwt:
     accepted_audience: ${ACCEPTEDAUDIENCE}
     cookie_name: selvbetjening-idtoken
 
-STS_URL: https://api-gw-q1.oera.no/security-token-service
+STS_URL: https://api-gw-q1.oera.no/security-token-service/rest/v1/sts/token
 
