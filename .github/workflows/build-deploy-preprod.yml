@@ -1,6 +1,8 @@
 name: Build-Deploy-Preprod
 on:
-  pull_request:
+  push:
+    branches:
+      - 'debug'
 
 env:
   IMAGE: docker.pkg.github.com/${{ github.repository }}/familie-ba-soknad-api:${{ github.sha }}
