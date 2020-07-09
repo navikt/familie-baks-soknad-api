@@ -1,11 +1,9 @@
 package no.nav.familie.ba.soknad.api.config
 
-import com.fasterxml.jackson.databind.ObjectMapper
 import no.nav.familie.ba.soknad.api.util.TokenBehandler
 import no.nav.familie.http.interceptor.ApiKeyInjectingClientInterceptor
 import no.nav.familie.http.interceptor.ConsumerIdClientInterceptor
 import no.nav.familie.http.interceptor.MdcValuesPropagatingClientInterceptor
-import no.nav.familie.http.sts.StsRestClient
 import no.nav.familie.kontrakter.felles.objectMapper
 import no.nav.familie.log.filter.LogFilter
 import org.slf4j.LoggerFactory
@@ -41,9 +39,13 @@ internal class ApplicationConfig {
 
     @Bean
     fun apiKeyInjectingClientInterceptor(@Value("\${PDL_API_APIKEY}") pdlApiKey: String,
-                                         @Value("\${PDL_API_URL}") pdlBaseUrl: String): ClientHttpRequestInterceptor {
-        val apiKeyPdlMap = mapOf(Pair(URI.create(pdlBaseUrl), Pair(apiKeyHeader, pdlApiKey)))
-        return ApiKeyInjectingClientInterceptor(apiKeyPdlMap)
+                                         @Value("\${PDL_API_URL}") pdlBaseUrl: String,
+                                         @Value("\${STS_APIKEY}") stsApiKey: String,
+                                         @Value("\${STS_URL}") stsBaseUrl: String): ClientHttpRequestInterceptor {
+        val map = mapOf(
+                Pair(URI.create(pdlBaseUrl), Pair(apiKeyHeader, pdlApiKey)),
+                Pair(URI.create(stsBaseUrl), Pair(apiKeyHeader, stsApiKey)))
+        return ApiKeyInjectingClientInterceptor(map)
     }
 
     @Bean
