@@ -45,9 +45,9 @@ class PersonopplysningerService(private val pdlClient: PdlClient) {
             val barn: Set<Barn> = response.data.person!!.familierelasjoner.filter { relasjon ->
                 relasjon.relatertPersonsRolle == FAMILIERELASJONSROLLE.BARN
             }.map { relasjon ->
-                val barneRepons = hentBarn(relasjon.relatertPersonsIdent)
-                val borMedSøker = borMedSøker(søkerAdresse = response.data.person!!.bostedsadresse.firstOrNull(), barneAdresse = barneRepons.adresse)
-                Barn(ident = relasjon.relatertPersonsIdent, navn = barneRepons.navn, fødselsdato = barneRepons.fødselsdato, borMedSøker = borMedSøker)
+                val barneRespons = hentBarn(relasjon.relatertPersonsIdent)
+                val borMedSøker = borMedSøker(søkerAdresse = response.data.person!!.bostedsadresse.firstOrNull(), barneAdresse = barneRespons.adresse)
+                Barn(ident = relasjon.relatertPersonsIdent, navn = barneRespons.navn, fødselsdato = barneRespons.fødselsdato, borMedSøker = borMedSøker)
             }.toSet()
 
             response.data.person.let {

@@ -16,6 +16,7 @@ class PersonopplysningerServiceTest {
     private lateinit var personopplysningerService: PersonopplysningerService
     private lateinit var client: PdlClient
     val mapper = objectMapper
+    private val gyldigBostedAdresse = Bostedsadresse(null, Matrikkeladresse(3, "E67", "tillegg", "1456", "1223"), null)
 
     @BeforeEach
     fun setUp() {
@@ -28,7 +29,7 @@ class PersonopplysningerServiceTest {
 
     @Test
     fun `hentPersonInfo skal kun returnere familierelasjoner av type BARN`() {
-        settNavnOgRelasjonerFil("pdlPersonMedFlereRelasjoner")
+        every { client.hentSøker(any()) } returns pdlMockFor("pdlPersonMedFlereRelasjoner")
         val person = personopplysningerService.hentPersoninfo("1")
 
         assertEquals(1, person.barn.size)
@@ -38,22 +39,22 @@ class PersonopplysningerServiceTest {
 
     @Test
     fun `hentPersonInfo skal returnere tom liste hvis det er familierelasjoner, men ingen barn`() {
-        settNavnOgRelasjonerFil("pdlPersonMedRelasjonerIngenBarn")
+        every { client.hentSøker(any()) } returns pdlMockFor("pdlPersonMedRelasjonerIngenBarn")
         val person = personopplysningerService.hentPersoninfo("1")
         assertTrue(person.barn.isEmpty())
     }
 
     @Test
     fun `henPersonInfo skal returnere tom liste hvis ingen familierelasjoner`() {
-        settNavnOgRelasjonerFil("pdlPersonUtenRelasjoner")
+        every { client.hentSøker(any()) } returns pdlMockFor("pdlPersonUtenRelasjoner")
         val person = personopplysningerService.hentPersoninfo("1")
         assertTrue(person.barn.isEmpty())
     }
 
     @Test
     fun `borMedSøker skal returnere false når søkerAdressen er null` () {
-        val søkerAdresse = null;
-        val barneAdresse = Bostedsadresse(null, Matrikkeladresse(1, "E2", "tillegg", "1456", "1223"), null)
+        val søkerAdresse = null
+        val barneAdresse = null
         val borMedSøker = personopplysningerService.borMedSøker(søkerAdresse, barneAdresse)
 
         assertFalse(borMedSøker)
@@ -61,35 +62,29 @@ class PersonopplysningerServiceTest {
 
     @Test
     fun `borMedSøker skal returnere true når adressene til barn og søker er like`(){
-        val barneAdresse = Bostedsadresse(null, Matrikkeladresse(1, "E2", "tillegg", "1456", "1223"), null)
-        val søkerAdresse = Bostedsadresse(null, Matrikkeladresse(1, "E2", "tillegg", "1456", "1223"), null)
-        val borMedSøker = personopplysningerService.borMedSøker(søkerAdresse, barneAdresse)
+        val borMedSøker = personopplysningerService.borMedSøker(søkerAdresse = gyldigBostedAdresse, barneAdresse = gyldigBostedAdresse)
 
         assertTrue(borMedSøker)
     }
 
     @Test
     fun `borMedSøker skal returnere false når søker og barn har ulik adresse, men lik type`(){
-        val barneAdresse = Bostedsadresse(null, Matrikkeladresse(3, "E67", "tillegg", "1456", "1223"), null)
-        val søkerAdresse = Bostedsadresse(null, Matrikkeladresse(1, "E2", "tillegg", "1456", "1223"), null)
-        val borMedSøker = personopplysningerService.borMedSøker(søkerAdresse, barneAdresse)
+        val barneAdresse = gyldigBostedAdresse.copy(matrikkeladresse=Matrikkeladresse(1, "E2", "tillegg", "1456", "1223"))
+        val borMedSøker = personopplysningerService.borMedSøker(søkerAdresse = gyldigBostedAdresse, barneAdresse = barneAdresse)
 
         assertFalse(borMedSøker)
     }
 
     @Test
     fun `borMedSøker skal returnere false hvis søkerAdresse er ukjent`() {
-        val barneAdresse = Bostedsadresse(null, Matrikkeladresse(1, "E2", "tillegg", "1456", "1223"), null)
-        val søkerAdresse = Bostedsadresse(null, null, UkjentBosted("oslo"))
-        val borMedSøker = personopplysningerService.borMedSøker(søkerAdresse, barneAdresse)
+        val ukjentAdresse = Bostedsadresse(null, null, UkjentBosted("oslo"))
+        val borMedSøker = personopplysningerService.borMedSøker(søkerAdresse = ukjentAdresse, barneAdresse = ukjentAdresse)
 
         assertFalse(borMedSøker)
     }
 
-    private fun settNavnOgRelasjonerFil(filNavn: String) {
-        every { client.hentSøker(any()) } returns
-                mapper.readValue(File(getFile("pdl/$filNavn.json")), PdlHentSøkerResponse::class.java)
-    }
+    private fun pdlMockFor(filNavn: String) = mapper.readValue(File(getFile("pdl/$filNavn.json")), PdlHentSøkerResponse::class.java)
+
 
     private fun getFile(name: String): String {
         return javaClass.classLoader?.getResource(name)?.file ?: error("Testkonfigurasjon feil")
