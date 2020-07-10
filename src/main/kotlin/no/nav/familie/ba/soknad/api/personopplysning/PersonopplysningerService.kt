@@ -1,27 +1,49 @@
 package no.nav.familie.ba.soknad.api.personopplysning
 
+import no.nav.familie.kontrakter.felles.personinfo.Bostedsadresse
 import org.springframework.stereotype.Service
 
 @Service
 class PersonopplysningerService(private val pdlClient: PdlClient) {
 
-    private fun hentNavn(personIdent: String): String {
-        val response = pdlClient.hentNavn(personIdent)
+    private fun hentBarn(personIdent: String): HentBarnResponse {
+        val response = pdlClient.hentBarn(personIdent)
         return Result.runCatching {
-            response.data.person!!.navn.first().fulltNavn()
+            HentBarnResponse(
+                    navn = response.data.person!!.navn.first().fulltNavn(),
+                    fødselsdato = response.data.person.foedsel.first().foedselsdato!!,
+                    adresse = response.data.person.bostedsadresse.firstOrNull()
+            )
+
         }.fold(
                 onSuccess = { it },
                 onFailure = { throw it }
         )
     }
 
+    fun borMedSøker(søkerAdresse: Bostedsadresse?, barneAdresse: Bostedsadresse?): Boolean {
+        fun adresseListe(bostedsadresse: Bostedsadresse): List<Any?> {
+            return listOfNotNull(bostedsadresse.matrikkeladresse, bostedsadresse.vegadresse)
+        }
+
+        return if (søkerAdresse == null || barneAdresse == null) false
+        else {
+            val søkerAdresser = adresseListe(søkerAdresse)
+            val barneAdresser = adresseListe(barneAdresse)
+            søkerAdresser.any{barneAdresser.contains(it)}
+        }
+    }
+
     fun hentPersoninfo(personIdent: String): Person {
-        val response = pdlClient.hentNavnOgRelasjoner(personIdent)
+        val response = pdlClient.hentSøker(personIdent)
         return Result.runCatching {
             val barn: Set<Barn> = response.data.person!!.familierelasjoner.filter { relasjon ->
                 relasjon.relatertPersonsRolle == FAMILIERELASJONSROLLE.BARN
             }.map { relasjon ->
-                Barn(relasjon.relatertPersonsIdent, hentNavn(relasjon.relatertPersonsIdent))
+                val barneRespons = hentBarn(relasjon.relatertPersonsIdent)
+                val borMedSøker = borMedSøker(søkerAdresse = response.data.person.bostedsadresse.firstOrNull(), barneAdresse = barneRespons.adresse)
+                Barn(ident = relasjon.relatertPersonsIdent, navn = barneRespons.navn,
+                        fødselsdato = barneRespons.fødselsdato, borMedSøker = borMedSøker)
             }.toSet()
 
             response.data.person.let {
@@ -32,5 +54,6 @@ class PersonopplysningerService(private val pdlClient: PdlClient) {
                 onFailure = { throw it }
         )
     }
+
 
 }

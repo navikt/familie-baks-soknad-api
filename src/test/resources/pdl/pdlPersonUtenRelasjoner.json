@@ -7,6 +7,23 @@
           "etternavn": "FYR"
         }
       ],
+      "bostedsadresse": [
+        {
+          "vegadresse": {
+            "matrikkelId": 3,
+            "husnummer": "E22",
+            "husbokstav": "tillegg",
+            "bruksenhetsnummer": "1456",
+            "adressenavn": "1223",
+            "kommunenummer": "12",
+            "tilleggsnavn": "Tilleggsnavn",
+            "postnummer": "0150"
+          },
+          "matrikkeladresse": null,
+          "ukjentBosted": null
+
+        }
+      ],
       "familierelasjoner": []
     }
   }

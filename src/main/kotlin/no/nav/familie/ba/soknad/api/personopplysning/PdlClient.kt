@@ -25,18 +25,25 @@ class PdlClient(@Value("\${PDL_API_URL}") private val pdlBaseUrl: String,
 
     private val pdlUri: URI = URI.create("$pdlBaseUrl/graphql")
 
-
-    private fun hentPersonData(personIdent: String, query: String): PdlHentPersonResponse {
+    fun hentBarn(personIdent: String): PdlHentBarnResponse {
+        val query = this::class.java.getResource("/pdl/hent-barn.graphql").readText().graphqlCompatible()
         val pdlPersonRequest = PdlPersonRequest(variables = PdlPersonRequestVariables(personIdent), query = query)
-        try {
-            val response = postForEntity<PdlHentPersonResponse>(uri = pdlUri, payload = pdlPersonRequest, httpHeaders = httpHeaders())
-            if (!response.harFeil()) {
-                return response
-            } else {
-                throw Exception(response.errorMessages())
-            }
-        } catch (e: Exception) {
-            throw e
+        val response = postForEntity<PdlHentBarnResponse>(uri = pdlUri, payload = pdlPersonRequest, httpHeaders = httpHeaders())
+        if (!response.harFeil()) {
+            return response
+        } else {
+            throw Exception(response.errorMessages())
+        }
+    }
+
+    fun hentSøker(personIdent: String): PdlHentSøkerResponse {
+        val query = this::class.java.getResource("/pdl/hent-person-med-relasjoner.graphql").readText().graphqlCompatible()
+        val pdlPersonRequest = PdlPersonRequest(variables = PdlPersonRequestVariables(personIdent), query = query)
+        val response = postForEntity<PdlHentSøkerResponse>(uri = pdlUri, payload = pdlPersonRequest, httpHeaders = httpHeaders())
+        if (!response.harFeil()) {
+            return response
+        } else {
+            throw Exception(response.errorMessages())
         }
     }
 
@@ -45,16 +52,6 @@ class PdlClient(@Value("\${PDL_API_URL}") private val pdlBaseUrl: String,
             add("Nav-Consumer-Token", "Bearer ${stsRestClient.systemOIDCToken}")
             add("Tema", TEMA)
         }
-    }
-
-    fun hentNavn(personIdent: String): PdlHentPersonResponse {
-        val query = this::class.java.getResource("/pdl/hentnavn.graphql").readText().graphqlCompatible()
-        return hentPersonData(personIdent, query)
-    }
-
-    fun hentNavnOgRelasjoner(personIdent: String): PdlHentPersonResponse {
-        val query = this::class.java.getResource("/pdl/hentperson-med-relasjoner.graphql").readText().graphqlCompatible()
-        return hentPersonData(personIdent, query)
     }
 
     override fun ping() {
