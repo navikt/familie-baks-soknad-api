@@ -18,10 +18,12 @@ import org.springframework.web.bind.annotation.RestController
 class KontraktController() {
 
     @PostMapping("/kontrakt")
-    fun kontraktInfo(@RequestBody(required=true) søknad: Søknad): ResponseEntity<Ressurs<String>> {
-        val log = LoggerFactory.getLogger(ApplicationConfig::class.java)
+    fun kontraktInfo(@RequestBody(required = true) søknad: Søknad): ResponseEntity<Ressurs<String>> {
         log.info(søknad.toString())
         return ResponseEntity.ok(Ressurs.success("Kontrakt OK"))
     }
-}
 
+    companion object {
+        private val log = LoggerFactory.getLogger(ApplicationConfig::class.java)
+    }
+}
