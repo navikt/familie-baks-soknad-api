@@ -6,6 +6,7 @@ import no.nav.familie.kontrakter.felles.objectMapper
 import no.nav.familie.kontrakter.felles.personinfo.Bostedsadresse
 import no.nav.familie.kontrakter.felles.personinfo.Matrikkeladresse
 import no.nav.familie.kontrakter.felles.personinfo.UkjentBosted
+import no.nav.familie.kontrakter.felles.personinfo.Vegadresse
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -81,6 +82,14 @@ class PersonopplysningerServiceTest {
         val borMedSøker = personopplysningerService.borMedSøker(søkerAdresse = ukjentAdresse, barneAdresse = ukjentAdresse)
 
         assertFalse(borMedSøker)
+    }
+
+    @Test
+    fun `borMedSøker skal returnere true hvis flere adresser finnes, og minst en matcher`() {
+        val søkerAdresse = gyldigBostedAdresse.copy(vegadresse = Vegadresse(adressenavn = "adresse", husbokstav = "A", bruksenhetsnummer = "1", husnummer = "1", kommunenummer = "1", matrikkelId = 1, postnummer = "0101", tilleggsnavn = "tillegg"))
+        val borMedSøker = personopplysningerService.borMedSøker(søkerAdresse = søkerAdresse, barneAdresse = gyldigBostedAdresse)
+
+        assertTrue(borMedSøker)
     }
 
     private fun pdlMockFor(filNavn: String) = mapper.readValue(File(getFile("pdl/$filNavn.json")), PdlHentSøkerResponse::class.java)
