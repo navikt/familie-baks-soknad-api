@@ -1,5 +1,6 @@
 package no.nav.familie.ba.soknad.api.kontrakt
 
+import main.kotlin.no.nav.familie.ba.søknad.Søknad
 import no.nav.familie.ba.soknad.api.config.ApplicationConfig
 import no.nav.familie.kontrakter.felles.Ressurs
 import no.nav.security.token.support.core.api.ProtectedWithClaims
@@ -17,9 +18,9 @@ import org.springframework.web.bind.annotation.RestController
 class KontraktController() {
 
     @PostMapping("/kontrakt")
-    fun kontraktInfo(@RequestBody(required=true) kontrakt: Kontrakt): ResponseEntity<Ressurs<String>> {
+    fun kontraktInfo(@RequestBody(required=true) søknad: Søknad): ResponseEntity<Ressurs<String>> {
         val log = LoggerFactory.getLogger(ApplicationConfig::class.java)
-        log.info(kontrakt.toString())
+        log.info(søknad.toString())
         return ResponseEntity.ok(Ressurs.success("Kontrakt OK"))
     }
 }
