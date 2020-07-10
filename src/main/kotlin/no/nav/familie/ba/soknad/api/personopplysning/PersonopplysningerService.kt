@@ -9,12 +9,12 @@ class PersonopplysningerService(private val pdlClient: PdlClient) {
     private fun hentBarn(personIdent: String): HentBarnResponse {
         val response = pdlClient.hentBarn(personIdent)
         return Result.runCatching {
-
             HentBarnResponse(
                     navn = response.data.person!!.navn.first().fulltNavn(),
                     fødselsdato = response.data.person.foedsel.first().foedselsdato!!,
                     adresse = response.data.person.bostedsadresse.firstOrNull()
             )
+
         }.fold(
                 onSuccess = { it },
                 onFailure = { throw it }

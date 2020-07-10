@@ -28,30 +28,22 @@ class PdlClient(@Value("\${PDL_API_URL}") private val pdlBaseUrl: String,
     fun hentBarn(personIdent: String): PdlHentBarnResponse {
         val query = this::class.java.getResource("/pdl/hent-barn.graphql").readText().graphqlCompatible()
         val pdlPersonRequest = PdlPersonRequest(variables = PdlPersonRequestVariables(personIdent), query = query)
-        try {
-            val response = postForEntity<PdlHentBarnResponse>(uri = pdlUri, payload = pdlPersonRequest, httpHeaders = httpHeaders())
-            if (!response.harFeil()) {
-                return response
-            } else {
-                throw Exception(response.errorMessages())
-            }
-        } catch (e: Exception) {
-            throw e
+        val response = postForEntity<PdlHentBarnResponse>(uri = pdlUri, payload = pdlPersonRequest, httpHeaders = httpHeaders())
+        if (!response.harFeil()) {
+            return response
+        } else {
+            throw Exception(response.errorMessages())
         }
     }
 
     fun hentSøker(personIdent: String): PdlHentSøkerResponse {
         val query = this::class.java.getResource("/pdl/hent-person-med-relasjoner.graphql").readText().graphqlCompatible()
         val pdlPersonRequest = PdlPersonRequest(variables = PdlPersonRequestVariables(personIdent), query = query)
-        try {
-            val response = postForEntity<PdlHentSøkerResponse>(uri = pdlUri, payload = pdlPersonRequest, httpHeaders = httpHeaders())
-            if (!response.harFeil()) {
-                return response
-            } else {
-                throw Exception(response.errorMessages())
-            }
-        } catch (e: Exception) {
-            throw e
+        val response = postForEntity<PdlHentSøkerResponse>(uri = pdlUri, payload = pdlPersonRequest, httpHeaders = httpHeaders())
+        if (!response.harFeil()) {
+            return response
+        } else {
+            throw Exception(response.errorMessages())
         }
     }
 

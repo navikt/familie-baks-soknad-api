@@ -3,9 +3,7 @@ package no.nav.familie.ba.soknad.api.personopplysning
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import no.nav.familie.kontrakter.felles.personinfo.Bostedsadresse
 
-private fun harFeil(errors: List<PdlError>?): Boolean {
-    return errors != null && errors.isNotEmpty()
-}
+private fun harFeil(errors: List<PdlError>?) = !errors.isNullOrEmpty()
 
 private fun errorMessages(errors: List<PdlError>?): String {
     return errors?.joinToString { it -> it.message } ?: ""
