@@ -30,7 +30,7 @@ class PersonopplysningerService(private val pdlClient: PdlClient) {
         else {
             val søkerAdresser = adresseListe(søkerAdresse)
             val barneAdresser = adresseListe(barneAdresse)
-            return søkerAdresser.any{barneAdresser.contains(it)}
+            søkerAdresser.any{barneAdresser.contains(it)}
         }
     }
 
