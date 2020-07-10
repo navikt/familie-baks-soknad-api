@@ -23,11 +23,15 @@ class PersonopplysningerService(private val pdlClient: PdlClient) {
 
     fun borMedSøker(søkerAdresse: Bostedsadresse?, barneAdresse: Bostedsadresse?): Boolean {
         fun adresseListe(bostedsadresse: Bostedsadresse): List<Any?> {
-            return listOf(bostedsadresse.matrikkeladresse, bostedsadresse.vegadresse).filterNotNull()
+            return listOfNotNull(bostedsadresse.matrikkeladresse, bostedsadresse.vegadresse)
         }
 
         return if (søkerAdresse == null || barneAdresse == null) false
-        else adresseListe(barneAdresse).any{adresseListe(søkerAdresse).contains(it)}
+        else {
+            val søkerAdresser = adresseListe(søkerAdresse)
+            val barneAdresser = adresseListe(barneAdresse)
+            return søkerAdresser.any{barneAdresser.contains(it)}
+        }
     }
 
     fun hentPersoninfo(personIdent: String): Person {
