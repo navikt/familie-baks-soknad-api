@@ -1,7 +1,6 @@
 package no.nav.familie.ba.soknad.api.personopplysning
 
 import no.nav.familie.kontrakter.felles.personinfo.Bostedsadresse
-import no.nav.familie.kontrakter.felles.personinfo.UkjentBosted
 import org.springframework.stereotype.Service
 
 @Service
@@ -10,38 +9,29 @@ class PersonopplysningerService(private val pdlClient: PdlClient) {
     private fun hentBarn(personIdent: String): HentBarnResponse {
         val response = pdlClient.hentBarn(personIdent)
         return Result.runCatching {
-            HentBarnResponse(navn = response.data.person!!.navn.first().fulltNavn(), fødselsdato = response.data.person.foedsel.first().foedselsdato!!, adresse = response.data.person.bostedsadresse.firstOrNull())
+            HentBarnResponse(
+                    navn = response.data.person!!.navn.first().fulltNavn(),
+                    fødselsdato = response.data.person.foedsel.first().foedselsdato!!,
+                    adresse = response.data.person.bostedsadresse.firstOrNull()
+            )
+
         }.fold(
                 onSuccess = { it },
                 onFailure = { throw it }
         )
     }
 
-    private fun fraBostedsadresse(bostedsadresse: Bostedsadresse?): Any? {
-        return when {
-            bostedsadresse == null -> {
-                null
-            }
-            bostedsadresse.vegadresse != null -> {
-                bostedsadresse.vegadresse!!
-            }
-            bostedsadresse.matrikkeladresse != null -> {
-                bostedsadresse.matrikkeladresse!!
-            }
-            bostedsadresse.ukjentBosted != null -> {
-                bostedsadresse.ukjentBosted!!
-            }
-            else -> {
-                null
-            }
-        }
-    }
-
     fun borMedSøker(søkerAdresse: Bostedsadresse?, barneAdresse: Bostedsadresse?): Boolean {
-        val sAdresse = fraBostedsadresse(søkerAdresse)
-        val bAdresse = fraBostedsadresse(barneAdresse)
+        fun adresseListe(bostedsadresse: Bostedsadresse): List<Any?> {
+            return listOfNotNull(bostedsadresse.matrikkeladresse, bostedsadresse.vegadresse)
+        }
 
-        return (sAdresse != null && sAdresse !is UkjentBosted && sAdresse == bAdresse)
+        return if (søkerAdresse == null || barneAdresse == null) false
+        else {
+            val søkerAdresser = adresseListe(søkerAdresse)
+            val barneAdresser = adresseListe(barneAdresse)
+            return søkerAdresser.any{barneAdresser.contains(it)}
+        }
     }
 
     fun hentPersoninfo(personIdent: String): Person {
@@ -52,7 +42,8 @@ class PersonopplysningerService(private val pdlClient: PdlClient) {
             }.map { relasjon ->
                 val barneRespons = hentBarn(relasjon.relatertPersonsIdent)
                 val borMedSøker = borMedSøker(søkerAdresse = response.data.person.bostedsadresse.firstOrNull(), barneAdresse = barneRespons.adresse)
-                Barn(ident = relasjon.relatertPersonsIdent, navn = barneRespons.navn, fødselsdato = barneRespons.fødselsdato, borMedSøker = borMedSøker)
+                Barn(ident = relasjon.relatertPersonsIdent, navn = barneRespons.navn,
+                        fødselsdato = barneRespons.fødselsdato, borMedSøker = borMedSøker)
             }.toSet()
 
             response.data.person.let {
