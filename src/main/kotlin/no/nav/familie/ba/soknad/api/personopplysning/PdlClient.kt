@@ -25,11 +25,11 @@ class PdlClient(@Value("\${PDL_API_URL}") private val pdlBaseUrl: String,
 
     private val pdlUri: URI = URI.create("$pdlBaseUrl/graphql")
 
-
     private fun hentPersonData(personIdent: String, query: String): PdlHentPersonResponse {
         val pdlPersonRequest = PdlPersonRequest(variables = PdlPersonRequestVariables(personIdent), query = query)
         try {
             log.info("Henter persondata fra pdl")
+            secureLogger.info("HttpHeaders: ${httpHeaders()}")
             val response = postForEntity<PdlHentPersonResponse>(uri = pdlUri, payload = pdlPersonRequest, httpHeaders = httpHeaders())
             if (!response.harFeil()) {
                 return response
@@ -37,7 +37,7 @@ class PdlClient(@Value("\${PDL_API_URL}") private val pdlBaseUrl: String,
                 throw Exception(response.errorMessages())
             }
         } catch (e: Exception) {
-            log.info("Feilet ved henting av persondata fra pdl: " + e)
+            log.info("Feilet ved henting av persondata fra pdl: ${e.message}")
             throw e
         }
     }
