@@ -3,6 +3,7 @@ package no.nav.familie.ba.soknad.api.personopplysning
 import no.nav.familie.ba.soknad.api.util.TokenBehandler
 import no.nav.familie.kontrakter.felles.Ressurs
 import no.nav.security.token.support.core.api.ProtectedWithClaims
+import org.eclipse.jetty.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
@@ -16,8 +17,12 @@ class PersonopplysningerController(private val personopplysningerService: Person
 
     @PostMapping("/personopplysning")
     fun personInfo(): ResponseEntity<Ressurs<Person>> {
-        return ResponseEntity.ok(Ressurs.success(personopplysningerService.hentPersoninfo(
-                TokenBehandler.hentFnr()
-        )))
+        return try {
+             ResponseEntity.ok(Ressurs.success(personopplysningerService.hentPersoninfo(
+                    TokenBehandler.hentFnr()
+            )))
+        } catch (e: GradertAdresseException) {
+            ResponseEntity.status(HttpStatus.FORBIDDEN_403).body(Ressurs.ikkeTilgang("Ikke tilgang"))
+        }
     }
 }

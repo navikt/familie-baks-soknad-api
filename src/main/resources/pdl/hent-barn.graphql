@@ -1,14 +1,17 @@
 query ($ident: ID!) {
-  person: hentPerson(ident: $ident) {
-    navn {
-      fornavn
-      mellomnavn
-      etternavn
-    }
-    foedsel {
-        foedselsdato
-    }
-    bostedsadresse {
+    person: hentPerson(ident: $ident) {
+        navn {
+            fornavn
+            mellomnavn
+            etternavn
+        }
+        foedsel {
+            foedselsdato
+        }
+        adressebeskyttelse {
+            gradering
+        }
+        bostedsadresse {
             vegadresse {
                 matrikkelId
                 husnummer
@@ -30,5 +33,5 @@ query ($ident: ID!) {
                 bostedskommune
             }
         }
-  }
+    }
 }

@@ -11,20 +11,24 @@ import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import java.io.File
+import kotlin.test.assertFails
+import kotlin.test.assertFailsWith
 
 class PersonopplysningerServiceTest {
 
     private lateinit var personopplysningerService: PersonopplysningerService
     private lateinit var client: PdlClient
+    private lateinit var authClient: EkspandertAutorisasjonPdlClient
     val mapper = objectMapper
     private val gyldigBostedAdresse = Bostedsadresse(null, Matrikkeladresse(3, "E67", "tillegg", "1456", "1223"), null)
 
     @BeforeEach
     fun setUp() {
         client = mockk()
-        personopplysningerService = PersonopplysningerService(client)
+        authClient = mockk()
+        personopplysningerService = PersonopplysningerService(client, authClient)
 
-        every { client.hentBarn(any()) } returns
+        every { authClient.hentBarn(any()) } returns
                 mapper.readValue(File(getFile("pdl/pdlPersonBarn.json")), PdlHentBarnResponse::class.java)
     }
 
@@ -90,6 +94,26 @@ class PersonopplysningerServiceTest {
         val borMedSøker = personopplysningerService.borMedSøker(søkerAdresse = søkerAdresse, barneAdresse = gyldigBostedAdresse)
 
         assertTrue(borMedSøker)
+    }
+
+    @Test
+    fun `hentPerson skal feile dersom barn har gradert adresse`() {
+        every { authClient.hentBarn(any()) } returns
+                mapper.readValue(File(getFile("pdl/pdlPersonBarnGradertAdresse.json")), PdlHentBarnResponse::class.java)
+        every { client.hentSøker(any()) } returns pdlMockFor("pdlPersonMedEttBarn")
+
+        assertFailsWith<GradertAdresseException> {
+            personopplysningerService.hentPersoninfo("12345678901")
+        }
+    }
+
+    @Test
+    fun `hentPerson skal feile dersom person har gradert adresse`() {
+        every { client.hentSøker(any()) } returns pdlMockFor("pdlPersonUtenRelasjonerGradertAdresse")
+
+        assertFailsWith<GradertAdresseException> {
+            personopplysningerService.hentPersoninfo("12345678901")
+        }
     }
 
     private fun pdlMockFor(filNavn: String) = mapper.readValue(File(getFile("pdl/$filNavn.json")), PdlHentSøkerResponse::class.java)

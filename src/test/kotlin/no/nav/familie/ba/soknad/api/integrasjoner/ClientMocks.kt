@@ -38,16 +38,27 @@ class ClientMocks {
                                 PdlFamilierelasjon("12345678987", FAMILIERELASJONSROLLE.BARN),
                                 PdlFamilierelasjon("12345678989", FAMILIERELASJONSROLLE.MOR)
                         ),
-                        bostedsadresse = listOf(Bostedsadresse(vegadresse = null, ukjentBosted = null, matrikkeladresse = null))
+                        bostedsadresse = listOf(Bostedsadresse(vegadresse = null, ukjentBosted = null, matrikkeladresse = null)),
+                        adressebeskyttelse = emptyList()
 
                 )),
                 errors = null
         )
+        return mockPdlClient
+    }
+
+    @Bean
+    @Primary
+    @Profile("mock-pdl")
+    fun mockEkspAuthPdlClient(): EkspandertAutorisasjonPdlClient {
+        val mockPdlClient = mockk<EkspandertAutorisasjonPdlClient>()
+
         every { mockPdlClient.hentBarn(any()) } returns PdlHentBarnResponse(
                 data = PdlBarn(person = PdlBarnData(
                         navn = listOf(PdlNavn("Barn", etternavn = "Barnessen")),
                         foedsel = listOf(PdlFødselsDato("1990-01-01")),
-                        bostedsadresse = listOf(Bostedsadresse(vegadresse = null, ukjentBosted = null, matrikkeladresse = null))
+                        bostedsadresse = listOf(Bostedsadresse(vegadresse = null, ukjentBosted = null, matrikkeladresse = null)),
+                        adressebeskyttelse = emptyList()
                 )),
                 errors = null
         )

@@ -4,6 +4,7 @@ import no.nav.familie.ba.soknad.api.util.TokenBehandler
 import no.nav.familie.http.interceptor.ApiKeyInjectingClientInterceptor
 import no.nav.familie.http.interceptor.ConsumerIdClientInterceptor
 import no.nav.familie.http.interceptor.MdcValuesPropagatingClientInterceptor
+import no.nav.familie.http.sts.StsRestClient
 import no.nav.familie.kontrakter.felles.objectMapper
 import no.nav.familie.log.filter.LogFilter
 import org.slf4j.LoggerFactory
@@ -59,6 +60,11 @@ internal class ApplicationConfig {
         return AddJwtTokenInterceptor()
     }
 
+    @Bean
+    fun stsTokenInjectingInterceptor(stsRestClient: StsRestClient): ClientHttpRequestInterceptor {
+        return AddSTSAuthorizationInterceptor(stsRestClient)
+    }
+
     @Bean("restKlientMedApiKey")
     fun restTemplateMedApiKey(consumerIdClientInterceptor: ConsumerIdClientInterceptor,
                               apiKeyInjectingClientInterceptor: ClientHttpRequestInterceptor,
@@ -68,6 +74,19 @@ internal class ApplicationConfig {
                               apiKeyInjectingClientInterceptor,
                               jwtTokenInjectingInterceptor,
                               MdcValuesPropagatingClientInterceptor())
+                .additionalMessageConverters(MappingJackson2HttpMessageConverter(objectMapper))
+                .build()
+    }
+
+    @Bean("ekspandertAutorisasjonRestKlientMedApiKey")
+    fun expAuthRestTemplateMedApiKey(consumerIdClientInterceptor: ConsumerIdClientInterceptor,
+                              apiKeyInjectingClientInterceptor: ClientHttpRequestInterceptor,
+                              stsTokenInjectingInterceptor: ClientHttpRequestInterceptor): RestOperations {
+        return RestTemplateBuilder()
+                .interceptors(consumerIdClientInterceptor,
+                        apiKeyInjectingClientInterceptor,
+                        stsTokenInjectingInterceptor,
+                        MdcValuesPropagatingClientInterceptor())
                 .additionalMessageConverters(MappingJackson2HttpMessageConverter(objectMapper))
                 .build()
     }
@@ -82,6 +101,13 @@ internal class ApplicationConfig {
 class AddJwtTokenInterceptor : ClientHttpRequestInterceptor {
     override fun intercept(request: HttpRequest, body: ByteArray, execution: ClientHttpRequestExecution): ClientHttpResponse {
         request.headers["Authorization"] = "Bearer ${TokenBehandler.hentToken()}"
+        return execution.execute(request, body)
+    }
+}
+
+class AddSTSAuthorizationInterceptor(private val stsRestClient: StsRestClient) : ClientHttpRequestInterceptor {
+    override fun intercept(request: HttpRequest, body: ByteArray, execution: ClientHttpRequestExecution): ClientHttpResponse {
+        request.headers["Authorization"] = "Bearer ${stsRestClient.systemOIDCToken}"
         return execution.execute(request, body)
     }
 }

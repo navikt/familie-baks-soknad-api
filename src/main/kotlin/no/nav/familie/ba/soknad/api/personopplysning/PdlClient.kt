@@ -25,17 +25,6 @@ class PdlClient(@Value("\${PDL_API_URL}") private val pdlBaseUrl: String,
 
     private val pdlUri: URI = URI.create("$pdlBaseUrl/graphql")
 
-    fun hentBarn(personIdent: String): PdlHentBarnResponse {
-        val query = this::class.java.getResource("/pdl/hent-barn.graphql").readText().graphqlCompatible()
-        val pdlPersonRequest = PdlPersonRequest(variables = PdlPersonRequestVariables(personIdent), query = query)
-        val response = postForEntity<PdlHentBarnResponse>(uri = pdlUri, payload = pdlPersonRequest, httpHeaders = httpHeaders())
-        if (!response.harFeil()) {
-            return response
-        } else {
-            throw Exception(response.errorMessages())
-        }
-    }
-
     fun hentSøker(personIdent: String): PdlHentSøkerResponse {
         val query = this::class.java.getResource("/pdl/hent-person-med-relasjoner.graphql").readText().graphqlCompatible()
         val pdlPersonRequest = PdlPersonRequest(variables = PdlPersonRequestVariables(personIdent), query = query)
@@ -66,7 +55,7 @@ class PdlClient(@Value("\${PDL_API_URL}") private val pdlBaseUrl: String,
 
     companion object {
         val LOG: Logger = LoggerFactory.getLogger(PdlClient::class.java)
-        private const val TEMA: String = "BAR"
+        const val TEMA: String = "BAR"
     }
 }
 

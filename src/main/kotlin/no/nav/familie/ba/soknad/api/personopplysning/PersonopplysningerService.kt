@@ -4,15 +4,22 @@ import no.nav.familie.kontrakter.felles.personinfo.Bostedsadresse
 import org.springframework.stereotype.Service
 
 @Service
-class PersonopplysningerService(private val pdlClient: PdlClient) {
+class PersonopplysningerService(private val pdlClient: PdlClient,
+                                private val ekspandertAutorisasjonPdlClient: EkspandertAutorisasjonPdlClient) {
+
 
     private fun hentBarn(personIdent: String): HentBarnResponse {
-        val response = pdlClient.hentBarn(personIdent)
+        val response = ekspandertAutorisasjonPdlClient.hentBarn(personIdent)
         return Result.runCatching {
+            val adresseBeskyttelse = response.data.person!!.adressebeskyttelse
+            if (adresseBeskyttelse.any { it.gradering != ADRESSEBESKYTTELSEGRADERING.UGRADERT }) {
+                throw GradertAdresseException()
+            }
+
             HentBarnResponse(
-                    navn = response.data.person!!.navn.first().fulltNavn(),
-                    fødselsdato = response.data.person.foedsel.first().foedselsdato!!,
-                    adresse = response.data.person.bostedsadresse.firstOrNull()
+                navn = response.data.person.navn.first().fulltNavn(),
+                fødselsdato = response.data.person.foedsel.first().foedselsdato!!,
+                adresse = response.data.person.bostedsadresse.firstOrNull()
             )
 
         }.fold(
@@ -30,14 +37,19 @@ class PersonopplysningerService(private val pdlClient: PdlClient) {
         else {
             val søkerAdresser = adresseListe(søkerAdresse)
             val barneAdresser = adresseListe(barneAdresse)
-            søkerAdresser.any{barneAdresser.contains(it)}
+            søkerAdresser.any { barneAdresser.contains(it) }
         }
     }
 
     fun hentPersoninfo(personIdent: String): Person {
         val response = pdlClient.hentSøker(personIdent)
         return Result.runCatching {
-            val barn: Set<Barn> = response.data.person!!.familierelasjoner.filter { relasjon ->
+            val adresseBeskyttelse = response.data.person!!.adressebeskyttelse
+            if (adresseBeskyttelse.any { it.gradering != ADRESSEBESKYTTELSEGRADERING.UGRADERT }) {
+                throw GradertAdresseException()
+            }
+
+            val barn: Set<Barn> = response.data.person.familierelasjoner.filter { relasjon ->
                 relasjon.relatertPersonsRolle == FAMILIERELASJONSROLLE.BARN
             }.map { relasjon ->
                 val barneRespons = hentBarn(relasjon.relatertPersonsIdent)

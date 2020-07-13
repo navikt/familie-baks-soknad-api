@@ -7,7 +7,11 @@
           "etternavn": "FYR"
         }
       ],
-      "adressebeskyttelse": [],
+      "adressebeskyttelse": [
+        {
+          "gradering": "STRENGT_FORTROLIG_UTLAND"
+        }
+      ],
       "bostedsadresse": [
         {
           "vegadresse": {
@@ -25,12 +29,7 @@
 
         }
       ],
-      "familierelasjoner": [
-        {
-          "relatertPersonsIdent": "12345678910",
-          "relatertPersonsRolle": "BARN"
-        }
-      ]
+      "familierelasjoner": []
     }
   }
 }
