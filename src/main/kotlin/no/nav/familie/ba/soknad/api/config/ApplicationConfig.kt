@@ -87,7 +87,7 @@ class AddJwtTokenInterceptor : ClientHttpRequestInterceptor {
     private val secureLogger = LoggerFactory.getLogger("secureLogger")
 
     override fun intercept(request: HttpRequest, body: ByteArray, execution: ClientHttpRequestExecution): ClientHttpResponse {
-        request.headers["Authorization"] = TokenBehandler.hentToken()
+        request.headers["Authorization"] = "Bearer ${TokenBehandler.hentToken()}"
         secureLogger.info("Interceptor headers: ${request.headers}")
         return execution.execute(request, body)
     }
