@@ -2,7 +2,7 @@ name: Build-Deploy-Prod
 on:
   push:
     branches:
-      - 'debug'
+      - 'master'
 env:
   IMAGE: docker.pkg.github.com/${{ github.repository }}/familie-ba-soknad-api:${{ github.sha }}
   IMAGE_LATEST: docker.pkg.github.com/${{ github.repository }}/familie-ba-soknad-api:latest

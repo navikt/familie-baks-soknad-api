@@ -30,9 +30,7 @@ class PdlClient(@Value("\${PDL_API_URL}") private val pdlBaseUrl: String,
         try {
             log.info("Henter persondata fra pdl")
             val headers = httpHeaders()
-            secureLogger.info("HttpHeaders: $headers")
             val response = postForEntity<PdlHentPersonResponse>(uri = pdlUri, payload = pdlPersonRequest, httpHeaders = headers)
-            secureLogger.info("Response: $response")
             if (!response.harFeil()) {
                 return response
             } else {
