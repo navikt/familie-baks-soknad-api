@@ -29,8 +29,10 @@ class PdlClient(@Value("\${PDL_API_URL}") private val pdlBaseUrl: String,
         val pdlPersonRequest = PdlPersonRequest(variables = PdlPersonRequestVariables(personIdent), query = query)
         try {
             log.info("Henter persondata fra pdl")
-            secureLogger.info("HttpHeaders: ${httpHeaders()}")
-            val response = postForEntity<PdlHentPersonResponse>(uri = pdlUri, payload = pdlPersonRequest, httpHeaders = httpHeaders())
+            val headers = httpHeaders()
+            secureLogger.info("HttpHeaders: $headers")
+            val response = postForEntity<PdlHentPersonResponse>(uri = pdlUri, payload = pdlPersonRequest, httpHeaders = headers)
+            secureLogger.info("Response: $response")
             if (!response.harFeil()) {
                 return response
             } else {
