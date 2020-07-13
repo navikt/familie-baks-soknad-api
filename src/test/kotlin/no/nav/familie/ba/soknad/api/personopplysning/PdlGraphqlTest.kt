@@ -13,17 +13,21 @@ class PdlGraphqlTest {
     private val mapper = ObjectMapper().registerKotlinModule()
 
     @Test
-    fun testDeserialization() {
-        val resp = mapper.readValue(File(getFile("pdl/pdlPersonUtenRelasjoner.json")), PdlHentPersonResponse::class.java)
+    fun testDeserialization () {
+        val resp = mapper.readValue(File(getFile("pdl/pdlPersonMedFlereRelasjoner.json")), PdlHentSøkerResponse::class.java)
 
         assertEquals("ENGASJERT", resp.data.person!!.navn.first().fornavn)
         assertEquals("FYR", resp.data.person!!.navn.first().etternavn)
-        assertEquals(emptyList<PdlFamilierelasjon>(), resp.data.person!!.familierelasjoner)
+        assertEquals(2, resp.data.person!!.familierelasjoner.size)
+        assertEquals(null, resp.data.person!!.bostedsadresse.first()!!.matrikkeladresse)
+        assertEquals(null, resp.data.person!!.bostedsadresse.first()!!.ukjentBosted)
+        assertEquals(3, resp.data.person!!.bostedsadresse.first()!!.vegadresse!!.matrikkelId)
+        assertEquals("E22", resp.data.person!!.bostedsadresse.first()!!.vegadresse!!.husnummer)
     }
 
     @Test
     fun testDeserializationOfResponseWithErrors() {
-        val resp = mapper.readValue(File(getFile("pdl/pdlPersonIkkeFunnetResponse.json")), PdlHentPersonResponse::class.java)
+        val resp = mapper.readValue(File(getFile("pdl/pdlPersonIkkeFunnetResponse.json")), PdlHentSøkerResponse::class.java)
         assertTrue(resp.harFeil())
         assertTrue(resp.errorMessages().contains("Fant ikke person"))
         assertTrue(resp.errorMessages().contains("Ikke tilgang"))
