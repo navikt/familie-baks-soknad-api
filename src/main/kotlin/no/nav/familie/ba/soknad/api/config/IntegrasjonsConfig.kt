@@ -20,4 +20,5 @@ class IntegrasjonsConfig {
         val stsFullUrl = URI.create("$stsUrl?grant_type=client_credentials&scope=openid")
         return StsRestClient(objectMapper, stsFullUrl, stsUsername, stsPassword, stsApiKey)
     }
+
 }
