@@ -15,8 +15,12 @@ class ApiExceptionHandler {
     @ExceptionHandler(Throwable::class)
     fun handleThrowable(throwable: Throwable): ResponseEntity<Ressurs<Nothing>> {
         val feilmelding = (throwable.cause?.message ?: throwable.message).toString()
-        secureLogger.info("En feil har oppstått: $feilmelding", throwable)
-        LOG.error("En feil har oppstått: $feilmelding")
+
+        if (throwable !is JwtTokenUnauthorizedException) {
+            secureLogger.info("En feil har oppstått: $feilmelding", throwable)
+            LOG.error("En feil har oppstått: $feilmelding")
+        }
+
         return when (throwable) {
             is HttpClientErrorException -> ResponseEntity.status(throwable.statusCode).body(Ressurs.failure(feilmelding))
             is JwtTokenUnauthorizedException -> ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Ressurs.failure(feilmelding))

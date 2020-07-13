@@ -21,7 +21,7 @@
         <changelist>-SNAPSHOT</changelist>
         <jvmTarget>11</jvmTarget>
         <kontrakter.version>2.0_20200625154602_9f6d526</kontrakter.version>
-        <felles.version>1.20200605143848_e2726a9</felles.version>
+        <felles.version>1.20200710160100_27ac5b9</felles.version>
         <mockk.version>1.10.0</mockk.version>
         <token-validation-spring.version>1.2.0</token-validation-spring.version>
         <!--suppress UnresolvedMavenProperty  Ligger som secret i github-->

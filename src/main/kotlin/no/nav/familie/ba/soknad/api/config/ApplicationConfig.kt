@@ -1,11 +1,9 @@
 package no.nav.familie.ba.soknad.api.config
 
-import com.fasterxml.jackson.databind.ObjectMapper
 import no.nav.familie.ba.soknad.api.util.TokenBehandler
 import no.nav.familie.http.interceptor.ApiKeyInjectingClientInterceptor
 import no.nav.familie.http.interceptor.ConsumerIdClientInterceptor
 import no.nav.familie.http.interceptor.MdcValuesPropagatingClientInterceptor
-import no.nav.familie.http.sts.StsRestClient
 import no.nav.familie.kontrakter.felles.objectMapper
 import no.nav.familie.log.filter.LogFilter
 import org.slf4j.LoggerFactory
@@ -42,8 +40,8 @@ internal class ApplicationConfig {
     @Bean
     fun apiKeyInjectingClientInterceptor(@Value("\${PDL_API_APIKEY}") pdlApiKey: String,
                                          @Value("\${PDL_API_URL}") pdlBaseUrl: String): ClientHttpRequestInterceptor {
-        val apiKeyPdlMap = mapOf(Pair(URI.create(pdlBaseUrl), Pair(apiKeyHeader, pdlApiKey)))
-        return ApiKeyInjectingClientInterceptor(apiKeyPdlMap)
+        val map = mapOf(Pair(URI.create(pdlBaseUrl), Pair(apiKeyHeader, pdlApiKey)))
+        return ApiKeyInjectingClientInterceptor(map)
     }
 
     @Bean
@@ -83,7 +81,7 @@ internal class ApplicationConfig {
 
 class AddJwtTokenInterceptor : ClientHttpRequestInterceptor {
     override fun intercept(request: HttpRequest, body: ByteArray, execution: ClientHttpRequestExecution): ClientHttpResponse {
-        request.headers["Authorization"] = TokenBehandler.hentToken()
+        request.headers["Authorization"] = "Bearer ${TokenBehandler.hentToken()}"
         return execution.execute(request, body)
     }
 }
