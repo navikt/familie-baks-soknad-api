@@ -2,6 +2,8 @@ package no.nav.familie.ba.soknad.api.kontrakt
 
 import main.kotlin.no.nav.familie.ba.søknad.Søknad
 import no.nav.familie.ba.soknad.api.config.ApplicationConfig
+import no.nav.familie.ba.soknad.api.integrasjoner.MottakClient
+import no.nav.familie.http.sts.StsRestClient
 import no.nav.familie.kontrakter.felles.Ressurs
 import no.nav.security.token.support.core.api.ProtectedWithClaims
 import org.slf4j.LoggerFactory
@@ -15,12 +17,12 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping(path = ["/api"], produces = [MediaType.APPLICATION_JSON_VALUE])
 @ProtectedWithClaims(issuer = "selvbetjening", claimMap = ["acr=Level4"])
-class KontraktController() {
+class SøknadController(private val mottakClient: MottakClient) {
 
     @PostMapping("/kontrakt")
-    fun kontraktInfo(@RequestBody(required = true) søknad: Søknad): ResponseEntity<Ressurs<String>> {
+    fun søknadsMottak(@RequestBody(required = true) søknad: Søknad): ResponseEntity<Ressurs<String>> {
         log.info(søknad.toString())
-        return ResponseEntity.ok(Ressurs.success("Kontrakt OK"))
+        return ResponseEntity.ok().body(Ressurs.success(mottakClient.sendSøknad(søknad)))
     }
 
     companion object {

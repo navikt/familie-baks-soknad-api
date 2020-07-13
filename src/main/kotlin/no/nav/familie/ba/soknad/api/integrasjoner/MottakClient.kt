@@ -1,6 +1,7 @@
 package no.nav.familie.ba.soknad.api.integrasjoner
 
 import com.fasterxml.jackson.databind.JsonNode
+import main.kotlin.no.nav.familie.ba.søknad.Søknad
 import no.nav.familie.http.client.AbstractRestClient
 import no.nav.familie.http.client.Pingable
 import org.slf4j.LoggerFactory
@@ -23,6 +24,18 @@ class MottakClient(@Value("\${FAMILIE_BA_MOTTAK_URL}") private val mottakBaseUrl
             LOG.debug("Ping mot familie-ba-mottak OK")
         } catch (e: Exception) {
             LOG.warn("Ping mot familie-ba-mottak feilet")
+            throw IllegalStateException("Ping mot familie-ba-mottak feilet", e)
+        }
+    }
+
+    fun sendSøknad(søknad: Søknad): String {
+        val uri = URI.create("$mottakBaseUrl/internal/e2e/soeknad")
+        try {
+            val response = postForEntity<String>(uri, søknad)
+            LOG.debug("Sende søknad til mottak OK")
+            return response
+        } catch (e: Exception) {
+            LOG.debug("Sende søknad til mottak feilet")
             throw IllegalStateException("Ping mot familie-ba-mottak feilet", e)
         }
     }
