@@ -39,12 +39,8 @@ internal class ApplicationConfig {
 
     @Bean
     fun apiKeyInjectingClientInterceptor(@Value("\${PDL_API_APIKEY}") pdlApiKey: String,
-                                         @Value("\${PDL_API_URL}") pdlBaseUrl: String,
-                                         @Value("\${STS_APIKEY}") stsApiKey: String,
-                                         @Value("\${STS_URL}") stsBaseUrl: String): ClientHttpRequestInterceptor {
-        val map = mapOf(
-                Pair(URI.create(pdlBaseUrl), Pair(apiKeyHeader, pdlApiKey)),
-                Pair(URI.create(stsBaseUrl), Pair(apiKeyHeader, stsApiKey)))
+                                         @Value("\${PDL_API_URL}") pdlBaseUrl: String): ClientHttpRequestInterceptor {
+        val map = mapOf(Pair(URI.create(pdlBaseUrl), Pair(apiKeyHeader, pdlApiKey)))
         return ApiKeyInjectingClientInterceptor(map)
     }
 
