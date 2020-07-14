@@ -57,7 +57,7 @@ class ClientMocks {
                         navn = listOf(PdlNavn("Barn", etternavn = "Barnessen")),
                         foedsel = listOf(PdlFødselsDato("1990-01-01")),
                         bostedsadresse = listOf(Bostedsadresse(vegadresse = null, ukjentBosted = null, matrikkeladresse = null)),
-                        // adressebeskyttelse = emptyList()
+                        // adressebeskyttelse = emptyList()  TODO: sett adressebeskyttelse til tom liste før merge
                         adressebeskyttelse = listOf(Adressebeskyttelse(ADRESSEBESKYTTELSEGRADERING.FORTROLIG))
                 )),
                 errors = null
