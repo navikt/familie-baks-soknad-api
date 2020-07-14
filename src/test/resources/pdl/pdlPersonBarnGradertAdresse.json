@@ -7,7 +7,14 @@
           "etternavn": "FYR"
         }
       ],
-      "adressebeskyttelse": [],
+      "adressebeskyttelse": [
+        {
+          "gradering": "STRENGT_FORTROLIG"
+        },
+        {
+          "gradering": "FORTROLIG"
+        }
+      ],
       "bostedsadresse": [
         {
           "vegadresse": {
@@ -25,10 +32,9 @@
 
         }
       ],
-      "familierelasjoner": [
+      "foedsel": [
         {
-          "relatertPersonsIdent": "12345678910",
-          "relatertPersonsRolle": "BARN"
+          "foedselsdato": "1920-02-10"
         }
       ]
     }

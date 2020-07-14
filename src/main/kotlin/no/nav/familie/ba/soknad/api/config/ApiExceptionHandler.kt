@@ -1,5 +1,6 @@
 package no.nav.familie.ba.soknad.api.config
 
+import no.nav.familie.ba.soknad.api.personopplysning.GradertAdresseException
 import no.nav.familie.kontrakter.felles.Ressurs
 import no.nav.security.token.support.spring.validation.interceptor.JwtTokenUnauthorizedException
 import org.slf4j.LoggerFactory
@@ -26,6 +27,12 @@ class ApiExceptionHandler {
             is JwtTokenUnauthorizedException -> ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Ressurs.failure(feilmelding))
             else -> ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Ressurs.failure(feilmelding))
         }
+    }
+
+    @ExceptionHandler(GradertAdresseException::class)
+    fun handleGradertAdresseException(gradertAdresseException: GradertAdresseException): ResponseEntity<Ressurs<String>> {
+        secureLogger.info("Spørring for person med gradert adresse avvist")
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(Ressurs.ikkeTilgang("Ikke tilgang"))
     }
 
     companion object {

@@ -4,6 +4,7 @@ import no.nav.familie.ba.soknad.api.util.TokenBehandler
 import no.nav.familie.http.interceptor.ApiKeyInjectingClientInterceptor
 import no.nav.familie.http.interceptor.ConsumerIdClientInterceptor
 import no.nav.familie.http.interceptor.MdcValuesPropagatingClientInterceptor
+import no.nav.familie.http.sts.StsRestClient
 import no.nav.familie.kontrakter.felles.objectMapper
 import no.nav.familie.log.filter.LogFilter
 import org.slf4j.LoggerFactory
@@ -49,7 +50,7 @@ internal class ApplicationConfig {
     fun restTemplate(consumerIdClientInterceptor: ConsumerIdClientInterceptor): RestOperations {
         return RestTemplateBuilder()
                 .interceptors(consumerIdClientInterceptor,
-                              MdcValuesPropagatingClientInterceptor())
+                        MdcValuesPropagatingClientInterceptor())
                 .additionalMessageConverters(MappingJackson2HttpMessageConverter(objectMapper))
                 .build()
     }
@@ -65,9 +66,20 @@ internal class ApplicationConfig {
                               jwtTokenInjectingInterceptor: ClientHttpRequestInterceptor): RestOperations {
         return RestTemplateBuilder()
                 .interceptors(consumerIdClientInterceptor,
-                              apiKeyInjectingClientInterceptor,
-                              jwtTokenInjectingInterceptor,
-                              MdcValuesPropagatingClientInterceptor())
+                        apiKeyInjectingClientInterceptor,
+                        jwtTokenInjectingInterceptor,
+                        MdcValuesPropagatingClientInterceptor())
+                .additionalMessageConverters(MappingJackson2HttpMessageConverter(objectMapper))
+                .build()
+    }
+
+    @Bean("stsRestKlientMedApiKey")
+    fun stsRestTemplateMedApiKey(consumerIdClientInterceptor: ConsumerIdClientInterceptor,
+                                 apiKeyInjectingClientInterceptor: ClientHttpRequestInterceptor): RestOperations {
+        return RestTemplateBuilder()
+                .interceptors(consumerIdClientInterceptor,
+                        apiKeyInjectingClientInterceptor,
+                        MdcValuesPropagatingClientInterceptor())
                 .additionalMessageConverters(MappingJackson2HttpMessageConverter(objectMapper))
                 .build()
     }

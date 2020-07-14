@@ -10,7 +10,7 @@ private fun errorMessages(errors: List<PdlError>?): String {
 }
 
 data class PdlHentSøkerResponse(val data: PdlSøker,
-                                 val errors: List<PdlError>?) {
+                                val errors: List<PdlError>?) {
 
     fun harFeil(): Boolean = harFeil(errors)
 
@@ -18,7 +18,7 @@ data class PdlHentSøkerResponse(val data: PdlSøker,
 }
 
 data class PdlHentBarnResponse(val data: PdlBarn,
-                                val errors: List<PdlError>?) {
+                               val errors: List<PdlError>?) {
 
     fun harFeil(): Boolean = harFeil(errors)
 
@@ -30,13 +30,15 @@ data class PdlBarn(val person: PdlBarnData?)
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class PdlSøkerData(val navn: List<PdlNavn>,
-                         val familierelasjoner: List<PdlFamilierelasjon> = emptyList(),
-                         val bostedsadresse: List<Bostedsadresse?>)
+                        val adressebeskyttelse: List<Adressebeskyttelse>,
+                        val familierelasjoner: List<PdlFamilierelasjon> = emptyList(),
+                        val bostedsadresse: List<Bostedsadresse?>)
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class PdlBarnData(val navn: List<PdlNavn>,
-                         val foedsel: List<PdlFødselsDato>,
-                         val bostedsadresse: List<Bostedsadresse?>)
+                       val foedsel: List<PdlFødselsDato>,
+                       val adressebeskyttelse: List<Adressebeskyttelse>,
+                       val bostedsadresse: List<Bostedsadresse?>)
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class PdlFødselsDato(val foedselsdato: String?)
@@ -66,4 +68,16 @@ enum class FAMILIERELASJONSROLLE {
     FAR,
     MEDMOR,
     MOR
+}
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+data class Adressebeskyttelse(
+        val gradering: ADRESSEBESKYTTELSEGRADERING
+)
+
+enum class ADRESSEBESKYTTELSEGRADERING {
+    STRENGT_FORTROLIG_UTLAND, // Kode 19
+    FORTROLIG, // Kode 7
+    STRENGT_FORTROLIG, // Kode 6
+    UGRADERT
 }
