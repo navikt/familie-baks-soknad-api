@@ -40,7 +40,6 @@ class ClientMocks {
                         ),
                         bostedsadresse = listOf(Bostedsadresse(vegadresse = null, ukjentBosted = null, matrikkeladresse = null)),
                         adressebeskyttelse = emptyList()
-
                 )),
                 errors = null
         )
@@ -58,7 +57,8 @@ class ClientMocks {
                         navn = listOf(PdlNavn("Barn", etternavn = "Barnessen")),
                         foedsel = listOf(PdlFødselsDato("1990-01-01")),
                         bostedsadresse = listOf(Bostedsadresse(vegadresse = null, ukjentBosted = null, matrikkeladresse = null)),
-                        adressebeskyttelse = emptyList()
+                        // adressebeskyttelse = emptyList()
+                        adressebeskyttelse = listOf(Adressebeskyttelse(ADRESSEBESKYTTELSEGRADERING.FORTROLIG))
                 )),
                 errors = null
         )

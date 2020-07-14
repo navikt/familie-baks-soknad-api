@@ -17,12 +17,8 @@ class PersonopplysningerController(private val personopplysningerService: Person
 
     @PostMapping("/personopplysning")
     fun personInfo(): ResponseEntity<Ressurs<Person>> {
-        return try {
-             ResponseEntity.ok(Ressurs.success(personopplysningerService.hentPersoninfo(
-                    TokenBehandler.hentFnr()
-            )))
-        } catch (e: GradertAdresseException) {
-            ResponseEntity.status(HttpStatus.FORBIDDEN_403).body(Ressurs.ikkeTilgang("Ikke tilgang"))
-        }
+        return ResponseEntity.ok(Ressurs.success(personopplysningerService.hentPersoninfo(
+                TokenBehandler.hentFnr()
+        )))
     }
 }
