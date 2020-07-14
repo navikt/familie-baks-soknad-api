@@ -50,7 +50,7 @@ internal class ApplicationConfig {
     fun restTemplate(consumerIdClientInterceptor: ConsumerIdClientInterceptor): RestOperations {
         return RestTemplateBuilder()
                 .interceptors(consumerIdClientInterceptor,
-                              MdcValuesPropagatingClientInterceptor())
+                        MdcValuesPropagatingClientInterceptor())
                 .additionalMessageConverters(MappingJackson2HttpMessageConverter(objectMapper))
                 .build()
     }
@@ -60,32 +60,25 @@ internal class ApplicationConfig {
         return AddJwtTokenInterceptor()
     }
 
-    @Bean
-    fun stsTokenInjectingInterceptor(stsRestClient: StsRestClient): ClientHttpRequestInterceptor {
-        return AddSTSAuthorizationInterceptor(stsRestClient)
-    }
-
     @Bean("restKlientMedApiKey")
     fun restTemplateMedApiKey(consumerIdClientInterceptor: ConsumerIdClientInterceptor,
                               apiKeyInjectingClientInterceptor: ClientHttpRequestInterceptor,
                               jwtTokenInjectingInterceptor: ClientHttpRequestInterceptor): RestOperations {
         return RestTemplateBuilder()
                 .interceptors(consumerIdClientInterceptor,
-                              apiKeyInjectingClientInterceptor,
-                              jwtTokenInjectingInterceptor,
-                              MdcValuesPropagatingClientInterceptor())
+                        apiKeyInjectingClientInterceptor,
+                        jwtTokenInjectingInterceptor,
+                        MdcValuesPropagatingClientInterceptor())
                 .additionalMessageConverters(MappingJackson2HttpMessageConverter(objectMapper))
                 .build()
     }
 
-    @Bean("ekspandertAutorisasjonRestKlientMedApiKey")
-    fun expAuthRestTemplateMedApiKey(consumerIdClientInterceptor: ConsumerIdClientInterceptor,
-                              apiKeyInjectingClientInterceptor: ClientHttpRequestInterceptor,
-                              stsTokenInjectingInterceptor: ClientHttpRequestInterceptor): RestOperations {
+    @Bean("stsRestKlientMedApiKey")
+    fun stsRestTemplateMedApiKey(consumerIdClientInterceptor: ConsumerIdClientInterceptor,
+                                 apiKeyInjectingClientInterceptor: ClientHttpRequestInterceptor): RestOperations {
         return RestTemplateBuilder()
                 .interceptors(consumerIdClientInterceptor,
                         apiKeyInjectingClientInterceptor,
-                        stsTokenInjectingInterceptor,
                         MdcValuesPropagatingClientInterceptor())
                 .additionalMessageConverters(MappingJackson2HttpMessageConverter(objectMapper))
                 .build()
@@ -101,13 +94,6 @@ internal class ApplicationConfig {
 class AddJwtTokenInterceptor : ClientHttpRequestInterceptor {
     override fun intercept(request: HttpRequest, body: ByteArray, execution: ClientHttpRequestExecution): ClientHttpResponse {
         request.headers["Authorization"] = "Bearer ${TokenBehandler.hentToken()}"
-        return execution.execute(request, body)
-    }
-}
-
-class AddSTSAuthorizationInterceptor(private val stsRestClient: StsRestClient) : ClientHttpRequestInterceptor {
-    override fun intercept(request: HttpRequest, body: ByteArray, execution: ClientHttpRequestExecution): ClientHttpResponse {
-        request.headers["Authorization"] = "Bearer ${stsRestClient.systemOIDCToken}"
         return execution.execute(request, body)
     }
 }

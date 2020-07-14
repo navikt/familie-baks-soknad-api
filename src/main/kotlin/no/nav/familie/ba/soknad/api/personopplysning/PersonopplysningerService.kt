@@ -5,23 +5,26 @@ import org.springframework.stereotype.Service
 
 @Service
 class PersonopplysningerService(private val pdlClient: PdlClient,
-                                private val ekspandertAutorisasjonPdlClient: EkspandertAutorisasjonPdlClient) {
+                                private val barnePdlClient: BarnePdlClient) {
 
+
+    private fun assertUgradertAdresse(adresseBeskyttelse: List<Adressebeskyttelse>) {
+        if (adresseBeskyttelse.any { it.gradering != ADRESSEBESKYTTELSEGRADERING.UGRADERT }) {
+            throw GradertAdresseException()
+        }
+    }
 
     private fun hentBarn(personIdent: String): HentBarnResponse {
-        val response = ekspandertAutorisasjonPdlClient.hentBarn(personIdent)
+        val response = barnePdlClient.hentBarn(personIdent)
         return Result.runCatching {
             val adresseBeskyttelse = response.data.person!!.adressebeskyttelse
-            if (adresseBeskyttelse.any { it.gradering != ADRESSEBESKYTTELSEGRADERING.UGRADERT }) {
-                throw GradertAdresseException()
-            }
+            assertUgradertAdresse(adresseBeskyttelse)
 
             HentBarnResponse(
-                navn = response.data.person.navn.first().fulltNavn(),
-                fødselsdato = response.data.person.foedsel.first().foedselsdato!!,
-                adresse = response.data.person.bostedsadresse.firstOrNull()
+                    navn = response.data.person.navn.first().fulltNavn(),
+                    fødselsdato = response.data.person.foedsel.first().foedselsdato!!,
+                    adresse = response.data.person.bostedsadresse.firstOrNull()
             )
-
         }.fold(
                 onSuccess = { it },
                 onFailure = { throw it }
@@ -45,9 +48,7 @@ class PersonopplysningerService(private val pdlClient: PdlClient,
         val response = pdlClient.hentSøker(personIdent)
         return Result.runCatching {
             val adresseBeskyttelse = response.data.person!!.adressebeskyttelse
-            if (adresseBeskyttelse.any { it.gradering != ADRESSEBESKYTTELSEGRADERING.UGRADERT }) {
-                throw GradertAdresseException()
-            }
+            assertUgradertAdresse(adresseBeskyttelse)
 
             val barn: Set<Barn> = response.data.person.familierelasjoner.filter { relasjon ->
                 relasjon.relatertPersonsRolle == FAMILIERELASJONSROLLE.BARN

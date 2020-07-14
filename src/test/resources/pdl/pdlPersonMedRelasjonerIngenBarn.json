@@ -7,11 +7,7 @@
           "etternavn": "FYR"
         }
       ],
-      "adressebeskyttelse": [
-        {
-          "gradering": "UGRADERT"
-        }
-      ],
+      "adressebeskyttelse": [],
       "bostedsadresse": [
         {
           "vegadresse": {

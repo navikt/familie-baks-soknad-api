@@ -12,10 +12,10 @@ import java.net.URI
 
 
 @Component
-class EkspandertAutorisasjonPdlClient(@Value("\${PDL_API_URL}") private val pdlBaseUrl: String,
-                @Qualifier("ekspandertAutorisasjonRestKlientMedApiKey") private val restOperations: RestOperations,
-                                      private val stsRestClient: StsRestClient)
-    : AbstractRestClient(restOperations, "integrasjon") {
+class BarnePdlClient(@Value("\${PDL_API_URL}") private val pdlBaseUrl: String,
+                     @Qualifier("stsRestKlientMedApiKey") private val restOperations: RestOperations,
+                     private val stsRestClient: StsRestClient)
+    : AbstractRestClient(restOperations, "pdl-barn") {
 
     private val pdlUri: URI = URI.create("$pdlBaseUrl/graphql")
 
@@ -33,6 +33,7 @@ class EkspandertAutorisasjonPdlClient(@Value("\${PDL_API_URL}") private val pdlB
     private fun httpHeaders(): HttpHeaders {
         return HttpHeaders().apply {
             add("Nav-Consumer-Token", "Bearer ${stsRestClient.systemOIDCToken}")
+            add("Authorization" , "Bearer ${stsRestClient.systemOIDCToken}")
             add("Tema", PdlClient.TEMA)
         }
     }

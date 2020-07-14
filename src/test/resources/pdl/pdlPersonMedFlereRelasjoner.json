@@ -7,7 +7,11 @@
           "etternavn": "FYR"
         }
       ],
-      "adressebeskyttelse": [],
+      "adressebeskyttelse": [
+        {
+          "gradering": "UGRADERT"
+        }
+      ],
       "bostedsadresse": [
         {
           "vegadresse": {
@@ -22,7 +26,6 @@
           },
           "matrikkeladresse": null,
           "ukjentBosted": null
-
         }
       ],
       "familierelasjoner": [

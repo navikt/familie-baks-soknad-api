@@ -3,7 +3,6 @@ package no.nav.familie.ba.soknad.api.personopplysning
 import no.nav.familie.ba.soknad.api.util.TokenBehandler
 import no.nav.familie.kontrakter.felles.Ressurs
 import no.nav.security.token.support.core.api.ProtectedWithClaims
-import org.eclipse.jetty.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping

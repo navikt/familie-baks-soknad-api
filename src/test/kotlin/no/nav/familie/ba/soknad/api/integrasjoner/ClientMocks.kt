@@ -49,8 +49,8 @@ class ClientMocks {
     @Bean
     @Primary
     @Profile("mock-pdl")
-    fun mockEkspAuthPdlClient(): EkspandertAutorisasjonPdlClient {
-        val mockPdlClient = mockk<EkspandertAutorisasjonPdlClient>()
+    fun mockEkspAuthPdlClient(): BarnePdlClient {
+        val mockPdlClient = mockk<BarnePdlClient>()
 
         every { mockPdlClient.hentBarn(any()) } returns PdlHentBarnResponse(
                 data = PdlBarn(person = PdlBarnData(
