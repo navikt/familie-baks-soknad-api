@@ -20,7 +20,7 @@
         <sha1/>
         <changelist>-SNAPSHOT</changelist>
         <jvmTarget>11</jvmTarget>
-        <kontrakter.version>2.0_20200625154602_9f6d526</kontrakter.version>
+        <kontrakter.version>2.0_20200716100404_0e17d4f</kontrakter.version>
         <felles.version>1.20200710160100_27ac5b9</felles.version>
         <mockk.version>1.10.0</mockk.version>
         <token-validation-spring.version>1.2.0</token-validation-spring.version>
@@ -101,7 +101,7 @@
         <dependency>
             <groupId>no.nav.familie.kontrakter</groupId>
             <artifactId>barnetrygd</artifactId>
-            <version>2.0_20200710103407_aee01b8</version>
+            <version>${kontrakter.version}</version>
         </dependency>
 
         <!-- Test -->
