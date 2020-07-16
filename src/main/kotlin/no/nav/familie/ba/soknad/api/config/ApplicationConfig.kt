@@ -19,9 +19,11 @@ import org.springframework.http.HttpRequest
 import org.springframework.http.client.ClientHttpRequestExecution
 import org.springframework.http.client.ClientHttpRequestInterceptor
 import org.springframework.http.client.ClientHttpResponse
+import org.springframework.http.converter.FormHttpMessageConverter
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter
 import org.springframework.web.client.RestOperations
 import java.net.URI
+
 
 @SpringBootConfiguration
 @ComponentScan(ApplicationConfig.pakkenavn)
@@ -64,11 +66,25 @@ internal class ApplicationConfig {
                               apiKeyInjectingClientInterceptor: ClientHttpRequestInterceptor,
                               jwtTokenInjectingInterceptor: ClientHttpRequestInterceptor): RestOperations {
         return RestTemplateBuilder()
+                .additionalMessageConverters(FormHttpMessageConverter())
+                .additionalMessageConverters(MappingJackson2HttpMessageConverter())
                 .interceptors(consumerIdClientInterceptor,
                               apiKeyInjectingClientInterceptor,
                               jwtTokenInjectingInterceptor,
                               MdcValuesPropagatingClientInterceptor())
                 .additionalMessageConverters(MappingJackson2HttpMessageConverter(objectMapper))
+                .build()
+    }
+
+    @Bean("restKlientMottak")
+    fun restTemplateMottak(consumerIdClientInterceptor: ConsumerIdClientInterceptor,
+                              apiKeyInjectingClientInterceptor: ClientHttpRequestInterceptor,
+                              jwtTokenInjectingInterceptor: ClientHttpRequestInterceptor): RestOperations {
+        return RestTemplateBuilder()
+                .interceptors(consumerIdClientInterceptor,
+                        apiKeyInjectingClientInterceptor,
+                        jwtTokenInjectingInterceptor,
+                        MdcValuesPropagatingClientInterceptor())
                 .build()
     }
 
