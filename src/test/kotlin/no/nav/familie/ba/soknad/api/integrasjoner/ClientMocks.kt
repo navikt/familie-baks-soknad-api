@@ -4,6 +4,7 @@ import io.mockk.Runs
 import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
+import no.nav.familie.ba.soknad.api.kontrakt.Kvittering
 import no.nav.familie.ba.soknad.api.personopplysning.*
 import no.nav.familie.http.sts.StsRestClient
 import no.nav.familie.kontrakter.felles.personinfo.Bostedsadresse
@@ -11,6 +12,7 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Primary
 import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
+import java.time.LocalDateTime
 
 @Component
 class ClientMocks {
@@ -21,7 +23,7 @@ class ClientMocks {
     fun mockMottakClient(): MottakClient {
         val mockMottakClient = mockk<MottakClient>()
         every { mockMottakClient.ping() } just Runs
-        every { mockMottakClient.sendSøknad(any()) } returns "søknad mottatt OK"
+        every { mockMottakClient.sendSøknad(any(), any()) } returns Kvittering("søknad mottatt OK", LocalDateTime.now())
         return mockMottakClient
     }
 

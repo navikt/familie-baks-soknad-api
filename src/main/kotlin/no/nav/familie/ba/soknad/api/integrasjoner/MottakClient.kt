@@ -2,9 +2,7 @@ package no.nav.familie.ba.soknad.api.integrasjoner
 
 import com.fasterxml.jackson.databind.JsonNode
 import main.kotlin.no.nav.familie.ba.søknad.Søknad
-import main.kotlin.no.nav.familie.ba.søknad.Søknadsfelt
-import no.nav.familie.ba.soknad.api.util.TokenBehandler.hentFnr
-import no.nav.familie.ba.soknad.api.util.TokenBehandler.hentToken
+import no.nav.familie.ba.soknad.api.kontrakt.Kvittering
 import no.nav.familie.http.client.AbstractPingableRestClient
 import no.nav.familie.http.client.MultipartBuilder
 import org.slf4j.LoggerFactory
@@ -14,6 +12,7 @@ import org.springframework.stereotype.Component
 import org.springframework.web.client.RestOperations
 import java.lang.IllegalStateException
 import java.net.URI
+import java.time.LocalDateTime
 
 @Component
 class MottakClient(@Value("\${FAMILIE_BA_MOTTAK_URL}") private val mottakBaseUrl: String,
@@ -32,7 +31,7 @@ class MottakClient(@Value("\${FAMILIE_BA_MOTTAK_URL}") private val mottakBaseUrl
         }
     }
 
-    fun sendSøknad(søknad: Søknad): String {
+    fun sendSøknad(søknad: Søknad, innsendingMottatt: LocalDateTime): Kvittering {
         val uri: URI = URI.create("$mottakBaseUrl/api/soknad")
 
         try {
@@ -40,7 +39,7 @@ class MottakClient(@Value("\${FAMILIE_BA_MOTTAK_URL}") private val mottakBaseUrl
 
             val response = postForEntity<String>(uri = uri, payload = multipartBuilder.build(), httpHeaders = MultipartBuilder.MULTIPART_HEADERS)
             LOG.debug("Sende søknad til mottak OK")
-            return response
+            return Kvittering(response, innsendingMottatt)
         } catch (e: Exception) {
             throw IllegalStateException("Sende søknad til familie-ba-mottak feilet", e)
         }
