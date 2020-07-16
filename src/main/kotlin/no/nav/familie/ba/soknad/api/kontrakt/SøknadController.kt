@@ -1,7 +1,9 @@
 package no.nav.familie.ba.soknad.api.kontrakt
 
 import main.kotlin.no.nav.familie.ba.søknad.Søknad
+import main.kotlin.no.nav.familie.ba.søknad.Søknadsfelt
 import no.nav.familie.ba.soknad.api.integrasjoner.MottakClient
+import no.nav.familie.ba.soknad.api.util.TokenBehandler
 import no.nav.familie.kontrakter.felles.Ressurs
 import no.nav.security.token.support.core.api.ProtectedWithClaims
 import org.springframework.http.MediaType
@@ -16,8 +18,13 @@ import org.springframework.web.bind.annotation.RestController
 @ProtectedWithClaims(issuer = "selvbetjening", claimMap = ["acr=Level4"])
 class SøknadController(private val mottakClient: MottakClient) {
 
-    @PostMapping("/kontrakt")
+    @PostMapping("/soknad")
     fun søknadsMottak(@RequestBody(required = true) søknad: Søknad): ResponseEntity<Ressurs<String>> {
+
+        søknad.apply {
+            søker.fødselsnummer = Søknadsfelt(verdi = TokenBehandler.hentFnr(), label = "Fødselsnummer")
+        }
+
         return ResponseEntity.ok().body(Ressurs.success(mottakClient.sendSøknad(søknad)))
     }
 }

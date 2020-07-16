@@ -2,6 +2,9 @@ package no.nav.familie.ba.soknad.api.integrasjoner
 
 import com.fasterxml.jackson.databind.JsonNode
 import main.kotlin.no.nav.familie.ba.søknad.Søknad
+import main.kotlin.no.nav.familie.ba.søknad.Søknadsfelt
+import no.nav.familie.ba.soknad.api.util.TokenBehandler.hentFnr
+import no.nav.familie.ba.soknad.api.util.TokenBehandler.hentToken
 import no.nav.familie.http.client.AbstractPingableRestClient
 import no.nav.familie.http.client.MultipartBuilder
 import org.slf4j.LoggerFactory
@@ -31,6 +34,7 @@ class MottakClient(@Value("\${FAMILIE_BA_MOTTAK_URL}") private val mottakBaseUrl
 
     fun sendSøknad(søknad: Søknad): String {
         val uri: URI = URI.create("$mottakBaseUrl/api/soknad")
+
         try {
             val multipartBuilder = MultipartBuilder().withJson("søknad", søknad)
 
