@@ -2,7 +2,7 @@ package no.nav.familie.ba.soknad.api.integrasjoner
 
 import com.fasterxml.jackson.databind.JsonNode
 import main.kotlin.no.nav.familie.ba.søknad.Søknad
-import no.nav.familie.ba.soknad.api.kontrakt.Kvittering
+import no.nav.familie.ba.soknad.api.søknad.Kvittering
 import no.nav.familie.http.client.AbstractPingableRestClient
 import no.nav.familie.http.client.MultipartBuilder
 import no.nav.familie.kontrakter.felles.Ressurs

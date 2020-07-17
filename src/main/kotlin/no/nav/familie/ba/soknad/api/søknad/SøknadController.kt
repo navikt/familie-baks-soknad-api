@@ -1,4 +1,4 @@
-package no.nav.familie.ba.soknad.api.kontrakt
+package no.nav.familie.ba.soknad.api.søknad
 
 import main.kotlin.no.nav.familie.ba.søknad.Søknad
 import main.kotlin.no.nav.familie.ba.søknad.Søknadsfelt

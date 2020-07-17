@@ -1,4 +1,4 @@
-package no.nav.familie.ba.soknad.api.kontrakt
+package no.nav.familie.ba.soknad.api.søknad
 
 import java.time.LocalDateTime
 

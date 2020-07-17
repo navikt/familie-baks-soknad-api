@@ -4,7 +4,7 @@ import io.mockk.Runs
 import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
-import no.nav.familie.ba.soknad.api.kontrakt.Kvittering
+import no.nav.familie.ba.soknad.api.søknad.Kvittering
 import no.nav.familie.ba.soknad.api.personopplysning.*
 import no.nav.familie.http.sts.StsRestClient
 import no.nav.familie.kontrakter.felles.Ressurs

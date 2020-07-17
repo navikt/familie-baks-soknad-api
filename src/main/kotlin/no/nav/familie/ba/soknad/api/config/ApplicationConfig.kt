@@ -65,8 +65,6 @@ internal class ApplicationConfig {
                               apiKeyInjectingClientInterceptor: ClientHttpRequestInterceptor,
                               jwtTokenInjectingInterceptor: ClientHttpRequestInterceptor): RestOperations {
         return RestTemplateBuilder()
-                .additionalMessageConverters(FormHttpMessageConverter())
-                .additionalMessageConverters(MappingJackson2HttpMessageConverter())
                 .interceptors(consumerIdClientInterceptor,
                         apiKeyInjectingClientInterceptor,
                         jwtTokenInjectingInterceptor,
