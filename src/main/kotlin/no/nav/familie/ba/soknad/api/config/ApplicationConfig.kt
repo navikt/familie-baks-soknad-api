@@ -4,7 +4,6 @@ import no.nav.familie.ba.soknad.api.util.TokenBehandler
 import no.nav.familie.http.interceptor.ApiKeyInjectingClientInterceptor
 import no.nav.familie.http.interceptor.ConsumerIdClientInterceptor
 import no.nav.familie.http.interceptor.MdcValuesPropagatingClientInterceptor
-import no.nav.familie.http.sts.StsRestClient
 import no.nav.familie.kontrakter.felles.objectMapper
 import no.nav.familie.log.filter.LogFilter
 import org.slf4j.LoggerFactory
@@ -24,7 +23,6 @@ import org.springframework.http.converter.FormHttpMessageConverter
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter
 import org.springframework.web.client.RestOperations
 import java.net.URI
-
 
 @SpringBootConfiguration
 @ComponentScan(ApplicationConfig.pakkenavn)
@@ -90,8 +88,8 @@ internal class ApplicationConfig {
 
     @Bean("restKlientMottak")
     fun restTemplateMottak(consumerIdClientInterceptor: ConsumerIdClientInterceptor,
-                              apiKeyInjectingClientInterceptor: ClientHttpRequestInterceptor,
-                              jwtTokenInjectingInterceptor: ClientHttpRequestInterceptor): RestOperations {
+                           apiKeyInjectingClientInterceptor: ClientHttpRequestInterceptor,
+                           jwtTokenInjectingInterceptor: ClientHttpRequestInterceptor): RestOperations {
         return RestTemplateBuilder()
                 .interceptors(consumerIdClientInterceptor,
                         apiKeyInjectingClientInterceptor,
