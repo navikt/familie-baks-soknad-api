@@ -4,7 +4,6 @@ import no.nav.familie.ba.soknad.api.util.TokenBehandler
 import no.nav.familie.http.interceptor.ApiKeyInjectingClientInterceptor
 import no.nav.familie.http.interceptor.ConsumerIdClientInterceptor
 import no.nav.familie.http.interceptor.MdcValuesPropagatingClientInterceptor
-import no.nav.familie.http.sts.StsRestClient
 import no.nav.familie.kontrakter.felles.objectMapper
 import no.nav.familie.log.filter.LogFilter
 import org.slf4j.LoggerFactory
@@ -20,6 +19,7 @@ import org.springframework.http.HttpRequest
 import org.springframework.http.client.ClientHttpRequestExecution
 import org.springframework.http.client.ClientHttpRequestInterceptor
 import org.springframework.http.client.ClientHttpResponse
+import org.springframework.http.converter.FormHttpMessageConverter
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter
 import org.springframework.web.client.RestOperations
 import java.net.URI
@@ -81,6 +81,18 @@ internal class ApplicationConfig {
                         apiKeyInjectingClientInterceptor,
                         MdcValuesPropagatingClientInterceptor())
                 .additionalMessageConverters(MappingJackson2HttpMessageConverter(objectMapper))
+                .build()
+    }
+
+    @Bean("restKlientMottak")
+    fun restTemplateMottak(consumerIdClientInterceptor: ConsumerIdClientInterceptor,
+                           apiKeyInjectingClientInterceptor: ClientHttpRequestInterceptor,
+                           jwtTokenInjectingInterceptor: ClientHttpRequestInterceptor): RestOperations {
+        return RestTemplateBuilder()
+                .interceptors(consumerIdClientInterceptor,
+                        apiKeyInjectingClientInterceptor,
+                        jwtTokenInjectingInterceptor,
+                        MdcValuesPropagatingClientInterceptor())
                 .build()
     }
 

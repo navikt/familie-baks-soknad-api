@@ -1,8 +1,11 @@
 package no.nav.familie.ba.soknad.api.integrasjoner
 
 import com.fasterxml.jackson.databind.JsonNode
-import no.nav.familie.http.client.AbstractRestClient
-import no.nav.familie.http.client.Pingable
+import main.kotlin.no.nav.familie.ba.søknad.Søknad
+import no.nav.familie.ba.soknad.api.søknad.Kvittering
+import no.nav.familie.http.client.AbstractPingableRestClient
+import no.nav.familie.http.client.MultipartBuilder
+import no.nav.familie.kontrakter.felles.Ressurs
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.beans.factory.annotation.Value
@@ -13,17 +16,32 @@ import java.net.URI
 
 @Component
 class MottakClient(@Value("\${FAMILIE_BA_MOTTAK_URL}") private val mottakBaseUrl: String,
-                   restOperations: RestOperations)
-    : AbstractRestClient(restOperations, "integrasjon"), Pingable {
+                   @Qualifier("restKlientMottak") private val restOperations: RestOperations)
+    : AbstractPingableRestClient(restOperations, "integrasjon") {
+
+    override val pingUri: URI = URI.create("$mottakBaseUrl/internal/health")
 
     override fun ping() {
-        val uri = URI.create("$mottakBaseUrl/internal/health")
         try {
-            getForEntity<JsonNode>(uri)
+            getForEntity<JsonNode>(pingUri)
             LOG.debug("Ping mot familie-ba-mottak OK")
         } catch (e: Exception) {
             LOG.warn("Ping mot familie-ba-mottak feilet")
             throw IllegalStateException("Ping mot familie-ba-mottak feilet", e)
+        }
+    }
+
+    fun sendSøknad(søknad: Søknad): Ressurs<Kvittering> {
+        val uri: URI = URI.create("$mottakBaseUrl/api/soknad")
+
+        try {
+            val multipartBuilder = MultipartBuilder().withJson("søknad", søknad)
+
+            val response = postForEntity<Ressurs<Kvittering>>(uri = uri, payload = multipartBuilder.build(), httpHeaders = MultipartBuilder.MULTIPART_HEADERS)
+            LOG.info("Sende søknad til mottak OK: ${response.data}")
+            return response
+        } catch (e: Exception) {
+            throw IllegalStateException("Sende søknad til familie-ba-mottak feilet", e)
         }
     }
 
