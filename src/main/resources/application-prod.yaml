@@ -5,6 +5,6 @@ no.nav.security.jwt:
     accepted_audience: ${ACCEPTEDAUDIENCE}
     cookie_name: selvbetjening-idtoken
 
-FAMILIE_BA_MOTTAK_URL: https://familie-ba-mottak.prod-fss-pub.nais.io
+FAMILIE_BA_MOTTAK_URL: https://api-gw.oera.no/familie-ba-mottak
 PDL_API_URL: https://api-gw.oera.no/pdl-api
 STS_URL: https://api-gw.oera.no/security-token-service/rest/v1/sts/token
