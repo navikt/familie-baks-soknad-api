@@ -5,6 +5,7 @@ import main.kotlin.no.nav.familie.ba.søknad.Søknad
 import no.nav.familie.ba.soknad.api.kontrakt.Kvittering
 import no.nav.familie.http.client.AbstractPingableRestClient
 import no.nav.familie.http.client.MultipartBuilder
+import no.nav.familie.kontrakter.felles.Ressurs
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.beans.factory.annotation.Value
@@ -12,7 +13,6 @@ import org.springframework.stereotype.Component
 import org.springframework.web.client.RestOperations
 import java.lang.IllegalStateException
 import java.net.URI
-import java.time.LocalDateTime
 
 @Component
 class MottakClient(@Value("\${FAMILIE_BA_MOTTAK_URL}") private val mottakBaseUrl: String,
@@ -31,15 +31,15 @@ class MottakClient(@Value("\${FAMILIE_BA_MOTTAK_URL}") private val mottakBaseUrl
         }
     }
 
-    fun sendSøknad(søknad: Søknad, innsendingMottatt: LocalDateTime): Kvittering {
+    fun sendSøknad(søknad: Søknad): Ressurs<Kvittering> {
         val uri: URI = URI.create("$mottakBaseUrl/api/soknad")
 
         try {
             val multipartBuilder = MultipartBuilder().withJson("søknad", søknad)
 
-            val response = postForEntity<String>(uri = uri, payload = multipartBuilder.build(), httpHeaders = MultipartBuilder.MULTIPART_HEADERS)
+            val response = postForEntity<Ressurs<Kvittering>>(uri = uri, payload = multipartBuilder.build(), httpHeaders = MultipartBuilder.MULTIPART_HEADERS)
             LOG.debug("Sende søknad til mottak OK")
-            return Kvittering(response, innsendingMottatt)
+            return response
         } catch (e: Exception) {
             throw IllegalStateException("Sende søknad til familie-ba-mottak feilet", e)
         }
