@@ -38,7 +38,7 @@ class MottakClient(@Value("\${FAMILIE_BA_MOTTAK_URL}") private val mottakBaseUrl
             val multipartBuilder = MultipartBuilder().withJson("søknad", søknad)
 
             val response = postForEntity<Ressurs<Kvittering>>(uri = uri, payload = multipartBuilder.build(), httpHeaders = MultipartBuilder.MULTIPART_HEADERS)
-            LOG.debug("Sende søknad til mottak OK")
+            LOG.info("Sende søknad til mottak OK: ${response.data}")
             return response
         } catch (e: Exception) {
             throw IllegalStateException("Sende søknad til familie-ba-mottak feilet", e)
