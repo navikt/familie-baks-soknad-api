@@ -11,26 +11,29 @@ import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import java.io.File
+import kotlin.test.assertFailsWith
 
 class PersonopplysningerServiceTest {
 
     private lateinit var personopplysningerService: PersonopplysningerService
-    private lateinit var client: PdlClient
+    private lateinit var pdlClient: PdlClient
+    private lateinit var barnePdlClient: BarnePdlClient
     val mapper = objectMapper
     private val gyldigBostedAdresse = Bostedsadresse(null, Matrikkeladresse(3, "E67", "tillegg", "1456", "1223"), null)
 
     @BeforeEach
     fun setUp() {
-        client = mockk()
-        personopplysningerService = PersonopplysningerService(client)
+        pdlClient = mockk()
+        barnePdlClient = mockk()
+        personopplysningerService = PersonopplysningerService(pdlClient, barnePdlClient)
 
-        every { client.hentBarn(any()) } returns
+        every { barnePdlClient.hentBarn(any()) } returns
                 mapper.readValue(File(getFile("pdl/pdlPersonBarn.json")), PdlHentBarnResponse::class.java)
     }
 
     @Test
     fun `hentPersonInfo skal kun returnere familierelasjoner av type BARN`() {
-        every { client.hentSøker(any()) } returns pdlMockFor("pdlPersonMedFlereRelasjoner")
+        every { pdlClient.hentSøker(any()) } returns pdlMockFor("pdlPersonMedFlereRelasjoner")
         val person = personopplysningerService.hentPersoninfo("1")
 
         assertEquals(1, person.barn.size)
@@ -40,14 +43,14 @@ class PersonopplysningerServiceTest {
 
     @Test
     fun `hentPersonInfo skal returnere tom liste hvis det er familierelasjoner, men ingen barn`() {
-        every { client.hentSøker(any()) } returns pdlMockFor("pdlPersonMedRelasjonerIngenBarn")
+        every { pdlClient.hentSøker(any()) } returns pdlMockFor("pdlPersonMedRelasjonerIngenBarn")
         val person = personopplysningerService.hentPersoninfo("1")
         assertTrue(person.barn.isEmpty())
     }
 
     @Test
     fun `henPersonInfo skal returnere tom liste hvis ingen familierelasjoner`() {
-        every { client.hentSøker(any()) } returns pdlMockFor("pdlPersonUtenRelasjoner")
+        every { pdlClient.hentSøker(any()) } returns pdlMockFor("pdlPersonUtenRelasjoner")
         val person = personopplysningerService.hentPersoninfo("1")
         assertTrue(person.barn.isEmpty())
     }
@@ -90,6 +93,26 @@ class PersonopplysningerServiceTest {
         val borMedSøker = personopplysningerService.borMedSøker(søkerAdresse = søkerAdresse, barneAdresse = gyldigBostedAdresse)
 
         assertTrue(borMedSøker)
+    }
+
+    @Test
+    fun `hentPerson skal feile dersom barn har gradert adresse`() {
+        every { barnePdlClient.hentBarn(any()) } returns
+                mapper.readValue(File(getFile("pdl/pdlPersonBarnGradertAdresse.json")), PdlHentBarnResponse::class.java)
+        every { pdlClient.hentSøker(any()) } returns pdlMockFor("pdlPersonMedEttBarn")
+
+        assertFailsWith<GradertAdresseException> {
+            personopplysningerService.hentPersoninfo("12345678901")
+        }
+    }
+
+    @Test
+    fun `hentPerson skal feile dersom person har gradert adresse`() {
+        every { pdlClient.hentSøker(any()) } returns pdlMockFor("pdlPersonUtenRelasjonerGradertAdresse")
+
+        assertFailsWith<GradertAdresseException> {
+            personopplysningerService.hentPersoninfo("12345678901")
+        }
     }
 
     private fun pdlMockFor(filNavn: String) = mapper.readValue(File(getFile("pdl/$filNavn.json")), PdlHentSøkerResponse::class.java)
