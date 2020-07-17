@@ -19,7 +19,6 @@ import org.springframework.http.HttpRequest
 import org.springframework.http.client.ClientHttpRequestExecution
 import org.springframework.http.client.ClientHttpRequestInterceptor
 import org.springframework.http.client.ClientHttpResponse
-import org.springframework.http.converter.FormHttpMessageConverter
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter
 import org.springframework.web.client.RestOperations
 import java.net.URI
@@ -40,8 +39,12 @@ internal class ApplicationConfig {
 
     @Bean
     fun apiKeyInjectingClientInterceptor(@Value("\${PDL_API_APIKEY}") pdlApiKey: String,
-                                         @Value("\${PDL_API_URL}") pdlBaseUrl: String): ClientHttpRequestInterceptor {
-        val map = mapOf(Pair(URI.create(pdlBaseUrl), Pair(apiKeyHeader, pdlApiKey)))
+                                         @Value("\${PDL_API_URL}") pdlBaseUrl: String,
+                                         @Value("\${MOTTAK_APIKEY}") mottakApiKey: String,
+                                         @Value("\${FAMILIE_BA_MOTTAK_URL}")
+                                         mottakBaseUrl: String): ClientHttpRequestInterceptor {
+        val map = mapOf(Pair(URI.create(pdlBaseUrl), Pair(apiKeyHeader, pdlApiKey)),
+                        Pair(URI.create(mottakBaseUrl), Pair(apiKeyHeader, mottakApiKey)))
         return ApiKeyInjectingClientInterceptor(map)
     }
 
@@ -50,7 +53,7 @@ internal class ApplicationConfig {
     fun restTemplate(consumerIdClientInterceptor: ConsumerIdClientInterceptor): RestOperations {
         return RestTemplateBuilder()
                 .interceptors(consumerIdClientInterceptor,
-                        MdcValuesPropagatingClientInterceptor())
+                              MdcValuesPropagatingClientInterceptor())
                 .additionalMessageConverters(MappingJackson2HttpMessageConverter(objectMapper))
                 .build()
     }
@@ -66,9 +69,9 @@ internal class ApplicationConfig {
                               jwtTokenInjectingInterceptor: ClientHttpRequestInterceptor): RestOperations {
         return RestTemplateBuilder()
                 .interceptors(consumerIdClientInterceptor,
-                        apiKeyInjectingClientInterceptor,
-                        jwtTokenInjectingInterceptor,
-                        MdcValuesPropagatingClientInterceptor())
+                              apiKeyInjectingClientInterceptor,
+                              jwtTokenInjectingInterceptor,
+                              MdcValuesPropagatingClientInterceptor())
                 .additionalMessageConverters(MappingJackson2HttpMessageConverter(objectMapper))
                 .build()
     }
@@ -78,8 +81,8 @@ internal class ApplicationConfig {
                                  apiKeyInjectingClientInterceptor: ClientHttpRequestInterceptor): RestOperations {
         return RestTemplateBuilder()
                 .interceptors(consumerIdClientInterceptor,
-                        apiKeyInjectingClientInterceptor,
-                        MdcValuesPropagatingClientInterceptor())
+                              apiKeyInjectingClientInterceptor,
+                              MdcValuesPropagatingClientInterceptor())
                 .additionalMessageConverters(MappingJackson2HttpMessageConverter(objectMapper))
                 .build()
     }
@@ -90,9 +93,9 @@ internal class ApplicationConfig {
                            jwtTokenInjectingInterceptor: ClientHttpRequestInterceptor): RestOperations {
         return RestTemplateBuilder()
                 .interceptors(consumerIdClientInterceptor,
-                        apiKeyInjectingClientInterceptor,
-                        jwtTokenInjectingInterceptor,
-                        MdcValuesPropagatingClientInterceptor())
+                              apiKeyInjectingClientInterceptor,
+                              jwtTokenInjectingInterceptor,
+                              MdcValuesPropagatingClientInterceptor())
                 .build()
     }
 
