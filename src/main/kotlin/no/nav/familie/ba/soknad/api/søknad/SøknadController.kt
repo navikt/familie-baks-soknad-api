@@ -22,7 +22,7 @@ class SøknadController(private val mottakClient: MottakClient) {
     fun søknadsMottak(@RequestBody(required = true) søknad: Søknad): ResponseEntity<Ressurs<Kvittering>> {
 
         søknad.apply {
-            søker.fødselsnummer = Søknadsfelt(verdi = TokenBehandler.hentFnr(), label = "Fødselsnummer")
+            søker.verdi.fødselsnummer = Søknadsfelt(verdi = TokenBehandler.hentFnr(), label = "Fødselsnummer")
         }
 
         return ResponseEntity.ok().body(mottakClient.sendSøknad(søknad))
