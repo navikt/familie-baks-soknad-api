@@ -20,7 +20,7 @@
         <sha1/>
         <changelist>-SNAPSHOT</changelist>
         <jvmTarget>11</jvmTarget>
-        <kontrakter.version>2.0_20200716121805_92fe110</kontrakter.version>
+        <kontrakter.version>2.0_20200722082809_8600254</kontrakter.version>
         <felles.version>1.20200710160100_27ac5b9</felles.version>
         <mockk.version>1.10.0</mockk.version>
         <token-validation-spring.version>1.2.0</token-validation-spring.version>
