@@ -31,7 +31,7 @@
         <start-class>no.nav.familie.ba.soknad.api.LauncherKt</start-class>
         <!--suppress UnresolvedMavenProperty Ligger som secret i github-->
         <sonar.login>${SONAR_LOGIN}</sonar.login>
-        <kotlin.version>1.3.72</kotlin.version>
+        <kotlin.version>1.4.0</kotlin.version>
     </properties>
 
 
