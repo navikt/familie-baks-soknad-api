@@ -52,3 +52,4 @@ spec:
       value: dev
   envFrom:
     - secret: ba-soknad-api
+    - configmap: loginservice-idporten
