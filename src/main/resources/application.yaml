@@ -27,3 +27,4 @@ no.nav.security.jwt:
     accepted_audience: ${ACCEPTEDAUDIENCE}
     cookie_name: selvbetjening-idtoken
 
+logging.level.no.nav.security: DEBUG
