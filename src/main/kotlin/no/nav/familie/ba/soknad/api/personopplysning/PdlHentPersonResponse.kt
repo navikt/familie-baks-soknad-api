@@ -1,7 +1,7 @@
 package no.nav.familie.ba.soknad.api.personopplysning
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
-import no.nav.familie.kontrakter.felles.personinfo.Bostedsadresse
+import no.nav.familie.kontrakter.felles.personopplysning.Bostedsadresse
 
 private fun harFeil(errors: List<PdlError>?) = !errors.isNullOrEmpty()
 
