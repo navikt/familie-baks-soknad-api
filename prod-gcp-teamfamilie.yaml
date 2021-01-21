@@ -23,8 +23,6 @@ spec:
   prometheus:
     enabled: true
     path: /internal/prometheus
-  idporten:
-    enabled: true
   secureLogs:
     enabled: true
   resources:
@@ -52,3 +50,4 @@ spec:
       value: prod
   envFrom:
     - secret: ba-soknad-api
+    - configmap: loginservice-idporten
