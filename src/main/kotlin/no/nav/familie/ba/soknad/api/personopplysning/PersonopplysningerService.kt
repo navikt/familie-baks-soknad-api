@@ -1,6 +1,6 @@
 package no.nav.familie.ba.soknad.api.personopplysning
 
-import no.nav.familie.kontrakter.felles.personinfo.Bostedsadresse
+import no.nav.familie.kontrakter.felles.personopplysning.Bostedsadresse
 import org.springframework.stereotype.Service
 
 @Service

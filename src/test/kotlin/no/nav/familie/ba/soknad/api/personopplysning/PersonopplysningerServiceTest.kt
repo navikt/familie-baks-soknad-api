@@ -3,10 +3,10 @@ package no.nav.familie.ba.soknad.api.personopplysning
 import io.mockk.every
 import io.mockk.mockk
 import no.nav.familie.kontrakter.felles.objectMapper
-import no.nav.familie.kontrakter.felles.personinfo.Bostedsadresse
-import no.nav.familie.kontrakter.felles.personinfo.Matrikkeladresse
-import no.nav.familie.kontrakter.felles.personinfo.UkjentBosted
-import no.nav.familie.kontrakter.felles.personinfo.Vegadresse
+import no.nav.familie.kontrakter.felles.personopplysning.Bostedsadresse
+import no.nav.familie.kontrakter.felles.personopplysning.Matrikkeladresse
+import no.nav.familie.kontrakter.felles.personopplysning.UkjentBosted
+import no.nav.familie.kontrakter.felles.personopplysning.Vegadresse
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
