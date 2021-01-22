@@ -8,7 +8,7 @@ import no.nav.familie.ba.soknad.api.søknad.Kvittering
 import no.nav.familie.ba.soknad.api.personopplysning.*
 import no.nav.familie.http.sts.StsRestClient
 import no.nav.familie.kontrakter.felles.Ressurs
-import no.nav.familie.kontrakter.felles.personinfo.Bostedsadresse
+import no.nav.familie.kontrakter.felles.personopplysning.Bostedsadresse
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Primary
 import org.springframework.context.annotation.Profile
