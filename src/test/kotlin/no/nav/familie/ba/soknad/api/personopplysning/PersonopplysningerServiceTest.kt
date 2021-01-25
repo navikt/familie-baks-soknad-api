@@ -18,7 +18,7 @@ class PersonopplysningerServiceTest {
     private lateinit var personopplysningerService: PersonopplysningerService
     private lateinit var pdlClient: PdlClient
     private lateinit var barnePdlClient: BarnePdlClient
-    val mapper = objectMapper
+    private val mapper = objectMapper
     private val gyldigBostedAdresse = Bostedsadresse(null, Matrikkeladresse(3, "E67", "tillegg", "1456", "1223"), null)
 
     @BeforeEach
