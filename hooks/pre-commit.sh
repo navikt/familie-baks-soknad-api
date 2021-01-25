@@ -1,3 +1,3 @@
 #!/usr/bin/env sh
 
-mvn editorconfig:format
+mvn antrun:run@ktlint
