@@ -1,3 +1,5 @@
 #!/usr/bin/env sh
 
-mvn antrun:run@ktlint
+staged=$(git diff --name-only --cached)
+mvn antrun:run@ktlint-format
+for file in $staged; do git add $file; done
