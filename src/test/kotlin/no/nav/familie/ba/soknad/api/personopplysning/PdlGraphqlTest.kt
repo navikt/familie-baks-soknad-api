@@ -7,13 +7,12 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 
-
 class PdlGraphqlTest {
 
     private val mapper = ObjectMapper().registerKotlinModule()
 
     @Test
-    fun testDeserialization () {
+    fun testDeserialization() {
         val resp = mapper.readValue(File(getFile("pdl/pdlPersonMedFlereRelasjoner.json")), PdlHentSøkerResponse::class.java)
 
         assertEquals("ENGASJERT", resp.data.person!!.navn.first().fornavn)
@@ -37,11 +36,13 @@ class PdlGraphqlTest {
     @Test
     fun testFulltNavn() {
         assertEquals(
-                "For Mellom Etter",
-                PdlNavn(fornavn = "For", mellomnavn = "Mellom", etternavn = "Etter").fulltNavn())
+            "For Mellom Etter",
+            PdlNavn(fornavn = "For", mellomnavn = "Mellom", etternavn = "Etter").fulltNavn()
+        )
         assertEquals(
-                "For Etter",
-                PdlNavn(fornavn = "For", etternavn = "Etter").fulltNavn())
+            "For Etter",
+            PdlNavn(fornavn = "For", etternavn = "Etter").fulltNavn()
+        )
     }
 
     private fun getFile(name: String): String {

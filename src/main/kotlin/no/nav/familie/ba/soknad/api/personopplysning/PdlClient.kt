@@ -1,6 +1,7 @@
 package no.nav.familie.ba.soknad.api.personopplysning
 
 import com.fasterxml.jackson.databind.JsonNode
+import java.net.URI
 import no.nav.familie.http.client.AbstractRestClient
 import no.nav.familie.http.client.Pingable
 import no.nav.familie.http.sts.StsRestClient
@@ -14,14 +15,14 @@ import org.springframework.http.HttpMethod
 import org.springframework.stereotype.Component
 import org.springframework.web.client.RestOperations
 import org.springframework.web.client.exchange
-import java.net.URI
-
 
 @Component
-class PdlClient(@Value("\${PDL_API_URL}") private val pdlBaseUrl: String,
-                @Qualifier("restKlientMedApiKey") private val restOperations: RestOperations,
-                private val stsRestClient: StsRestClient)
-    : AbstractRestClient(restOperations, "integrasjon"), Pingable {
+class PdlClient(
+    @Value("\${PDL_API_URL}") private val pdlBaseUrl: String,
+    @Qualifier("restKlientMedApiKey") private val restOperations: RestOperations,
+    private val stsRestClient: StsRestClient
+) :
+    AbstractRestClient(restOperations, "integrasjon"), Pingable {
 
     private val pdlUri: URI = URI.create("$pdlBaseUrl/graphql")
 

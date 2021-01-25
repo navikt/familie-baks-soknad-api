@@ -1,6 +1,8 @@
 package no.nav.familie.ba.soknad.api.integrasjoner
 
 import com.fasterxml.jackson.databind.JsonNode
+import java.lang.IllegalStateException
+import java.net.URI
 import main.kotlin.no.nav.familie.ba.søknad.Søknad
 import no.nav.familie.ba.soknad.api.søknad.Kvittering
 import no.nav.familie.http.client.AbstractPingableRestClient
@@ -11,13 +13,13 @@ import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 import org.springframework.web.client.RestOperations
-import java.lang.IllegalStateException
-import java.net.URI
 
 @Component
-class MottakClient(@Value("\${FAMILIE_BA_MOTTAK_URL}") private val mottakBaseUrl: String,
-                   @Qualifier("restKlientMottak") private val restOperations: RestOperations)
-    : AbstractPingableRestClient(restOperations, "integrasjon") {
+class MottakClient(
+    @Value("\${FAMILIE_BA_MOTTAK_URL}") private val mottakBaseUrl: String,
+    @Qualifier("restKlientMottak") private val restOperations: RestOperations
+) :
+    AbstractPingableRestClient(restOperations, "integrasjon") {
 
     override val pingUri: URI = URI.create("$mottakBaseUrl/internal/health")
 
@@ -37,7 +39,11 @@ class MottakClient(@Value("\${FAMILIE_BA_MOTTAK_URL}") private val mottakBaseUrl
         try {
             val multipartBuilder = MultipartBuilder().withJson("søknad", søknad)
 
-            val response = postForEntity<Ressurs<Kvittering>>(uri = uri, payload = multipartBuilder.build(), httpHeaders = MultipartBuilder.MULTIPART_HEADERS)
+            val response = postForEntity<Ressurs<Kvittering>>(
+                uri = uri,
+                payload = multipartBuilder.build(),
+                httpHeaders = MultipartBuilder.MULTIPART_HEADERS
+            )
             LOG.info("Sende søknad til mottak OK: ${response.data}")
             return response
         } catch (e: Exception) {

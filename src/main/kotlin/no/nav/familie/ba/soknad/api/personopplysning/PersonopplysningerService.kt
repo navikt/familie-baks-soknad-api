@@ -4,9 +4,10 @@ import no.nav.familie.kontrakter.felles.personopplysning.Bostedsadresse
 import org.springframework.stereotype.Service
 
 @Service
-class PersonopplysningerService(private val pdlClient: PdlClient,
-                                private val barnePdlClient: BarnePdlClient) {
-
+class PersonopplysningerService(
+    private val pdlClient: PdlClient,
+    private val barnePdlClient: BarnePdlClient
+) {
 
     private fun assertUgradertAdresse(adresseBeskyttelse: List<Adressebeskyttelse>) {
         if (adresseBeskyttelse.any { it.gradering != ADRESSEBESKYTTELSEGRADERING.UGRADERT }) {
@@ -21,13 +22,13 @@ class PersonopplysningerService(private val pdlClient: PdlClient,
             assertUgradertAdresse(adresseBeskyttelse)
 
             HentBarnResponse(
-                    navn = response.data.person.navn.first().fulltNavn(),
-                    fødselsdato = response.data.person.foedsel.first().foedselsdato!!,
-                    adresse = response.data.person.bostedsadresse.firstOrNull()
+                navn = response.data.person.navn.first().fulltNavn(),
+                fødselsdato = response.data.person.foedsel.first().foedselsdato!!,
+                adresse = response.data.person.bostedsadresse.firstOrNull()
             )
         }.fold(
-                onSuccess = { it },
-                onFailure = { throw it }
+            onSuccess = { it },
+            onFailure = { throw it }
         )
     }
 
@@ -54,19 +55,22 @@ class PersonopplysningerService(private val pdlClient: PdlClient,
                 relasjon.relatertPersonsRolle == FAMILIERELASJONSROLLE.BARN
             }.map { relasjon ->
                 val barneRespons = hentBarn(relasjon.relatertPersonsIdent)
-                val borMedSøker = borMedSøker(søkerAdresse = response.data.person.bostedsadresse.firstOrNull(), barneAdresse = barneRespons.adresse)
-                Barn(ident = relasjon.relatertPersonsIdent, navn = barneRespons.navn,
-                        fødselsdato = barneRespons.fødselsdato, borMedSøker = borMedSøker)
+                val borMedSøker = borMedSøker(
+                    søkerAdresse = response.data.person.bostedsadresse.firstOrNull(),
+                    barneAdresse = barneRespons.adresse
+                )
+                Barn(
+                    ident = relasjon.relatertPersonsIdent, navn = barneRespons.navn,
+                    fødselsdato = barneRespons.fødselsdato, borMedSøker = borMedSøker
+                )
             }.toSet()
 
             response.data.person.let {
                 Person(navn = it.navn.first().fulltNavn(), barn = barn)
             }
         }.fold(
-                onSuccess = { it },
-                onFailure = { throw it }
+            onSuccess = { it },
+            onFailure = { throw it }
         )
     }
-
-
 }
