@@ -35,6 +35,4 @@ for file in $staged; do
   fi
 done
 
-# Subshell because for some reason we can't exit otherwise
-set -ex
 mvn antrun:run@ktlint-format
