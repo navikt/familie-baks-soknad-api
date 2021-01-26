@@ -21,18 +21,18 @@ class HelsesjekkController(private val mottakClient: MottakClient, private val p
     @GetMapping("pdl")
     fun pingPdl(): Ressurs<String> {
         return Result.runCatching { pdlClient.ping() }
-                .fold(
-                        onSuccess = { Ressurs.success("Ping mot PDL-API OK") },
-                        onFailure = { throw it }
-                )
+            .fold(
+                onSuccess = { Ressurs.success("Ping mot PDL-API OK") },
+                onFailure = { throw it }
+            )
     }
 
     @GetMapping("mottak")
     fun pingMottak(): Ressurs<String> {
         return Result.runCatching { mottakClient.ping() }
-                .fold(
-                        onSuccess = { Ressurs.success("Ping mot mottak OK") },
-                        onFailure = { throw it }
-                )
+            .fold(
+                onSuccess = { Ressurs.success("Ping mot mottak OK") },
+                onFailure = { throw it }
+            )
     }
 }

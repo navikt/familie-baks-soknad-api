@@ -16,8 +16,12 @@ class PersonopplysningerController(private val personopplysningerService: Person
 
     @PostMapping("/personopplysning")
     fun personInfo(): ResponseEntity<Ressurs<Person>> {
-        return ResponseEntity.ok(Ressurs.success(personopplysningerService.hentPersoninfo(
-                TokenBehandler.hentFnr()
-        )))
+        return ResponseEntity.ok(
+            Ressurs.success(
+                personopplysningerService.hentPersoninfo(
+                    TokenBehandler.hentFnr()
+                )
+            )
+        )
     }
 }
