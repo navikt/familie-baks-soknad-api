@@ -39,6 +39,5 @@ query ($ident: ID!) {
                 bostedskommune
             }
         }
-
     }
 }
