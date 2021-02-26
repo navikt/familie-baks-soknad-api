@@ -1,7 +1,6 @@
 package no.nav.familie.ba.soknad.api.personopplysning
 
 import no.nav.familie.kontrakter.felles.personopplysning.Bostedsadresse
-import no.nav.familie.kontrakter.felles.personopplysning.Statsborgerskap
 import org.springframework.stereotype.Service
 
 @Service
@@ -56,9 +55,11 @@ class PersonopplysningerService(
             val barn: Set<Barn> = mapBarn(response.data.person)
 
             response.data.person.let {
-                Person(navn = it.navn.first().fulltNavn(),
-                       statsborgerskap = statsborgerskap,
-                       barn = barn)
+                Person(
+                    navn = it.navn.first().fulltNavn(),
+                    statsborgerskap = statsborgerskap,
+                    barn = barn
+                )
             }
         }.fold(
             onSuccess = { it },
@@ -67,24 +68,24 @@ class PersonopplysningerService(
     }
 
     private fun mapBarn(person: PdlSøkerData) =
-            person.familierelasjoner.filter { relasjon ->
-                relasjon.relatertPersonsRolle == FAMILIERELASJONSROLLE.BARN
-            }.map { relasjon ->
-                val barneRespons = hentBarn(relasjon.relatertPersonsIdent)
-                val borMedSøker = borMedSøker(
-                        søkerAdresse = person.bostedsadresse.firstOrNull(),
-                        barneAdresse = barneRespons.adresse
-                )
-                Barn(
-                        ident = relasjon.relatertPersonsIdent, navn = barneRespons.navn,
-                        fødselsdato = barneRespons.fødselsdato, borMedSøker = borMedSøker
-                )
-            }.toSet()
+        person.familierelasjoner.filter { relasjon ->
+            relasjon.relatertPersonsRolle == FAMILIERELASJONSROLLE.BARN
+        }.map { relasjon ->
+            val barneRespons = hentBarn(relasjon.relatertPersonsIdent)
+            val borMedSøker = borMedSøker(
+                søkerAdresse = person.bostedsadresse.firstOrNull(),
+                barneAdresse = barneRespons.adresse
+            )
+            Barn(
+                ident = relasjon.relatertPersonsIdent, navn = barneRespons.navn,
+                fødselsdato = barneRespons.fødselsdato, borMedSøker = borMedSøker
+            )
+        }.toSet()
 
     private fun mapStatsborgerskap(statsborgerskap: List<PdlStatsborgerskap>): List<Statborgerskap> {
         return statsborgerskap.map {
             Statborgerskap(
-                    landkode = it.land
+                landkode = it.land
             )
         }
     }

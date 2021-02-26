@@ -74,7 +74,7 @@ data class PdlNavn(
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class PdlStatsborgerskap(
-        val land: String
+    val land: String
 )
 
 @JsonIgnoreProperties(ignoreUnknown = true)

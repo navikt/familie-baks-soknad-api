@@ -13,7 +13,6 @@ data class Barn(
     val fødselsdato: String
 )
 
-
 data class Statborgerskap(
-        val landkode: String,
+    val landkode: String,
 )
