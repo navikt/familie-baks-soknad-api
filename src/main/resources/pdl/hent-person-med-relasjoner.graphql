@@ -14,8 +14,6 @@ query ($ident: ID!) {
         }
         statsborgerskap {
             land
-            gyldigFraOgMed
-            gyldigTilOgMed
         }
         bostedsadresse {
             vegadresse {

@@ -2,6 +2,7 @@ package no.nav.familie.ba.soknad.api.personopplysning
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import no.nav.familie.kontrakter.felles.personopplysning.Bostedsadresse
+import no.nav.familie.kontrakter.felles.personopplysning.Statsborgerskap
 
 private fun harFeil(errors: List<PdlError>?) = !errors.isNullOrEmpty()
 
@@ -37,7 +38,8 @@ data class PdlSøkerData(
     val navn: List<PdlNavn>,
     val adressebeskyttelse: List<Adressebeskyttelse>,
     val familierelasjoner: List<PdlFamilierelasjon> = emptyList(),
-    val bostedsadresse: List<Bostedsadresse?>
+    val bostedsadresse: List<Bostedsadresse?>,
+    val statsborgerskap: List<PdlStatsborgerskap>
 )
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -45,7 +47,8 @@ data class PdlBarnData(
     val navn: List<PdlNavn>,
     val foedsel: List<PdlFødselsDato>,
     val adressebeskyttelse: List<Adressebeskyttelse>,
-    val bostedsadresse: List<Bostedsadresse?>
+    val bostedsadresse: List<Bostedsadresse?>,
+    val statsborgerskap: List<Statsborgerskap>
 )
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -68,6 +71,11 @@ data class PdlNavn(
         }
     }
 }
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+data class PdlStatsborgerskap(
+        val land: String
+)
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class PdlFamilierelasjon(

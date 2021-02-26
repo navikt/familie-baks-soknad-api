@@ -12,6 +12,11 @@
           "gradering": "STRENGT_FORTROLIG_UTLAND"
         }
       ],
+      "statsborgerskap": [
+        {
+          "land": "NOR"
+        }
+      ],
       "bostedsadresse": [
         {
           "vegadresse": {
