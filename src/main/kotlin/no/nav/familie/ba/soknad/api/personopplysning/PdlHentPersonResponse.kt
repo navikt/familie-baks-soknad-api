@@ -48,7 +48,7 @@ data class PdlBarnData(
     val foedsel: List<PdlFødselsDato>,
     val adressebeskyttelse: List<Adressebeskyttelse>,
     val bostedsadresse: List<Bostedsadresse?>,
-    val statsborgerskap: List<Statsborgerskap>
+    val statsborgerskap: List<PdlStatsborgerskap>
 )
 
 @JsonIgnoreProperties(ignoreUnknown = true)
