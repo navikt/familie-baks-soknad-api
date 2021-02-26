@@ -12,6 +12,11 @@ query ($ident: ID!) {
         adressebeskyttelse {
             gradering
         }
+        statsborgerskap {
+            land
+            gyldigFraOgMed
+            gyldigTilOgMed
+        }
         bostedsadresse {
             vegadresse {
                 matrikkelId
@@ -34,5 +39,6 @@ query ($ident: ID!) {
                 bostedskommune
             }
         }
+
     }
 }
