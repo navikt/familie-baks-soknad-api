@@ -14,5 +14,5 @@ data class Barn(
 )
 
 data class Statborgerskap(
-    val landkode: String,
+    val landkode: String
 )
