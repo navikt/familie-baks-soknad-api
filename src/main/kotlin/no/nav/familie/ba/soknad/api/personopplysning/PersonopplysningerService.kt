@@ -53,13 +53,14 @@ class PersonopplysningerService(
 
             val statsborgerskap: List<Statborgerskap> = mapStatsborgerskap(response.data.person.statsborgerskap)
             val barn: Set<Barn> = mapBarn(response.data.person)
+            val sivilstandType = mapSivilstandType(response.data.person.sivilstatus.sivilstandType)
 
             response.data.person.let {
                 Person(
                     navn = it.navn.first().fulltNavn(),
                     statsborgerskap = statsborgerskap,
                     barn = barn,
-                    siviltstatus = Sivilstand(type = mapSivilstandType(it.sivilstatus.sivilstandType))
+                    siviltstatus = Sivilstand(sivilstandType)
                 )
             }
         }.fold(
@@ -68,19 +69,18 @@ class PersonopplysningerService(
         )
     }
 
-    private fun mapSivilstandType(sivilstandType: SIVILSTAND): SIVILSTANDTYPE {
+    private fun mapSivilstandType(sivilstandType: SIVILSTAND_TYPE): SIVILSTANDTYPE {
         return when (sivilstandType) {
-            SIVILSTAND.GIFT -> SIVILSTANDTYPE.GIFT
-            SIVILSTAND.ENKE_ELLER_ENKEMANN -> SIVILSTANDTYPE.ENKE_ELLER_ENKEMANN
-            SIVILSTAND.SKILT -> SIVILSTANDTYPE.SKILT
-            SIVILSTAND.SEPARERT -> SIVILSTANDTYPE.SEPARERT
-            SIVILSTAND.REGISTRERT_PARTNER -> SIVILSTANDTYPE.REGISTRERT_PARTNER
-            SIVILSTAND.SEPARERT_PARTNER -> SIVILSTANDTYPE.SEPARERT_PARTNER
-            SIVILSTAND.SKILT_PARTNER -> SIVILSTANDTYPE.SKILT_PARTNER
-            SIVILSTAND.GJENLEVENDE_PARTNER -> SIVILSTANDTYPE.GJENLEVENDE_PARTNER
+            SIVILSTAND_TYPE.GIFT -> SIVILSTANDTYPE.GIFT
+            SIVILSTAND_TYPE.ENKE_ELLER_ENKEMANN -> SIVILSTANDTYPE.ENKE_ELLER_ENKEMANN
+            SIVILSTAND_TYPE.SKILT -> SIVILSTANDTYPE.SKILT
+            SIVILSTAND_TYPE.SEPARERT -> SIVILSTANDTYPE.SEPARERT
+            SIVILSTAND_TYPE.REGISTRERT_PARTNER -> SIVILSTANDTYPE.REGISTRERT_PARTNER
+            SIVILSTAND_TYPE.SEPARERT_PARTNER -> SIVILSTANDTYPE.SEPARERT_PARTNER
+            SIVILSTAND_TYPE.SKILT_PARTNER -> SIVILSTANDTYPE.SKILT_PARTNER
+            SIVILSTAND_TYPE.GJENLEVENDE_PARTNER -> SIVILSTANDTYPE.GJENLEVENDE_PARTNER
         }
     }
-
 
     private fun mapBarn(person: PdlSøkerData) =
         person.familierelasjoner.filter { relasjon ->
