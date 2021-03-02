@@ -14,7 +14,7 @@ class PdlGraphqlTest {
     @Test
     fun testDeserialization() {
         val resp = mapper.readValue(File(getFile("pdl/pdlPersonMedFlereRelasjoner.json")), PdlHentSøkerResponse::class.java)
-
+        println(resp.data.person?.sivilstand?.firstOrNull()?.type)
         assertEquals("ENGASJERT", resp.data.person!!.navn.first().fornavn)
         assertEquals("FYR", resp.data.person!!.navn.first().etternavn)
         assertEquals(2, resp.data.person!!.familierelasjoner.size)
@@ -24,6 +24,7 @@ class PdlGraphqlTest {
         assertEquals("E22", resp.data.person!!.bostedsadresse.first()!!.vegadresse!!.husnummer)
         assertEquals(listOf(Adressebeskyttelse(ADRESSEBESKYTTELSEGRADERING.UGRADERT)), resp.data.person!!.adressebeskyttelse)
         assertEquals(listOf(PdlStatsborgerskap("NOR")), resp.data.person!!.statsborgerskap)
+        assertEquals("GIFT", resp.data.person!!.sivilstand.firstOrNull()?.type?.name)
     }
 
     @Test

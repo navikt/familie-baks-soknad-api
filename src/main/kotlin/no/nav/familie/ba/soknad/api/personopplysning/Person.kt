@@ -19,7 +19,7 @@ data class Statborgerskap(
 )
 
 data class Sivilstand(
-    val type: SIVILSTANDTYPE
+    val type: SIVILSTANDTYPE?
 )
 
 enum class SIVILSTANDTYPE {
@@ -32,5 +32,3 @@ enum class SIVILSTANDTYPE {
     SKILT_PARTNER,
     GJENLEVENDE_PARTNER
 }
-
-

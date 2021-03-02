@@ -72,9 +72,9 @@ class ClientMocks {
                     ),
                     adressebeskyttelse = emptyList(),
                     statsborgerskap = emptyList(),
-                    sivilstatus = PdlSivilstand(
-                            sivilstandType = SIVILSTAND_TYPE.GIFT
-                    )
+                    sivilstand = listOf(PdlSivilstand(
+                        type = SIVILSTAND_TYPE.GIFT
+                    ))
                 )
             ),
             errors = null

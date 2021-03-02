@@ -7,6 +7,11 @@
           "etternavn": "FYR"
         }
       ],
+      "sivilstand" : [
+        {
+          "type": "GIFT"
+        }
+      ],
       "adressebeskyttelse": [
         {
           "gradering": "UGRADERT"

@@ -53,7 +53,7 @@ class PersonopplysningerService(
 
             val statsborgerskap: List<Statborgerskap> = mapStatsborgerskap(response.data.person.statsborgerskap)
             val barn: Set<Barn> = mapBarn(response.data.person)
-            val sivilstandType = mapSivilstandType(response.data.person.sivilstatus.sivilstandType)
+            val sivilstandType = mapSivilstandType(response.data.person.sivilstand)
 
             response.data.person.let {
                 Person(
@@ -69,16 +69,20 @@ class PersonopplysningerService(
         )
     }
 
-    private fun mapSivilstandType(sivilstandType: SIVILSTAND_TYPE): SIVILSTANDTYPE {
-        return when (sivilstandType) {
-            SIVILSTAND_TYPE.GIFT -> SIVILSTANDTYPE.GIFT
-            SIVILSTAND_TYPE.ENKE_ELLER_ENKEMANN -> SIVILSTANDTYPE.ENKE_ELLER_ENKEMANN
-            SIVILSTAND_TYPE.SKILT -> SIVILSTANDTYPE.SKILT
-            SIVILSTAND_TYPE.SEPARERT -> SIVILSTANDTYPE.SEPARERT
-            SIVILSTAND_TYPE.REGISTRERT_PARTNER -> SIVILSTANDTYPE.REGISTRERT_PARTNER
-            SIVILSTAND_TYPE.SEPARERT_PARTNER -> SIVILSTANDTYPE.SEPARERT_PARTNER
-            SIVILSTAND_TYPE.SKILT_PARTNER -> SIVILSTANDTYPE.SKILT_PARTNER
-            SIVILSTAND_TYPE.GJENLEVENDE_PARTNER -> SIVILSTANDTYPE.GJENLEVENDE_PARTNER
+    private fun mapSivilstandType(sivilstandType: List<PdlSivilstand>): SIVILSTANDTYPE? {
+        return if(sivilstandType.isEmpty()){
+            null
+        } else {
+            when (sivilstandType.first().type) {
+                SIVILSTAND_TYPE.GIFT -> SIVILSTANDTYPE.GIFT
+                SIVILSTAND_TYPE.ENKE_ELLER_ENKEMANN -> SIVILSTANDTYPE.ENKE_ELLER_ENKEMANN
+                SIVILSTAND_TYPE.SKILT -> SIVILSTANDTYPE.SKILT
+                SIVILSTAND_TYPE.SEPARERT -> SIVILSTANDTYPE.SEPARERT
+                SIVILSTAND_TYPE.REGISTRERT_PARTNER -> SIVILSTANDTYPE.REGISTRERT_PARTNER
+                SIVILSTAND_TYPE.SEPARERT_PARTNER -> SIVILSTANDTYPE.SEPARERT_PARTNER
+                SIVILSTAND_TYPE.SKILT_PARTNER -> SIVILSTANDTYPE.SKILT_PARTNER
+                SIVILSTAND_TYPE.GJENLEVENDE_PARTNER -> SIVILSTANDTYPE.GJENLEVENDE_PARTNER
+            }
         }
     }
 

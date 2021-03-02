@@ -39,7 +39,7 @@ data class PdlSøkerData(
     val familierelasjoner: List<PdlFamilierelasjon> = emptyList(),
     val bostedsadresse: List<Bostedsadresse?>,
     val statsborgerskap: List<PdlStatsborgerskap>,
-    val sivilstatus: PdlSivilstand
+    val sivilstand: List<PdlSivilstand>
 )
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -79,7 +79,7 @@ data class PdlStatsborgerskap(
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class PdlSivilstand(
-    val sivilstandType: SIVILSTAND_TYPE
+    val type: SIVILSTAND_TYPE
 )
 
 @JsonIgnoreProperties(ignoreUnknown = true)
