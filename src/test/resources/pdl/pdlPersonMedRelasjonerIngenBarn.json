@@ -25,6 +25,11 @@
 
         }
       ],
+      "statsborgerskap": [
+        {
+          "land": "NOR"
+        }
+      ],
       "familierelasjoner": [
         {
           "relatertPersonsIdent": "12345678910",

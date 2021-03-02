@@ -12,6 +12,11 @@
           "gradering": "UGRADERT"
         }
       ],
+      "statsborgerskap": [
+        {
+          "land": "NOR"
+        }
+      ],
       "bostedsadresse": [
         {
           "vegadresse": {

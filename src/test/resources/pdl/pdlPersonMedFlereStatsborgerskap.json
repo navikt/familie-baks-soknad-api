@@ -9,12 +9,15 @@
       ],
       "adressebeskyttelse": [
         {
-          "gradering": "STRENGT_FORTROLIG_UTLAND"
+          "gradering": "UGRADERT"
         }
       ],
       "statsborgerskap": [
         {
           "land": "NOR"
+        },
+        {
+          "land": "SWE"
         }
       ],
       "bostedsadresse": [

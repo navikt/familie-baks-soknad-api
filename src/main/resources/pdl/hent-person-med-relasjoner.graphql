@@ -17,8 +17,6 @@ query ($ident: ID!) {
         }
         statsborgerskap {
             land
-            gyldigFraOgMed
-            gyldigTilOgMed
         }
         bostedsadresse {
             vegadresse {
@@ -42,6 +40,5 @@ query ($ident: ID!) {
                 bostedskommune
             }
         }
-
     }
 }
