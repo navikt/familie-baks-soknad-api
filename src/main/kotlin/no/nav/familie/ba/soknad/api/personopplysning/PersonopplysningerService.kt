@@ -58,7 +58,8 @@ class PersonopplysningerService(
                 Person(
                     navn = it.navn.first().fulltNavn(),
                     statsborgerskap = statsborgerskap,
-                    barn = barn
+                    barn = barn,
+                    siviltstatus = Sivilstand(type = mapSivilstandType(it.sivilstatus.sivilstandType))
                 )
             }
         }.fold(
@@ -66,6 +67,20 @@ class PersonopplysningerService(
             onFailure = { throw it }
         )
     }
+
+    private fun mapSivilstandType(sivilstandType: SIVILSTAND): SIVILSTANDTYPE {
+        return when (sivilstandType) {
+            SIVILSTAND.GIFT -> SIVILSTANDTYPE.GIFT
+            SIVILSTAND.ENKE_ELLER_ENKEMANN -> SIVILSTANDTYPE.ENKE_ELLER_ENKEMANN
+            SIVILSTAND.SKILT -> SIVILSTANDTYPE.SKILT
+            SIVILSTAND.SEPARERT -> SIVILSTANDTYPE.SEPARERT
+            SIVILSTAND.REGISTRERT_PARTNER -> SIVILSTANDTYPE.REGISTRERT_PARTNER
+            SIVILSTAND.SEPARERT_PARTNER -> SIVILSTANDTYPE.SEPARERT_PARTNER
+            SIVILSTAND.SKILT_PARTNER -> SIVILSTANDTYPE.SKILT_PARTNER
+            SIVILSTAND.GJENLEVENDE_PARTNER -> SIVILSTANDTYPE.GJENLEVENDE_PARTNER
+        }
+    }
+
 
     private fun mapBarn(person: PdlSøkerData) =
         person.familierelasjoner.filter { relasjon ->

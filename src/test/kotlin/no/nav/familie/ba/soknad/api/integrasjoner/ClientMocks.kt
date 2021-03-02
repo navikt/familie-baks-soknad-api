@@ -15,8 +15,10 @@ import no.nav.familie.ba.soknad.api.personopplysning.PdlFødselsDato
 import no.nav.familie.ba.soknad.api.personopplysning.PdlHentBarnResponse
 import no.nav.familie.ba.soknad.api.personopplysning.PdlHentSøkerResponse
 import no.nav.familie.ba.soknad.api.personopplysning.PdlNavn
+import no.nav.familie.ba.soknad.api.personopplysning.PdlSivilstand
 import no.nav.familie.ba.soknad.api.personopplysning.PdlSøker
 import no.nav.familie.ba.soknad.api.personopplysning.PdlSøkerData
+import no.nav.familie.ba.soknad.api.personopplysning.SIVILSTAND
 import no.nav.familie.ba.soknad.api.søknad.Kvittering
 import no.nav.familie.http.sts.StsRestClient
 import no.nav.familie.kontrakter.felles.Ressurs
@@ -49,14 +51,21 @@ class ClientMocks {
         every { mockPdlClient.hentSøker(any()) } returns PdlHentSøkerResponse(
             data = PdlSøker(
                 person = PdlSøkerData(
-                    navn = listOf(PdlNavn("Voksen", etternavn = "Voksnessen")),
+                    navn = listOf(PdlNavn(fornavn = "Voksen",
+                                          etternavn = "Voksnessen")
+                    ),
                     familierelasjoner = listOf(
                         PdlFamilierelasjon("12345678987", FAMILIERELASJONSROLLE.BARN),
                         PdlFamilierelasjon("12345678989", FAMILIERELASJONSROLLE.MOR)
                     ),
-                    bostedsadresse = listOf(Bostedsadresse(vegadresse = null, ukjentBosted = null, matrikkeladresse = null)),
+                    bostedsadresse = listOf(Bostedsadresse(vegadresse = null,
+                                                           ukjentBosted = null,
+                                                           matrikkeladresse = null)),
                     adressebeskyttelse = emptyList(),
-                    statsborgerskap = emptyList()
+                    statsborgerskap = emptyList(),
+                    sivilstatus = PdlSivilstand(
+                           SIVILSTAND.GIFT
+                    )
                 )
             ),
             errors = null
