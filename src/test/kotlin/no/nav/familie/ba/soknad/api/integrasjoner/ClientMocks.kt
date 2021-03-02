@@ -55,7 +55,8 @@ class ClientMocks {
                         PdlFamilierelasjon("12345678989", FAMILIERELASJONSROLLE.MOR)
                     ),
                     bostedsadresse = listOf(Bostedsadresse(vegadresse = null, ukjentBosted = null, matrikkeladresse = null)),
-                    adressebeskyttelse = emptyList()
+                    adressebeskyttelse = emptyList(),
+                    statsborgerskap = emptyList()
                 )
             ),
             errors = null
@@ -75,7 +76,8 @@ class ClientMocks {
                     navn = listOf(PdlNavn("Barn", etternavn = "Barnessen")),
                     foedsel = listOf(PdlFødselsDato("1990-01-01")),
                     bostedsadresse = listOf(Bostedsadresse(vegadresse = null, ukjentBosted = null, matrikkeladresse = null)),
-                    adressebeskyttelse = emptyList()
+                    adressebeskyttelse = emptyList(),
+                    statsborgerskap = emptyList()
                 )
             ),
             errors = null

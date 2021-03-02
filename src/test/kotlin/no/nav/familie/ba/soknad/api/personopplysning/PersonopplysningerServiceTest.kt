@@ -51,6 +51,15 @@ class PersonopplysningerServiceTest {
     }
 
     @Test
+    fun `hentPersonInfo skal returnere liste med statsborgerskap hvis det er flere fra pdl`() {
+        every { pdlClient.hentSøker(any()) } returns pdlMockFor("pdlPersonMedFlereStatsborgerskap")
+        val person = personopplysningerService.hentPersoninfo("1")
+        assertEquals(person.statsborgerskap.size, 2)
+        assertEquals(person.statsborgerskap[0].landkode, "NOR")
+        assertEquals(person.statsborgerskap[1].landkode, "SWE")
+    }
+
+    @Test
     fun `henPersonInfo skal returnere tom liste hvis ingen familierelasjoner`() {
         every { pdlClient.hentSøker(any()) } returns pdlMockFor("pdlPersonUtenRelasjoner")
         val person = personopplysningerService.hentPersoninfo("1")

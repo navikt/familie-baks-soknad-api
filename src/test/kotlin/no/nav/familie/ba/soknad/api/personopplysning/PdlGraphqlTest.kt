@@ -23,6 +23,7 @@ class PdlGraphqlTest {
         assertEquals(3, resp.data.person!!.bostedsadresse.first()!!.vegadresse!!.matrikkelId)
         assertEquals("E22", resp.data.person!!.bostedsadresse.first()!!.vegadresse!!.husnummer)
         assertEquals(listOf(Adressebeskyttelse(ADRESSEBESKYTTELSEGRADERING.UGRADERT)), resp.data.person!!.adressebeskyttelse)
+        assertEquals(listOf(PdlStatsborgerskap("NOR")), resp.data.person!!.statsborgerskap)
     }
 
     @Test
