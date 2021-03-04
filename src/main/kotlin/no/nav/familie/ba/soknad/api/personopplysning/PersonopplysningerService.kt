@@ -70,7 +70,7 @@ class PersonopplysningerService(
     }
 
     private fun mapSivilstandType(sivilstandType: List<PdlSivilstand>): SIVILSTANDTYPE? {
-        return if(sivilstandType.isEmpty()){
+        return if (sivilstandType.isEmpty()) {
             null
         } else {
             when (sivilstandType.first().type) {

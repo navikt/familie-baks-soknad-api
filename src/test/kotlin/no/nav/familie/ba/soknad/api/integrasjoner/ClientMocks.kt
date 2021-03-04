@@ -72,9 +72,11 @@ class ClientMocks {
                     ),
                     adressebeskyttelse = emptyList(),
                     statsborgerskap = emptyList(),
-                    sivilstand = listOf(PdlSivilstand(
-                        type = SIVILSTAND_TYPE.GIFT
-                    ))
+                    sivilstand = listOf(
+                        PdlSivilstand(
+                            type = SIVILSTAND_TYPE.GIFT
+                        )
+                    )
                 )
             ),
             errors = null
@@ -93,7 +95,13 @@ class ClientMocks {
                 person = PdlBarnData(
                     navn = listOf(PdlNavn("Barn", etternavn = "Barnessen")),
                     foedsel = listOf(PdlFødselsDato("1990-01-01")),
-                    bostedsadresse = listOf(Bostedsadresse(vegadresse = null, ukjentBosted = null, matrikkeladresse = null)),
+                    bostedsadresse = listOf(
+                        Bostedsadresse(
+                            vegadresse = null,
+                            ukjentBosted = null,
+                            matrikkeladresse = null
+                        )
+                    ),
                     adressebeskyttelse = emptyList(),
                     statsborgerskap = emptyList()
                 )
