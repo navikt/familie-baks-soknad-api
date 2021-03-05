@@ -16,6 +16,7 @@ import no.nav.familie.ba.soknad.api.personopplysning.PdlHentBarnResponse
 import no.nav.familie.ba.soknad.api.personopplysning.PdlHentSøkerResponse
 import no.nav.familie.ba.soknad.api.personopplysning.PdlNavn
 import no.nav.familie.ba.soknad.api.personopplysning.PdlSivilstand
+import no.nav.familie.ba.soknad.api.personopplysning.PdlStatsborgerskap
 import no.nav.familie.ba.soknad.api.personopplysning.PdlSøker
 import no.nav.familie.ba.soknad.api.personopplysning.PdlSøkerData
 import no.nav.familie.ba.soknad.api.personopplysning.SIVILSTAND_TYPE
@@ -46,7 +47,6 @@ class ClientMocks {
     @Profile("mock-pdl")
     fun mockPdlClient(): PdlClient {
         val mockPdlClient = mockk<PdlClient>()
-        println(SIVILSTAND_TYPE.GIFT)
         val sivilstand = SIVILSTAND_TYPE.GIFT
 
         every { mockPdlClient.ping() } just Runs
@@ -71,7 +71,7 @@ class ClientMocks {
                         )
                     ),
                     adressebeskyttelse = emptyList(),
-                    statsborgerskap = emptyList(),
+                    statsborgerskap = listOf(PdlStatsborgerskap("NOR")),
                     sivilstand = listOf(
                         PdlSivilstand(
                             type = SIVILSTAND_TYPE.GIFT
