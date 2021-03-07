@@ -70,10 +70,10 @@ class PersonopplysningerService(
     }
 
     private fun mapSivilstandType(sivilstandType: List<PdlSivilstand>): SIVILSTANDTYPE? {
-        return if(sivilstandType.isEmpty()){
+        return if (sivilstandType.isEmpty()) {
             null
         } else {
-            when (sivilstandType.first().type) {
+            return when (sivilstandType.first().type) {
                 SIVILSTAND_TYPE.GIFT -> SIVILSTANDTYPE.GIFT
                 SIVILSTAND_TYPE.ENKE_ELLER_ENKEMANN -> SIVILSTANDTYPE.ENKE_ELLER_ENKEMANN
                 SIVILSTAND_TYPE.SKILT -> SIVILSTANDTYPE.SKILT
@@ -83,6 +83,7 @@ class PersonopplysningerService(
                 SIVILSTAND_TYPE.SKILT_PARTNER -> SIVILSTANDTYPE.SKILT_PARTNER
                 SIVILSTAND_TYPE.GJENLEVENDE_PARTNER -> SIVILSTANDTYPE.GJENLEVENDE_PARTNER
             }
+
         }
     }
 

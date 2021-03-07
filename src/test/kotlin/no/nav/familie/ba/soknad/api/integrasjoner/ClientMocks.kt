@@ -46,8 +46,6 @@ class ClientMocks {
     @Profile("mock-pdl")
     fun mockPdlClient(): PdlClient {
         val mockPdlClient = mockk<PdlClient>()
-        println(SIVILSTAND_TYPE.GIFT)
-        val sivilstand = SIVILSTAND_TYPE.GIFT
 
         every { mockPdlClient.ping() } just Runs
         every { mockPdlClient.hentSøker(any()) } returns PdlHentSøkerResponse(
@@ -72,9 +70,11 @@ class ClientMocks {
                     ),
                     adressebeskyttelse = emptyList(),
                     statsborgerskap = emptyList(),
-                    sivilstand = listOf(PdlSivilstand(
-                        type = SIVILSTAND_TYPE.GIFT
-                    ))
+                    sivilstand = listOf(
+                        PdlSivilstand(
+                            type = SIVILSTAND_TYPE.GIFT
+                        )
+                    )
                 )
             ),
             errors = null
