@@ -50,35 +50,39 @@ class ClientMocks {
 
         every { mockPdlClient.ping() } just Runs
         every { mockPdlClient.hentSøker(any()) } returns PdlHentSøkerResponse(
-            data = PdlSøker(
-                person = PdlSøkerData(
-                    navn = listOf(
-                        PdlNavn(
-                            fornavn = "Voksen",
-                            etternavn = "Voksnessen"
+                data = PdlSøker(
+                        person = PdlSøkerData(
+                                navn = listOf(
+                                        PdlNavn(
+                                                fornavn = "Voksen",
+                                                etternavn = "Voksnessen"
+                                        )
+                                ),
+                                familierelasjoner = listOf(
+                                        PdlFamilierelasjon("12345678987", FAMILIERELASJONSROLLE.BARN),
+                                        PdlFamilierelasjon("12345678989", FAMILIERELASJONSROLLE.MOR)
+                                ),
+                                bostedsadresse = listOf(
+                                        Bostedsadresse(
+                                                vegadresse = null,
+                                                ukjentBosted = null,
+                                                matrikkeladresse = null
+                                        )
+                                ),
+                                adressebeskyttelse = emptyList(),
+                                statsborgerskap = listOf(
+                                        PdlStatsborgerskap(
+                                                land = "NOR"
+                                        )
+                                ),
+                                sivilstand = listOf(
+                                        PdlSivilstand(
+                                                type = SIVILSTAND_TYPE.GIFT
+                                        )
+                                )
                         )
-                    ),
-                    familierelasjoner = listOf(
-                        PdlFamilierelasjon("12345678987", FAMILIERELASJONSROLLE.BARN),
-                        PdlFamilierelasjon("12345678989", FAMILIERELASJONSROLLE.MOR)
-                    ),
-                    bostedsadresse = listOf(
-                            Bostedsadresse(
-                                    vegadresse = null,
-                                    ukjentBosted = null,
-                                    matrikkeladresse = null
-                            )
-                    ),
-                    adressebeskyttelse = emptyList(),
-                    statsborgerskap = listOf(PdlStatsborgerskap("NOR")),
-                    sivilstand = listOf(
-                            PdlSivilstand(
-                                    type = SIVILSTAND_TYPE.GIFT
-                            )
-                    )
-                )
-            ),
-            errors = null
+                ),
+                errors = null
         )
         return mockPdlClient
     }
@@ -90,22 +94,22 @@ class ClientMocks {
         val mockPdlClient = mockk<BarnePdlClient>()
 
         every { mockPdlClient.hentBarn(any()) } returns PdlHentBarnResponse(
-            data = PdlBarn(
-                person = PdlBarnData(
-                    navn = listOf(PdlNavn("Barn", etternavn = "Barnessen")),
-                    foedsel = listOf(PdlFødselsDato("1990-01-01")),
-                    bostedsadresse = listOf(
-                        Bostedsadresse(
-                            vegadresse = null,
-                            ukjentBosted = null,
-                            matrikkeladresse = null
+                data = PdlBarn(
+                        person = PdlBarnData(
+                                navn = listOf(PdlNavn("Barn", etternavn = "Barnessen")),
+                                foedsel = listOf(PdlFødselsDato("1990-01-01")),
+                                bostedsadresse = listOf(
+                                        Bostedsadresse(
+                                                vegadresse = null,
+                                                ukjentBosted = null,
+                                                matrikkeladresse = null
+                                        )
+                                ),
+                                adressebeskyttelse = emptyList(),
+                                statsborgerskap = emptyList()
                         )
-                    ),
-                    adressebeskyttelse = emptyList(),
-                    statsborgerskap = emptyList()
-                )
-            ),
-            errors = null
+                ),
+                errors = null
         )
         return mockPdlClient
     }
