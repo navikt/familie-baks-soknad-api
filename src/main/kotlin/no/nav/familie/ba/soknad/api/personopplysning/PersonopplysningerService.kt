@@ -83,7 +83,6 @@ class PersonopplysningerService(
                 SIVILSTAND_TYPE.SKILT_PARTNER -> SIVILSTANDTYPE.SKILT_PARTNER
                 SIVILSTAND_TYPE.GJENLEVENDE_PARTNER -> SIVILSTANDTYPE.GJENLEVENDE_PARTNER
             }
-
         }
     }
 
