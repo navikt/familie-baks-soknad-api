@@ -155,4 +155,13 @@ class PersonopplysningerServiceTest {
     private fun getFile(name: String): String {
         return javaClass.classLoader?.getResource(name)?.file ?: error("Testkonfigurasjon feil")
     }
+
+    @Test
+    fun `hentPerson returnerer rett adresse fra pdl`() {
+        every { pdlClient.hentSøker(any()) } returns pdlMockFor("pdlPersonMedFlereRelasjoner")
+        val person = personopplysningerService.hentPersoninfo("1")
+        assertEquals(person.adresse?.adressenavn, "1223")
+        assertEquals(person.adresse?.husnummer, "E22")
+        assertEquals(person.adresse?.husbokstav, "tillegg")
+    }
 }

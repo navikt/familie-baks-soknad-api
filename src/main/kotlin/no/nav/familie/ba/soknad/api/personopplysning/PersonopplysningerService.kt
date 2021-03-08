@@ -54,13 +54,15 @@ class PersonopplysningerService(
             val statsborgerskap: List<Statborgerskap> = mapStatsborgerskap(response.data.person.statsborgerskap)
             val barn: Set<Barn> = mapBarn(response.data.person)
             val sivilstandType = mapSivilstandType(response.data.person.sivilstand)
+            val adresse = mapAdresser(response.data.person.bostedsadresse.firstOrNull())
 
             response.data.person.let {
                 Person(
                     navn = it.navn.first().fulltNavn(),
                     statsborgerskap = statsborgerskap,
                     barn = barn,
-                    siviltstatus = Sivilstand(sivilstandType)
+                    siviltstatus = Sivilstand(sivilstandType),
+                    adresse = adresse
                 )
             }
         }.fold(
@@ -68,6 +70,21 @@ class PersonopplysningerService(
             onFailure = { throw it }
         )
     }
+
+    private fun mapAdresser(bostedsadresse: Bostedsadresse?): Adresse? {
+        if (bostedsadresse != null) {
+            if (bostedsadresse.vegadresse != null) {
+                return Adresse(
+                        adressenavn = bostedsadresse.vegadresse!!.adressenavn,
+                        postnummer = bostedsadresse.vegadresse!!.postnummer,
+                        husnummer = bostedsadresse.vegadresse!!.husnummer,
+                        husbokstav = bostedsadresse.vegadresse!!.husbokstav
+                )
+            }
+        }
+        return null
+    }
+
 
     private fun mapSivilstandType(sivilstandType: List<PdlSivilstand>): SIVILSTANDTYPE? {
         return if (sivilstandType.isEmpty()) {
