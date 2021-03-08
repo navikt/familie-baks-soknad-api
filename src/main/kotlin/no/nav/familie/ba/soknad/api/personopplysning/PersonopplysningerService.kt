@@ -73,12 +73,12 @@ class PersonopplysningerService(
 
     private fun mapAdresser(bostedsadresse: Bostedsadresse?): Adresse? {
         if (bostedsadresse?.vegadresse != null) {
-                return Adresse(
-                    adressenavn = bostedsadresse.vegadresse!!.adressenavn,
-                    postnummer = bostedsadresse.vegadresse!!.postnummer,
-                    husnummer = bostedsadresse.vegadresse!!.husnummer,
-                    husbokstav = bostedsadresse.vegadresse!!.husbokstav
-                )
+            return Adresse(
+                adressenavn = bostedsadresse.vegadresse!!.adressenavn,
+                postnummer = bostedsadresse.vegadresse!!.postnummer,
+                husnummer = bostedsadresse.vegadresse!!.husnummer,
+                husbokstav = bostedsadresse.vegadresse!!.husbokstav
+            )
         }
         return null
     }
