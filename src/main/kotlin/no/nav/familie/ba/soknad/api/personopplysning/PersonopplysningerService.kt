@@ -82,9 +82,7 @@ class PersonopplysningerService(
                 SIVILSTANDSTYPE.SEPARERT_PARTNER -> SIVILSTANDTYPE.SEPARERT_PARTNER
                 SIVILSTANDSTYPE.SKILT_PARTNER -> SIVILSTANDTYPE.SKILT_PARTNER
                 SIVILSTANDSTYPE.GJENLEVENDE_PARTNER -> SIVILSTANDTYPE.GJENLEVENDE_PARTNER
-                else -> {
-                    return SIVILSTANDTYPE.ANNET
-                }
+                SIVILSTANDSTYPE.UGIFT -> SIVILSTANDTYPE.UGIFT
             }
         }
     }
