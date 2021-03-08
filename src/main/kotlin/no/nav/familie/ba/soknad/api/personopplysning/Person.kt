@@ -1,6 +1,7 @@
 package no.nav.familie.ba.soknad.api.personopplysning
 
 data class Person(
+    val ident: String,
     val navn: String,
     val barn: Set<Barn>,
     val statsborgerskap: List<Statborgerskap>,
