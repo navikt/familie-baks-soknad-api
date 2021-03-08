@@ -79,7 +79,7 @@ data class PdlStatsborgerskap(
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class PdlSivilstand(
-    val type: SIVILSTAND_TYPE
+    val type: SIVILSTANDSTYPE
 )
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -88,7 +88,7 @@ data class PdlFamilierelasjon(
     val relatertPersonsRolle: FAMILIERELASJONSROLLE
 )
 
-enum class SIVILSTAND_TYPE {
+enum class SIVILSTANDSTYPE {
     GIFT,
     ENKE_ELLER_ENKEMANN,
     SKILT,
