@@ -38,7 +38,8 @@ data class PdlSøkerData(
     val adressebeskyttelse: List<Adressebeskyttelse>,
     val familierelasjoner: List<PdlFamilierelasjon> = emptyList(),
     val bostedsadresse: List<Bostedsadresse?>,
-    val statsborgerskap: List<PdlStatsborgerskap>
+    val statsborgerskap: List<PdlStatsborgerskap>,
+    val sivilstand: List<PdlSivilstand>
 )
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -77,10 +78,29 @@ data class PdlStatsborgerskap(
 )
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+data class PdlSivilstand(
+    val type: SIVILSTANDSTYPE
+)
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class PdlFamilierelasjon(
     val relatertPersonsIdent: String,
     val relatertPersonsRolle: FAMILIERELASJONSROLLE
 )
+
+enum class SIVILSTANDSTYPE {
+    GIFT,
+    ENKE_ELLER_ENKEMANN,
+    SKILT,
+    SEPARERT,
+    REGISTRERT_PARTNER,
+    SEPARERT_PARTNER,
+    SKILT_PARTNER,
+    GJENLEVENDE_PARTNER,
+    UGIFT,
+    PARTNER,
+    UOPPGITT
+}
 
 enum class FAMILIERELASJONSROLLE {
     BARN,

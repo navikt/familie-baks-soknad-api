@@ -53,18 +53,40 @@ class PersonopplysningerService(
 
             val statsborgerskap: List<Statborgerskap> = mapStatsborgerskap(response.data.person.statsborgerskap)
             val barn: Set<Barn> = mapBarn(response.data.person)
+            val sivilstandType = mapSivilstandType(response.data.person.sivilstand)
 
             response.data.person.let {
                 Person(
                     navn = it.navn.first().fulltNavn(),
                     statsborgerskap = statsborgerskap,
-                    barn = barn
+                    barn = barn,
+                    siviltstatus = Sivilstand(sivilstandType)
                 )
             }
         }.fold(
             onSuccess = { it },
             onFailure = { throw it }
         )
+    }
+
+    private fun mapSivilstandType(sivilstandType: List<PdlSivilstand>): SIVILSTANDTYPE? {
+        return if (sivilstandType.isEmpty()) {
+            null
+        } else {
+            return when (sivilstandType.first().type) {
+                SIVILSTANDSTYPE.GIFT -> SIVILSTANDTYPE.GIFT
+                SIVILSTANDSTYPE.ENKE_ELLER_ENKEMANN -> SIVILSTANDTYPE.ENKE_ELLER_ENKEMANN
+                SIVILSTANDSTYPE.SKILT -> SIVILSTANDTYPE.SKILT
+                SIVILSTANDSTYPE.SEPARERT -> SIVILSTANDTYPE.SEPARERT
+                SIVILSTANDSTYPE.REGISTRERT_PARTNER -> SIVILSTANDTYPE.REGISTRERT_PARTNER
+                SIVILSTANDSTYPE.SEPARERT_PARTNER -> SIVILSTANDTYPE.SEPARERT_PARTNER
+                SIVILSTANDSTYPE.SKILT_PARTNER -> SIVILSTANDTYPE.SKILT_PARTNER
+                SIVILSTANDSTYPE.GJENLEVENDE_PARTNER -> SIVILSTANDTYPE.GJENLEVENDE_PARTNER
+                SIVILSTANDSTYPE.UGIFT -> SIVILSTANDTYPE.UGIFT
+                SIVILSTANDSTYPE.UOPPGITT -> SIVILSTANDTYPE.UOPPGITT
+                SIVILSTANDSTYPE.PARTNER -> SIVILSTANDTYPE.PARTNER
+            }
+        }
     }
 
     private fun mapBarn(person: PdlSøkerData) =

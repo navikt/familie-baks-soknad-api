@@ -12,6 +12,9 @@ query ($ident: ID!) {
         adressebeskyttelse {
             gradering
         }
+        sivilstand {
+            type
+        }
         statsborgerskap {
             land
         }
