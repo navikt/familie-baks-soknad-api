@@ -164,4 +164,13 @@ class PersonopplysningerServiceTest {
         assertEquals(person.adresse?.husnummer, "E22")
         assertEquals(person.adresse?.husbokstav, "tillegg")
     }
+
+    @Test
+    fun `hentPerson sine barn returnerer rett adresse til fra pdl`() {
+        every { pdlClient.hentSøker(any()) } returns pdlMockFor("pdlPersonMedFlereRelasjoner")
+        val person = personopplysningerService.hentPersoninfo("1")
+        assertEquals(person.barn.toList()[0].adresse?.adressenavn, "1223")
+        assertEquals(person.barn.toList()[0].adresse?.husnummer, "E22")
+        assertEquals(person.barn.toList()[0].adresse?.husbokstav, "tillegg")
+    }
 }

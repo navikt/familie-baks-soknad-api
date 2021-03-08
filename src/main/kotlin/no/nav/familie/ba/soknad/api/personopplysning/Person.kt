@@ -10,6 +10,7 @@ data class Person(
 
 data class Barn(
     val ident: String,
+    val adresse: Adresse?,
     val navn: String,
     val borMedSøker: Boolean,
     val fødselsdato: String

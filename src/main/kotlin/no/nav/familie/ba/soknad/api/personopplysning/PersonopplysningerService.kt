@@ -113,8 +113,11 @@ class PersonopplysningerService(
                 barneAdresse = barneRespons.adresse
             )
             Barn(
-                ident = relasjon.relatertPersonsIdent, navn = barneRespons.navn,
-                fødselsdato = barneRespons.fødselsdato, borMedSøker = borMedSøker
+                ident = relasjon.relatertPersonsIdent,
+                adresse = mapAdresser(barneRespons.adresse),
+                navn = barneRespons.navn,
+                fødselsdato = barneRespons.fødselsdato,
+                borMedSøker = borMedSøker
             )
         }.toSet()
 
