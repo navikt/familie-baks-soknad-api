@@ -24,5 +24,4 @@ class PersonopplysningerController(private val personopplysningerService: Person
             )
         )
     }
-
 }

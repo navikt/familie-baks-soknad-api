@@ -75,16 +75,15 @@ class PersonopplysningerService(
         if (bostedsadresse != null) {
             if (bostedsadresse.vegadresse != null) {
                 return Adresse(
-                        adressenavn = bostedsadresse.vegadresse!!.adressenavn,
-                        postnummer = bostedsadresse.vegadresse!!.postnummer,
-                        husnummer = bostedsadresse.vegadresse!!.husnummer,
-                        husbokstav = bostedsadresse.vegadresse!!.husbokstav
+                    adressenavn = bostedsadresse.vegadresse!!.adressenavn,
+                    postnummer = bostedsadresse.vegadresse!!.postnummer,
+                    husnummer = bostedsadresse.vegadresse!!.husnummer,
+                    husbokstav = bostedsadresse.vegadresse!!.husbokstav
                 )
             }
         }
         return null
     }
-
 
     private fun mapSivilstandType(sivilstandType: List<PdlSivilstand>): SIVILSTANDTYPE? {
         return if (sivilstandType.isEmpty()) {

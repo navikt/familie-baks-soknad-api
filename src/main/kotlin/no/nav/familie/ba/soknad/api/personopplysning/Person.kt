@@ -15,10 +15,12 @@ data class Barn(
     val fødselsdato: String
 )
 
-data class Adresse(val adressenavn: String?,
-                   val postnummer: String?,
-                   val husnummer: String?,
-                   val husbokstav: String?)
+data class Adresse(
+    val adressenavn: String?,
+    val postnummer: String?,
+    val husnummer: String?,
+    val husbokstav: String?
+)
 
 data class Statborgerskap(
     val landkode: String
