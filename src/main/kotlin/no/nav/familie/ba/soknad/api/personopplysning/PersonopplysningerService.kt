@@ -81,10 +81,14 @@ class PersonopplysningerService(
                 bruksenhetnummer = bostedsadresse.vegadresse!!.bruksenhetsnummer
             )
         }
-        if(bostedsadresse?.matrikkeladresse != null){
+        if (bostedsadresse?.matrikkeladresse != null) {
             return Adresse(
-                    adressenavn = bostedsadresse.matrikkeladresse!!.tilleggsnavn
-            )
+                    adressenavn = bostedsadresse.matrikkeladresse!!.tilleggsnavn,
+                    postnummer = bostedsadresse.matrikkeladresse!!.postnummer,
+                    husnummer = null,
+                    bruksenhetnummer = bostedsadresse.matrikkeladresse!!.bruksenhetsnummer,
+                    husbokstav = null
+                    )
         }
         return null
     }
