@@ -51,6 +51,13 @@ class PersonopplysningerServiceTest {
     }
 
     @Test
+    fun `hentPersonInfo skal returnere ident`() {
+        every { pdlClient.hentSøker(any()) } returns pdlMockFor("pdlPersonMedRelasjonerIngenBarn")
+        val person = personopplysningerService.hentPersoninfo("1")
+        assertEquals("1", person.ident)
+    }
+
+    @Test
     fun `hentPersonInfo skal returnere liste med statsborgerskap hvis det er flere fra pdl`() {
         every { pdlClient.hentSøker(any()) } returns pdlMockFor("pdlPersonMedFlereStatsborgerskap")
         val person = personopplysningerService.hentPersoninfo("1")
