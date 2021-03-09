@@ -77,7 +77,13 @@ class PersonopplysningerService(
                 adressenavn = bostedsadresse.vegadresse!!.adressenavn,
                 postnummer = bostedsadresse.vegadresse!!.postnummer,
                 husnummer = bostedsadresse.vegadresse!!.husnummer,
-                husbokstav = bostedsadresse.vegadresse!!.husbokstav
+                husbokstav = bostedsadresse.vegadresse!!.husbokstav,
+                bruksenhetnummer = bostedsadresse.vegadresse!!.bruksenhetsnummer
+            )
+        }
+        if(bostedsadresse?.matrikkeladresse != null){
+            return Adresse(
+                    adressenavn = bostedsadresse.matrikkeladresse!!.tilleggsnavn
             )
         }
         return null
