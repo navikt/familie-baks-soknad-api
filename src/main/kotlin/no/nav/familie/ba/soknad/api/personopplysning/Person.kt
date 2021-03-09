@@ -4,14 +4,23 @@ data class Person(
     val navn: String,
     val barn: Set<Barn>,
     val statsborgerskap: List<Statborgerskap>,
-    val siviltstatus: Sivilstand
+    val siviltstatus: Sivilstand,
+    val adresse: Adresse?,
 )
 
 data class Barn(
     val ident: String,
+    val adresse: Adresse?,
     val navn: String,
     val borMedSøker: Boolean,
     val fødselsdato: String
+)
+
+data class Adresse(
+    val adressenavn: String?,
+    val postnummer: String?,
+    val husnummer: String?,
+    val husbokstav: String?
 )
 
 data class Statborgerskap(
