@@ -58,6 +58,7 @@ class PersonopplysningerService(
 
             response.data.person.let {
                 Person(
+                    ident = personIdent,
                     navn = it.navn.first().fulltNavn(),
                     statsborgerskap = statsborgerskap,
                     barn = barn,
