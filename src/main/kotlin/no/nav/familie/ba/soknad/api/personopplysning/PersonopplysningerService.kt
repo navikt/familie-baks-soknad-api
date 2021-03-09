@@ -74,32 +74,32 @@ class PersonopplysningerService(
     private fun mapAdresser(bostedsadresse: Bostedsadresse?): Adresse? {
         if (bostedsadresse?.vegadresse != null) {
             return Adresse(
-                    adressenavn = bostedsadresse.vegadresse!!.adressenavn,
-                    postnummer = bostedsadresse.vegadresse!!.postnummer,
-                    husnummer = bostedsadresse.vegadresse!!.husnummer,
-                    husbokstav = bostedsadresse.vegadresse!!.husbokstav,
-                    bruksenhetnummer = bostedsadresse.vegadresse!!.bruksenhetsnummer,
-                    bostedskommune = null
+                adressenavn = bostedsadresse.vegadresse!!.adressenavn,
+                postnummer = bostedsadresse.vegadresse!!.postnummer,
+                husnummer = bostedsadresse.vegadresse!!.husnummer,
+                husbokstav = bostedsadresse.vegadresse!!.husbokstav,
+                bruksenhetnummer = bostedsadresse.vegadresse!!.bruksenhetsnummer,
+                bostedskommune = null
             )
         }
         if (bostedsadresse?.matrikkeladresse != null) {
             return Adresse(
-                    adressenavn = bostedsadresse.matrikkeladresse!!.tilleggsnavn,
-                    postnummer = bostedsadresse.matrikkeladresse!!.postnummer,
-                    husnummer = null,
-                    husbokstav = null,
-                    bruksenhetnummer = bostedsadresse.matrikkeladresse!!.bruksenhetsnummer,
-                    bostedskommune = null
+                adressenavn = bostedsadresse.matrikkeladresse!!.tilleggsnavn,
+                postnummer = bostedsadresse.matrikkeladresse!!.postnummer,
+                husnummer = null,
+                husbokstav = null,
+                bruksenhetnummer = bostedsadresse.matrikkeladresse!!.bruksenhetsnummer,
+                bostedskommune = null
             )
         }
-        if(bostedsadresse?.ukjentBosted != null){
+        if (bostedsadresse?.ukjentBosted != null) {
             return Adresse(
-                    adressenavn = null,
-                    postnummer = null,
-                    husnummer = null,
-                    bruksenhetnummer = null,
-                    husbokstav = null,
-                    bostedskommune = bostedsadresse?.ukjentBosted!!.bostedskommune
+                adressenavn = null,
+                postnummer = null,
+                husnummer = null,
+                bruksenhetnummer = null,
+                husbokstav = null,
+                bostedskommune = bostedsadresse?.ukjentBosted!!.bostedskommune
             )
         }
         return null

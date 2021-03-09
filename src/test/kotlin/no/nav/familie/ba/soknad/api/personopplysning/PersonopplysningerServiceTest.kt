@@ -180,7 +180,6 @@ class PersonopplysningerServiceTest {
 
         val person = personopplysningerService.hentPersoninfo("1")
         assertEquals(person.adresse?.bostedskommune, "OSLO")
-
     }
     @Test
     fun `hentPerson sine returnerer rett matrikkeladresse`() {
@@ -190,6 +189,5 @@ class PersonopplysningerServiceTest {
         assertEquals(person.adresse?.adressenavn, "Tilleggsnavn")
         assertEquals(person.adresse?.bruksenhetnummer, "1456")
         assertEquals(person.adresse?.postnummer, "0150")
-
     }
 }
