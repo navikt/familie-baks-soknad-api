@@ -1,0 +1,34 @@
+{
+  "data": {
+    "person": {
+      "navn": [
+        {
+          "fornavn": "ENGASJERT",
+          "etternavn": "FYR"
+        }
+      ],
+      "sivilstand" : [ ],
+      "adressebeskyttelse": [
+        {
+          "gradering": "UGRADERT"
+        }
+      ],
+      "statsborgerskap": [
+        {
+          "land": "NOR"
+        }
+      ],
+      "bostedsadresse": [
+        {
+          "vegadresse": null,
+          "matrikkeladresse": null,
+          "ukjentBosted": {
+            "bostedskommune": "OSLO"
+          }
+
+        }
+      ],
+      "familierelasjoner": []
+    }
+  }
+}

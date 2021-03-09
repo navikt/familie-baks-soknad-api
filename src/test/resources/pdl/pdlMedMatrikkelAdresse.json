@@ -1,0 +1,41 @@
+{
+  "data": {
+    "person": {
+      "navn": [
+        {
+          "fornavn": "ENGASJERT",
+          "etternavn": "FYR"
+        }
+      ],
+      "sivilstand" : [
+        {
+          "type": "GIFT"
+        }
+      ],
+      "adressebeskyttelse": [
+        {
+          "gradering": "UGRADERT"
+        }
+      ],
+      "statsborgerskap": [
+        {
+          "land": "NOR"
+        }
+      ],
+      "bostedsadresse": [
+        {
+          "vegadresse": null,
+          "matrikkeladresse": {
+            "matrikkelId": 3,
+            "bruksenhetsnummer": "1456",
+            "kommunenummer": "12",
+            "tilleggsnavn": "Tilleggsnavn",
+            "postnummer": "0150"
+          },
+          "ukjentBosted": null
+        }
+      ],
+      "familierelasjoner": []
+    }
+  }
+}
