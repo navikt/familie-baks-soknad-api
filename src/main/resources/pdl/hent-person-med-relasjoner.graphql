@@ -5,30 +5,6 @@ query ($ident: ID!) {
             mellomnavn
             etternavn
         }
-        deltBosted {
-            startdatoForKontrakt
-            sluttdatoForKontrakt
-             vegadresse {
-                matrikkelId
-                husnummer
-                husbokstav
-                bruksenhetsnummer
-                adressenavn
-                kommunenummer
-                tilleggsnavn
-                postnummer
-            }
-            matrikkeladresse {
-                matrikkelId
-                bruksenhetsnummer
-                tilleggsnavn
-                postnummer
-                kommunenummer
-            }
-            ukjentBosted {
-                bostedskommune
-            }
-        }
         familierelasjoner {
             relatertPersonsIdent
             relatertPersonsRolle

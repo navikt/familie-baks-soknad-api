@@ -14,6 +14,30 @@ query ($ident: ID!) {
         statsborgerskap {
             land
         }
+         deltBosted {
+                    startdatoForKontrakt
+                    sluttdatoForKontrakt
+                     vegadresse {
+                        matrikkelId
+                        husnummer
+                        husbokstav
+                        bruksenhetsnummer
+                        adressenavn
+                        kommunenummer
+                        tilleggsnavn
+                        postnummer
+                    }
+                    matrikkeladresse {
+                        matrikkelId
+                        bruksenhetsnummer
+                        tilleggsnavn
+                        postnummer
+                        kommunenummer
+                    }
+                    ukjentBosted {
+                        bostedskommune
+                    }
+         }
         bostedsadresse {
             vegadresse {
                 matrikkelId
