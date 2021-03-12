@@ -182,13 +182,6 @@ class PersonopplysningerServiceTest {
     }
 
     @Test
-    fun `hentPerson sine returnerer rett ukjent bostedskommune`() {
-        every { pdlClient.hentSøker(any()) } returns pdlMockFor("pdlMedUkjentBosted")
-
-        val person = personopplysningerService.hentPersoninfo("1")
-        assertEquals(person.adresse?.bostedskommune, "OSLO")
-    }
-    @Test
     fun `hentPerson sine returnerer rett matrikkeladresse`() {
         every { pdlClient.hentSøker(any()) } returns pdlMockFor("pdlMedMatrikkelAdresse")
 
