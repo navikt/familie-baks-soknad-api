@@ -21,7 +21,9 @@ data class Adresse(
     val adressenavn: String?,
     val postnummer: String?,
     val husnummer: String?,
-    val husbokstav: String?
+    val husbokstav: String?,
+    val bruksenhetnummer: String?,
+    val bostedskommune: String?
 )
 
 data class Statborgerskap(

@@ -36,9 +36,6 @@ query ($ident: ID!) {
                 postnummer
                 kommunenummer
             }
-            ukjentBosted {
-                bostedskommune
-            }
         }
     }
 }

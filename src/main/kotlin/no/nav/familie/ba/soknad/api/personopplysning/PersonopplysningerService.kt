@@ -78,7 +78,19 @@ class PersonopplysningerService(
                 adressenavn = bostedsadresse.vegadresse!!.adressenavn,
                 postnummer = bostedsadresse.vegadresse!!.postnummer,
                 husnummer = bostedsadresse.vegadresse!!.husnummer,
-                husbokstav = bostedsadresse.vegadresse!!.husbokstav
+                husbokstav = bostedsadresse.vegadresse!!.husbokstav,
+                bruksenhetnummer = bostedsadresse.vegadresse!!.bruksenhetsnummer,
+                bostedskommune = null
+            )
+        }
+        if (bostedsadresse?.matrikkeladresse != null) {
+            return Adresse(
+                adressenavn = bostedsadresse.matrikkeladresse!!.tilleggsnavn,
+                postnummer = bostedsadresse.matrikkeladresse!!.postnummer,
+                husnummer = null,
+                husbokstav = null,
+                bruksenhetnummer = bostedsadresse.matrikkeladresse!!.bruksenhetsnummer,
+                bostedskommune = null
             )
         }
         return null
