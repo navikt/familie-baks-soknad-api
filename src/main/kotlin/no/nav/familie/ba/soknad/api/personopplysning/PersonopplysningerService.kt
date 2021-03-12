@@ -5,8 +5,8 @@ import org.springframework.stereotype.Service
 
 @Service
 class PersonopplysningerService(
-        private val pdlClient: PdlClient,
-        private val barnePdlClient: BarnePdlClient
+    private val pdlClient: PdlClient,
+    private val barnePdlClient: BarnePdlClient
 ) {
 
     private fun assertUgradertAdresse(adresseBeskyttelse: List<Adressebeskyttelse>) {
@@ -22,13 +22,13 @@ class PersonopplysningerService(
             assertUgradertAdresse(adresseBeskyttelse)
 
             HentBarnResponse(
-                    navn = response.data.person.navn.first().fulltNavn(),
-                    fødselsdato = response.data.person.foedsel.first().foedselsdato!!,
-                    adresse = response.data.person.bostedsadresse.firstOrNull()
+                navn = response.data.person.navn.first().fulltNavn(),
+                fødselsdato = response.data.person.foedsel.first().foedselsdato!!,
+                adresse = response.data.person.bostedsadresse.firstOrNull()
             )
         }.fold(
-                onSuccess = { it },
-                onFailure = { throw it }
+            onSuccess = { it },
+            onFailure = { throw it }
         )
     }
 
@@ -58,39 +58,39 @@ class PersonopplysningerService(
 
             response.data.person.let {
                 Person(
-                        ident = personIdent,
-                        navn = it.navn.first().fulltNavn(),
-                        statsborgerskap = statsborgerskap,
-                        barn = barn,
-                        siviltstatus = Sivilstand(sivilstandType),
-                        adresse = adresse
+                    ident = personIdent,
+                    navn = it.navn.first().fulltNavn(),
+                    statsborgerskap = statsborgerskap,
+                    barn = barn,
+                    siviltstatus = Sivilstand(sivilstandType),
+                    adresse = adresse
                 )
             }
         }.fold(
-                onSuccess = { it },
-                onFailure = { throw it }
+            onSuccess = { it },
+            onFailure = { throw it }
         )
     }
 
     private fun mapAdresser(bostedsadresse: Bostedsadresse?): Adresse? {
         if (bostedsadresse?.vegadresse != null) {
             return Adresse(
-                    adressenavn = bostedsadresse.vegadresse!!.adressenavn,
-                    postnummer = bostedsadresse.vegadresse!!.postnummer,
-                    husnummer = bostedsadresse.vegadresse!!.husnummer,
-                    husbokstav = bostedsadresse.vegadresse!!.husbokstav,
-                    bruksenhetnummer = bostedsadresse.vegadresse!!.bruksenhetsnummer,
-                    bostedskommune = null
+                adressenavn = bostedsadresse.vegadresse!!.adressenavn,
+                postnummer = bostedsadresse.vegadresse!!.postnummer,
+                husnummer = bostedsadresse.vegadresse!!.husnummer,
+                husbokstav = bostedsadresse.vegadresse!!.husbokstav,
+                bruksenhetnummer = bostedsadresse.vegadresse!!.bruksenhetsnummer,
+                bostedskommune = null
             )
         }
         if (bostedsadresse?.matrikkeladresse != null) {
             return Adresse(
-                    adressenavn = bostedsadresse.matrikkeladresse!!.tilleggsnavn,
-                    postnummer = bostedsadresse.matrikkeladresse!!.postnummer,
-                    husnummer = null,
-                    husbokstav = null,
-                    bruksenhetnummer = bostedsadresse.matrikkeladresse!!.bruksenhetsnummer,
-                    bostedskommune = null
+                adressenavn = bostedsadresse.matrikkeladresse!!.tilleggsnavn,
+                postnummer = bostedsadresse.matrikkeladresse!!.postnummer,
+                husnummer = null,
+                husbokstav = null,
+                bruksenhetnummer = bostedsadresse.matrikkeladresse!!.bruksenhetsnummer,
+                bostedskommune = null
             )
         }
         return null
@@ -117,27 +117,27 @@ class PersonopplysningerService(
     }
 
     private fun mapBarn(person: PdlSøkerData) =
-            person.familierelasjoner.filter { relasjon ->
-                relasjon.relatertPersonsRolle == FAMILIERELASJONSROLLE.BARN
-            }.map { relasjon ->
-                val barneRespons = hentBarn(relasjon.relatertPersonsIdent)
-                val borMedSøker = borMedSøker(
-                        søkerAdresse = person.bostedsadresse.firstOrNull(),
-                        barneAdresse = barneRespons.adresse
-                )
-                Barn(
-                        ident = relasjon.relatertPersonsIdent,
-                        adresse = mapAdresser(barneRespons.adresse),
-                        navn = barneRespons.navn,
-                        fødselsdato = barneRespons.fødselsdato,
-                        borMedSøker = borMedSøker
-                )
-            }.toSet()
+        person.familierelasjoner.filter { relasjon ->
+            relasjon.relatertPersonsRolle == FAMILIERELASJONSROLLE.BARN
+        }.map { relasjon ->
+            val barneRespons = hentBarn(relasjon.relatertPersonsIdent)
+            val borMedSøker = borMedSøker(
+                søkerAdresse = person.bostedsadresse.firstOrNull(),
+                barneAdresse = barneRespons.adresse
+            )
+            Barn(
+                ident = relasjon.relatertPersonsIdent,
+                adresse = mapAdresser(barneRespons.adresse),
+                navn = barneRespons.navn,
+                fødselsdato = barneRespons.fødselsdato,
+                borMedSøker = borMedSøker
+            )
+        }.toSet()
 
     private fun mapStatsborgerskap(statsborgerskap: List<PdlStatsborgerskap>): List<Statborgerskap> {
         return statsborgerskap.map {
             Statborgerskap(
-                    landkode = it.land
+                landkode = it.land
             )
         }
     }
