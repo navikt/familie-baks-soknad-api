@@ -93,16 +93,6 @@ class PersonopplysningerService(
                 bostedskommune = null
             )
         }
-        if (bostedsadresse?.ukjentBosted != null) {
-            return Adresse(
-                adressenavn = null,
-                postnummer = null,
-                husnummer = null,
-                bruksenhetnummer = null,
-                husbokstav = null,
-                bostedskommune = bostedsadresse?.ukjentBosted!!.bostedskommune
-            )
-        }
         return null
     }
 
