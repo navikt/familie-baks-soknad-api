@@ -2,8 +2,6 @@ package no.nav.familie.ba.soknad.api.services.pdl.mapper
 
 import no.nav.familie.ba.soknad.api.personopplysning.Barn
 import no.nav.familie.ba.soknad.api.personopplysning.PdlHentPersonResponse
-import no.nav.familie.ba.soknad.api.personopplysning.Person
-import no.nav.familie.ba.soknad.api.personopplysning.Sivilstand
 import no.nav.familie.kontrakter.felles.personopplysning.Bostedsadresse
 
 object PdlBarnMapper {
@@ -28,19 +26,19 @@ object PdlBarnMapper {
 
             barnRespons.let {
                 Barn(
-                        ident = fnr,
-                        adresse = PdlMapper.mapAdresser(barnRespons.data.person?.bostedsadresse?.firstOrNull()),
-                        navn = barnRespons.data.person?.navn?.firstOrNull()!!.fulltNavn(),
-                        fødselsdato = barnRespons.data.person.foedsel.firstOrNull()?.foedselsdato,
-                        borMedSøker = borBarnMedSoeker(
-                                soekerAdresse = soekerAdresse,
-                                barneAdresse = barnRespons.data.person.bostedsadresse.firstOrNull()
-                        )
+                    ident = fnr,
+                    adresse = PdlMapper.mapAdresser(barnRespons.data.person?.bostedsadresse?.firstOrNull()),
+                    navn = barnRespons.data.person?.navn?.firstOrNull()!!.fulltNavn(),
+                    fødselsdato = barnRespons.data.person.foedsel.firstOrNull()?.foedselsdato,
+                    borMedSøker = borBarnMedSoeker(
+                        soekerAdresse = soekerAdresse,
+                        barneAdresse = barnRespons.data.person.bostedsadresse.firstOrNull()
+                    )
                 )
             }
         }.fold(
-                onSuccess = { it },
-                onFailure = { throw it }
+            onSuccess = { it },
+            onFailure = { throw it }
         )
     }
 }

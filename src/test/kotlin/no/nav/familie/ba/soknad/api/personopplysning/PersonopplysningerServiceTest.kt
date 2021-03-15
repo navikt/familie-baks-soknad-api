@@ -32,7 +32,6 @@ class PersonopplysningerServiceTest {
         pdlClient = mockk()
         barnePdlClient = mockk()
         personopplysningerService = PersonopplysningerService(pdlClient)
-
     }
 
     @Test
@@ -166,7 +165,7 @@ class PersonopplysningerServiceTest {
     }
 
     private fun pdlMockFor(filNavn: String) = mapper.readValue(
-            File(getFile("pdl/$filNavn.json")), PdlHentPersonResponse::class.java
+        File(getFile("pdl/$filNavn.json")), PdlHentPersonResponse::class.java
     )
 
     private fun getFile(name: String): String {

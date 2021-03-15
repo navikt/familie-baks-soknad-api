@@ -33,14 +33,14 @@ class PdlClient(
         val query = this::class.java.getResource("/pdl/hent-person-med-relasjoner.graphql").readText().graphqlCompatible()
 
         val pdlPersonRequest = PdlPersonRequest(
-                variables = PdlPersonRequestVariables(personIdent),
-                query = query
+            variables = PdlPersonRequestVariables(personIdent),
+            query = query
         )
 
         val response = postForEntity<PdlHentPersonResponse>(
-                uri = pdlUri,
-                payload = pdlPersonRequest,
-                httpHeaders = httpHeaders()
+            uri = pdlUri,
+            payload = pdlPersonRequest,
+            httpHeaders = httpHeaders()
         )
 
         if (!response.harFeil()) {

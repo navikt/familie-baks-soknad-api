@@ -2,7 +2,6 @@ package no.nav.familie.ba.soknad.api.services.pdl
 
 import no.nav.familie.ba.soknad.api.clients.pdl.PdlClient
 import no.nav.familie.ba.soknad.api.personopplysning.Barn
-import no.nav.familie.ba.soknad.api.personopplysning.PdlHentPersonResponse
 import no.nav.familie.ba.soknad.api.personopplysning.Person
 import no.nav.familie.ba.soknad.api.services.pdl.mapper.PdlBarnMapper
 import no.nav.familie.ba.soknad.api.services.pdl.mapper.PdlMapper
@@ -32,6 +31,4 @@ class PersonopplysningerService(
             }
         }.toSet()
     }
-
-
 }
