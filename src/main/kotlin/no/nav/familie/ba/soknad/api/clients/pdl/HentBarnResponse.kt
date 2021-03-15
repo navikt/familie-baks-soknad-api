@@ -1,4 +1,4 @@
-package no.nav.familie.ba.soknad.api.personopplysning
+package no.nav.familie.ba.soknad.api.clients.pdl
 
 import no.nav.familie.kontrakter.felles.personopplysning.Bostedsadresse
 

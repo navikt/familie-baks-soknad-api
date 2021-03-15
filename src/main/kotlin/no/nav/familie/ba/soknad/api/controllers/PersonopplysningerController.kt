@@ -1,5 +1,7 @@
-package no.nav.familie.ba.soknad.api.personopplysning
+package no.nav.familie.ba.soknad.api.controllers
 
+import no.nav.familie.ba.soknad.api.personopplysning.Person
+import no.nav.familie.ba.soknad.api.services.pdl.PersonopplysningerService
 import no.nav.familie.ba.soknad.api.util.TokenBehandler
 import no.nav.familie.kontrakter.felles.Ressurs
 import no.nav.security.token.support.core.api.ProtectedWithClaims
@@ -15,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController
 class PersonopplysningerController(private val personopplysningerService: PersonopplysningerService) {
 
     @PostMapping("/personopplysning")
-    fun personInfo(): ResponseEntity<Ressurs<Person>> {
+    fun personInfo(): ResponseEntity<Ressurs<Person?>> {
         return ResponseEntity.ok(
             Ressurs.success(
                 personopplysningerService.hentPersoninfo(

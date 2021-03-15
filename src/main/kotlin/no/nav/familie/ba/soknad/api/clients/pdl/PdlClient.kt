@@ -1,6 +1,9 @@
-package no.nav.familie.ba.soknad.api.personopplysning
+package no.nav.familie.ba.soknad.api.clients.pdl
 
 import com.fasterxml.jackson.databind.JsonNode
+import no.nav.familie.ba.soknad.api.personopplysning.PdlHentSøkerResponse
+import no.nav.familie.ba.soknad.api.personopplysning.PdlPersonRequest
+import no.nav.familie.ba.soknad.api.personopplysning.PdlPersonRequestVariables
 import java.net.URI
 import no.nav.familie.http.client.AbstractRestClient
 import no.nav.familie.http.client.Pingable

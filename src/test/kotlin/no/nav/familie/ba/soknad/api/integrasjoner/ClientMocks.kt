@@ -4,12 +4,12 @@ import io.mockk.Runs
 import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
+import no.nav.familie.ba.soknad.api.clients.pdl.BarnePdlClient
+import no.nav.familie.ba.soknad.api.clients.pdl.PdlClient
 import java.time.LocalDateTime
-import no.nav.familie.ba.soknad.api.personopplysning.BarnePdlClient
 import no.nav.familie.ba.soknad.api.personopplysning.FAMILIERELASJONSROLLE
 import no.nav.familie.ba.soknad.api.personopplysning.PdlBarn
 import no.nav.familie.ba.soknad.api.personopplysning.PdlBarnData
-import no.nav.familie.ba.soknad.api.personopplysning.PdlClient
 import no.nav.familie.ba.soknad.api.personopplysning.PdlFamilierelasjon
 import no.nav.familie.ba.soknad.api.personopplysning.PdlFødselsDato
 import no.nav.familie.ba.soknad.api.personopplysning.PdlHentBarnResponse
@@ -20,7 +20,7 @@ import no.nav.familie.ba.soknad.api.personopplysning.PdlStatsborgerskap
 import no.nav.familie.ba.soknad.api.personopplysning.PdlSøker
 import no.nav.familie.ba.soknad.api.personopplysning.PdlSøkerData
 import no.nav.familie.ba.soknad.api.personopplysning.SIVILSTANDSTYPE
-import no.nav.familie.ba.soknad.api.søknad.Kvittering
+import no.nav.familie.ba.soknad.api.domene.Kvittering
 import no.nav.familie.http.sts.StsRestClient
 import no.nav.familie.kontrakter.felles.Ressurs
 import no.nav.familie.kontrakter.felles.personopplysning.Bostedsadresse

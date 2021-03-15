@@ -1,7 +1,8 @@
-package no.nav.familie.ba.soknad.api.søknad
+package no.nav.familie.ba.soknad.api.controllers
 
 import main.kotlin.no.nav.familie.ba.søknad.Søknad
 import main.kotlin.no.nav.familie.ba.søknad.Søknadsfelt
+import no.nav.familie.ba.soknad.api.domene.Kvittering
 import no.nav.familie.ba.soknad.api.integrasjoner.MottakClient
 import no.nav.familie.ba.soknad.api.util.TokenBehandler
 import no.nav.familie.kontrakter.felles.Ressurs

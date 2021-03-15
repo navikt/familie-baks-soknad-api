@@ -1,4 +1,4 @@
-package no.nav.familie.ba.soknad.api.personopplysning
+package no.nav.familie.ba.soknad.api.common
 
 import java.lang.Exception
 

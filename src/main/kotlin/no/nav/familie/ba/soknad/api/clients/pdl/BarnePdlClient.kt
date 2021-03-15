@@ -1,5 +1,8 @@
-package no.nav.familie.ba.soknad.api.personopplysning
+package no.nav.familie.ba.soknad.api.clients.pdl
 
+import no.nav.familie.ba.soknad.api.personopplysning.PdlHentBarnResponse
+import no.nav.familie.ba.soknad.api.personopplysning.PdlPersonRequest
+import no.nav.familie.ba.soknad.api.personopplysning.PdlPersonRequestVariables
 import java.net.URI
 import no.nav.familie.http.client.AbstractRestClient
 import no.nav.familie.http.sts.StsRestClient
@@ -21,8 +24,15 @@ class BarnePdlClient(
 
     fun hentBarn(personIdent: String): PdlHentBarnResponse {
         val query = this::class.java.getResource("/pdl/hent-barn.graphql").readText().graphqlCompatible()
-        val pdlPersonRequest = PdlPersonRequest(variables = PdlPersonRequestVariables(personIdent), query = query)
-        val response = postForEntity<PdlHentBarnResponse>(uri = pdlUri, payload = pdlPersonRequest, httpHeaders = httpHeaders())
+        val pdlPersonRequest = PdlPersonRequest(
+                variables = PdlPersonRequestVariables(personIdent),
+                query = query
+        )
+        val response = postForEntity<PdlHentBarnResponse>(
+                uri = pdlUri,
+                payload = pdlPersonRequest,
+                httpHeaders = httpHeaders()
+        )
         if (!response.harFeil()) {
             return response
         } else {
