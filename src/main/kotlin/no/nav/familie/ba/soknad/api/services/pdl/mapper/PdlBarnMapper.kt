@@ -24,18 +24,16 @@ object PdlBarnMapper {
             val adresseBeskyttelse = barnRespons.data.person?.adressebeskyttelse
             PdlMapper.assertUgradertAdresse(adresseBeskyttelse)
 
-            barnRespons.let {
-                Barn(
-                    ident = fnr,
-                    adresse = PdlMapper.mapAdresser(barnRespons.data.person?.bostedsadresse?.firstOrNull()),
-                    navn = barnRespons.data.person?.navn?.firstOrNull()!!.fulltNavn(),
-                    fødselsdato = barnRespons.data.person.foedsel.firstOrNull()?.foedselsdato,
-                    borMedSøker = borBarnMedSoeker(
-                        soekerAdresse = soekerAdresse,
-                        barneAdresse = barnRespons.data.person.bostedsadresse.firstOrNull()
-                    )
+            Barn(
+                ident = fnr,
+                adresse = PdlMapper.mapAdresser(barnRespons.data.person?.bostedsadresse?.firstOrNull()),
+                navn = barnRespons.data.person?.navn?.firstOrNull()!!.fulltNavn(),
+                fødselsdato = barnRespons.data.person.foedsel.firstOrNull()?.foedselsdato,
+                borMedSøker = borBarnMedSoeker(
+                    soekerAdresse = soekerAdresse,
+                    barneAdresse = barnRespons.data.person.bostedsadresse.firstOrNull()
                 )
-            }
+            )
         }.fold(
             onSuccess = { it },
             onFailure = { throw it }

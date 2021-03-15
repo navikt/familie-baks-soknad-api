@@ -29,16 +29,14 @@ object PdlMapper {
             val adresseBeskyttelse = person.adressebeskyttelse
             assertUgradertAdresse(adresseBeskyttelse)
 
-            person.let {
-                Person(
+            Person(
                     ident = personIdent,
-                    navn = it.navn.first().fulltNavn(),
+                    navn = person.navn.first().fulltNavn(),
                     statsborgerskap = statsborgerskap,
                     siviltstatus = Sivilstand(sivilstandType),
                     adresse = adresse,
                     barn = barn
-                )
-            }
+            )
         }.fold(
             onSuccess = { it },
             onFailure = { throw it }
