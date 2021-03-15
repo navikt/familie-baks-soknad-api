@@ -65,14 +65,26 @@ class ClientMocks {
                     ),
                     bostedsadresse = listOf(
                         Bostedsadresse(
-                                vegadresse = Vegadresse(21, "2", "A", "H0101", "Solveien", "", "", "0101"),
-                                matrikkeladresse = null
+                            vegadresse = Vegadresse(
+                                21,
+                                "2",
+                                "A",
+                                "H0101",
+                                "Solveien",
+                                "",
+                                "",
+                                "0101"
+                            ),
+                            matrikkeladresse = null
                         )
                     ),
                     adressebeskyttelse = emptyList(),
                     statsborgerskap = listOf(
                         PdlStatsborgerskap(
                             land = "NOR"
+                        ),
+                        PdlStatsborgerskap(
+                            land = "AFG"
                         )
                     ),
                     sivilstand = listOf(

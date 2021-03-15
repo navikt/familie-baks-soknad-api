@@ -62,7 +62,7 @@ class PersonopplysningerService(
                     navn = it.navn.first().fulltNavn(),
                     statsborgerskap = statsborgerskap,
                     barn = barn,
-                    siviltstatus = Sivilstand(sivilstandType),
+                    sivilstand = Sivilstand(sivilstandType),
                     adresse = adresse
                 )
             }
