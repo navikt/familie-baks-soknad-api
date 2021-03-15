@@ -30,12 +30,12 @@ object PdlMapper {
             assertUgradertAdresse(adresseBeskyttelse)
 
             Person(
-                    ident = personIdent,
-                    navn = person.navn.first().fulltNavn(),
-                    statsborgerskap = statsborgerskap,
-                    siviltstatus = Sivilstand(sivilstandType),
-                    adresse = adresse,
-                    barn = barn
+                ident = personIdent,
+                navn = person.navn.first().fulltNavn(),
+                statsborgerskap = statsborgerskap,
+                siviltstatus = Sivilstand(sivilstandType),
+                adresse = adresse,
+                barn = barn
             )
         }.fold(
             onSuccess = { it },
