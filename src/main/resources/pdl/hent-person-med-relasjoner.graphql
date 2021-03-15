@@ -5,6 +5,9 @@ query ($ident: ID!) {
             mellomnavn
             etternavn
         }
+        foedsel {
+            foedselsdato
+        }
         familierelasjoner {
             relatertPersonsIdent
             relatertPersonsRolle

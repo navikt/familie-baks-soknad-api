@@ -9,8 +9,8 @@ private fun errorMessages(errors: List<PdlError>?): String {
     return errors?.joinToString { it -> it.message } ?: ""
 }
 
-data class PdlHentSøkerResponse(
-    val data: PdlSøker,
+data class PdlHentPersonResponse(
+    val data: PdlPerson,
     val errors: List<PdlError>?
 ) {
 
@@ -19,36 +19,17 @@ data class PdlHentSøkerResponse(
     fun errorMessages(): String = errorMessages(errors)
 }
 
-data class PdlHentBarnResponse(
-    val data: PdlBarn,
-    val errors: List<PdlError>?
-) {
-
-    fun harFeil(): Boolean = harFeil(errors)
-
-    fun errorMessages(): String = errorMessages(errors)
-}
-
-data class PdlSøker(val person: PdlSøkerData?)
-data class PdlBarn(val person: PdlBarnData?)
+data class PdlPerson(val person: PdlPersonData?)
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-data class PdlSøkerData(
-    val navn: List<PdlNavn>,
-    val adressebeskyttelse: List<Adressebeskyttelse>,
-    val familierelasjoner: List<PdlFamilierelasjon> = emptyList(),
-    val bostedsadresse: List<Bostedsadresse?>,
-    val statsborgerskap: List<PdlStatsborgerskap>,
-    val sivilstand: List<PdlSivilstand>
-)
-
-@JsonIgnoreProperties(ignoreUnknown = true)
-data class PdlBarnData(
-    val navn: List<PdlNavn>,
-    val foedsel: List<PdlFødselsDato>,
-    val adressebeskyttelse: List<Adressebeskyttelse>,
-    val bostedsadresse: List<Bostedsadresse?>,
-    val statsborgerskap: List<PdlStatsborgerskap>
+data class PdlPersonData(
+        val navn: List<PdlNavn>,
+        val adressebeskyttelse: List<Adressebeskyttelse>,
+        val familierelasjoner: List<PdlFamilierelasjon> = emptyList(),
+        val foedsel: List<PdlFødselsDato>,
+        val bostedsadresse: List<Bostedsadresse?>,
+        val statsborgerskap: List<PdlStatsborgerskap>,
+        val sivilstand: List<PdlSivilstand>?
 )
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -98,7 +79,6 @@ enum class SIVILSTANDSTYPE {
     SKILT_PARTNER,
     GJENLEVENDE_PARTNER,
     UGIFT,
-    PARTNER,
     UOPPGITT
 }
 

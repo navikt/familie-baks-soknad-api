@@ -12,6 +12,11 @@
           "type": "GIFT"
         }
       ],
+      "foedsel": [
+        {
+          "foedselsdato": "1920-02-10"
+        }
+      ],
       "adressebeskyttelse": [
         {
           "gradering": "UGRADERT"

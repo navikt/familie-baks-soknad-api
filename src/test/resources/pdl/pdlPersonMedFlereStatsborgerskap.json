@@ -13,6 +13,11 @@
           "gradering": "UGRADERT"
         }
       ],
+      "foedsel": [
+        {
+          "foedselsdato": "1920-02-10"
+        }
+      ],
       "statsborgerskap": [
         {
           "land": "NOR"

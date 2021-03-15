@@ -4,23 +4,19 @@ import io.mockk.Runs
 import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
-import no.nav.familie.ba.soknad.api.clients.pdl.BarnePdlClient
-import no.nav.familie.ba.soknad.api.clients.pdl.PdlClient
 import java.time.LocalDateTime
+import no.nav.familie.ba.soknad.api.clients.pdl.PdlClient
+import no.nav.familie.ba.soknad.api.domene.Kvittering
 import no.nav.familie.ba.soknad.api.personopplysning.FAMILIERELASJONSROLLE
-import no.nav.familie.ba.soknad.api.personopplysning.PdlBarn
-import no.nav.familie.ba.soknad.api.personopplysning.PdlBarnData
 import no.nav.familie.ba.soknad.api.personopplysning.PdlFamilierelasjon
 import no.nav.familie.ba.soknad.api.personopplysning.PdlFødselsDato
-import no.nav.familie.ba.soknad.api.personopplysning.PdlHentBarnResponse
-import no.nav.familie.ba.soknad.api.personopplysning.PdlHentSøkerResponse
+import no.nav.familie.ba.soknad.api.personopplysning.PdlHentPersonResponse
 import no.nav.familie.ba.soknad.api.personopplysning.PdlNavn
+import no.nav.familie.ba.soknad.api.personopplysning.PdlPerson
+import no.nav.familie.ba.soknad.api.personopplysning.PdlPersonData
 import no.nav.familie.ba.soknad.api.personopplysning.PdlSivilstand
 import no.nav.familie.ba.soknad.api.personopplysning.PdlStatsborgerskap
-import no.nav.familie.ba.soknad.api.personopplysning.PdlSøker
-import no.nav.familie.ba.soknad.api.personopplysning.PdlSøkerData
 import no.nav.familie.ba.soknad.api.personopplysning.SIVILSTANDSTYPE
-import no.nav.familie.ba.soknad.api.domene.Kvittering
 import no.nav.familie.http.sts.StsRestClient
 import no.nav.familie.kontrakter.felles.Ressurs
 import no.nav.familie.kontrakter.felles.personopplysning.Bostedsadresse
@@ -49,9 +45,9 @@ class ClientMocks {
         val mockPdlClient = mockk<PdlClient>()
 
         every { mockPdlClient.ping() } just Runs
-        every { mockPdlClient.hentSøker(any()) } returns PdlHentSøkerResponse(
-            data = PdlSøker(
-                person = PdlSøkerData(
+        every { mockPdlClient.hentPerson(any()) } returns PdlHentPersonResponse(
+                data = PdlPerson(
+                person = PdlPersonData(
                     navn = listOf(
                         PdlNavn(
                             fornavn = "Voksen",
@@ -79,10 +75,15 @@ class ClientMocks {
                         PdlSivilstand(
                             type = SIVILSTANDSTYPE.GIFT
                         )
+                    ),
+                    foedsel = listOf(
+                            PdlFødselsDato(
+                                    "2020-02-25"
+                            )
                     )
                 )
             ),
-            errors = null
+                errors = null
         )
         return mockPdlClient
     }
@@ -90,23 +91,24 @@ class ClientMocks {
     @Bean
     @Primary
     @Profile("mock-pdl")
-    fun mockEkspAuthPdlClient(): BarnePdlClient {
-        val mockPdlClient = mockk<BarnePdlClient>()
+    fun mockEkspAuthPdlClient(): PdlClient{
+        val mockPdlClient = mockk<PdlClient>()
 
-        every { mockPdlClient.hentBarn(any()) } returns PdlHentBarnResponse(
-            data = PdlBarn(
-                person = PdlBarnData(
-                    navn = listOf(PdlNavn("Barn", etternavn = "Barnessen III")),
-                    foedsel = listOf(PdlFødselsDato("1990-01-01")),
-                    bostedsadresse = listOf(
+        every { mockPdlClient.hentPerson(any()) } returns PdlHentPersonResponse(
+            data = PdlPerson(
+                person = PdlPersonData(
+                        navn = listOf(PdlNavn("Barn", etternavn = "Barnessen III")),
+                        foedsel = listOf(PdlFødselsDato("1990-01-01")),
+                        bostedsadresse = listOf(
                         Bostedsadresse(
                             vegadresse = null,
                             ukjentBosted = null,
                             matrikkeladresse = null
                         )
                     ),
-                    adressebeskyttelse = emptyList(),
-                    statsborgerskap = emptyList()
+                        adressebeskyttelse = emptyList(),
+                        statsborgerskap = emptyList(),
+                        sivilstand = null
                 )
             ),
             errors = null
