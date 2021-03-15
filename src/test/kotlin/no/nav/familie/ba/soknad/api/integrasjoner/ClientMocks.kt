@@ -24,6 +24,7 @@ import no.nav.familie.ba.soknad.api.søknad.Kvittering
 import no.nav.familie.http.sts.StsRestClient
 import no.nav.familie.kontrakter.felles.Ressurs
 import no.nav.familie.kontrakter.felles.personopplysning.Bostedsadresse
+import no.nav.familie.kontrakter.felles.personopplysning.Vegadresse
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Primary
 import org.springframework.context.annotation.Profile
@@ -64,9 +65,8 @@ class ClientMocks {
                     ),
                     bostedsadresse = listOf(
                         Bostedsadresse(
-                            vegadresse = null,
-                            ukjentBosted = null,
-                            matrikkeladresse = null
+                                vegadresse = Vegadresse(21, "2", "A", "H0101", "Solveien", "", "", "0101"),
+                                matrikkeladresse = null
                         )
                     ),
                     adressebeskyttelse = emptyList(),
