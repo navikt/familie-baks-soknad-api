@@ -5,7 +5,7 @@ data class Person(
     val navn: String,
     val barn: Set<Barn>,
     val statsborgerskap: List<Statborgerskap>,
-    val siviltstatus: Sivilstand,
+    val sivilstand: Sivilstand,
     val adresse: Adresse?,
 )
 
