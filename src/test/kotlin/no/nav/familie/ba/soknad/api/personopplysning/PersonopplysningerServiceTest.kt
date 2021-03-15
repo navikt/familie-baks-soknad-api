@@ -5,6 +5,7 @@ import io.mockk.mockk
 import java.io.File
 import kotlin.test.assertFailsWith
 import no.nav.familie.ba.soknad.api.clients.pdl.PdlClient
+import no.nav.familie.ba.soknad.api.clients.pdl.PdlHentPersonResponse
 import no.nav.familie.ba.soknad.api.common.GradertAdresseException
 import no.nav.familie.ba.soknad.api.services.pdl.PersonopplysningerService
 import no.nav.familie.ba.soknad.api.services.pdl.mapper.PdlBarnMapper

@@ -2,6 +2,11 @@ package no.nav.familie.ba.soknad.api.personopplysning
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
+import no.nav.familie.ba.soknad.api.clients.pdl.ADRESSEBESKYTTELSEGRADERING
+import no.nav.familie.ba.soknad.api.clients.pdl.Adressebeskyttelse
+import no.nav.familie.ba.soknad.api.clients.pdl.PdlHentPersonResponse
+import no.nav.familie.ba.soknad.api.clients.pdl.PdlNavn
+import no.nav.familie.ba.soknad.api.clients.pdl.PdlStatsborgerskap
 import java.io.File
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue

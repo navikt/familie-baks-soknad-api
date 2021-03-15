@@ -7,16 +7,16 @@ import io.mockk.mockk
 import java.time.LocalDateTime
 import no.nav.familie.ba.soknad.api.clients.pdl.PdlClient
 import no.nav.familie.ba.soknad.api.domene.Kvittering
-import no.nav.familie.ba.soknad.api.personopplysning.FAMILIERELASJONSROLLE
-import no.nav.familie.ba.soknad.api.personopplysning.PdlFamilierelasjon
-import no.nav.familie.ba.soknad.api.personopplysning.PdlFødselsDato
-import no.nav.familie.ba.soknad.api.personopplysning.PdlHentPersonResponse
-import no.nav.familie.ba.soknad.api.personopplysning.PdlNavn
-import no.nav.familie.ba.soknad.api.personopplysning.PdlPerson
-import no.nav.familie.ba.soknad.api.personopplysning.PdlPersonData
-import no.nav.familie.ba.soknad.api.personopplysning.PdlSivilstand
-import no.nav.familie.ba.soknad.api.personopplysning.PdlStatsborgerskap
-import no.nav.familie.ba.soknad.api.personopplysning.SIVILSTANDSTYPE
+import no.nav.familie.ba.soknad.api.clients.pdl.FAMILIERELASJONSROLLE
+import no.nav.familie.ba.soknad.api.clients.pdl.PdlFamilierelasjon
+import no.nav.familie.ba.soknad.api.clients.pdl.PdlFødselsDato
+import no.nav.familie.ba.soknad.api.clients.pdl.PdlHentPersonResponse
+import no.nav.familie.ba.soknad.api.clients.pdl.PdlNavn
+import no.nav.familie.ba.soknad.api.clients.pdl.PdlPerson
+import no.nav.familie.ba.soknad.api.clients.pdl.PdlPersonData
+import no.nav.familie.ba.soknad.api.clients.pdl.PdlSivilstand
+import no.nav.familie.ba.soknad.api.clients.pdl.PdlStatsborgerskap
+import no.nav.familie.ba.soknad.api.clients.pdl.SIVILSTANDSTYPE
 import no.nav.familie.http.sts.StsRestClient
 import no.nav.familie.kontrakter.felles.Ressurs
 import no.nav.familie.kontrakter.felles.personopplysning.Bostedsadresse
@@ -46,7 +46,7 @@ class ClientMocks {
 
         every { mockPdlClient.ping() } just Runs
         every { mockPdlClient.hentPerson(any()) } returns PdlHentPersonResponse(
-            data = PdlPerson(
+                data = PdlPerson(
                 person = PdlPersonData(
                     navn = listOf(
                         PdlNavn(
@@ -55,8 +55,8 @@ class ClientMocks {
                         )
                     ),
                     familierelasjoner = listOf(
-                        PdlFamilierelasjon("12345678987", FAMILIERELASJONSROLLE.BARN),
-                        PdlFamilierelasjon("12345678989", FAMILIERELASJONSROLLE.MOR)
+                            PdlFamilierelasjon("12345678987", FAMILIERELASJONSROLLE.BARN),
+                            PdlFamilierelasjon("12345678989", FAMILIERELASJONSROLLE.MOR)
                     ),
                     bostedsadresse = listOf(
                         Bostedsadresse(
@@ -83,7 +83,7 @@ class ClientMocks {
                     )
                 )
             ),
-            errors = null
+                errors = null
         )
         return mockPdlClient
     }
@@ -95,23 +95,23 @@ class ClientMocks {
         val mockPdlClient = mockk<PdlClient>()
 
         every { mockPdlClient.hentPerson(any()) } returns PdlHentPersonResponse(
-            data = PdlPerson(
+                data = PdlPerson(
                 person = PdlPersonData(
-                    navn = listOf(PdlNavn("Barn", etternavn = "Barnessen III")),
-                    foedsel = listOf(PdlFødselsDato("1990-01-01")),
-                    bostedsadresse = listOf(
+                        navn = listOf(PdlNavn("Barn", etternavn = "Barnessen III")),
+                        foedsel = listOf(PdlFødselsDato("1990-01-01")),
+                        bostedsadresse = listOf(
                         Bostedsadresse(
                             vegadresse = null,
                             ukjentBosted = null,
                             matrikkeladresse = null
                         )
                     ),
-                    adressebeskyttelse = emptyList(),
-                    statsborgerskap = emptyList(),
-                    sivilstand = null
+                        adressebeskyttelse = emptyList(),
+                        statsborgerskap = emptyList(),
+                        sivilstand = null
                 )
             ),
-            errors = null
+                errors = null
         )
         return mockPdlClient
     }

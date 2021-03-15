@@ -1,4 +1,4 @@
-package no.nav.familie.ba.soknad.api.personopplysning
+package no.nav.familie.ba.soknad.api.clients.pdl
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import no.nav.familie.kontrakter.felles.personopplysning.Bostedsadresse
@@ -10,8 +10,8 @@ private fun errorMessages(errors: List<PdlError>?): String {
 }
 
 data class PdlHentPersonResponse(
-    val data: PdlPerson,
-    val errors: List<PdlError>?
+        val data: PdlPerson,
+        val errors: List<PdlError>?
 ) {
 
     fun harFeil(): Boolean = harFeil(errors)
@@ -23,13 +23,13 @@ data class PdlPerson(val person: PdlPersonData?)
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class PdlPersonData(
-    val navn: List<PdlNavn>,
-    val adressebeskyttelse: List<Adressebeskyttelse>,
-    val familierelasjoner: List<PdlFamilierelasjon> = emptyList(),
-    val foedsel: List<PdlFødselsDato>,
-    val bostedsadresse: List<Bostedsadresse?>,
-    val statsborgerskap: List<PdlStatsborgerskap>,
-    val sivilstand: List<PdlSivilstand>?
+        val navn: List<PdlNavn>,
+        val adressebeskyttelse: List<Adressebeskyttelse>,
+        val familierelasjoner: List<PdlFamilierelasjon> = emptyList(),
+        val foedsel: List<PdlFødselsDato>,
+        val bostedsadresse: List<Bostedsadresse?>,
+        val statsborgerskap: List<PdlStatsborgerskap>,
+        val sivilstand: List<PdlSivilstand>?
 )
 
 @JsonIgnoreProperties(ignoreUnknown = true)

@@ -1,7 +1,7 @@
 package no.nav.familie.ba.soknad.api.services.pdl.mapper
 
 import no.nav.familie.ba.soknad.api.personopplysning.Barn
-import no.nav.familie.ba.soknad.api.personopplysning.PdlHentPersonResponse
+import no.nav.familie.ba.soknad.api.clients.pdl.PdlHentPersonResponse
 import no.nav.familie.kontrakter.felles.personopplysning.Bostedsadresse
 
 object PdlBarnMapper {
