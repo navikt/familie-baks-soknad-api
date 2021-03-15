@@ -1,17 +1,17 @@
 package no.nav.familie.ba.soknad.api.services.pdl.mapper
 
-import no.nav.familie.ba.soknad.api.common.GradertAdresseException
 import no.nav.familie.ba.soknad.api.clients.pdl.ADRESSEBESKYTTELSEGRADERING
-import no.nav.familie.ba.soknad.api.personopplysning.Adresse
 import no.nav.familie.ba.soknad.api.clients.pdl.Adressebeskyttelse
-import no.nav.familie.ba.soknad.api.personopplysning.Barn
 import no.nav.familie.ba.soknad.api.clients.pdl.FAMILIERELASJONSROLLE
 import no.nav.familie.ba.soknad.api.clients.pdl.PdlFamilierelasjon
 import no.nav.familie.ba.soknad.api.clients.pdl.PdlPersonData
 import no.nav.familie.ba.soknad.api.clients.pdl.PdlSivilstand
 import no.nav.familie.ba.soknad.api.clients.pdl.PdlStatsborgerskap
-import no.nav.familie.ba.soknad.api.personopplysning.Person
 import no.nav.familie.ba.soknad.api.clients.pdl.SIVILSTANDSTYPE
+import no.nav.familie.ba.soknad.api.common.GradertAdresseException
+import no.nav.familie.ba.soknad.api.personopplysning.Adresse
+import no.nav.familie.ba.soknad.api.personopplysning.Barn
+import no.nav.familie.ba.soknad.api.personopplysning.Person
 import no.nav.familie.ba.soknad.api.personopplysning.SIVILSTANDTYPE
 import no.nav.familie.ba.soknad.api.personopplysning.Sivilstand
 import no.nav.familie.ba.soknad.api.personopplysning.Statborgerskap
