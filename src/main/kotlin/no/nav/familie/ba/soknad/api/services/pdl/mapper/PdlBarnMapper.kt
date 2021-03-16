@@ -12,6 +12,7 @@ object PdlBarnMapper {
         }
 
         return if (soekerAdresse == null || barneAdresse == null) false
+
         else {
             val soekerAdresser = adresseListe(soekerAdresse)
             val barneAdresser = adresseListe(barneAdresse)
