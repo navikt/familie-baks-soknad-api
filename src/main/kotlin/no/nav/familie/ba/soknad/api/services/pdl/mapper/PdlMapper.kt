@@ -9,12 +9,12 @@ import no.nav.familie.ba.soknad.api.clients.pdl.PdlSivilstand
 import no.nav.familie.ba.soknad.api.clients.pdl.PdlStatsborgerskap
 import no.nav.familie.ba.soknad.api.clients.pdl.SIVILSTANDSTYPE
 import no.nav.familie.ba.soknad.api.common.GradertAdresseException
-import no.nav.familie.ba.soknad.api.personopplysning.Adresse
-import no.nav.familie.ba.soknad.api.personopplysning.Barn
-import no.nav.familie.ba.soknad.api.personopplysning.Person
-import no.nav.familie.ba.soknad.api.personopplysning.SIVILSTANDTYPE
-import no.nav.familie.ba.soknad.api.personopplysning.Sivilstand
-import no.nav.familie.ba.soknad.api.personopplysning.Statborgerskap
+import no.nav.familie.ba.soknad.api.domene.Adresse
+import no.nav.familie.ba.soknad.api.domene.Barn
+import no.nav.familie.ba.soknad.api.domene.Person
+import no.nav.familie.ba.soknad.api.domene.SIVILSTANDTYPE
+import no.nav.familie.ba.soknad.api.domene.Sivilstand
+import no.nav.familie.ba.soknad.api.domene.Statborgerskap
 import no.nav.familie.kontrakter.felles.personopplysning.Bostedsadresse
 
 object PdlMapper {
@@ -30,12 +30,12 @@ object PdlMapper {
             assertUgradertAdresse(adresseBeskyttelse)
 
             Person(
-                ident = personIdent,
-                navn = person.navn.first().fulltNavn(),
-                statsborgerskap = statsborgerskap,
-                siviltstatus = Sivilstand(sivilstandType),
-                adresse = adresse,
-                barn = barn
+                    ident = personIdent,
+                    navn = person.navn.first().fulltNavn(),
+                    statsborgerskap = statsborgerskap,
+                    sivilstand= Sivilstand(sivilstandType),
+                    adresse = adresse,
+                    barn = barn
             )
         }.fold(
             onSuccess = { it },

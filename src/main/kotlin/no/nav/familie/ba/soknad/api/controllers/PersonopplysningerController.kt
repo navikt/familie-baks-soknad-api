@@ -1,6 +1,6 @@
 package no.nav.familie.ba.soknad.api.controllers
 
-import no.nav.familie.ba.soknad.api.personopplysning.Person
+import no.nav.familie.ba.soknad.api.domene.Person
 import no.nav.familie.ba.soknad.api.services.pdl.PersonopplysningerService
 import no.nav.familie.ba.soknad.api.util.TokenBehandler
 import no.nav.familie.kontrakter.felles.Ressurs
