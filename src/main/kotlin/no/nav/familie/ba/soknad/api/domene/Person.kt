@@ -1,20 +1,20 @@
 package no.nav.familie.ba.soknad.api.domene
 
 data class Person(
-        val ident: String,
-        val navn: String,
-        val barn: Set<Barn>,
-        val statsborgerskap: List<Statborgerskap>,
-        val sivilstand: Sivilstand,
-        val adresse: Adresse?,
+    val ident: String,
+    val navn: String,
+    val barn: Set<Barn>,
+    val statsborgerskap: List<Statborgerskap>,
+    val sivilstand: Sivilstand,
+    val adresse: Adresse?,
 )
 
 data class Barn(
-        val ident: String,
-        val adresse: Adresse?,
-        val navn: String,
-        val borMedSøker: Boolean,
-        val fødselsdato: String?
+    val ident: String,
+    val adresse: Adresse?,
+    val navn: String,
+    val borMedSøker: Boolean,
+    val fødselsdato: String?
 )
 
 data class Adresse(
