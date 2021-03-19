@@ -102,7 +102,7 @@ object PdlMapper {
     }
 
     fun assertUgradertAdresse(adresseBeskyttelse: List<Adressebeskyttelse>?) {
-        if (adresseBeskyttelse != null) if (adresseBeskyttelse.any { it.gradering != ADRESSEBESKYTTELSEGRADERING.UGRADERT }) {
+        if (adresseBeskyttelse != null && adresseBeskyttelse.any { it.gradering != ADRESSEBESKYTTELSEGRADERING.UGRADERT }) {
             throw GradertAdresseException()
         }
     }
