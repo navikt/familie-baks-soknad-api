@@ -6,7 +6,9 @@ import no.nav.familie.ba.soknad.api.domene.Person
 import no.nav.familie.ba.soknad.api.services.pdl.mapper.PdlBarnMapper
 import no.nav.familie.ba.soknad.api.services.pdl.mapper.PdlMapper
 import no.nav.familie.kontrakter.felles.personopplysning.Bostedsadresse
+import org.springframework.stereotype.Service
 
+@Service
 class PersonopplysningerService(
     private val pdlClient: PdlClient
 ) {
