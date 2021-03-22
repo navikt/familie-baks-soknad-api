@@ -1,6 +1,6 @@
 package no.nav.familie.ba.soknad.api.config
 
-import no.nav.familie.ba.soknad.api.personopplysning.GradertAdresseException
+import no.nav.familie.ba.soknad.api.common.GradertAdresseException
 import no.nav.familie.kontrakter.felles.Ressurs
 import no.nav.security.token.support.spring.validation.interceptor.JwtTokenUnauthorizedException
 import org.slf4j.LoggerFactory

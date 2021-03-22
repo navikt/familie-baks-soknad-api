@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode
 import java.lang.IllegalStateException
 import java.net.URI
 import main.kotlin.no.nav.familie.ba.søknad.Søknad
-import no.nav.familie.ba.soknad.api.søknad.Kvittering
+import no.nav.familie.ba.soknad.api.domene.Kvittering
 import no.nav.familie.http.client.AbstractPingableRestClient
 import no.nav.familie.http.client.MultipartBuilder
 import no.nav.familie.kontrakter.felles.Ressurs

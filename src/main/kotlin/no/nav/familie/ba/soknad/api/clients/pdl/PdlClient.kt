@@ -1,4 +1,4 @@
-package no.nav.familie.ba.soknad.api.personopplysning
+package no.nav.familie.ba.soknad.api.clients.pdl
 
 import com.fasterxml.jackson.databind.JsonNode
 import java.net.URI
@@ -26,10 +26,20 @@ class PdlClient(
 
     private val pdlUri: URI = URI.create("$pdlBaseUrl/graphql")
 
-    fun hentSøker(personIdent: String): PdlHentSøkerResponse {
+    fun hentPerson(personIdent: String): PdlHentPersonResponse {
         val query = this::class.java.getResource("/pdl/hent-person-med-relasjoner.graphql").readText().graphqlCompatible()
-        val pdlPersonRequest = PdlPersonRequest(variables = PdlPersonRequestVariables(personIdent), query = query)
-        val response = postForEntity<PdlHentSøkerResponse>(uri = pdlUri, payload = pdlPersonRequest, httpHeaders = httpHeaders())
+
+        val pdlPersonRequest = PdlPersonRequest(
+            variables = PdlPersonRequestVariables(personIdent),
+            query = query
+        )
+
+        val response = postForEntity<PdlHentPersonResponse>(
+            uri = pdlUri,
+            payload = pdlPersonRequest,
+            httpHeaders = httpHeaders()
+        )
+
         if (!response.harFeil()) {
             return response
         } else {

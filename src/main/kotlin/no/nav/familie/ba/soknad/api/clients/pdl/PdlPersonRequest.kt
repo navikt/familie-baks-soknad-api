@@ -1,4 +1,4 @@
-package no.nav.familie.ba.soknad.api.personopplysning
+package no.nav.familie.ba.soknad.api.clients.pdl
 
 data class PdlPersonRequest(val variables: PdlPersonRequestVariables, val query: String)
 

@@ -1,4 +1,4 @@
-package no.nav.familie.ba.soknad.api.søknad
+package no.nav.familie.ba.soknad.api.domene
 
 import java.time.LocalDateTime
 

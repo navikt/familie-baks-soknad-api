@@ -1,4 +1,4 @@
-package no.nav.familie.ba.soknad.api.personopplysning
+package no.nav.familie.ba.soknad.api.domene
 
 data class Person(
     val ident: String,
@@ -14,7 +14,7 @@ data class Barn(
     val adresse: Adresse?,
     val navn: String,
     val borMedSøker: Boolean,
-    val fødselsdato: String
+    val fødselsdato: String?
 )
 
 data class Adresse(
@@ -44,6 +44,5 @@ enum class SIVILSTANDTYPE {
     SKILT_PARTNER,
     GJENLEVENDE_PARTNER,
     UGIFT,
-    UOPPGITT,
-    PARTNER
+    UOPPGITT
 }

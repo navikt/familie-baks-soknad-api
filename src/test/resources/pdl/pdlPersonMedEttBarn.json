@@ -12,6 +12,11 @@
           "land": "NOR"
         }
       ],
+      "foedsel": [
+        {
+          "foedselsdato": "1920-02-10"
+        }
+      ],
       "sivilstand" : [ ],
       "adressebeskyttelse": [],
       "bostedsadresse": [
