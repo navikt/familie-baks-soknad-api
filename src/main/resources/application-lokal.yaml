@@ -1,5 +1,6 @@
 FAMILIE_BA_MOTTAK_URL: http://localhost:8090
 PDL_API_URL: http://localhost:1337/rest/api/pdl
+KODEVERK_URL: #Mockes lokalt
 
 PDL_API_APIKEY: test-apikey
 MOTTAK_APIKEY: test-apikey
