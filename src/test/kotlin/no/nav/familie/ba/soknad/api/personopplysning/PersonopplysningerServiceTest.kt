@@ -4,11 +4,14 @@ import io.mockk.every
 import io.mockk.mockk
 import java.io.File
 import kotlin.test.assertFailsWith
+import no.nav.familie.ba.soknad.api.clients.kodeverk.KodeverkClient
 import no.nav.familie.ba.soknad.api.clients.pdl.PdlClient
 import no.nav.familie.ba.soknad.api.clients.pdl.PdlHentPersonResponse
 import no.nav.familie.ba.soknad.api.common.GradertAdresseException
+import no.nav.familie.ba.soknad.api.services.kodeverk.CachedKodeverkService
 import no.nav.familie.ba.soknad.api.services.pdl.PersonopplysningerService
 import no.nav.familie.ba.soknad.api.services.pdl.mapper.PdlBarnMapper
+import no.nav.familie.kontrakter.felles.kodeverk.KodeverkDto
 import no.nav.familie.kontrakter.felles.objectMapper
 import no.nav.familie.kontrakter.felles.personopplysning.Bostedsadresse
 import no.nav.familie.kontrakter.felles.personopplysning.Matrikkeladresse
@@ -25,6 +28,8 @@ class PersonopplysningerServiceTest {
     private lateinit var personopplysningerService: PersonopplysningerService
     private lateinit var pdlClient: PdlClient
     private lateinit var barnePdlClient: PdlClient
+    private lateinit var kodeverkClient: KodeverkClient
+    private lateinit var kodeverkService: CachedKodeverkService
     private val mapper = objectMapper
     private val gyldigBostedAdresse = Bostedsadresse(null, Matrikkeladresse(3, "E67", "tillegg", "1456", "1223"), null)
 
@@ -32,15 +37,18 @@ class PersonopplysningerServiceTest {
     fun setUp() {
         pdlClient = mockk()
         barnePdlClient = mockk()
-        personopplysningerService = PersonopplysningerService(pdlClient)
+        kodeverkClient = mockk()
+        kodeverkService = mockk()
+        personopplysningerService = PersonopplysningerService(pdlClient, kodeverkClient)
     }
 
     @Test
     fun `hentPersonInfo skal kun returnere familierelasjoner av type BARN`() {
         every { pdlClient.hentPerson(any()) } returns pdlMockFor("pdlPersonMedFlereRelasjoner")
+        every { kodeverkClient.hentPostnummer() } returns kodeverkMockFor("kodeverkPostnummerRespons")
         val person = personopplysningerService.hentPersoninfo("1")
 
-        assertEquals(1, person!!.barn.size)
+        assertEquals(1, person.barn.size)
         assertEquals("ENGASJERT FYR", person.barn.first().navn)
         assertEquals("12345678910", person.barn.first().ident)
     }
@@ -48,20 +56,23 @@ class PersonopplysningerServiceTest {
     @Test
     fun `hentPersonInfo skal returnere tom liste hvis det er familierelasjoner, men ingen barn`() {
         every { pdlClient.hentPerson(any()) } returns pdlMockFor("pdlPersonMedRelasjonerIngenBarn")
+        every { kodeverkClient.hentPostnummer() } returns kodeverkMockFor("kodeverkPostnummerRespons")
         val person = personopplysningerService.hentPersoninfo("1")
-        assertTrue(person!!.barn.isEmpty())
+        assertTrue(person.barn.isEmpty())
     }
 
     @Test
     fun `hentPersonInfo skal returnere ident`() {
         every { pdlClient.hentPerson(any()) } returns pdlMockFor("pdlPersonMedRelasjonerIngenBarn")
+        every { kodeverkClient.hentPostnummer() } returns kodeverkMockFor("kodeverkPostnummerRespons")
         val person = personopplysningerService.hentPersoninfo("1")
-        assertEquals("1", person!!.ident)
+        assertEquals("1", person.ident)
     }
 
     @Test
     fun `hentPersonInfo skal returnere liste med statsborgerskap hvis det er flere fra pdl`() {
         every { pdlClient.hentPerson(any()) } returns pdlMockFor("pdlPersonMedFlereStatsborgerskap")
+        every { kodeverkClient.hentPostnummer() } returns kodeverkMockFor("kodeverkPostnummerRespons")
         val person = personopplysningerService.hentPersoninfo("1")
         assertEquals(person!!.statsborgerskap.size, 2)
         assertEquals(person.statsborgerskap[0].landkode, "NOR")
@@ -71,6 +82,7 @@ class PersonopplysningerServiceTest {
     @Test
     fun `henPersonInfo skal returnere tom liste hvis ingen familierelasjoner`() {
         every { pdlClient.hentPerson(any()) } returns pdlMockFor("pdlPersonUtenRelasjoner")
+        every { kodeverkClient.hentPostnummer() } returns kodeverkMockFor("kodeverkPostnummerRespons")
         val person = personopplysningerService.hentPersoninfo("1")
         assertTrue(person!!.barn.isEmpty())
     }
@@ -158,6 +170,7 @@ class PersonopplysningerServiceTest {
 
     @Test
     fun `hentPerson skal feile dersom person har gradert adresse`() {
+        every { kodeverkClient.hentPostnummer() } returns kodeverkMockFor("kodeverkPostnummerRespons")
         every { pdlClient.hentPerson(any()) } returns pdlMockFor("pdlPersonUtenRelasjonerGradertAdresse")
 
         assertFailsWith<GradertAdresseException> {
@@ -169,6 +182,10 @@ class PersonopplysningerServiceTest {
         File(getFile("pdl/$filNavn.json")), PdlHentPersonResponse::class.java
     )
 
+    private fun kodeverkMockFor(filNavn: String) = mapper.readValue(
+        File(getFile("kodeverk/$filNavn.json")), KodeverkDto::class.java
+    )
+
     private fun getFile(name: String): String {
         return javaClass.classLoader?.getResource(name)?.file ?: error("Testkonfigurasjon feil")
     }
@@ -176,28 +193,36 @@ class PersonopplysningerServiceTest {
     @Test
     fun `hentPerson returnerer rett adresse fra pdl`() {
         every { pdlClient.hentPerson(any()) } returns pdlMockFor("pdlPersonMedFlereRelasjoner")
+        every { kodeverkClient.hentPostnummer() } returns kodeverkMockFor("kodeverkPostnummerRespons")
+
         val person = personopplysningerService.hentPersoninfo("1")
-        assertEquals(person?.adresse?.adressenavn, "1223")
-        assertEquals(person?.adresse?.husnummer, "E22")
-        assertEquals(person?.adresse?.husbokstav, "tillegg")
+        assertEquals(person.adresse?.adressenavn, "1223")
+        assertEquals(person.adresse?.husnummer, "E22")
+        assertEquals(person.adresse?.husbokstav, "tillegg")
+        assertEquals(person.adresse?.postnummer, "4971")
+        assertEquals(person.adresse?.poststed, "SUNDEBRU")
     }
 
     @Test
     fun `hentPerson sine barn returnerer rett adresse til fra pdl`() {
         every { pdlClient.hentPerson(any()) } returns pdlMockFor("pdlPersonMedFlereRelasjoner")
+        every { kodeverkClient.hentPostnummer() } returns kodeverkMockFor("kodeverkPostnummerRespons")
         val person = personopplysningerService.hentPersoninfo("1")
-        assertEquals(person!!.barn.toList()[0].adresse?.adressenavn, "1223")
+        assertEquals(person.barn.toList()[0].adresse?.adressenavn, "1223")
         assertEquals(person.barn.toList()[0].adresse?.husnummer, "E22")
         assertEquals(person.barn.toList()[0].adresse?.husbokstav, "tillegg")
+        assertEquals(person.adresse?.postnummer, "4971")
+        assertEquals(person.adresse?.poststed, "SUNDEBRU")
     }
 
     @Test
     fun `hentPerson sine returnerer rett matrikkeladresse`() {
         every { pdlClient.hentPerson(any()) } returns pdlMockFor("pdlMedMatrikkelAdresse")
-
+        every { kodeverkClient.hentPostnummer() } returns kodeverkMockFor("kodeverkPostnummerRespons")
         val person = personopplysningerService.hentPersoninfo("1")
-        assertEquals(person!!.adresse?.adressenavn, "Tilleggsnavn")
+        assertEquals(person.adresse?.adressenavn, "Tilleggsnavn")
         assertEquals(person.adresse?.bruksenhetnummer, "1456")
-        assertEquals(person.adresse?.postnummer, "0150")
+        assertEquals(person.adresse?.postnummer, "4971")
+        assertEquals(person.adresse?.poststed, "SUNDEBRU")
     }
 }

@@ -1,4 +1,4 @@
-package no.nav.familie.ba.soknad.api.services.pdl.kodeverk
+package no.nav.familie.ba.soknad.api.services.kodeverk
 
 import no.nav.familie.ba.soknad.api.clients.kodeverk.KodeverkClient
 import org.springframework.cache.annotation.Cacheable

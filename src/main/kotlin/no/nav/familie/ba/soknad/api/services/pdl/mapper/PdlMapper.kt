@@ -15,15 +15,21 @@ import no.nav.familie.ba.soknad.api.domene.Person
 import no.nav.familie.ba.soknad.api.domene.SIVILSTANDTYPE
 import no.nav.familie.ba.soknad.api.domene.Sivilstand
 import no.nav.familie.ba.soknad.api.domene.Statborgerskap
+import no.nav.familie.ba.soknad.api.services.kodeverk.CachedKodeverkService
 import no.nav.familie.kontrakter.felles.personopplysning.Bostedsadresse
 
 object PdlMapper {
 
-    fun mapTilPersonInfo(person: PdlPersonData, personIdent: String, barn: Set<Barn>): Person {
+    fun mapTilPersonInfo(
+        person: PdlPersonData,
+        personIdent: String,
+        barn: Set<Barn>,
+        kodeverkService: CachedKodeverkService
+    ): Person {
 
         val statsborgerskap: List<Statborgerskap> = mapStatsborgerskap(person.statsborgerskap)
         val sivilstandType = mapSivilstandType(person.sivilstand!!)
-        val adresse = mapAdresser(person.bostedsadresse.firstOrNull())
+        val adresse = mapAdresser(person.bostedsadresse.firstOrNull(), kodeverkService)
 
         return Result.runCatching {
             val adresseBeskyttelse = person.adressebeskyttelse
@@ -58,7 +64,7 @@ object PdlMapper {
         }
     }
 
-    fun mapAdresser(bostedsadresse: Bostedsadresse?): Adresse? {
+    fun mapAdresser(bostedsadresse: Bostedsadresse?, kodeverkService: CachedKodeverkService): Adresse? {
         if (bostedsadresse?.vegadresse != null) {
             return Adresse(
                 adressenavn = bostedsadresse.vegadresse!!.adressenavn,
@@ -66,7 +72,8 @@ object PdlMapper {
                 husnummer = bostedsadresse.vegadresse!!.husnummer,
                 husbokstav = bostedsadresse.vegadresse!!.husbokstav,
                 bruksenhetnummer = bostedsadresse.vegadresse!!.bruksenhetsnummer,
-                bostedskommune = null
+                bostedskommune = null,
+                poststed = kodeverkService.hentPostnummer().getOrDefault(bostedsadresse.vegadresse!!.postnummer, "")
             )
         }
         if (bostedsadresse?.matrikkeladresse != null) {
@@ -76,7 +83,8 @@ object PdlMapper {
                 husnummer = null,
                 husbokstav = null,
                 bruksenhetnummer = bostedsadresse.matrikkeladresse!!.bruksenhetsnummer,
-                bostedskommune = null
+                bostedskommune = null,
+                poststed = kodeverkService.hentPostnummer().getOrDefault(bostedsadresse.matrikkeladresse!!.postnummer, "")
             )
         }
         return null

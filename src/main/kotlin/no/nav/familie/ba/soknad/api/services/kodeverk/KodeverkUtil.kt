@@ -1,4 +1,4 @@
-package no.nav.familie.ba.soknad.api.services.pdl.kodeverk
+package no.nav.familie.ba.soknad.api.services.kodeverk
 
 import no.nav.familie.kontrakter.felles.kodeverk.KodeverkDto
 import no.nav.familie.kontrakter.felles.kodeverk.KodeverkSpråk

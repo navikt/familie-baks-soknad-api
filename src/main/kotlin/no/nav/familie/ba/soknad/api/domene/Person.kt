@@ -23,7 +23,8 @@ data class Adresse(
     val husnummer: String?,
     val husbokstav: String?,
     val bruksenhetnummer: String?,
-    val bostedskommune: String?
+    val bostedskommune: String?,
+    val poststed: String?
 )
 
 data class Statborgerskap(

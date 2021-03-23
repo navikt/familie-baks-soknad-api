@@ -1,21 +1,20 @@
-package no.nav.familie.integrasjoner.kodeverk
+package no.nav.familie.ba.soknad.api.kodeverk
 
 import com.fasterxml.jackson.module.kotlin.readValue
 import io.mockk.every
 import io.mockk.mockk
-import no.nav.familie.integrasjoner.client.rest.KodeverkClient
+import java.io.File
+import java.io.IOException
+import no.nav.familie.ba.soknad.api.clients.kodeverk.KodeverkClient
 import no.nav.familie.kontrakter.felles.kodeverk.KodeverkDto
 import no.nav.familie.kontrakter.felles.objectMapper
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Primary
 import org.springframework.context.annotation.Profile
-import java.io.File
-import java.io.IOException
 
 @Configuration
 class KodeverkTestConfig {
-
 
     @Bean
     @Profile("mock-kodeverk")
@@ -37,6 +36,7 @@ class KodeverkTestConfig {
     }
 
     private fun getFile(): String {
-        return javaClass.classLoader?.getResource("kodeverk/postnummerrespons.json")?.file ?: error("Testkonfigurasjon feil")
+        return javaClass.classLoader?.getResource("kodeverk/kodeverkPostnummerRespons.json")?.file
+            ?: error("Testkonfigurasjon feil")
     }
 }
