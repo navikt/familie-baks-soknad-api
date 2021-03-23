@@ -1,4 +1,4 @@
-package no.nav.familie.integrasjoner.kodeverk
+package kodeverk
 
 import no.nav.familie.kontrakter.felles.kodeverk.KodeverkDto
 import no.nav.familie.kontrakter.felles.kodeverk.KodeverkSpråk
