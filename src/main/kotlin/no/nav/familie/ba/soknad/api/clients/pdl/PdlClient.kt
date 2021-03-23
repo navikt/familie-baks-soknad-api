@@ -21,8 +21,7 @@ class PdlClient(
     @Value("\${PDL_API_URL}") private val pdlBaseUrl: String,
     @Qualifier("restKlientMedApiKey") private val restOperations: RestOperations,
     private val stsRestClient: StsRestClient
-) :
-    AbstractRestClient(restOperations, "integrasjon"), Pingable {
+) : AbstractRestClient(restOperations, "integrasjon"), Pingable {
 
     private val pdlUri: URI = URI.create("$pdlBaseUrl/graphql")
 

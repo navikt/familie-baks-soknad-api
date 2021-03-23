@@ -15,7 +15,7 @@ class KodeverkClient(
     @Value("\${KODEVERK_URL}") private val kodeverkBaseUrl: String,
     @Qualifier("restKlientMedApiKey") private val restOperations: RestOperations
 ) :
-    AbstractPingableRestClient(restOperations, "kodeverk"), Pingable {
+    AbstractPingableRestClient(restOperations, "integrasjon"), Pingable {
 
     private val kodeverkUri: URI = URI.create(kodeverkBaseUrl)
 
@@ -29,6 +29,7 @@ class KodeverkClient(
     }
 
     companion object {
+
         private const val PATH_PING = "internal/isAlive"
         private const val QUERY = "ekskluderUgyldige=true&spraak=nb"
         private const val QUERY_MED_HISTORIKK = "ekskluderUgyldige=false&spraak=nb"
