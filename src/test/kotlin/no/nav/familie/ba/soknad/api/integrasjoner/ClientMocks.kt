@@ -102,7 +102,7 @@ class ClientMocks {
 
     @Bean
     @Primary
-    @Profile("mock-pdl")
+    @Profile("mock-barn-pdl")
     fun mockEkspAuthPdlClient(): PdlClient {
         val mockPdlClient = mockk<PdlClient>()
 
