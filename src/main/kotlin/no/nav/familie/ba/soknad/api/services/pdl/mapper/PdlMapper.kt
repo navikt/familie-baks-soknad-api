@@ -30,28 +30,28 @@ object PdlMapper {
             assertUgradertAdresse(adresseBeskyttelse)
 
             Person(
-                    ident = personIdent,
-                    navn = person.navn.first().fulltNavn(),
-                    statsborgerskap = statsborgerskap,
-                    sivilstand = Sivilstand(sivilstandType),
-                    adresse = adresse,
-                    barn = barn
+                ident = personIdent,
+                navn = person.navn.first().fulltNavn(),
+                statsborgerskap = statsborgerskap,
+                sivilstand = Sivilstand(sivilstandType),
+                adresse = adresse,
+                barn = barn
             )
         }.fold(
-                onSuccess = { it },
-                onFailure = { throw it }
+            onSuccess = { it },
+            onFailure = { throw it }
         )
     }
 
     fun mapFnrBarn(familierelasjoner: List<PdlFamilierelasjon>): List<String> {
         return familierelasjoner.filter { relasjon -> relasjon.relatertPersonsRolle == FAMILIERELASJONSROLLE.BARN }
-                .map { it.relatertPersonsIdent }
+            .map { it.relatertPersonsIdent }
     }
 
     private fun mapStatsborgerskap(statsborgerskap: List<PdlStatsborgerskap>): List<Statborgerskap> {
         return statsborgerskap.map {
             Statborgerskap(
-                    landkode = it.land
+                landkode = it.land
             )
         }.distinctBy {
             it.landkode
@@ -61,22 +61,22 @@ object PdlMapper {
     fun mapAdresser(bostedsadresse: Bostedsadresse?): Adresse? {
         if (bostedsadresse?.vegadresse != null) {
             return Adresse(
-                    adressenavn = bostedsadresse.vegadresse!!.adressenavn,
-                    postnummer = bostedsadresse.vegadresse!!.postnummer,
-                    husnummer = bostedsadresse.vegadresse!!.husnummer,
-                    husbokstav = bostedsadresse.vegadresse!!.husbokstav,
-                    bruksenhetnummer = bostedsadresse.vegadresse!!.bruksenhetsnummer,
-                    bostedskommune = null
+                adressenavn = bostedsadresse.vegadresse!!.adressenavn,
+                postnummer = bostedsadresse.vegadresse!!.postnummer,
+                husnummer = bostedsadresse.vegadresse!!.husnummer,
+                husbokstav = bostedsadresse.vegadresse!!.husbokstav,
+                bruksenhetnummer = bostedsadresse.vegadresse!!.bruksenhetsnummer,
+                bostedskommune = null
             )
         }
         if (bostedsadresse?.matrikkeladresse != null) {
             return Adresse(
-                    adressenavn = bostedsadresse.matrikkeladresse!!.tilleggsnavn,
-                    postnummer = bostedsadresse.matrikkeladresse!!.postnummer,
-                    husnummer = null,
-                    husbokstav = null,
-                    bruksenhetnummer = bostedsadresse.matrikkeladresse!!.bruksenhetsnummer,
-                    bostedskommune = null
+                adressenavn = bostedsadresse.matrikkeladresse!!.tilleggsnavn,
+                postnummer = bostedsadresse.matrikkeladresse!!.postnummer,
+                husnummer = null,
+                husbokstav = null,
+                bruksenhetnummer = bostedsadresse.matrikkeladresse!!.bruksenhetsnummer,
+                bostedskommune = null
             )
         }
         return null
@@ -103,7 +103,8 @@ object PdlMapper {
 
     fun assertUgradertAdresse(adresseBeskyttelse: List<Adressebeskyttelse>?) {
         if (adresseBeskyttelse != null &&
-            adresseBeskyttelse.any { it.gradering != ADRESSEBESKYTTELSEGRADERING.UGRADERT }) {
+            adresseBeskyttelse.any { it.gradering != ADRESSEBESKYTTELSEGRADERING.UGRADERT }
+        ) {
             throw GradertAdresseException()
         }
     }
