@@ -26,7 +26,7 @@ class PdlClient(
 
     private val pdlUri: URI = URI.create("$pdlBaseUrl/graphql")
 
-    fun hentPerson(personIdent: String): PdlHentPersonResponse {
+    fun hentPerson(personIdent: String, somSystem: Boolean = false): PdlHentPersonResponse {
         val query = this::class.java.getResource("/pdl/hent-person-med-relasjoner.graphql").readText().graphqlCompatible()
 
         val pdlPersonRequest = PdlPersonRequest(
@@ -37,7 +37,7 @@ class PdlClient(
         val response = postForEntity<PdlHentPersonResponse>(
             uri = pdlUri,
             payload = pdlPersonRequest,
-            httpHeaders = httpHeaders()
+            httpHeaders = httpHeaders(somSystem)
         )
 
         if (!response.harFeil()) {
@@ -51,10 +51,12 @@ class PdlClient(
         }
     }
 
-    private fun httpHeaders(): HttpHeaders {
+    private fun httpHeaders(somSystem: Boolean): HttpHeaders {
         return HttpHeaders().apply {
             add("Nav-Consumer-Token", "Bearer ${stsRestClient.systemOIDCToken}")
-            add("Authorization", "Bearer ${stsRestClient.systemOIDCToken}")
+            if (somSystem) {
+                add("Authorization", "Bearer ${stsRestClient.systemOIDCToken}")
+            }
             add("Tema", TEMA)
         }
     }
