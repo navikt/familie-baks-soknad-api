@@ -54,6 +54,7 @@ class PdlClient(
     private fun httpHeaders(): HttpHeaders {
         return HttpHeaders().apply {
             add("Nav-Consumer-Token", "Bearer ${stsRestClient.systemOIDCToken}")
+            add("Authorization", "Bearer ${stsRestClient.systemOIDCToken}")
             add("Tema", TEMA)
         }
     }
