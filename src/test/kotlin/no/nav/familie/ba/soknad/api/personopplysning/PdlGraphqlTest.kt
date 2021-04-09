@@ -37,6 +37,10 @@ class PdlGraphqlTest {
         assertTrue(resp.harFeil())
         assertTrue(resp.errorMessages().contains("Fant ikke person"))
         assertTrue(resp.errorMessages().contains("Ikke tilgang"))
+        assertTrue(resp.errors?.get(0)?.extensions?.code.equals("unauthorized"))
+        assertTrue(resp.errors?.get(0)?.extensions?.details?.type.equals("abac-deny"))
+        assertTrue(resp.errors?.get(0)?.extensions?.details?.cause.equals("cause-0001-manglerrolle"))
+        assertTrue(resp.errors?.get(0)?.extensions?.details?.policy.equals("adressebeskyttelse_strengt_fortrolig_adresse"))
     }
 
     @Test

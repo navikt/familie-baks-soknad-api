@@ -43,6 +43,10 @@ class PdlClient(
         if (!response.harFeil()) {
             return response
         } else {
+            LOG.info("Code: " + response.errors?.get(0)?.extensions?.code)
+            LOG.info("Cause: " + response.errors?.get(0)?.extensions?.details?.cause)
+            LOG.info("Policy: " + response.errors?.get(0)?.extensions?.details?.policy)
+            LOG.info("Type: " + response.errors?.get(0)?.extensions?.details?.type)
             throw Exception(response.errorMessages())
         }
     }
@@ -65,6 +69,7 @@ class PdlClient(
     }
 
     companion object {
+
         val LOG: Logger = LoggerFactory.getLogger(PdlClient::class.java)
         const val TEMA: String = "BAR"
     }
