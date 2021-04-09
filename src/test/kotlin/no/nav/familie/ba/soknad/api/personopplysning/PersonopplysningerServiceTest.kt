@@ -37,10 +37,10 @@ class PersonopplysningerServiceTest {
 
     @Test
     fun `hentPersonInfo skal kun returnere familierelasjoner av type BARN`() {
-        every { pdlClient.hentPerson(any(), any()) } returns pdlMockFor("pdlPersonMedFlereRelasjoner")
+        every { pdlClient.hentPerson(any()) } returns pdlMockFor("pdlPersonMedFlereRelasjoner")
         val person = personopplysningerService.hentPersoninfo("1")
 
-        assertEquals(1, person.barn.size)
+        assertEquals(1, person!!.barn.size)
         assertEquals("ENGASJERT FYR", person.barn.first().navn)
         assertEquals("12345678910", person.barn.first().ident)
     }
@@ -175,7 +175,7 @@ class PersonopplysningerServiceTest {
 
     @Test
     fun `hentPerson returnerer rett adresse fra pdl`() {
-        every { pdlClient.hentPerson(any(), any()) } returns pdlMockFor("pdlPersonMedFlereRelasjoner")
+        every { pdlClient.hentPerson(any()) } returns pdlMockFor("pdlPersonMedFlereRelasjoner")
         val person = personopplysningerService.hentPersoninfo("1")
         assertEquals(person?.adresse?.adressenavn, "1223")
         assertEquals(person?.adresse?.husnummer, "E22")
@@ -184,7 +184,7 @@ class PersonopplysningerServiceTest {
 
     @Test
     fun `hentPerson sine barn returnerer rett adresse til fra pdl`() {
-        every { pdlClient.hentPerson(any(), any()) } returns pdlMockFor("pdlPersonMedFlereRelasjoner")
+        every { pdlClient.hentPerson(any()) } returns pdlMockFor("pdlPersonMedFlereRelasjoner")
         val person = personopplysningerService.hentPersoninfo("1")
         assertEquals(person!!.barn.toList()[0].adresse?.adressenavn, "1223")
         assertEquals(person.barn.toList()[0].adresse?.husnummer, "E22")

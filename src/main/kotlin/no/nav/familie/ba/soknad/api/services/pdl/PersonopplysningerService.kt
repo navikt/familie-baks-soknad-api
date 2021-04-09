@@ -27,7 +27,7 @@ class PersonopplysningerService(
 
     fun hentBarnTilSoeker(fnrBarn: List<String>, sokerAdresse: Bostedsadresse?): Set<Barn> {
         return fnrBarn.map { identBarn ->
-            val barnRespons = pdlClient.hentPerson(identBarn, true)
+            val barnRespons = pdlClient.hentPerson(identBarn)
             barnRespons.data.person.let {
                 PdlBarnMapper.mapBarn(barnRespons, identBarn, sokerAdresse)
             }
