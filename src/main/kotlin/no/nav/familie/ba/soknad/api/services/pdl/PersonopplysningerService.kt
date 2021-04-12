@@ -1,5 +1,6 @@
 package no.nav.familie.ba.soknad.api.services.pdl
 
+import no.nav.familie.ba.soknad.api.clients.kodeverk.KodeverkClient
 import no.nav.familie.ba.soknad.api.clients.pdl.PdlBrukerClient
 import no.nav.familie.ba.soknad.api.clients.pdl.PdlSystemClient
 import no.nav.familie.ba.soknad.api.domene.Barn
@@ -13,7 +14,8 @@ import org.springframework.stereotype.Service
 @Service
 class PersonopplysningerService(
     private val pdlClient: PdlBrukerClient,
-    private val pdlSystemClient: PdlSystemClient
+    private val pdlSystemClient: PdlSystemClient,
+    kodeverkClient: KodeverkClient
 ) {
     val kodeverkService = CachedKodeverkService(kodeverkClient)
     fun hentPersoninfo(personIdent: String): Person {
