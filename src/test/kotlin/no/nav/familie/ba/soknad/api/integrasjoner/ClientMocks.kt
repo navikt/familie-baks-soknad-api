@@ -6,7 +6,7 @@ import io.mockk.just
 import io.mockk.mockk
 import java.time.LocalDateTime
 import no.nav.familie.ba.soknad.api.clients.pdl.FAMILIERELASJONSROLLE
-import no.nav.familie.ba.soknad.api.clients.pdl.PdlClient
+import no.nav.familie.ba.soknad.api.clients.pdl.PdlBrukerClient
 import no.nav.familie.ba.soknad.api.clients.pdl.PdlFamilierelasjon
 import no.nav.familie.ba.soknad.api.clients.pdl.PdlFødselsDato
 import no.nav.familie.ba.soknad.api.clients.pdl.PdlHentPersonResponse
@@ -15,6 +15,7 @@ import no.nav.familie.ba.soknad.api.clients.pdl.PdlPerson
 import no.nav.familie.ba.soknad.api.clients.pdl.PdlPersonData
 import no.nav.familie.ba.soknad.api.clients.pdl.PdlSivilstand
 import no.nav.familie.ba.soknad.api.clients.pdl.PdlStatsborgerskap
+import no.nav.familie.ba.soknad.api.clients.pdl.PdlSystemClient
 import no.nav.familie.ba.soknad.api.clients.pdl.SIVILSTANDSTYPE
 import no.nav.familie.ba.soknad.api.domene.Kvittering
 import no.nav.familie.http.sts.StsRestClient
@@ -42,8 +43,8 @@ class ClientMocks {
     @Bean
     @Primary
     @Profile("mock-pdl")
-    fun mockPdlClient(): PdlClient {
-        val mockPdlClient = mockk<PdlClient>()
+    fun mockPdlClient(): PdlBrukerClient {
+        val mockPdlClient = mockk<PdlBrukerClient>()
 
         every { mockPdlClient.ping() } just Runs
         every { mockPdlClient.hentPerson(any()) } returns PdlHentPersonResponse(
@@ -103,8 +104,8 @@ class ClientMocks {
     @Bean
     @Primary
     @Profile("mock-pdl")
-    fun mockEkspAuthPdlClient(): PdlClient {
-        val mockPdlClient = mockk<PdlClient>()
+    fun mockEkspAuthPdlClient(): PdlSystemClient {
+        val mockPdlClient = mockk<PdlSystemClient>()
 
         every { mockPdlClient.hentPerson(any()) } returns PdlHentPersonResponse(
             data = PdlPerson(

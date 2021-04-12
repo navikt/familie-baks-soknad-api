@@ -69,7 +69,7 @@ internal class ApplicationConfig {
         return AddJwtTokenInterceptor()
     }
 
-    @Bean("restKlientMedApiKey")
+    @Bean("restKlientMedApiKeyOgBrukerToken")
     fun restTemplateMedApiKey(
         consumerIdClientInterceptor: ConsumerIdClientInterceptor,
         apiKeyInjectingClientInterceptor: ClientHttpRequestInterceptor,
@@ -86,7 +86,7 @@ internal class ApplicationConfig {
             .build()
     }
 
-    @Bean("stsRestKlientMedApiKey")
+    @Bean("restKlientMedApiKey")
     fun stsRestTemplateMedApiKey(
         consumerIdClientInterceptor: ConsumerIdClientInterceptor,
         apiKeyInjectingClientInterceptor: ClientHttpRequestInterceptor

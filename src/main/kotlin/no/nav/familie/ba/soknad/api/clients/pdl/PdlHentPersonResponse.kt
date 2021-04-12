@@ -36,7 +36,23 @@ data class PdlPersonData(
 data class PdlFødselsDato(val foedselsdato: String?)
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-data class PdlError(val message: String)
+data class PdlError(
+    val message: String,
+    val extensions: Extension?
+)
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+data class Extension(
+    val code: String,
+    val details: Details
+)
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+data class Details(
+    val type: String,
+    val cause: String,
+    val policy: String
+)
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class PdlNavn(
