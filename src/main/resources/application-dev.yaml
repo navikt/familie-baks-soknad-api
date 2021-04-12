@@ -1,4 +1,4 @@
 FAMILIE_BA_MOTTAK_URL: https://api-gw-q1.oera.no/familie-ba-mottak
 PDL_API_URL: https://api-gw-q1.oera.no/pdl-api
 STS_URL: https://api-gw-q1.oera.no/security-token-service/rest/v1/sts/token
-KODEVERK_URL: #Mockes lokalt
+KODEVERK_URL: https://kodeverk.nais.preprod.local/
