@@ -14,8 +14,7 @@ import org.springframework.web.client.RestOperations
 class KodeverkClient(
     @Value("\${KODEVERK_URL}") private val kodeverkBaseUrl: String,
     @Qualifier("restKlientMedApiKey") private val restOperations: RestOperations
-) :
-    AbstractPingableRestClient(restOperations, "integrasjon"), Pingable {
+) : AbstractPingableRestClient(restOperations, "integrasjon"), Pingable {
 
     private val kodeverkUri: URI = URI.create(kodeverkBaseUrl)
 

@@ -5,6 +5,7 @@ import no.nav.familie.ba.soknad.api.util.TokenBehandler
 import no.nav.familie.http.interceptor.ApiKeyInjectingClientInterceptor
 import no.nav.familie.http.interceptor.ConsumerIdClientInterceptor
 import no.nav.familie.http.interceptor.MdcValuesPropagatingClientInterceptor
+import no.nav.familie.http.interceptor.StsBearerTokenClientInterceptor
 import no.nav.familie.kontrakter.felles.objectMapper
 import no.nav.familie.log.filter.LogFilter
 import org.slf4j.LoggerFactory
@@ -42,12 +43,14 @@ internal class ApplicationConfig {
         @Value("\${PDL_API_APIKEY}") pdlApiKey: String,
         @Value("\${PDL_API_URL}") pdlBaseUrl: String,
         @Value("\${MOTTAK_APIKEY}") mottakApiKey: String,
-        @Value("\${FAMILIE_BA_MOTTAK_URL}")
-        mottakBaseUrl: String
+        @Value("\${FAMILIE_BA_MOTTAK_URL}") mottakBaseUrl: String,
+        @Value("\${KODEVERK_APIKEY}") kodeverkApiKey: String,
+        @Value("\${KODEVERK_URL}") kodeverkBaseUrl: String,
     ): ClientHttpRequestInterceptor {
         val map = mapOf(
             Pair(URI.create(pdlBaseUrl), Pair(apiKeyHeader, pdlApiKey)),
-            Pair(URI.create(mottakBaseUrl), Pair(apiKeyHeader, mottakApiKey))
+            Pair(URI.create(mottakBaseUrl), Pair(apiKeyHeader, mottakApiKey)),
+            Pair(URI.create(kodeverkBaseUrl), Pair(apiKeyHeader, kodeverkBaseUrl))
         )
         return ApiKeyInjectingClientInterceptor(map)
     }
@@ -85,6 +88,7 @@ internal class ApplicationConfig {
             .additionalMessageConverters(MappingJackson2HttpMessageConverter(objectMapper))
             .build()
     }
+
 
     @Bean("restKlientMedApiKey")
     fun stsRestTemplateMedApiKey(
