@@ -5,7 +5,6 @@ import no.nav.familie.ba.soknad.api.util.TokenBehandler
 import no.nav.familie.http.interceptor.ApiKeyInjectingClientInterceptor
 import no.nav.familie.http.interceptor.ConsumerIdClientInterceptor
 import no.nav.familie.http.interceptor.MdcValuesPropagatingClientInterceptor
-import no.nav.familie.http.interceptor.StsBearerTokenClientInterceptor
 import no.nav.familie.kontrakter.felles.objectMapper
 import no.nav.familie.log.filter.LogFilter
 import org.slf4j.LoggerFactory
@@ -88,7 +87,6 @@ internal class ApplicationConfig {
             .additionalMessageConverters(MappingJackson2HttpMessageConverter(objectMapper))
             .build()
     }
-
 
     @Bean("restKlientMedApiKey")
     fun stsRestTemplateMedApiKey(

@@ -24,7 +24,9 @@ class KodeverkClient(
 
     fun kodeverkUri(kodeverksnavn: String, medHistorikk: Boolean = false): URI {
         val query = if (medHistorikk) QUERY_MED_HISTORIKK else QUERY
-        return UriUtil.uri(kodeverkUri, "/kodeverk/api/v1/kodeverk/$kodeverksnavn/koder/betydninger", query)
+        return UriUtil.uri(base = kodeverkUri,
+                           path = "/kodeverk/api/v1/kodeverk/$kodeverksnavn/koder/betydninger",
+                           query= query)
     }
 
     companion object {
