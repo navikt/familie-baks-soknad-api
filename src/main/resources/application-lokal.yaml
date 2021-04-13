@@ -5,7 +5,6 @@ KODEVERK_URL: #Mockes lokalt
 PDL_API_APIKEY: test-apikey
 MOTTAK_APIKEY: test-apikey
 STS_APIKEY: test-apikey
-KODEVERK_APIKEY: test-apikey
 
 no.nav.security.jwt:
   issuers: selvbetjening
