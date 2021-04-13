@@ -49,7 +49,7 @@ internal class ApplicationConfig {
         val map = mapOf(
             Pair(URI.create(pdlBaseUrl), Pair(apiKeyHeader, pdlApiKey)),
             Pair(URI.create(mottakBaseUrl), Pair(apiKeyHeader, mottakApiKey)),
-            Pair(URI.create(kodeverkBaseUrl), Pair(apiKeyHeader, kodeverkBaseUrl))
+            Pair(URI.create(kodeverkBaseUrl), Pair(apiKeyHeader, kodeverkApiKey))
         )
         return ApiKeyInjectingClientInterceptor(map)
     }
