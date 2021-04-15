@@ -1,6 +1,5 @@
 package no.nav.familie.ba.soknad.api.clients.kodeverk
 
-import no.nav.familie.ba.soknad.api.clients.pdl.PdlClient
 import java.net.URI
 import no.nav.familie.http.client.AbstractPingableRestClient
 import no.nav.familie.http.client.Pingable
@@ -34,11 +33,10 @@ class KodeverkClient(
         val query = if (medHistorikk) QUERY_MED_HISTORIKK else QUERY
         return UriUtil.uri(
             base = kodeverkUri,
-            path = "/kodeverk/api/v1/kodeverk/$kodeverksnavn/koder/betydninger",
+            path = "/api/v1/kodeverk/$kodeverksnavn/koder/betydninger",
             query = query
         )
     }
-
 
     companion object {
 
