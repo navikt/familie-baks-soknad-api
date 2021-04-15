@@ -1,5 +1,6 @@
 package no.nav.familie.ba.soknad.api.clients.kodeverk
 
+import no.nav.familie.ba.soknad.api.clients.pdl.PdlClient
 import java.net.URI
 import no.nav.familie.http.client.AbstractPingableRestClient
 import no.nav.familie.http.client.Pingable
@@ -7,6 +8,7 @@ import no.nav.familie.http.util.UriUtil
 import no.nav.familie.kontrakter.felles.kodeverk.KodeverkDto
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.http.HttpHeaders
 import org.springframework.stereotype.Component
 import org.springframework.web.client.RestOperations
 
@@ -19,7 +21,13 @@ class KodeverkClient(
     private val kodeverkUri: URI = URI.create(kodeverkBaseUrl)
 
     fun hentPostnummer(): KodeverkDto {
-        return getForEntity(kodeverkUri("Postnummer"))
+        return getForEntity(uri = kodeverkUri("Postnummer"), httpHeaders = httpHeaders())
+    }
+
+    fun httpHeaders(): HttpHeaders {
+        return HttpHeaders().apply {
+            add("Nav-Consumer-Id", "familie-ba-soknad-api")
+        }
     }
 
     fun kodeverkUri(kodeverksnavn: String, medHistorikk: Boolean = false): URI {
@@ -28,9 +36,9 @@ class KodeverkClient(
             base = kodeverkUri,
             path = "/kodeverk/api/v1/kodeverk/$kodeverksnavn/koder/betydninger",
             query = query
-
         )
     }
+
 
     companion object {
 
