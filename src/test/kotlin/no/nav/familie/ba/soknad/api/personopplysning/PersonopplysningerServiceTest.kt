@@ -3,12 +3,10 @@ package no.nav.familie.ba.soknad.api.personopplysning
 import io.mockk.every
 import io.mockk.mockk
 import java.io.File
-import kotlin.test.assertFailsWith
 import no.nav.familie.ba.soknad.api.clients.kodeverk.KodeverkClient
 import no.nav.familie.ba.soknad.api.clients.pdl.PdlBrukerClient
 import no.nav.familie.ba.soknad.api.clients.pdl.PdlHentPersonResponse
 import no.nav.familie.ba.soknad.api.clients.pdl.PdlSystemClient
-import no.nav.familie.ba.soknad.api.common.GradertAdresseException
 import no.nav.familie.ba.soknad.api.services.kodeverk.CachedKodeverkService
 import no.nav.familie.ba.soknad.api.services.pdl.PersonopplysningerService
 import no.nav.familie.ba.soknad.api.services.pdl.mapper.PdlBarnMapper
