@@ -43,13 +43,13 @@ internal class ApplicationConfig {
         @Value("\${PDL_API_URL}") pdlBaseUrl: String,
         @Value("\${MOTTAK_APIKEY}") mottakApiKey: String,
         @Value("\${FAMILIE_BA_MOTTAK_URL}") mottakBaseUrl: String,
-        // @Value("\${KODEVERK_API_KEY}") kodeverkApiKey: String,
-        // @Value("\${KODEVERK_URL}") kodeverkBaseUrl: String,
+        @Value("\${KODEVERK_API_KEY}") kodeverkApiKey: String,
+        @Value("\${KODEVERK_URL}") kodeverkBaseUrl: String,
     ): ClientHttpRequestInterceptor {
         val map = mapOf(
             Pair(URI.create(pdlBaseUrl), Pair(apiKeyHeader, pdlApiKey)),
             Pair(URI.create(mottakBaseUrl), Pair(apiKeyHeader, mottakApiKey)),
-            //  Pair(URI.create(kodeverkBaseUrl), Pair(apiKeyHeader, kodeverkApiKey))
+            Pair(URI.create(kodeverkBaseUrl), Pair(apiKeyHeader, kodeverkApiKey))
         )
         return ApiKeyInjectingClientInterceptor(map)
     }

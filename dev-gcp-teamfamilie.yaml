@@ -44,7 +44,10 @@ spec:
         - host: api-gw-q1.oera.no
         - host: login.microsoftonline.com
   vault:
-    enabled: false
+    enabled: true
+    paths:
+      - kvPath: /apigw/dev/kodeverk.rest-api/familie-ba-soknad-api_q1
+        mountPath: /var/run/secrets/kodeverk-api-key
   env:
     - name: APP_TEAM
       value: teamfamilie

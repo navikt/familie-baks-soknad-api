@@ -7,7 +7,6 @@ import no.nav.familie.http.util.UriUtil
 import no.nav.familie.kontrakter.felles.kodeverk.KodeverkDto
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.beans.factory.annotation.Value
-import org.springframework.http.HttpHeaders
 import org.springframework.stereotype.Component
 import org.springframework.web.client.RestOperations
 
@@ -20,13 +19,7 @@ class KodeverkClient(
     private val kodeverkUri: URI = URI.create(kodeverkBaseUrl)
 
     fun hentPostnummer(): KodeverkDto {
-        return getForEntity(uri = kodeverkUri("Postnummer"), httpHeaders = httpHeaders())
-    }
-
-    fun httpHeaders(): HttpHeaders {
-        return HttpHeaders().apply {
-            add("Nav-Consumer-Id", "familie-ba-soknad-api")
-        }
+        return getForEntity(uri = kodeverkUri("Postnummer"))
     }
 
     fun kodeverkUri(kodeverksnavn: String, medHistorikk: Boolean = false): URI {
