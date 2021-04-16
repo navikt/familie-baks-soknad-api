@@ -158,16 +158,6 @@ class PersonopplysningerServiceTest {
         assertTrue(borMedSøker)
     }
 
-//    @Test
-//    fun `hentPerson skal feile dersom barn har gradert adresse`() {
-//
-//        every { pdlClient.hentPerson(any()) } returns pdlMockFor("pdlPersonBarnMedGradertAdresse")
-//
-//        assertFailsWith<GradertAdresseException> {
-//            personopplysningerService.hentPersoninfo("12345678901")
-//        }
-//    }
-
     @Test
     fun `hentPerson skal sette flagg om person har adressebeskyttelse`() {
         every { kodeverkClient.hentPostnummer() } returns kodeverkMockFor("kodeverkPostnummerRespons")
@@ -175,6 +165,16 @@ class PersonopplysningerServiceTest {
 
         val person = personopplysningerService.hentPersoninfo("1")
         assertTrue(person.adressebeskyttelse)
+    }
+
+    @Test
+    fun `hentPerson skal sette flagg om person har adressebeskyttelse, og returnere null om bruker har adresse`() {
+        every { kodeverkClient.hentPostnummer() } returns kodeverkMockFor("kodeverkPostnummerRespons")
+        every { pdlClient.hentPerson(any()) } returns pdlMockFor("pdlSoekerHarAdresseOgAdressebeskyttelse")
+
+        val person = personopplysningerService.hentPersoninfo("1")
+        assertEquals(person.adresse, null)
+        assertEquals(person.adressebeskyttelse, true)
     }
 
     private fun pdlMockFor(filNavn: String) = mapper.readValue(

@@ -28,8 +28,11 @@ object PdlMapper {
 
         val statsborgerskap: List<Statborgerskap> = mapStatsborgerskap(person.statsborgerskap)
         val sivilstandType = mapSivilstandType(person.sivilstand!!)
-        val adresse = mapAdresser(person.bostedsadresse.firstOrNull(), kodeverkService)
+
         val harBrukerAdressebeskyttelse = harBrukerAdresseBeskyttelse(person.adressebeskyttelse)
+        val adresse = if (!harBrukerAdressebeskyttelse)
+            mapAdresser(person.bostedsadresse.firstOrNull(), kodeverkService)
+        else null
 
         return Result.runCatching {
             Person(
