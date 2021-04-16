@@ -46,8 +46,8 @@ spec:
   vault:
     enabled: true
     paths:
-      - kvPath: /apikey/apigw/dev/kodeverk.rest-api/familie-ba-soknad-api_q1
-        mountPath: /secret/apikeys/kodeverk-api-key
+      - kvPath: "/apikey/apigw/dev/kodeverk.rest-api/familie-ba-soknad-api_q1"
+        mountPath: /var/run/secrets/kodeverk-api-key
   env:
     - name: APP_TEAM
       value: teamfamilie
