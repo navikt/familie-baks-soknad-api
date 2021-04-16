@@ -1,0 +1,48 @@
+{
+  "data": {
+    "person": {
+      "navn": [
+        {
+          "fornavn": "ENGASJERT",
+          "etternavn": "FYR"
+        }
+      ],
+      "adressebeskyttelse": [
+        {
+          "gradering": "STRENGT_FORTROLIG"
+        },
+        {
+          "gradering": "FORTROLIG"
+        }
+      ],
+      "sivilstand" : [ ],
+      "bostedsadresse": [
+        {
+          "vegadresse": {
+            "matrikkelId": 3,
+            "husnummer": "E22",
+            "husbokstav": "tillegg",
+            "bruksenhetsnummer": "1456",
+            "adressenavn": "1223",
+            "kommunenummer": "12",
+            "tilleggsnavn": "Tilleggsnavn",
+            "postnummer": "4971"
+          },
+          "matrikkeladresse": null,
+          "ukjentBosted": null
+
+        }
+      ],
+      "statsborgerskap": [
+        {
+          "land": "NOR"
+        }
+      ],
+      "foedsel": [
+        {
+          "foedselsdato": "1920-02-10"
+        }
+      ]
+    }
+  }
+}

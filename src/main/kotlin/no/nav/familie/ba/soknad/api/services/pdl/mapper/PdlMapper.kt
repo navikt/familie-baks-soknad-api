@@ -21,43 +21,42 @@ import no.nav.familie.kontrakter.felles.personopplysning.Bostedsadresse
 object PdlMapper {
 
     fun mapTilPersonInfo(
-        person: PdlPersonData,
-        personIdent: String,
-        barn: Set<Barn>,
-        kodeverkService: CachedKodeverkService
+            person: PdlPersonData,
+            personIdent: String,
+            barn: Set<Barn>,
+            kodeverkService: CachedKodeverkService
     ): Person {
 
         val statsborgerskap: List<Statborgerskap> = mapStatsborgerskap(person.statsborgerskap)
         val sivilstandType = mapSivilstandType(person.sivilstand!!)
         val adresse = mapAdresser(person.bostedsadresse.firstOrNull(), kodeverkService)
+        val harBrukerAdressebeskyttelse = harBrukerAdresseBeskyttelse(person.adressebeskyttelse)
 
         return Result.runCatching {
-            val adresseBeskyttelse = person.adressebeskyttelse
-            assertUgradertAdresse(adresseBeskyttelse)
-
             Person(
-                ident = personIdent,
-                navn = person.navn.first().fulltNavn(),
-                statsborgerskap = statsborgerskap,
-                sivilstand = Sivilstand(sivilstandType),
-                adresse = adresse,
-                barn = barn
+                    ident = personIdent,
+                    navn = person.navn.first().fulltNavn(),
+                    statsborgerskap = statsborgerskap,
+                    sivilstand = Sivilstand(sivilstandType),
+                    adresse = adresse,
+                    barn = barn,
+                    adressebeskyttelse = harBrukerAdressebeskyttelse
             )
         }.fold(
-            onSuccess = { it },
-            onFailure = { throw it }
+                onSuccess = { it },
+                onFailure = { throw it }
         )
     }
 
     fun mapFnrBarn(familierelasjoner: List<PdlFamilierelasjon>): List<String> {
         return familierelasjoner.filter { relasjon -> relasjon.relatertPersonsRolle == FAMILIERELASJONSROLLE.BARN }
-            .map { it.relatertPersonsIdent }
+                .map { it.relatertPersonsIdent }
     }
 
     private fun mapStatsborgerskap(statsborgerskap: List<PdlStatsborgerskap>): List<Statborgerskap> {
         return statsborgerskap.map {
             Statborgerskap(
-                landkode = it.land
+                    landkode = it.land
             )
         }.distinctBy {
             it.landkode
@@ -67,24 +66,24 @@ object PdlMapper {
     fun mapAdresser(bostedsadresse: Bostedsadresse?, kodeverkService: CachedKodeverkService): Adresse? {
         if (bostedsadresse?.vegadresse != null) {
             return Adresse(
-                adressenavn = bostedsadresse.vegadresse!!.adressenavn,
-                postnummer = bostedsadresse.vegadresse!!.postnummer,
-                husnummer = bostedsadresse.vegadresse!!.husnummer,
-                husbokstav = bostedsadresse.vegadresse!!.husbokstav,
-                bruksenhetnummer = bostedsadresse.vegadresse!!.bruksenhetsnummer,
-                bostedskommune = null,
-                poststed = kodeverkService.hentPostnummer().getOrDefault(bostedsadresse.vegadresse!!.postnummer, "")
+                    adressenavn = bostedsadresse.vegadresse!!.adressenavn,
+                    postnummer = bostedsadresse.vegadresse!!.postnummer,
+                    husnummer = bostedsadresse.vegadresse!!.husnummer,
+                    husbokstav = bostedsadresse.vegadresse!!.husbokstav,
+                    bruksenhetnummer = bostedsadresse.vegadresse!!.bruksenhetsnummer,
+                    bostedskommune = null,
+                    poststed = kodeverkService.hentPostnummer().getOrDefault(bostedsadresse.vegadresse!!.postnummer, "")
             )
         }
         if (bostedsadresse?.matrikkeladresse != null) {
             return Adresse(
-                adressenavn = bostedsadresse.matrikkeladresse!!.tilleggsnavn,
-                postnummer = bostedsadresse.matrikkeladresse!!.postnummer,
-                husnummer = null,
-                husbokstav = null,
-                bruksenhetnummer = bostedsadresse.matrikkeladresse!!.bruksenhetsnummer,
-                bostedskommune = null,
-                poststed = kodeverkService.hentPostnummer().getOrDefault(bostedsadresse.matrikkeladresse!!.postnummer, "")
+                    adressenavn = bostedsadresse.matrikkeladresse!!.tilleggsnavn,
+                    postnummer = bostedsadresse.matrikkeladresse!!.postnummer,
+                    husnummer = null,
+                    husbokstav = null,
+                    bruksenhetnummer = bostedsadresse.matrikkeladresse!!.bruksenhetsnummer,
+                    bostedskommune = null,
+                    poststed = kodeverkService.hentPostnummer().getOrDefault(bostedsadresse.matrikkeladresse!!.postnummer, "")
             )
         }
         return null
@@ -109,11 +108,18 @@ object PdlMapper {
         }
     }
 
-    fun assertUgradertAdresse(adresseBeskyttelse: List<Adressebeskyttelse>?) {
-        if (adresseBeskyttelse != null &&
-            adresseBeskyttelse.any { it.gradering != ADRESSEBESKYTTELSEGRADERING.UGRADERT }
+
+    fun harBrukerAdresseBeskyttelse(adresseBeskyttelse: List<Adressebeskyttelse>?): Boolean {
+
+        if (!adresseBeskyttelse.isNullOrEmpty() &&
+            adresseBeskyttelse.any {
+                it.gradering != ADRESSEBESKYTTELSEGRADERING.UGRADERT
+            }
         ) {
-            throw GradertAdresseException()
+            return true
         }
+        return false
+
     }
+
 }
