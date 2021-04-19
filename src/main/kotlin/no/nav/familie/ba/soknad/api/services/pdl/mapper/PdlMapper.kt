@@ -8,7 +8,6 @@ import no.nav.familie.ba.soknad.api.clients.pdl.PdlPersonData
 import no.nav.familie.ba.soknad.api.clients.pdl.PdlSivilstand
 import no.nav.familie.ba.soknad.api.clients.pdl.PdlStatsborgerskap
 import no.nav.familie.ba.soknad.api.clients.pdl.SIVILSTANDSTYPE
-import no.nav.familie.ba.soknad.api.common.GradertAdresseException
 import no.nav.familie.ba.soknad.api.domene.Adresse
 import no.nav.familie.ba.soknad.api.domene.Barn
 import no.nav.familie.ba.soknad.api.domene.Person
@@ -29,19 +28,21 @@ object PdlMapper {
 
         val statsborgerskap: List<Statborgerskap> = mapStatsborgerskap(person.statsborgerskap)
         val sivilstandType = mapSivilstandType(person.sivilstand!!)
-        val adresse = mapAdresser(person.bostedsadresse.firstOrNull(), kodeverkService)
+
+        val harBrukerAdressebeskyttelse = harBrukerAdresseBeskyttelse(person.adressebeskyttelse)
+        val adresse = if (!harBrukerAdressebeskyttelse)
+            mapAdresser(person.bostedsadresse.firstOrNull(), kodeverkService)
+        else null
 
         return Result.runCatching {
-            val adresseBeskyttelse = person.adressebeskyttelse
-            assertUgradertAdresse(adresseBeskyttelse)
-
             Person(
                 ident = personIdent,
                 navn = person.navn.first().fulltNavn(),
                 statsborgerskap = statsborgerskap,
                 sivilstand = Sivilstand(sivilstandType),
                 adresse = adresse,
-                barn = barn
+                barn = barn,
+                adressebeskyttelse = harBrukerAdressebeskyttelse
             )
         }.fold(
             onSuccess = { it },
@@ -109,11 +110,15 @@ object PdlMapper {
         }
     }
 
-    fun assertUgradertAdresse(adresseBeskyttelse: List<Adressebeskyttelse>?) {
-        if (adresseBeskyttelse != null &&
-            adresseBeskyttelse.any { it.gradering != ADRESSEBESKYTTELSEGRADERING.UGRADERT }
+    fun harBrukerAdresseBeskyttelse(adresseBeskyttelse: List<Adressebeskyttelse>?): Boolean {
+
+        if (!adresseBeskyttelse.isNullOrEmpty() &&
+            adresseBeskyttelse.any {
+                it.gradering != ADRESSEBESKYTTELSEGRADERING.UGRADERT
+            }
         ) {
-            throw GradertAdresseException()
+            return true
         }
+        return false
     }
 }

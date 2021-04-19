@@ -1,0 +1,42 @@
+{
+  "data": {
+    "person": {
+      "navn": [
+        {
+          "fornavn": "ENGASJERT",
+          "etternavn": "FYR"
+        }
+      ],
+      "sivilstand" : [ ],
+      "adressebeskyttelse": [
+        {
+          "gradering": "STRENGT_FORTROLIG"
+        },
+        {
+          "gradering": "FORTROLIG"
+        }
+      ],
+      "statsborgerskap": [
+        {
+          "land": "NOR"
+        }
+      ],
+      "foedsel": [
+        {
+          "foedselsdato": "1920-02-10"
+        }
+      ],
+      "bostedsadresse": [
+        {
+          "vegadresse": null,
+          "matrikkeladresse": null,
+          "ukjentBosted": {
+            "bostedskommune": "OSLO"
+          }
+
+        }
+      ],
+      "familierelasjoner": []
+    }
+  }
+}

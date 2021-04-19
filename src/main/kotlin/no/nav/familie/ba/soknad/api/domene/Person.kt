@@ -7,14 +7,15 @@ data class Person(
     val statsborgerskap: List<Statborgerskap>,
     val sivilstand: Sivilstand,
     val adresse: Adresse?,
+    val adressebeskyttelse: Boolean
 )
 
 data class Barn(
     val ident: String,
-    val adresse: Adresse?,
     val navn: String,
     val borMedSøker: Boolean,
-    val fødselsdato: String?
+    val fødselsdato: String?,
+    val adressebeskyttelse: Boolean
 )
 
 data class Adresse(

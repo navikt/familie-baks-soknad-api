@@ -3,12 +3,10 @@ package no.nav.familie.ba.soknad.api.personopplysning
 import io.mockk.every
 import io.mockk.mockk
 import java.io.File
-import kotlin.test.assertFailsWith
 import no.nav.familie.ba.soknad.api.clients.kodeverk.KodeverkClient
 import no.nav.familie.ba.soknad.api.clients.pdl.PdlBrukerClient
 import no.nav.familie.ba.soknad.api.clients.pdl.PdlHentPersonResponse
 import no.nav.familie.ba.soknad.api.clients.pdl.PdlSystemClient
-import no.nav.familie.ba.soknad.api.common.GradertAdresseException
 import no.nav.familie.ba.soknad.api.services.kodeverk.CachedKodeverkService
 import no.nav.familie.ba.soknad.api.services.pdl.PersonopplysningerService
 import no.nav.familie.ba.soknad.api.services.pdl.mapper.PdlBarnMapper
@@ -160,24 +158,23 @@ class PersonopplysningerServiceTest {
         assertTrue(borMedSøker)
     }
 
-//    @Test
-//    fun `hentPerson skal feile dersom barn har gradert adresse`() {
-//
-//        every { pdlClient.hentPerson(any()) } returns pdlMockFor("pdlPersonBarnMedGradertAdresse")
-//
-//        assertFailsWith<GradertAdresseException> {
-//            personopplysningerService.hentPersoninfo("12345678901")
-//        }
-//    }
-
     @Test
-    fun `hentPerson skal feile dersom person har gradert adresse`() {
+    fun `hentPerson skal sette flagg om person har adressebeskyttelse`() {
         every { kodeverkClient.hentPostnummer() } returns kodeverkMockFor("kodeverkPostnummerRespons")
         every { pdlClient.hentPerson(any()) } returns pdlMockFor("pdlPersonUtenRelasjonerGradertAdresse")
 
-        assertFailsWith<GradertAdresseException> {
-            personopplysningerService.hentPersoninfo("12345678901")
-        }
+        val person = personopplysningerService.hentPersoninfo("1")
+        assertTrue(person.adressebeskyttelse)
+    }
+
+    @Test
+    fun `hentPerson skal sette flagg om person har adressebeskyttelse, og returnere null om bruker har adresse`() {
+        every { kodeverkClient.hentPostnummer() } returns kodeverkMockFor("kodeverkPostnummerRespons")
+        every { pdlClient.hentPerson(any()) } returns pdlMockFor("pdlSoekerHarAdresseOgAdressebeskyttelse")
+
+        val person = personopplysningerService.hentPersoninfo("1")
+        assertEquals(person.adresse, null)
+        assertEquals(person.adressebeskyttelse, true)
     }
 
     private fun pdlMockFor(filNavn: String) = mapper.readValue(
@@ -207,17 +204,13 @@ class PersonopplysningerServiceTest {
     }
 
     @Test
-    fun `hentPerson sine barn returnerer rett adresse til fra pdl`() {
+    fun `hentPerson sine barn har adressebeskyttelse`() {
         every { pdlClient.hentPerson(any()) } returns pdlMockFor("pdlPersonMedFlereRelasjoner")
-        every { barnePdlClient.hentPerson("12345678910") } returns pdlMockFor("pdlPersonBarn")
+        every { barnePdlClient.hentPerson("12345678910") } returns pdlMockFor("pdlBarnHarAdresseBeskyttelse")
         every { kodeverkClient.hentPostnummer() } returns kodeverkMockFor("kodeverkPostnummerRespons")
 
         val person = personopplysningerService.hentPersoninfo("1")
-        assertEquals(person.barn.toList()[0].adresse?.adressenavn, "1223")
-        assertEquals(person.barn.toList()[0].adresse?.husnummer, "E22")
-        assertEquals(person.barn.toList()[0].adresse?.husbokstav, "tillegg")
-        assertEquals(person.adresse?.postnummer, "4971")
-        assertEquals(person.adresse?.poststed, "SUNDEBRU")
+        assertTrue(person.barn.toList()[0].adressebeskyttelse)
     }
 
     @Test
