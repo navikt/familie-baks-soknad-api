@@ -31,5 +31,11 @@ til `read:packages`.
 Applikasjonen kjører i clusteret `dev-gcp`. Deploy gjøres via Github Actions, der det er satt opp to ulike workflows. 
 Den ene workflowen kjører for brancher med en åpen pull request og inkluderer sonar-analyse. Den andre kjører ved push til master.
 
+## Kodestil
+Du må bruke prosjektets kodestil for å få deployet koden. Denne skal kjøre automatisk som git-hook, men kan også kjøres manuelt
+```shell
+mvn antrun:run@ktlint-format
+```
+
 ## Kontaktinformasjon
 For NAV-interne kan henvendelser rettes til #team-familie på slack. Ellers kan man opprette et issue her på github.

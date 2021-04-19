@@ -1,5 +1,6 @@
 package no.nav.familie.ba.soknad.api.helsesjekk
 
+import no.nav.familie.ba.soknad.api.clients.kodeverk.KodeverkClient
 import no.nav.familie.ba.soknad.api.clients.pdl.PdlSystemClient
 import no.nav.familie.ba.soknad.api.integrasjoner.MottakClient
 import no.nav.familie.kontrakter.felles.Ressurs
@@ -11,7 +12,11 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/api/helse")
 @ProtectedWithClaims(issuer = "selvbetjening", claimMap = ["acr=Level4"])
-class HelsesjekkController(private val mottakClient: MottakClient, private val pdlClient: PdlSystemClient) {
+class HelsesjekkController(
+    private val mottakClient: MottakClient,
+    private val pdlClient: PdlSystemClient,
+    private val kodeverkClient: KodeverkClient
+) {
 
     @GetMapping("soknad-api")
     fun pingApi(): Ressurs<String> {
@@ -32,6 +37,15 @@ class HelsesjekkController(private val mottakClient: MottakClient, private val p
         return Result.runCatching { mottakClient.ping() }
             .fold(
                 onSuccess = { Ressurs.success("Ping mot mottak OK") },
+                onFailure = { throw it }
+            )
+    }
+
+    @GetMapping("kodeverk")
+    fun pingKodeverk(): Ressurs<String> {
+        return Result.runCatching { kodeverkClient.ping() }
+            .fold(
+                onSuccess = { Ressurs.success("Ping mot kodeverk OK") },
                 onFailure = { throw it }
             )
     }
