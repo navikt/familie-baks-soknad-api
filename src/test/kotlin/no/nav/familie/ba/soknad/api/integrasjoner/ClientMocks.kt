@@ -70,7 +70,7 @@ class ClientMocks {
                                 "Solveien",
                                 "",
                                 "",
-                                "0101"
+                                "2304"
                             ),
                             matrikkeladresse = null
                         )
