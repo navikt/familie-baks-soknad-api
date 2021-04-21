@@ -50,17 +50,17 @@ class ClientMocks {
         every { mockPdlClient.hentPerson(any()) } returns PdlHentPersonResponse(
             data = PdlPerson(
                 person = PdlPersonData(
-                    navn = listOf(
+                        navn = listOf(
                         PdlNavn(
                             fornavn = "Voksen",
                             etternavn = "Voksnessen"
                         )
                     ),
-                    familierelasjoner = listOf(
+                        forelderBarnRelasjon = listOf(
                         PdlFamilierelasjon("12345678987", FAMILIERELASJONSROLLE.BARN),
                         PdlFamilierelasjon("12345678989", FAMILIERELASJONSROLLE.MOR)
                     ),
-                    bostedsadresse = listOf(
+                        bostedsadresse = listOf(
                         Bostedsadresse(
                             vegadresse = Vegadresse(
                                 21,
@@ -75,8 +75,8 @@ class ClientMocks {
                             matrikkeladresse = null
                         )
                     ),
-                    adressebeskyttelse = emptyList(),
-                    statsborgerskap = listOf(
+                        adressebeskyttelse = emptyList(),
+                        statsborgerskap = listOf(
                         PdlStatsborgerskap(
                             land = "NOR"
                         ),
@@ -84,12 +84,12 @@ class ClientMocks {
                             land = "AFG"
                         )
                     ),
-                    sivilstand = listOf(
+                        sivilstand = listOf(
                         PdlSivilstand(
                             type = SIVILSTANDSTYPE.GIFT
                         )
                     ),
-                    foedsel = listOf(
+                        foedsel = listOf(
                         PdlFødselsDato(
                             "2020-02-25"
                         )

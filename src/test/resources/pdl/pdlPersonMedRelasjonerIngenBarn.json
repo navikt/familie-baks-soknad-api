@@ -36,7 +36,7 @@
           "foedselsdato": "1920-02-10"
         }
       ],
-      "familierelasjoner": [
+      "forelderBarnRelasjon": [
         {
           "relatertPersonsIdent": "12345678910",
           "relatertPersonsRolle": "FAR"
