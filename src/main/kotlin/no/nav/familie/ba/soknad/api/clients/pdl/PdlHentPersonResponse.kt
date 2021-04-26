@@ -62,8 +62,6 @@ data class Details(
     val policy: String
 )
 
-
-
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class PdlNavn(
     val fornavn: String,

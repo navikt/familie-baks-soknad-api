@@ -97,8 +97,9 @@ class ClientMocks {
                     ),
                     doedsfall = emptyList(),
                     folkeregisteridentifikator = listOf(
-                            PdlFolkeregisteridentifikator(
-                                    identifikasjonsnummer = "23058518298")
+                        PdlFolkeregisteridentifikator(
+                            identifikasjonsnummer = "23058518298"
+                        )
                     )
                 )
             ),
@@ -130,8 +131,8 @@ class ClientMocks {
                     sivilstand = null,
                     doedsfall = emptyList(),
                     folkeregisteridentifikator = listOf(
-                            PdlFolkeregisteridentifikator
-                                (identifikasjonsnummer = "23051518298")
+                        PdlFolkeregisteridentifikator
+                        (identifikasjonsnummer = "23051518298")
                     )
                 )
             ),

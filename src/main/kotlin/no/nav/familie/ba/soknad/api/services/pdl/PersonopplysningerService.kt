@@ -33,13 +33,12 @@ class PersonopplysningerService(
 
     fun hentBarnTilSoeker(fnrBarn: List<String>, sokerAdresse: Bostedsadresse?): Set<Barn> {
         return fnrBarn
-                .map { ident -> pdlSystemClient.hentPerson(ident) }
-                .filter { erBarnILive(it.data.person?.doedsfall) }
-                .map { PdlBarnMapper.mapBarn(it,  sokerAdresse, kodeverkService) }.toSet()
+            .map { ident -> pdlSystemClient.hentPerson(ident) }
+            .filter { erBarnILive(it.data.person?.doedsfall) }
+            .map { PdlBarnMapper.mapBarn(it, sokerAdresse, kodeverkService) }.toSet()
     }
 
-
-    private fun erBarnILive(doedsfall: List<PdlDoedsafall>?) : Boolean {
+    private fun erBarnILive(doedsfall: List<PdlDoedsafall>?): Boolean {
         return doedsfall.isNullOrEmpty()
     }
 }

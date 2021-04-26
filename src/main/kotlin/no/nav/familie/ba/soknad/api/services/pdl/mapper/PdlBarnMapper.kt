@@ -29,14 +29,14 @@ object PdlBarnMapper {
         return Result.runCatching {
             val adresseBeskyttelse = barnRespons.data.person?.adressebeskyttelse
             Barn(
-                    ident = barnRespons.data.person?.folkeregisteridentifikator?.first()?.identifikasjonsnummer!!,
-                    navn = barnRespons.data.person.navn.firstOrNull()!!.fulltNavn(),
-                    fødselsdato = barnRespons.data.person.foedsel.firstOrNull()?.foedselsdato,
-                    borMedSøker = borBarnMedSoeker(
+                ident = barnRespons.data.person?.folkeregisteridentifikator?.first()?.identifikasjonsnummer!!,
+                navn = barnRespons.data.person.navn.firstOrNull()!!.fulltNavn(),
+                fødselsdato = barnRespons.data.person.foedsel.firstOrNull()?.foedselsdato,
+                borMedSøker = borBarnMedSoeker(
                     soekerAdresse = soekerAdresse,
                     barneAdresse = barnRespons.data.person.bostedsadresse.firstOrNull()
                 ),
-                    adressebeskyttelse = PdlMapper.harBrukerAdresseBeskyttelse(adresseBeskyttelse)
+                adressebeskyttelse = PdlMapper.harBrukerAdresseBeskyttelse(adresseBeskyttelse)
             )
         }.fold(
             onSuccess = { it },
