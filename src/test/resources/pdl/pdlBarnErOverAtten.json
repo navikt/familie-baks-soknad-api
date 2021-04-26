@@ -15,10 +15,14 @@
       "sivilstand" : [ ],
       "folkeregisteridentifikator": [
         {
-          "identifikasjonsnummer": "23058518298"
+          "identifikasjonsnummer": "23059018298"
         }
       ],
-      "doedsfall": [],
+      "doedsfall": [
+        {
+          "doedsdato": "1920-02-10"
+        }
+      ],
       "bostedsadresse": [
         {
           "vegadresse": {
@@ -43,7 +47,7 @@
       ],
       "foedsel": [
         {
-          "foedselsdato": "2018-02-10"
+          "foedselsdato": "1990-02-10"
         }
       ]
     }

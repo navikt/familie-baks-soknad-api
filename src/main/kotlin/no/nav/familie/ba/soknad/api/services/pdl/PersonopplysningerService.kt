@@ -11,6 +11,10 @@ import no.nav.familie.ba.soknad.api.services.pdl.mapper.PdlBarnMapper
 import no.nav.familie.ba.soknad.api.services.pdl.mapper.PdlMapper
 import no.nav.familie.kontrakter.felles.personopplysning.Bostedsadresse
 import org.springframework.stereotype.Service
+import java.time.LocalDate
+import java.time.Period
+import java.time.format.DateTimeFormatter
+import kotlin.math.min
 
 @Service
 class PersonopplysningerService(
@@ -34,11 +38,26 @@ class PersonopplysningerService(
     fun hentBarnTilSoeker(fnrBarn: List<String>, sokerAdresse: Bostedsadresse?): Set<Barn> {
         return fnrBarn
             .map { ident -> pdlSystemClient.hentPerson(ident) }
-            .filter { erBarnILive(it.data.person?.doedsfall) }
+            .filter { erBarnILive(it.data.person?.doedsfall) &&
+                      erUnderAtten(parseIsoDato(it.data.person?.foedsel?.firstOrNull()?.foedselsdato))
+            }
             .map { PdlBarnMapper.mapBarn(it, sokerAdresse, kodeverkService) }.toSet()
     }
 
     private fun erBarnILive(doedsfall: List<PdlDoedsafall>?): Boolean {
-        return doedsfall.isNullOrEmpty()
+        return doedsfall?.firstOrNull()?.doedsdato == null
+    }
+
+    fun erUnderAtten(fødselsdato: LocalDate?): Boolean {
+        if (fødselsdato == null) {
+            return false
+        }
+        val alder = Period.between(fødselsdato, LocalDate.now())
+        val alderIÅr = alder.years
+        return alderIÅr <= 18
+    }
+
+    fun parseIsoDato(dato: String?): LocalDate? {
+        return LocalDate.parse(dato, DateTimeFormatter.ISO_DATE)
     }
 }

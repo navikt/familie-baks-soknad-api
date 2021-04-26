@@ -95,6 +95,14 @@ class PersonopplysningerServiceTest {
         val person = personopplysningerService.hentPersoninfo("23058518298")
         assertEquals(person.barn.size, 0)
     }
+    @Test
+    fun `henPersonInfo skal returnere tom liste med barn, der barn er over atten`() {
+        every { pdlClient.hentPerson(any()) } returns pdlMockFor("pdlBarnErOverAtten")
+        every { barnePdlClient.hentPerson("12345678910") } returns pdlMockFor("pdlBrukerMedBarnOverAtten")
+        every { kodeverkClient.hentPostnummer() } returns kodeverkMockFor("kodeverkPostnummerRespons")
+        val person = personopplysningerService.hentPersoninfo("23058518298")
+        assertEquals(person.barn.size, 0)
+    }
 
     @Test
     fun `borMedSøker skal returnere false når søkerAdressen er null`() {
