@@ -29,8 +29,13 @@ data class PdlPersonData(
     val foedsel: List<PdlFødselsDato>,
     val bostedsadresse: List<Bostedsadresse?>,
     val statsborgerskap: List<PdlStatsborgerskap>,
-    val sivilstand: List<PdlSivilstand>?
+    val sivilstand: List<PdlSivilstand>?,
+    val doedsfall: List<PdlDoedsafall>?,
+    val folkeregisteridentifikator: List<PdlFolkeregisteridentifikator>
 )
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+data class PdlFolkeregisteridentifikator(val identifikasjonsnummer: String?)
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class PdlFødselsDato(val foedselsdato: String?)
@@ -48,11 +53,16 @@ data class Extension(
 )
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+data class PdlDoedsafall(val doedsdato: String?)
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class Details(
     val type: String,
     val cause: String,
     val policy: String
 )
+
+
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class PdlNavn(

@@ -50,7 +50,7 @@ class PersonopplysningerServiceTest {
 
         assertEquals(1, person.barn.size)
         assertEquals("ENGASJERT FYR", person.barn.first().navn)
-        assertEquals("12345678910", person.barn.first().ident)
+        assertEquals("23058518298", person.barn.first().ident)
     }
 
     @Test
@@ -66,7 +66,7 @@ class PersonopplysningerServiceTest {
         every { pdlClient.hentPerson(any()) } returns pdlMockFor("pdlPersonMedRelasjonerIngenBarn")
         every { kodeverkClient.hentPostnummer() } returns kodeverkMockFor("kodeverkPostnummerRespons")
         val person = personopplysningerService.hentPersoninfo("1")
-        assertEquals("1", person.ident)
+        assertEquals("23058518298", person.ident)
     }
 
     @Test
@@ -85,6 +85,15 @@ class PersonopplysningerServiceTest {
         every { kodeverkClient.hentPostnummer() } returns kodeverkMockFor("kodeverkPostnummerRespons")
         val person = personopplysningerService.hentPersoninfo("1")
         assertTrue(person!!.barn.isEmpty())
+    }
+
+    @Test
+    fun `henPersonInfo skal returnere tom liste med barn, der barn er dod`() {
+        every { pdlClient.hentPerson(any()) } returns pdlMockFor("pdlBrukerMedDoedBarn")
+        every { barnePdlClient.hentPerson("12345678910") } returns pdlMockFor("pdlBarnErDoed")
+        every { kodeverkClient.hentPostnummer() } returns kodeverkMockFor("kodeverkPostnummerRespons")
+        val person = personopplysningerService.hentPersoninfo("23058518298")
+        assertEquals(person.barn.size, 0)
     }
 
     @Test

@@ -7,9 +7,9 @@
           "etternavn": "FYR"
         }
       ],
-      "statsborgerskap": [
+      "sivilstand" : [
         {
-          "land": "NOR"
+          "type": "GIFT"
         }
       ],
       "foedsel": [
@@ -17,8 +17,26 @@
           "foedselsdato": "1920-02-10"
         }
       ],
-      "sivilstand" : [ ],
-      "adressebeskyttelse": [],
+      "adressebeskyttelse": [
+        {
+          "gradering": "UGRADERT"
+        }
+      ],
+      "statsborgerskap": [
+        {
+          "land": "NOR"
+        }
+      ],
+      "folkeregisteridentifikator": [
+        {
+          "identifikasjonsnummer": "23058518298"
+        }
+      ],
+      "doedsfall": [
+        {
+          "doedsdato": null
+        }
+      ],
       "bostedsadresse": [
         {
           "vegadresse": {
@@ -33,19 +51,16 @@
           },
           "matrikkeladresse": null,
           "ukjentBosted": null
-
         }
       ],
-      "folkeregisteridentifikator": [
-        {
-          "identifikasjonsnummer": "23058518298"
-        }
-      ],
-      "doedsfall": [],
       "familierelasjoner": [
         {
           "relatertPersonsIdent": "12345678910",
           "relatertPersonsRolle": "BARN"
+        },
+        {
+          "relatertPersonsIdent": "23058518298",
+          "relatertPersonsRolle": "MOR"
         }
       ]
     }

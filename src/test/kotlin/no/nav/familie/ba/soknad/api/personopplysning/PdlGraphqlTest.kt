@@ -5,6 +5,7 @@ import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import java.io.File
 import no.nav.familie.ba.soknad.api.clients.pdl.ADRESSEBESKYTTELSEGRADERING
 import no.nav.familie.ba.soknad.api.clients.pdl.Adressebeskyttelse
+import no.nav.familie.ba.soknad.api.clients.pdl.PdlDoedsafall
 import no.nav.familie.ba.soknad.api.clients.pdl.PdlHentPersonResponse
 import no.nav.familie.ba.soknad.api.clients.pdl.PdlNavn
 import no.nav.familie.ba.soknad.api.clients.pdl.PdlStatsborgerskap
@@ -19,6 +20,8 @@ class PdlGraphqlTest {
     @Test
     fun testDeserialization() {
         val resp = mapper.readValue(File(getFile("pdl/pdlPersonMedFlereRelasjoner.json")), PdlHentPersonResponse::class.java)
+        assertEquals("23058518298", resp.data.person?.folkeregisteridentifikator?.firstOrNull()?.identifikasjonsnummer)
+        assertEquals(listOf(PdlDoedsafall(null)), resp.data.person?.doedsfall)
         assertEquals("ENGASJERT", resp.data.person!!.navn.first().fornavn)
         assertEquals("FYR", resp.data.person!!.navn.first().etternavn)
         assertEquals(2, resp.data.person!!.familierelasjoner.size)

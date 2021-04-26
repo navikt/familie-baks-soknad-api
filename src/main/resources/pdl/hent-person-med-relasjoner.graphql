@@ -5,8 +5,14 @@ query ($ident: ID!) {
             mellomnavn
             etternavn
         }
+        folkeregisteridentifikator{
+            identifikasjonsnummer
+        }
         foedsel {
             foedselsdato
+        }
+        doedsfall {
+            doedsdato
         }
         familierelasjoner {
             relatertPersonsIdent

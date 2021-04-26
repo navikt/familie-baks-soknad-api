@@ -23,21 +23,20 @@ object PdlBarnMapper {
 
     fun mapBarn(
         barnRespons: PdlHentPersonResponse,
-        fnr: String,
         soekerAdresse: Bostedsadresse?,
         kodeverkClient: CachedKodeverkService
     ): Barn {
         return Result.runCatching {
             val adresseBeskyttelse = barnRespons.data.person?.adressebeskyttelse
             Barn(
-                ident = fnr,
-                navn = barnRespons.data.person?.navn?.firstOrNull()!!.fulltNavn(),
-                fødselsdato = barnRespons.data.person.foedsel.firstOrNull()?.foedselsdato,
-                borMedSøker = borBarnMedSoeker(
+                    ident = barnRespons.data.person?.folkeregisteridentifikator?.first()?.identifikasjonsnummer!!,
+                    navn = barnRespons.data.person.navn.firstOrNull()!!.fulltNavn(),
+                    fødselsdato = barnRespons.data.person.foedsel.firstOrNull()?.foedselsdato,
+                    borMedSøker = borBarnMedSoeker(
                     soekerAdresse = soekerAdresse,
                     barneAdresse = barnRespons.data.person.bostedsadresse.firstOrNull()
                 ),
-                adressebeskyttelse = PdlMapper.harBrukerAdresseBeskyttelse(adresseBeskyttelse)
+                    adressebeskyttelse = PdlMapper.harBrukerAdresseBeskyttelse(adresseBeskyttelse)
             )
         }.fold(
             onSuccess = { it },

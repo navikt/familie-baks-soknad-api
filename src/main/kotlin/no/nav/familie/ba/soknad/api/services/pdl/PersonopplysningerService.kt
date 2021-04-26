@@ -2,6 +2,7 @@ package no.nav.familie.ba.soknad.api.services.pdl
 
 import no.nav.familie.ba.soknad.api.clients.kodeverk.KodeverkClient
 import no.nav.familie.ba.soknad.api.clients.pdl.PdlBrukerClient
+import no.nav.familie.ba.soknad.api.clients.pdl.PdlDoedsafall
 import no.nav.familie.ba.soknad.api.clients.pdl.PdlSystemClient
 import no.nav.familie.ba.soknad.api.domene.Barn
 import no.nav.familie.ba.soknad.api.domene.Person
@@ -26,16 +27,19 @@ class PersonopplysningerService(
         )
 
         return response.data.person.let {
-            PdlMapper.mapTilPersonInfo(it, personIdent, barnTilSoeker, kodeverkService)
+            PdlMapper.mapTilPersonInfo(it, barnTilSoeker, kodeverkService)
         }
     }
 
     fun hentBarnTilSoeker(fnrBarn: List<String>, sokerAdresse: Bostedsadresse?): Set<Barn> {
-        return fnrBarn.map { identBarn ->
-            val barnRespons = pdlSystemClient.hentPerson(identBarn)
-            barnRespons.data.person.let {
-                PdlBarnMapper.mapBarn(barnRespons, identBarn, sokerAdresse, kodeverkService)
-            }
-        }.toSet()
+        return fnrBarn
+                .map { ident -> pdlSystemClient.hentPerson(ident) }
+                .filter { erBarnILive(it.data.person?.doedsfall) }
+                .map { PdlBarnMapper.mapBarn(it,  sokerAdresse, kodeverkService) }.toSet()
+    }
+
+
+    private fun erBarnILive(doedsfall: List<PdlDoedsafall>?) : Boolean {
+        return doedsfall.isNullOrEmpty()
     }
 }
