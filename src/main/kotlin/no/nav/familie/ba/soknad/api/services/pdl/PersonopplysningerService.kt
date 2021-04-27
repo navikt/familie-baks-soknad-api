@@ -54,7 +54,7 @@ class PersonopplysningerService(
         }
         val alder = Period.between(fødselsdato, LocalDate.now())
         val alderIÅr = alder.years
-        return alderIÅr <= 18
+        return alderIÅr < 18
     }
 
     fun parseIsoDato(dato: String?): LocalDate? {
