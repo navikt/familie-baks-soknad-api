@@ -21,7 +21,7 @@ class PersonopplysningerService(
     fun hentPersoninfo(personIdent: String): Person {
         val response = pdlClient.hentPerson(personIdent)
         val barnTilSoeker = hentBarnTilSoeker(
-            fnrBarn = PdlMapper.mapFnrBarn(response.data.person!!.familierelasjoner),
+            fnrBarn = PdlMapper.mapFnrBarn(response.data.person!!.forelderBarnRelasjon),
             sokerAdresse = response.data.person.bostedsadresse.firstOrNull()
         )
 
