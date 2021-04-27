@@ -36,7 +36,8 @@ class ClientMocks {
     fun mockMottakClient(): MottakClient {
         val mockMottakClient = mockk<MottakClient>()
         every { mockMottakClient.ping() } just Runs
-        every { mockMottakClient.sendSøknad(any()) } returns Ressurs.success(Kvittering("søknad mottatt OK", LocalDateTime.now()))
+        every { mockMottakClient.sendSøknad(any()) } returns
+                Ressurs.success(Kvittering("søknad mottatt OK", LocalDateTime.now()))
         return mockMottakClient
     }
 
@@ -48,55 +49,55 @@ class ClientMocks {
 
         every { mockPdlClient.ping() } just Runs
         every { mockPdlClient.hentPerson(any()) } returns PdlHentPersonResponse(
-            data = PdlPerson(
-                person = PdlPersonData(
-                        navn = listOf(
-                        PdlNavn(
-                            fornavn = "Voksen",
-                            etternavn = "Voksnessen"
+                data = PdlPerson(
+                        person = PdlPersonData(
+                                navn = listOf(
+                                        PdlNavn(
+                                                fornavn = "Voksen",
+                                                etternavn = "Voksnessen"
+                                        )
+                                ),
+                                forelderBarnRelasjon = listOf(
+                                        PdlFamilierelasjon("12345678987", FAMILIERELASJONSROLLE.BARN),
+                                        PdlFamilierelasjon("12345678989", FAMILIERELASJONSROLLE.MOR)
+                                ),
+                                bostedsadresse = listOf(
+                                        Bostedsadresse(
+                                                vegadresse = Vegadresse(
+                                                        21,
+                                                        "2",
+                                                        "A",
+                                                        "H0101",
+                                                        "Solveien",
+                                                        "",
+                                                        "",
+                                                        "2304"
+                                                ),
+                                                matrikkeladresse = null
+                                        )
+                                ),
+                                adressebeskyttelse = emptyList(),
+                                statsborgerskap = listOf(
+                                        PdlStatsborgerskap(
+                                                land = "NOR"
+                                        ),
+                                        PdlStatsborgerskap(
+                                                land = "AFG"
+                                        )
+                                ),
+                                sivilstand = listOf(
+                                        PdlSivilstand(
+                                                type = SIVILSTANDSTYPE.GIFT
+                                        )
+                                ),
+                                foedsel = listOf(
+                                        PdlFødselsDato(
+                                                "2020-02-25"
+                                        )
+                                )
                         )
-                    ),
-                        forelderBarnRelasjon = listOf(
-                        PdlFamilierelasjon("12345678987", FAMILIERELASJONSROLLE.BARN),
-                        PdlFamilierelasjon("12345678989", FAMILIERELASJONSROLLE.MOR)
-                    ),
-                        bostedsadresse = listOf(
-                        Bostedsadresse(
-                            vegadresse = Vegadresse(
-                                21,
-                                "2",
-                                "A",
-                                "H0101",
-                                "Solveien",
-                                "",
-                                "",
-                                "2304"
-                            ),
-                            matrikkeladresse = null
-                        )
-                    ),
-                        adressebeskyttelse = emptyList(),
-                        statsborgerskap = listOf(
-                        PdlStatsborgerskap(
-                            land = "NOR"
-                        ),
-                        PdlStatsborgerskap(
-                            land = "AFG"
-                        )
-                    ),
-                        sivilstand = listOf(
-                        PdlSivilstand(
-                            type = SIVILSTANDSTYPE.GIFT
-                        )
-                    ),
-                        foedsel = listOf(
-                        PdlFødselsDato(
-                            "2020-02-25"
-                        )
-                    )
-                )
-            ),
-            errors = null
+                ),
+                errors = null
         )
         return mockPdlClient
     }
@@ -108,23 +109,23 @@ class ClientMocks {
         val mockPdlClient = mockk<PdlSystemClient>()
 
         every { mockPdlClient.hentPerson(any()) } returns PdlHentPersonResponse(
-            data = PdlPerson(
-                person = PdlPersonData(
-                    navn = listOf(PdlNavn("Barn", etternavn = "Barnessen III")),
-                    foedsel = listOf(PdlFødselsDato("1990-01-01")),
-                    bostedsadresse = listOf(
-                        Bostedsadresse(
-                            vegadresse = null,
-                            ukjentBosted = null,
-                            matrikkeladresse = null
+                data = PdlPerson(
+                        person = PdlPersonData(
+                                navn = listOf(PdlNavn("Barn", etternavn = "Barnessen III")),
+                                foedsel = listOf(PdlFødselsDato("1990-01-01")),
+                                bostedsadresse = listOf(
+                                        Bostedsadresse(
+                                                vegadresse = null,
+                                                ukjentBosted = null,
+                                                matrikkeladresse = null
+                                        )
+                                ),
+                                adressebeskyttelse = emptyList(),
+                                statsborgerskap = emptyList(),
+                                sivilstand = null
                         )
-                    ),
-                    adressebeskyttelse = emptyList(),
-                    statsborgerskap = emptyList(),
-                    sivilstand = null
-                )
-            ),
-            errors = null
+                ),
+                errors = null
         )
         return mockPdlClient
     }
