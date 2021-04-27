@@ -36,7 +36,8 @@ class ClientMocks {
     fun mockMottakClient(): MottakClient {
         val mockMottakClient = mockk<MottakClient>()
         every { mockMottakClient.ping() } just Runs
-        every { mockMottakClient.sendSøknad(any()) } returns Ressurs.success(Kvittering("søknad mottatt OK", LocalDateTime.now()))
+        every { mockMottakClient.sendSøknad(any()) } returns
+            Ressurs.success(Kvittering("søknad mottatt OK", LocalDateTime.now()))
         return mockMottakClient
     }
 
@@ -56,7 +57,7 @@ class ClientMocks {
                             etternavn = "Voksnessen"
                         )
                     ),
-                    familierelasjoner = listOf(
+                    forelderBarnRelasjon = listOf(
                         PdlFamilierelasjon("12345678987", FAMILIERELASJONSROLLE.BARN),
                         PdlFamilierelasjon("12345678989", FAMILIERELASJONSROLLE.MOR)
                     ),
