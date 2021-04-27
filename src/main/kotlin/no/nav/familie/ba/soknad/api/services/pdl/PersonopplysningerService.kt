@@ -1,5 +1,8 @@
 package no.nav.familie.ba.soknad.api.services.pdl
 
+import java.time.LocalDate
+import java.time.Period
+import java.time.format.DateTimeFormatter
 import no.nav.familie.ba.soknad.api.clients.kodeverk.KodeverkClient
 import no.nav.familie.ba.soknad.api.clients.pdl.PdlBrukerClient
 import no.nav.familie.ba.soknad.api.clients.pdl.PdlDoedsafall
@@ -11,10 +14,6 @@ import no.nav.familie.ba.soknad.api.services.pdl.mapper.PdlBarnMapper
 import no.nav.familie.ba.soknad.api.services.pdl.mapper.PdlMapper
 import no.nav.familie.kontrakter.felles.personopplysning.Bostedsadresse
 import org.springframework.stereotype.Service
-import java.time.LocalDate
-import java.time.Period
-import java.time.format.DateTimeFormatter
-import kotlin.math.min
 
 @Service
 class PersonopplysningerService(
@@ -38,8 +37,9 @@ class PersonopplysningerService(
     fun hentBarnTilSoeker(fnrBarn: List<String>, sokerAdresse: Bostedsadresse?): Set<Barn> {
         return fnrBarn
             .map { ident -> pdlSystemClient.hentPerson(ident) }
-            .filter { erBarnILive(it.data.person?.doedsfall) &&
-                      erUnderAtten(parseIsoDato(it.data.person?.foedsel?.firstOrNull()?.foedselsdato))
+            .filter {
+                erBarnILive(it.data.person?.doedsfall) &&
+                    erUnderAtten(parseIsoDato(it.data.person?.foedsel?.firstOrNull()?.foedselsdato))
             }
             .map { PdlBarnMapper.mapBarn(it, sokerAdresse, kodeverkService) }.toSet()
     }
