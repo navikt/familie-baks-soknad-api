@@ -25,7 +25,7 @@ data class PdlPerson(val person: PdlPersonData?)
 data class PdlPersonData(
     val navn: List<PdlNavn>,
     val adressebeskyttelse: List<Adressebeskyttelse>,
-    val familierelasjoner: List<PdlFamilierelasjon> = emptyList(),
+    val forelderBarnRelasjon: List<PdlFamilierelasjon> = emptyList(),
     val foedsel: List<PdlFødselsDato>,
     val bostedsadresse: List<Bostedsadresse?>,
     val statsborgerskap: List<PdlStatsborgerskap>,

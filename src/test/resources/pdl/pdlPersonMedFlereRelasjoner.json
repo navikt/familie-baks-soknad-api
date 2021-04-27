@@ -53,7 +53,7 @@
           "ukjentBosted": null
         }
       ],
-      "familierelasjoner": [
+      "forelderBarnRelasjon": [
         {
           "relatertPersonsIdent": "12345678910",
           "relatertPersonsRolle": "BARN"

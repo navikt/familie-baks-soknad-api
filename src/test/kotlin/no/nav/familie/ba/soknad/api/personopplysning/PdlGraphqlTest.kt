@@ -24,7 +24,7 @@ class PdlGraphqlTest {
         assertEquals(listOf(PdlDoedsafall(null)), resp.data.person?.doedsfall)
         assertEquals("ENGASJERT", resp.data.person!!.navn.first().fornavn)
         assertEquals("FYR", resp.data.person!!.navn.first().etternavn)
-        assertEquals(2, resp.data.person!!.familierelasjoner.size)
+        assertEquals(2, resp.data.person!!.forelderBarnRelasjon.size)
         assertEquals(null, resp.data.person!!.bostedsadresse.first()!!.matrikkeladresse)
         assertEquals(null, resp.data.person!!.bostedsadresse.first()!!.ukjentBosted)
         assertEquals(3, resp.data.person!!.bostedsadresse.first()!!.vegadresse!!.matrikkelId)
