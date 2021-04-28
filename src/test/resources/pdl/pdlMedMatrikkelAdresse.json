@@ -22,6 +22,12 @@
           "land": "NOR"
         }
       ],
+      "folkeregisteridentifikator": [
+        {
+          "identifikasjonsnummer": "23058518298"
+        }
+      ],
+      "doedsfall": [],
       "foedsel": [
         {
           "foedselsdato": "1920-02-10"

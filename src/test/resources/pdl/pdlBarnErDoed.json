@@ -9,20 +9,20 @@
       ],
       "adressebeskyttelse": [
         {
-          "gradering": "STRENGT_FORTROLIG_UTLAND"
-        }
-      ],
-      "statsborgerskap": [
-        {
-          "land": "NOR"
-        }
-      ],
-      "foedsel": [
-        {
-          "foedselsdato": "1920-02-10"
+          "gradering": "UGRADERT"
         }
       ],
       "sivilstand" : [ ],
+      "folkeregisteridentifikator": [
+        {
+          "identifikasjonsnummer": "23058518298"
+        }
+      ],
+      "doedsfall": [
+        {
+          "doedsdato": "1920-02-10"
+        }
+      ],
       "bostedsadresse": [
         {
           "vegadresse": {
@@ -40,13 +40,16 @@
 
         }
       ],
-      "forelderBarnRelasjon": [],
-      "folkeregisteridentifikator": [
+      "statsborgerskap": [
         {
-          "identifikasjonsnummer": "23058518298"
+          "land": "NOR"
         }
       ],
-      "doedsfall": []
+      "foedsel": [
+        {
+          "foedselsdato": "1920-02-10"
+        }
+      ]
     }
   }
 }

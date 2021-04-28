@@ -21,7 +21,6 @@ object PdlMapper {
 
     fun mapTilPersonInfo(
         person: PdlPersonData,
-        personIdent: String,
         barn: Set<Barn>,
         kodeverkService: CachedKodeverkService
     ): Person {
@@ -36,7 +35,7 @@ object PdlMapper {
 
         return Result.runCatching {
             Person(
-                ident = personIdent,
+                ident = person.folkeregisteridentifikator.firstOrNull()?.identifikasjonsnummer!!,
                 navn = person.navn.first().fulltNavn(),
                 statsborgerskap = statsborgerskap,
                 sivilstand = Sivilstand(sivilstandType),

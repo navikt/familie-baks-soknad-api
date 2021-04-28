@@ -8,6 +8,7 @@ import java.time.LocalDateTime
 import no.nav.familie.ba.soknad.api.clients.pdl.FAMILIERELASJONSROLLE
 import no.nav.familie.ba.soknad.api.clients.pdl.PdlBrukerClient
 import no.nav.familie.ba.soknad.api.clients.pdl.PdlFamilierelasjon
+import no.nav.familie.ba.soknad.api.clients.pdl.PdlFolkeregisteridentifikator
 import no.nav.familie.ba.soknad.api.clients.pdl.PdlFødselsDato
 import no.nav.familie.ba.soknad.api.clients.pdl.PdlHentPersonResponse
 import no.nav.familie.ba.soknad.api.clients.pdl.PdlNavn
@@ -94,6 +95,12 @@ class ClientMocks {
                         PdlFødselsDato(
                             "2020-02-25"
                         )
+                    ),
+                    doedsfall = emptyList(),
+                    folkeregisteridentifikator = listOf(
+                        PdlFolkeregisteridentifikator(
+                            identifikasjonsnummer = "23058518298"
+                        )
                     )
                 )
             ),
@@ -122,7 +129,12 @@ class ClientMocks {
                     ),
                     adressebeskyttelse = emptyList(),
                     statsborgerskap = emptyList(),
-                    sivilstand = null
+                    sivilstand = null,
+                    doedsfall = emptyList(),
+                    folkeregisteridentifikator = listOf(
+                        PdlFolkeregisteridentifikator
+                        (identifikasjonsnummer = "23051518298")
+                    )
                 )
             ),
             errors = null

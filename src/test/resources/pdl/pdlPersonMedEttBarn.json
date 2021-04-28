@@ -36,6 +36,12 @@
 
         }
       ],
+      "folkeregisteridentifikator": [
+        {
+          "identifikasjonsnummer": "23058518298"
+        }
+      ],
+      "doedsfall": [],
       "forelderBarnRelasjon": [
         {
           "relatertPersonsIdent": "12345678910",
