@@ -11,10 +11,10 @@ import no.nav.familie.ba.soknad.api.clients.pdl.SIVILSTANDSTYPE
 import no.nav.familie.ba.soknad.api.domene.Adresse
 import no.nav.familie.ba.soknad.api.domene.Barn
 import no.nav.familie.ba.soknad.api.domene.Person
-import no.nav.familie.ba.soknad.api.domene.SIVILSTANDTYPE
 import no.nav.familie.ba.soknad.api.domene.Sivilstand
 import no.nav.familie.ba.soknad.api.domene.Statborgerskap
 import no.nav.familie.ba.soknad.api.services.kodeverk.CachedKodeverkService
+import no.nav.familie.kontrakter.ba.søknad.SIVILSTANDTYPE
 import no.nav.familie.kontrakter.felles.personopplysning.Bostedsadresse
 
 object PdlMapper {
