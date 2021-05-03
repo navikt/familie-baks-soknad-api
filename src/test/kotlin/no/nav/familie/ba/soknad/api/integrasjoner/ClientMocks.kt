@@ -119,7 +119,7 @@ class ClientMocks {
             data = PdlPerson(
                 person = PdlPersonData(
                     navn = listOf(PdlNavn("Barn", etternavn = "Barnessen III")),
-                    foedsel = listOf(PdlFødselsDato("1990-01-01")),
+                    foedsel = listOf(PdlFødselsDato("2010-01-01")),
                     bostedsadresse = listOf(
                         Bostedsadresse(
                             vegadresse = null,
