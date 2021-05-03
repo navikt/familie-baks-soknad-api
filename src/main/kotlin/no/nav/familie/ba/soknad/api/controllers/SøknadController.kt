@@ -4,7 +4,6 @@ import no.nav.familie.ba.soknad.api.domene.Kvittering
 import no.nav.familie.ba.soknad.api.integrasjoner.MottakClient
 import no.nav.familie.ba.soknad.api.util.TokenBehandler
 import no.nav.familie.kontrakter.ba.søknad.Søknad
-import no.nav.familie.kontrakter.ba.søknad.Søknadsfelt
 import no.nav.familie.kontrakter.felles.Ressurs
 import no.nav.security.token.support.core.api.ProtectedWithClaims
 import org.springframework.http.MediaType
@@ -22,10 +21,14 @@ class SøknadController(private val mottakClient: MottakClient) {
     @PostMapping("/soknad")
     fun søknadsMottak(@RequestBody(required = true) søknad: Søknad): ResponseEntity<Ressurs<Kvittering>> {
 
-        søknad.apply {
-            søker.verdi.fødselsnummer = Søknadsfelt(verdi = TokenBehandler.hentFnr(), label = "Fødselsnummer")
-        }
+        val søknadMedIdentFraToken = søknad.copy(
+            søker = søknad.søker.copy(
+                ident = søknad.søker.ident.copy(
+                    verdi = TokenBehandler.hentFnr()
+                )
+            )
+        )
 
-        return ResponseEntity.ok().body(mottakClient.sendSøknad(søknad))
+        return ResponseEntity.ok().body(mottakClient.sendSøknad(søknadMedIdentFraToken))
     }
 }

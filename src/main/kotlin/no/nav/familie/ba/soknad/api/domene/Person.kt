@@ -1,5 +1,7 @@
 package no.nav.familie.ba.soknad.api.domene
 
+import no.nav.familie.kontrakter.ba.søknad.SIVILSTANDTYPE
+
 data class Person(
     val ident: String,
     val navn: String,
@@ -35,16 +37,3 @@ data class Statborgerskap(
 data class Sivilstand(
     val type: SIVILSTANDTYPE?
 )
-
-enum class SIVILSTANDTYPE {
-    GIFT,
-    ENKE_ELLER_ENKEMANN,
-    SKILT,
-    SEPARERT,
-    REGISTRERT_PARTNER,
-    SEPARERT_PARTNER,
-    SKILT_PARTNER,
-    GJENLEVENDE_PARTNER,
-    UGIFT,
-    UOPPGITT
-}
