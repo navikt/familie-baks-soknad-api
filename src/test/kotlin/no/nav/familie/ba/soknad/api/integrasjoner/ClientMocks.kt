@@ -59,6 +59,7 @@ class ClientMocks {
                         )
                     ),
                     forelderBarnRelasjon = listOf(
+                        PdlFamilierelasjon("23456789876", FAMILIERELASJONSROLLE.BARN),
                         PdlFamilierelasjon("12345678987", FAMILIERELASJONSROLLE.BARN),
                         PdlFamilierelasjon("12345678989", FAMILIERELASJONSROLLE.MOR)
                     ),
@@ -115,11 +116,43 @@ class ClientMocks {
     fun mockEkspAuthPdlClient(): PdlSystemClient {
         val mockPdlClient = mockk<PdlSystemClient>()
 
-        every { mockPdlClient.hentPerson(any()) } returns PdlHentPersonResponse(
+        every { mockPdlClient.hentPerson("12345678987") } returns PdlHentPersonResponse(
             data = PdlPerson(
                 person = PdlPersonData(
                     navn = listOf(PdlNavn("Barn", etternavn = "Barnessen III")),
                     foedsel = listOf(PdlFødselsDato("2010-01-01")),
+                    bostedsadresse = listOf(
+                        Bostedsadresse(
+                            vegadresse = Vegadresse(
+                                21,
+                                "2",
+                                "A",
+                                "H0101",
+                                "Solveien",
+                                "",
+                                "",
+                                "2304"
+                            ),
+                            ukjentBosted = null,
+                            matrikkeladresse = null
+                        )
+                    ),
+                    adressebeskyttelse = emptyList(),
+                    statsborgerskap = emptyList(),
+                    sivilstand = null,
+                    doedsfall = emptyList(),
+                    folkeregisteridentifikator = listOf(
+                        PdlFolkeregisteridentifikator(identifikasjonsnummer = "12345678987")
+                    )
+                )
+            ),
+            errors = null
+        )
+        every { mockPdlClient.hentPerson("23456789876") } returns PdlHentPersonResponse(
+            data = PdlPerson(
+                person = PdlPersonData(
+                    navn = listOf(PdlNavn("Barn", etternavn = "Barnessen II")),
+                    foedsel = listOf(PdlFødselsDato("2008-10-01")),
                     bostedsadresse = listOf(
                         Bostedsadresse(
                             vegadresse = null,
@@ -132,8 +165,7 @@ class ClientMocks {
                     sivilstand = null,
                     doedsfall = emptyList(),
                     folkeregisteridentifikator = listOf(
-                        PdlFolkeregisteridentifikator
-                        (identifikasjonsnummer = "23051518298")
+                        PdlFolkeregisteridentifikator(identifikasjonsnummer = "23456789876")
                     )
                 )
             ),
