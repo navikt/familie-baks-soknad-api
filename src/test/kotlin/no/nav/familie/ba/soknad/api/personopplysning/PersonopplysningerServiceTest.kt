@@ -228,6 +228,7 @@ class PersonopplysningerServiceTest {
 
         val person = personopplysningerService.hentPersoninfo("1")
         assertTrue(person.barn.toList()[0].adressebeskyttelse)
+        assertFalse(person.barn.toList()[0].borMedSøker)
     }
 
     @Test
