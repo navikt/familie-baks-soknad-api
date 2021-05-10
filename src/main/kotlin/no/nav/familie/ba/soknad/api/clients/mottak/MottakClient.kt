@@ -1,6 +1,5 @@
 package no.nav.familie.ba.soknad.api.clients.mottak
 
-import com.fasterxml.jackson.databind.JsonNode
 import java.lang.IllegalStateException
 import java.net.URI
 import no.nav.familie.ba.soknad.api.domene.Kvittering
@@ -11,10 +10,8 @@ import no.nav.familie.kontrakter.felles.Ressurs
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.beans.factory.annotation.Value
-import org.springframework.http.HttpMethod
 import org.springframework.stereotype.Component
 import org.springframework.web.client.RestOperations
-import org.springframework.web.client.exchange
 
 @Component
 class MottakClient(
@@ -23,11 +20,11 @@ class MottakClient(
 ) :
     AbstractPingableRestClient(restOperations, "integrasjon") {
 
-    override val pingUri: URI = URI.create("$mottakBaseUrl/api/soknad")
+    override val pingUri: URI = URI.create("$mottakBaseUrl/api/ping")
 
     override fun ping() {
         try {
-            restOperations.exchange<JsonNode>(pingUri, HttpMethod.OPTIONS)
+            getForEntity<String>(pingUri)
             LOG.debug("Ping mot familie-ba-mottak OK")
         } catch (e: Exception) {
             LOG.warn("Ping mot familie-ba-mottak feilet")
