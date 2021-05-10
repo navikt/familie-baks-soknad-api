@@ -28,7 +28,7 @@ object PdlMapper {
         val statsborgerskap: List<Statborgerskap> = mapStatsborgerskap(person.statsborgerskap)
         val sivilstandType = mapSivilstandType(person.sivilstand!!)
 
-        val harBrukerAdressebeskyttelse = harBrukerAdresseBeskyttelse(person.adressebeskyttelse)
+        val harBrukerAdressebeskyttelse = harPersonAdresseBeskyttelse(person.adressebeskyttelse)
         val adresse = if (!harBrukerAdressebeskyttelse)
             mapAdresser(person.bostedsadresse.firstOrNull(), kodeverkService)
         else null
@@ -109,7 +109,7 @@ object PdlMapper {
         }
     }
 
-    fun harBrukerAdresseBeskyttelse(adresseBeskyttelse: List<Adressebeskyttelse>?): Boolean {
+    fun harPersonAdresseBeskyttelse(adresseBeskyttelse: List<Adressebeskyttelse>?): Boolean {
 
         if (!adresseBeskyttelse.isNullOrEmpty() &&
             adresseBeskyttelse.any {

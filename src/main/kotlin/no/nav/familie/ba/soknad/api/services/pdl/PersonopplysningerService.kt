@@ -41,7 +41,7 @@ class PersonopplysningerService(
                 erBarnILive(it.data.person?.doedsfall) &&
                     erUnderAtten(parseIsoDato(it.data.person?.foedsel?.firstOrNull()?.foedselsdato))
             }
-            .map { PdlBarnMapper.mapBarn(it, sokerAdresse, kodeverkService) }.toSet()
+            .map { PdlBarnMapper.mapBarn(it, sokerAdresse) }.toSet()
     }
 
     private fun erBarnILive(doedsfall: List<PdlDoedsafall>?): Boolean {
