@@ -5,8 +5,6 @@ import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
 import java.time.LocalDateTime
-import no.nav.familie.ba.soknad.api.clients.pdl.ADRESSEBESKYTTELSEGRADERING
-import no.nav.familie.ba.soknad.api.clients.pdl.Adressebeskyttelse
 import no.nav.familie.ba.soknad.api.clients.pdl.FAMILIERELASJONSROLLE
 import no.nav.familie.ba.soknad.api.clients.pdl.PdlBrukerClient
 import no.nav.familie.ba.soknad.api.clients.pdl.PdlFamilierelasjon
@@ -61,6 +59,7 @@ class ClientMocks {
                         )
                     ),
                     forelderBarnRelasjon = listOf(
+                        PdlFamilierelasjon("23456789876", FAMILIERELASJONSROLLE.BARN),
                         PdlFamilierelasjon("12345678987", FAMILIERELASJONSROLLE.BARN),
                         PdlFamilierelasjon("12345678989", FAMILIERELASJONSROLLE.MOR)
                     ),
@@ -138,7 +137,7 @@ class ClientMocks {
                             matrikkeladresse = null
                         )
                     ),
-                    adressebeskyttelse = listOf(Adressebeskyttelse(gradering = ADRESSEBESKYTTELSEGRADERING.FORTROLIG)),
+                    adressebeskyttelse = emptyList(),
                     statsborgerskap = emptyList(),
                     sivilstand = null,
                     doedsfall = emptyList(),
@@ -156,7 +155,16 @@ class ClientMocks {
                     foedsel = listOf(PdlFødselsDato("2008-10-01")),
                     bostedsadresse = listOf(
                         Bostedsadresse(
-                            vegadresse = null,
+                            vegadresse = Vegadresse(
+                                21,
+                                "2",
+                                "A",
+                                "H0101",
+                                "Solveien",
+                                "",
+                                "",
+                                "2304"
+                            ),
                             ukjentBosted = null,
                             matrikkeladresse = null
                         )
@@ -166,8 +174,7 @@ class ClientMocks {
                     sivilstand = null,
                     doedsfall = emptyList(),
                     folkeregisteridentifikator = listOf(
-                        PdlFolkeregisteridentifikator
-                        (identifikasjonsnummer = "23051518298")
+                        PdlFolkeregisteridentifikator(identifikasjonsnummer = "12345678987")
                     )
                 )
             ),
