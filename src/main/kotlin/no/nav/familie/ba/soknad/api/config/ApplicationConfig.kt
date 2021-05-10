@@ -115,6 +115,7 @@ internal class ApplicationConfig {
                 consumerIdClientInterceptor,
                 apiKeyInjectingClientInterceptor,
                 MdcValuesPropagatingClientInterceptor(),
+                AddJwtTokenInterceptor()
             )
             .build()
     }
