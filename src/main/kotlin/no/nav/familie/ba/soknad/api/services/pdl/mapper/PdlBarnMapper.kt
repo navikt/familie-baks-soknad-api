@@ -2,7 +2,7 @@ package no.nav.familie.ba.soknad.api.services.pdl.mapper
 
 import no.nav.familie.ba.soknad.api.clients.pdl.PdlHentPersonResponse
 import no.nav.familie.ba.soknad.api.domene.Barn
-import no.nav.familie.ba.soknad.api.services.kodeverk.CachedKodeverkService
+import no.nav.familie.ba.soknad.api.services.pdl.mapper.PdlMapper.harPersonAdresseBeskyttelse
 import no.nav.familie.kontrakter.felles.personopplysning.Bostedsadresse
 
 object PdlBarnMapper {
@@ -24,19 +24,21 @@ object PdlBarnMapper {
     fun mapBarn(
         barnRespons: PdlHentPersonResponse,
         soekerAdresse: Bostedsadresse?,
-        kodeverkClient: CachedKodeverkService
     ): Barn {
         return Result.runCatching {
-            val adresseBeskyttelse = barnRespons.data.person?.adressebeskyttelse
+            val barnHarAdresseBeskyttelse = harPersonAdresseBeskyttelse(barnRespons.data.person?.adressebeskyttelse)
             Barn(
                 ident = barnRespons.data.person?.folkeregisteridentifikator?.first()?.identifikasjonsnummer!!,
                 navn = barnRespons.data.person.navn.firstOrNull()!!.fulltNavn(),
                 fødselsdato = barnRespons.data.person.foedsel.firstOrNull()?.foedselsdato,
-                borMedSøker = borBarnMedSoeker(
-                    soekerAdresse = soekerAdresse,
-                    barneAdresse = barnRespons.data.person.bostedsadresse.firstOrNull()
-                ),
-                adressebeskyttelse = PdlMapper.harBrukerAdresseBeskyttelse(adresseBeskyttelse)
+                borMedSøker = when (barnHarAdresseBeskyttelse) {
+                    true -> false
+                    false -> borBarnMedSoeker(
+                        soekerAdresse = soekerAdresse,
+                        barneAdresse = barnRespons.data.person.bostedsadresse.firstOrNull()
+                    )
+                },
+                adressebeskyttelse = barnHarAdresseBeskyttelse
             )
         }.fold(
             onSuccess = { it },
