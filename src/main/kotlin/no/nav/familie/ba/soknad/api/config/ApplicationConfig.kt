@@ -112,10 +112,9 @@ internal class ApplicationConfig {
     ): RestOperations {
         return RestTemplateBuilder()
             .interceptors(
-                bearerTokenClientHttpRequestInterceptor,
-                MdcValuesPropagatingClientInterceptor(),
                 consumerIdClientInterceptor,
                 apiKeyInjectingClientInterceptor,
+                MdcValuesPropagatingClientInterceptor(),
             )
             .build()
     }
