@@ -6,6 +6,6 @@ no.nav.security.jwt:
 FAMILIE_BA_MOTTAK_URL: https://api-gw.oera.no/familie-ba-mottak
 PDL_API_URL: https://api-gw.oera.no/pdl-api
 STS_URL: https://api-gw.oera.no/security-token-service/rest/v1/sts/token
-KODEVERK_URL: http://kodeverk
+KODEVERK_URL: https://api-gw.oera.no/kodeverk
 
 logging.level.no.nav.security: INFO
