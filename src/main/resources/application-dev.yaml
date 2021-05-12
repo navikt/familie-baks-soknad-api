@@ -3,7 +3,7 @@ PDL_API_URL: https://api-gw-q1.oera.no/pdl-api
 STS_URL: https://api-gw-q1.oera.no/security-token-service/rest/v1/sts/token
 KODEVERK_URL: https://api-gw-q1.oera.no/kodeverk
 
-logging.level.no.nav.security: INFO
+logging.level.no.nav.security: DEBUG
 
 no.nav.security.jwt:
   client:
