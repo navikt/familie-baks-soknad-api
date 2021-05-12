@@ -3,10 +3,12 @@ package no.nav.familie.ba.soknad.api.config
 import java.net.URI
 import no.nav.familie.ba.soknad.api.util.TokenBehandler
 import no.nav.familie.http.interceptor.ApiKeyInjectingClientInterceptor
+import no.nav.familie.http.interceptor.BearerTokenClientInterceptor
 import no.nav.familie.http.interceptor.ConsumerIdClientInterceptor
 import no.nav.familie.http.interceptor.MdcValuesPropagatingClientInterceptor
 import no.nav.familie.kontrakter.felles.objectMapper
 import no.nav.familie.log.filter.LogFilter
+import no.nav.security.token.support.client.spring.oauth2.EnableOAuth2Client
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.SpringBootConfiguration
@@ -25,7 +27,8 @@ import org.springframework.web.client.RestOperations
 
 @SpringBootConfiguration
 @ComponentScan(ApplicationConfig.pakkenavn)
-@Import(ConsumerIdClientInterceptor::class)
+@Import(ConsumerIdClientInterceptor::class, BearerTokenClientInterceptor::class)
+@EnableOAuth2Client(cacheEnabled = true)
 internal class ApplicationConfig {
 
     @Bean
@@ -105,15 +108,15 @@ internal class ApplicationConfig {
 
     @Bean("restKlientMottak")
     fun restTemplateMottak(
-        jwtTokenInjectingInterceptor: ClientHttpRequestInterceptor,
+        bearerTokenClientInterceptor: BearerTokenClientInterceptor,
         consumerIdClientInterceptor: ConsumerIdClientInterceptor,
         apiKeyInjectingClientInterceptor: ClientHttpRequestInterceptor,
     ): RestOperations {
         return RestTemplateBuilder()
             .interceptors(
+                bearerTokenClientInterceptor,
                 consumerIdClientInterceptor,
                 apiKeyInjectingClientInterceptor,
-                jwtTokenInjectingInterceptor,
                 MdcValuesPropagatingClientInterceptor()
             )
             .build()
