@@ -22,7 +22,6 @@ STS_URL: dummy
 KODEVERK_URL: dummy
 
 no.nav.security.jwt:
-  issuers: selvbetjening
   issuer.selvbetjening:
     discoveryurl: ${LOGINSERVICE_IDPORTEN_DISCOVERY_URL}
     accepted_audience: ${LOGINSERVICE_IDPORTEN_AUDIENCE}
