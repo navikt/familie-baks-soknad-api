@@ -5,6 +5,7 @@ import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
 import java.time.LocalDateTime
+import no.nav.familie.ba.soknad.api.clients.mottak.MottakClient
 import no.nav.familie.ba.soknad.api.clients.pdl.FAMILIERELASJONSROLLE
 import no.nav.familie.ba.soknad.api.clients.pdl.PdlBrukerClient
 import no.nav.familie.ba.soknad.api.clients.pdl.PdlFamilierelasjon

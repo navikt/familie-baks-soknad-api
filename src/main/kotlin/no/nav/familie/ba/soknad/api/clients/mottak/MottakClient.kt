@@ -1,4 +1,4 @@
-package no.nav.familie.ba.soknad.api.integrasjoner
+package no.nav.familie.ba.soknad.api.clients.mottak
 
 import com.fasterxml.jackson.databind.JsonNode
 import java.lang.IllegalStateException
