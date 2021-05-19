@@ -110,13 +110,11 @@ internal class ApplicationConfig {
     fun restTemplateMottak(
         bearerTokenClientInterceptor: BearerTokenClientInterceptor,
         consumerIdClientInterceptor: ConsumerIdClientInterceptor,
-        apiKeyInjectingClientInterceptor: ClientHttpRequestInterceptor,
     ): RestOperations {
         return RestTemplateBuilder()
             .interceptors(
                 bearerTokenClientInterceptor,
                 consumerIdClientInterceptor,
-                apiKeyInjectingClientInterceptor,
                 MdcValuesPropagatingClientInterceptor()
             )
             .build()
