@@ -1,11 +1,13 @@
-no.nav.security.jwt:
-  issuers: selvbetjening
-  issuer.selvbetjening:
-    cookie_name: selvbetjening-idtoken
-
-FAMILIE_BA_MOTTAK_URL: https://api-gw.oera.no/familie-ba-mottak
+FAMILIE_BA_MOTTAK_URL: https://familie-ba-mottak.prod-fss-pub.nais.io
 PDL_API_URL: https://api-gw.oera.no/pdl-api
 STS_URL: https://api-gw.oera.no/security-token-service/rest/v1/sts/token
 KODEVERK_URL: https://api-gw.oera.no/kodeverk
+
+no.nav.security.jwt:
+  client:
+    registration:
+      mottak-clientcredentials:
+        token-exchange:
+          audience: prod-fss:teamfamilie:familie-ba-mottak
 
 logging.level.no.nav.security: INFO

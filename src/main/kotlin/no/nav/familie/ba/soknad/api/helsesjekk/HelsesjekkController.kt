@@ -1,8 +1,8 @@
 package no.nav.familie.ba.soknad.api.helsesjekk
 
 import no.nav.familie.ba.soknad.api.clients.kodeverk.KodeverkClient
+import no.nav.familie.ba.soknad.api.clients.mottak.MottakClient
 import no.nav.familie.ba.soknad.api.clients.pdl.PdlSystemClient
-import no.nav.familie.ba.soknad.api.integrasjoner.MottakClient
 import no.nav.familie.kontrakter.felles.Ressurs
 import no.nav.security.token.support.core.api.ProtectedWithClaims
 import org.springframework.web.bind.annotation.GetMapping

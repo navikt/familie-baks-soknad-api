@@ -7,12 +7,25 @@ MOTTAK_APIKEY: test-apikey
 KODEVERK_API_KEY: test-apikey
 STS_APIKEY: test-apikey
 
+TOKEN_X_WELL_KNOWN_URL: http://localhost
+TOKEN_X_PRIVATE_JWK: '{
+    "kty" : "RSA",
+    "e" : "AQAB",
+    "use" : "sig",
+    "kid" : "mock-oauth2-server-key",
+    "n" : ""
+  }'
+TOKEN_X_CLIENT_ID: dev-local:teamfamilie:familie-ba-soknad-api
+
 no.nav.security.jwt:
-  issuers: selvbetjening
   issuer.selvbetjening:
     discoveryurl: http://metadata
     accepted_audience: aud-localhost
     cookie_name: localhost-idtoken
+  client:
+    registration:
+      mottak-clientcredentials:
+        token-endpoint-url: http://metadata # Uten denne prøver token-support å kalle well-known uri i contructor og krasjer appen
 
 CREDENTIAL_USERNAME: dummy
 CREDENTIAL_PASSWORD: dummy

@@ -1,6 +1,13 @@
-FAMILIE_BA_MOTTAK_URL: https://api-gw-q1.oera.no/familie-ba-mottak
+FAMILIE_BA_MOTTAK_URL: https://familie-ba-mottak.dev-fss-pub.nais.io
 PDL_API_URL: https://api-gw-q1.oera.no/pdl-api
 STS_URL: https://api-gw-q1.oera.no/security-token-service/rest/v1/sts/token
 KODEVERK_URL: https://api-gw-q1.oera.no/kodeverk
+
+no.nav.security.jwt:
+  client:
+    registration:
+      mottak-clientcredentials:
+        token-exchange:
+          audience: dev-fss:teamfamilie:familie-ba-mottak
 
 logging.level.no.nav.security: INFO
