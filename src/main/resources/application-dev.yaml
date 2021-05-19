@@ -10,4 +10,4 @@ no.nav.security.jwt:
         token-exchange:
           audience: dev-fss:teamfamilie:familie-ba-mottak
 
-logging.level.no.nav.security: DEBUG
+logging.level.no.nav.security: INFO
