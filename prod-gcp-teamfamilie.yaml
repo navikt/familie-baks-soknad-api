@@ -25,6 +25,8 @@ spec:
     path: /internal/prometheus
   secureLogs:
     enabled: true
+  tokenx:
+    enabled: true
   resources:
     limits:
       memory: 1024Mi
