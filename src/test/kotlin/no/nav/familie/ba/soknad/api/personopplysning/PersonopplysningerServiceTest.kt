@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertDoesNotThrow
 
 class PersonopplysningerServiceTest {
 
@@ -30,7 +31,9 @@ class PersonopplysningerServiceTest {
     private lateinit var kodeverkClient: KodeverkClient
     private lateinit var kodeverkService: CachedKodeverkService
     private val mapper = objectMapper
-    private val gyldigBostedAdresse = Bostedsadresse(null, Matrikkeladresse(3, "E67", "tillegg", "1456", "1223"), null)
+    private val gyldigBostedAdresse = Bostedsadresse(
+        matrikkeladresse = Matrikkeladresse(3, "E67", "tillegg", "1456", "1223")
+    )
 
     @BeforeEach
     fun setUp() {
@@ -144,7 +147,7 @@ class PersonopplysningerServiceTest {
 
     @Test
     fun `borMedSøker skal returnere false hvis søkerAdresse er ukjent`() {
-        val ukjentAdresse = Bostedsadresse(null, null, UkjentBosted("oslo"))
+        val ukjentAdresse = Bostedsadresse(ukjentBosted = UkjentBosted("oslo"))
         val borMedSøker = PdlBarnMapper.borBarnMedSoeker(
             soekerAdresse = ukjentAdresse,
             barneAdresse = ukjentAdresse
