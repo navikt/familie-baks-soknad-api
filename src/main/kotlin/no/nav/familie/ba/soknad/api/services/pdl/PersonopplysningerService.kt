@@ -22,8 +22,9 @@ class PersonopplysningerService(
     kodeverkClient: KodeverkClient
 ) {
     val kodeverkService = CachedKodeverkService(kodeverkClient)
-    fun hentPersoninfo(personIdent: String): Person {
-        val response = pdlClient.hentPerson(personIdent)
+    fun hentPersoninfo(personIdent: String, somSystem: Boolean = false): Person {
+        val response = if (somSystem) pdlSystemClient.hentPerson(personIdent) else pdlClient.hentPerson(personIdent)
+
         val barnTilSoeker = hentBarnTilSoeker(
             fnrBarn = PdlMapper.mapFnrBarn(response.data.person!!.forelderBarnRelasjon),
             sokerAdresse = response.data.person.bostedsadresse.firstOrNull()
