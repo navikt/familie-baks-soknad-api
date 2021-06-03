@@ -140,7 +140,7 @@ class ClientMocks {
                     ),
                     adressebeskyttelse = emptyList(),
                     statsborgerskap = emptyList(),
-                    sivilstand = null,
+                    sivilstand = emptyList(),
                     doedsfall = emptyList(),
                     folkeregisteridentifikator = listOf(
                         PdlFolkeregisteridentifikator(identifikasjonsnummer = "12345678987")
@@ -172,10 +172,43 @@ class ClientMocks {
                     ),
                     adressebeskyttelse = emptyList(),
                     statsborgerskap = emptyList(),
-                    sivilstand = null,
+                    sivilstand = emptyList(),
                     doedsfall = emptyList(),
                     folkeregisteridentifikator = listOf(
                         PdlFolkeregisteridentifikator(identifikasjonsnummer = "23456789876")
+                    )
+                )
+            ),
+            errors = null
+        )
+        // Catch-all så man kan teste manuell registrerting av barn i dialogen
+        every { mockPdlClient.hentPerson(not(or("12345678987", "23456789876"))) } returns PdlHentPersonResponse(
+            data = PdlPerson(
+                person = PdlPersonData(
+                    navn = listOf(PdlNavn("Barn", etternavn = "Barnessen IV")),
+                    foedsel = listOf(PdlFødselsDato("2008-10-01")),
+                    bostedsadresse = listOf(
+                        Bostedsadresse(
+                            vegadresse = Vegadresse(
+                                21,
+                                "2",
+                                "A",
+                                "H0101",
+                                "Solveien",
+                                "",
+                                "",
+                                "2304"
+                            ),
+                            ukjentBosted = null,
+                            matrikkeladresse = null
+                        )
+                    ),
+                    adressebeskyttelse = emptyList(),
+                    statsborgerskap = emptyList(),
+                    sivilstand = emptyList(),
+                    doedsfall = emptyList(),
+                    folkeregisteridentifikator = listOf(
+                        PdlFolkeregisteridentifikator(identifikasjonsnummer = "31051575728")
                     )
                 )
             ),
