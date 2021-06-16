@@ -5,7 +5,7 @@ import no.nav.familie.kontrakter.felles.Ressurs
 import no.nav.security.token.support.core.api.ProtectedWithClaims
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
@@ -14,14 +14,14 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping(path = ["/api/kodeverk"], produces = [MediaType.APPLICATION_JSON_VALUE])
 class KodeverkController(private val cachedKodeverkService: CachedKodeverkService) {
 
-    @PostMapping("/alle-land")
+    @GetMapping("/alle-land")
     fun alleLand(): ResponseEntity<Ressurs<Map<String, String>>> = ResponseEntity.ok(
         Ressurs.success(
             cachedKodeverkService.hentAlleLand()
         )
     )
 
-    @PostMapping("/eos-land")
+    @GetMapping("/eos-land")
     fun eøsLand(): ResponseEntity<Ressurs<Map<String, String>>> = ResponseEntity.ok(
         Ressurs.success(
             cachedKodeverkService.hentEØSLand()
