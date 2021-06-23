@@ -1,8 +1,9 @@
 name: Build-Deploy-Preprod
 on:
   push:
-    branches:
-      - '**'
+    branches-ignore:
+      # build-deploy-prod deployer allerede til dev, dette førte til en race condition som stopper deploy til prod
+      - 'master'
 
 env:
   IMAGE: docker.pkg.github.com/${{ github.repository }}/familie-ba-soknad-api:${{ github.sha }}
