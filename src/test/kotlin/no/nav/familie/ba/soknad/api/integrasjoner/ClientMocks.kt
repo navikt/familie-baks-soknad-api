@@ -6,6 +6,8 @@ import io.mockk.just
 import io.mockk.mockk
 import java.time.LocalDateTime
 import no.nav.familie.ba.soknad.api.clients.mottak.MottakClient
+import no.nav.familie.ba.soknad.api.clients.pdl.ADRESSEBESKYTTELSEGRADERING
+import no.nav.familie.ba.soknad.api.clients.pdl.Adressebeskyttelse
 import no.nav.familie.ba.soknad.api.clients.pdl.FAMILIERELASJONSROLLE
 import no.nav.familie.ba.soknad.api.clients.pdl.PdlBrukerClient
 import no.nav.familie.ba.soknad.api.clients.pdl.PdlFamilierelasjon
@@ -152,7 +154,7 @@ class ClientMocks {
         every { mockPdlClient.hentPerson("23456789876") } returns PdlHentPersonResponse(
             data = PdlPerson(
                 person = PdlPersonData(
-                    navn = listOf(PdlNavn("Barn", etternavn = "Barnessen II")),
+                    navn = listOf(PdlNavn("Barn feil", etternavn = "Barnessen II")),
                     foedsel = listOf(PdlFødselsDato("2008-10-01")),
                     bostedsadresse = listOf(
                         Bostedsadresse(
@@ -170,7 +172,7 @@ class ClientMocks {
                             matrikkeladresse = null
                         )
                     ),
-                    adressebeskyttelse = emptyList(),
+                    adressebeskyttelse = listOf(Adressebeskyttelse(ADRESSEBESKYTTELSEGRADERING.FORTROLIG)),
                     statsborgerskap = emptyList(),
                     sivilstand = emptyList(),
                     doedsfall = emptyList(),
