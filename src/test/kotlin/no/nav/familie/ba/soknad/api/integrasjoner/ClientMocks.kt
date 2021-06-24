@@ -154,7 +154,7 @@ class ClientMocks {
         every { mockPdlClient.hentPerson("23456789876") } returns PdlHentPersonResponse(
             data = PdlPerson(
                 person = PdlPersonData(
-                    navn = listOf(PdlNavn("Barn feil", etternavn = "Barnessen II")),
+                    navn = listOf(PdlNavn("Barn", etternavn = "Barnessen II")),
                     foedsel = listOf(PdlFødselsDato("2008-10-01")),
                     bostedsadresse = listOf(
                         Bostedsadresse(
