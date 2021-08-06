@@ -3,7 +3,7 @@ package no.nav.familie.ba.soknad.api.controllers
 import no.nav.familie.ba.soknad.api.clients.mottak.MottakClient
 import no.nav.familie.ba.soknad.api.domene.Kvittering
 import no.nav.familie.ba.soknad.api.util.TokenBehandler
-import no.nav.familie.kontrakter.ba.søknad.Søknad
+import no.nav.familie.kontrakter.ba.søknad.v2.Søknad
 import no.nav.familie.kontrakter.felles.Ressurs
 import no.nav.security.token.support.core.api.ProtectedWithClaims
 import org.springframework.http.MediaType
