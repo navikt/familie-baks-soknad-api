@@ -7,6 +7,7 @@ import no.nav.familie.ba.soknad.api.domene.Kvittering
 import no.nav.familie.http.client.AbstractPingableRestClient
 import no.nav.familie.http.client.MultipartBuilder
 import no.nav.familie.kontrakter.ba.søknad.v2.Søknad
+import no.nav.familie.kontrakter.ba.søknad.v3.Søknad as SøknadV3
 import no.nav.familie.kontrakter.felles.Ressurs
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Qualifier
@@ -37,6 +38,24 @@ class MottakClient(
 
     fun sendSøknad(søknad: Søknad): Ressurs<Kvittering> {
         val uri: URI = URI.create("$mottakBaseUrl/api/soknad")
+
+        try {
+            val multipartBuilder = MultipartBuilder().withJson("søknad", søknad)
+
+            val response = postForEntity<Ressurs<Kvittering>>(
+                uri = uri,
+                payload = multipartBuilder.build(),
+                httpHeaders = MultipartBuilder.MULTIPART_HEADERS
+            )
+            LOG.info("Sende søknad til mottak OK: ${response.data}")
+            return response
+        } catch (e: Exception) {
+            throw IllegalStateException("Sende søknad til familie-ba-mottak feilet", e)
+        }
+    }
+
+    fun sendSøknadV3(søknad: SøknadV3): Ressurs<Kvittering> {
+        val uri: URI = URI.create("$mottakBaseUrl/api/soknad/v3")
 
         try {
             val multipartBuilder = MultipartBuilder().withJson("søknad", søknad)
