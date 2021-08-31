@@ -40,7 +40,7 @@ class ClientMocks {
     fun mockMottakClient(): MottakClient {
         val mockMottakClient = mockk<MottakClient>()
         every { mockMottakClient.ping() } just Runs
-        every { mockMottakClient.sendSøknad(any()) } returns
+        every { mockMottakClient.sendSøknadV3(any()) } returns
             Ressurs.success(Kvittering("søknad mottatt OK", LocalDateTime.now()))
         return mockMottakClient
     }
