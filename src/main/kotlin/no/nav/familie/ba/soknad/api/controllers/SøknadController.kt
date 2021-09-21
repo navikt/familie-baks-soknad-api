@@ -3,8 +3,8 @@ package no.nav.familie.ba.soknad.api.controllers
 import no.nav.familie.ba.soknad.api.clients.mottak.MottakClient
 import no.nav.familie.ba.soknad.api.domene.Kvittering
 import no.nav.familie.ba.soknad.api.util.TokenBehandler
-import no.nav.familie.kontrakter.ba.søknad.v2.Søknad
 import no.nav.familie.kontrakter.ba.søknad.v3.Søknad as SøknadV3
+import no.nav.familie.kontrakter.ba.søknad.v4.Søknad
 import no.nav.familie.kontrakter.felles.Ressurs
 import no.nav.security.token.support.core.api.ProtectedWithClaims
 import org.springframework.http.MediaType
@@ -19,13 +19,13 @@ import org.springframework.web.bind.annotation.RestController
 @ProtectedWithClaims(issuer = "selvbetjening", claimMap = ["acr=Level4"])
 class SøknadController(private val mottakClient: MottakClient) {
 
-    @PostMapping("/soknad")
+    @PostMapping("/soknad/v4")
     fun søknadsMottak(@RequestBody(required = true) søknad: Søknad): ResponseEntity<Ressurs<Kvittering>> {
 
         val søknadMedIdentFraToken = søknad.copy(
             søker = søknad.søker.copy(
                 ident = søknad.søker.ident.copy(
-                    verdi = TokenBehandler.hentFnr()
+                    verdi = søknad.søker.ident.verdi.mapValues { TokenBehandler.hentFnr() }
                 )
             )
         )
