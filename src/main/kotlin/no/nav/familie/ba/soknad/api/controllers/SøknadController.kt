@@ -35,14 +35,8 @@ class SøknadController(private val mottakClient: MottakClient) {
 
     @PostMapping("/soknad/v3")
     fun søknadsMottakV2(@RequestBody(required = true) søknad: SøknadV3): ResponseEntity<Ressurs<Kvittering>> {
-        val søknadMedIdentFraToken = søknad.copy(
-            søker = søknad.søker.copy(
-                ident = søknad.søker.ident.copy(
-                    verdi = TokenBehandler.hentFnr()
-                )
-            )
+        return ResponseEntity.status(410).body(
+            Ressurs.failure("Fjernet endepunkt", "Vennligst last siden på nytt for å sende inn")
         )
-
-        return ResponseEntity.ok().body(mottakClient.sendSøknadV3(søknadMedIdentFraToken))
     }
 }
