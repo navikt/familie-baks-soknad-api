@@ -6,8 +6,8 @@ import java.net.URI
 import no.nav.familie.ba.soknad.api.domene.Kvittering
 import no.nav.familie.http.client.AbstractPingableRestClient
 import no.nav.familie.http.client.MultipartBuilder
-import no.nav.familie.kontrakter.ba.søknad.v2.Søknad
 import no.nav.familie.kontrakter.ba.søknad.v3.Søknad as SøknadV3
+import no.nav.familie.kontrakter.ba.søknad.v4.Søknad
 import no.nav.familie.kontrakter.felles.Ressurs
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Qualifier
@@ -37,7 +37,7 @@ class MottakClient(
     }
 
     fun sendSøknad(søknad: Søknad): Ressurs<Kvittering> {
-        val uri: URI = URI.create("$mottakBaseUrl/api/soknad")
+        val uri: URI = URI.create("$mottakBaseUrl/api/soknad/v4")
 
         try {
             val multipartBuilder = MultipartBuilder().withJson("søknad", søknad)
