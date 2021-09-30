@@ -6,6 +6,8 @@ import io.mockk.just
 import io.mockk.mockk
 import java.time.LocalDateTime
 import no.nav.familie.ba.soknad.api.clients.mottak.MottakClient
+import no.nav.familie.ba.soknad.api.clients.pdl.ADRESSEBESKYTTELSEGRADERING
+import no.nav.familie.ba.soknad.api.clients.pdl.Adressebeskyttelse
 import no.nav.familie.ba.soknad.api.clients.pdl.FAMILIERELASJONSROLLE
 import no.nav.familie.ba.soknad.api.clients.pdl.PdlBrukerClient
 import no.nav.familie.ba.soknad.api.clients.pdl.PdlFamilierelasjon
@@ -39,6 +41,8 @@ class ClientMocks {
         val mockMottakClient = mockk<MottakClient>()
         every { mockMottakClient.ping() } just Runs
         every { mockMottakClient.sendSøknad(any()) } returns
+            Ressurs.success(Kvittering("søknad mottatt OK", LocalDateTime.now()))
+        every { mockMottakClient.sendSøknadV3(any()) } returns
             Ressurs.success(Kvittering("søknad mottatt OK", LocalDateTime.now()))
         return mockMottakClient
     }
@@ -170,7 +174,7 @@ class ClientMocks {
                             matrikkeladresse = null
                         )
                     ),
-                    adressebeskyttelse = emptyList(),
+                    adressebeskyttelse = listOf(Adressebeskyttelse(ADRESSEBESKYTTELSEGRADERING.FORTROLIG)),
                     statsborgerskap = emptyList(),
                     sivilstand = emptyList(),
                     doedsfall = emptyList(),
