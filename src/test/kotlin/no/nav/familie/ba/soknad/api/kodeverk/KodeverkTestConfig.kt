@@ -39,6 +39,6 @@ class KodeverkTestConfig {
 
     private fun getFile(filename: String): String {
         return javaClass.classLoader?.getResource("kodeverk/$filename")?.file
-               ?: error("Testkonfigurasjon feil")
+            ?: error("Testkonfigurasjon feil")
     }
 }

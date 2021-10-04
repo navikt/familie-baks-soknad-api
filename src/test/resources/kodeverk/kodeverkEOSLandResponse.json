@@ -1,183 +1,189 @@
 {
   "betydninger": {
-    "4971": [
-      {
-        "gyldigFra": "1999-03-01",
-        "gyldigTil": "9999-12-31",
-        "beskrivelser": {
-          "nb": {
-            "term": "SUNDEBRU",
-            "tekst": "SUNDEBRU"
-          }
-        }
-      }
-    ],
-    "2306": [
-      {
-        "gyldigFra": "1999-03-01",
-        "gyldigTil": "9999-12-31",
-        "beskrivelser": {
-          "nb": {
-            "term": "HAMAR",
-            "tekst": "HAMAR"
-          }
-        }
-      }
-    ],
-    "2305": [
-      {
-        "gyldigFra": "1999-03-01",
-        "gyldigTil": "9999-12-31",
-        "beskrivelser": {
-          "nb": {
-            "term": "HAMAR",
-            "tekst": "HAMAR"
-          }
-        }
-      }
-    ],
-    "2304": [
-      {
-        "gyldigFra": "1999-03-01",
-        "gyldigTil": "9999-12-31",
-        "beskrivelser": {
-          "nb": {
-            "term": "HAMAR",
-            "tekst": "HAMAR"
-          }
-        }
-      }
-    ],
-    "2303": [
-      {
-        "gyldigFra": "1999-03-01",
-        "gyldigTil": "9999-12-31",
-        "beskrivelser": {
-          "nb": {
-            "term": "HAMAR",
-            "tekst": "HAMAR"
-          }
-        }
-      }
-    ],
-    "2302": [
-      {
-        "gyldigFra": "1999-03-01",
-        "gyldigTil": "9999-12-31",
-        "beskrivelser": {
-          "nb": {
-            "term": "HAMAR",
-            "tekst": "HAMAR"
-          }
-        }
-      }
-    ],
-    "2301": [
+    "DNK": [
       {
         "gyldigFra": "1900-01-01",
-        "gyldigTil": "9999-12-31",
-        "beskrivelser": {
-          "nb": {
-            "term": "HAMAR",
-            "tekst": "HAMAR"
-          }
-        }
+        "gyldigTil": "9999-12-31"
       }
     ],
-    "3630": [
+    "CHE": [
       {
         "gyldigFra": "1900-01-01",
-        "gyldigTil": "9999-12-31",
-        "beskrivelser": {
-          "nb": {
-            "term": "RØDBERG",
-            "tekst": "RØDBERG"
-          }
-        }
+        "gyldigTil": "9999-12-31"
       }
     ],
-    "3631": [
-      {
-        "gyldigFra": "1999-03-01",
-        "gyldigTil": "9999-12-31",
-        "beskrivelser": {
-          "nb": {
-            "term": "RØDBERG",
-            "tekst": "RØDBERG"
-          }
-        }
-      }
-    ],
-    "3632": [
+    "IRL": [
       {
         "gyldigFra": "1900-01-01",
-        "gyldigTil": "9999-12-31",
-        "beskrivelser": {
-          "nb": {
-            "term": "UVDAL",
-            "tekst": "UVDAL"
-          }
-        }
+        "gyldigTil": "9999-12-31"
       }
     ],
-    "3634": [
-      {
-        "gyldigFra": "2018-10-01",
-        "gyldigTil": "9999-12-31",
-        "beskrivelser": {
-          "nb": {
-            "term": "NORE",
-            "tekst": "NORE"
-          }
-        }
-      }
-    ],
-    "2309": [
-      {
-        "gyldigFra": "2001-07-12",
-        "gyldigTil": "9999-12-31",
-        "beskrivelser": {
-          "nb": {
-            "term": "HAMAR",
-            "tekst": "HAMAR"
-          }
-        }
-      }
-    ],
-    "2308": [
-      {
-        "gyldigFra": "1999-03-01",
-        "gyldigTil": "9999-12-31",
-        "beskrivelser": {
-          "nb": {
-            "term": "HAMAR",
-            "tekst": "HAMAR"
-          }
-        }
-      }
-    ],
-    "2307": [
-      {
-        "gyldigFra": "1999-03-01",
-        "gyldigTil": "9999-12-31",
-        "beskrivelser": {
-          "nb": {
-            "term": "HAMAR",
-            "tekst": "HAMAR"
-          }
-        }
-      }
-    ],
-    "4980": [
+    "NLD": [
       {
         "gyldigFra": "1900-01-01",
-        "gyldigTil": "9999-12-31",
-        "beskrivelser": {
-          "nb": {
-            "term": "GJERSTAD",
-            "tekst": "GJERSTAD"
-          }
-        }
+        "gyldigTil": "9999-12-31"
+      }
+    ],
+    "SVK": [
+      {
+        "gyldigFra": "1900-01-01",
+        "gyldigTil": "9999-12-31"
+      }
+    ],
+    "SVN": [
+      {
+        "gyldigFra": "1900-01-01",
+        "gyldigTil": "9999-12-31"
+      }
+    ],
+    "LTU": [
+      {
+        "gyldigFra": "1900-01-01",
+        "gyldigTil": "9999-12-31"
+      }
+    ],
+    "HRV": [
+      {
+        "gyldigFra": "1900-01-01",
+        "gyldigTil": "9999-12-31"
+      }
+    ],
+    "PRT": [
+      {
+        "gyldigFra": "1900-01-01",
+        "gyldigTil": "9999-12-31"
+      }
+    ],
+    "MLT": [
+      {
+        "gyldigFra": "1900-01-01",
+        "gyldigTil": "9999-12-31"
+      }
+    ],
+    "GBR": [
+      {
+        "gyldigFra": "1900-01-01",
+        "gyldigTil": "9999-12-31"
+      }
+    ],
+    "CYP": [
+      {
+        "gyldigFra": "1900-01-01",
+        "gyldigTil": "9999-12-31"
+      }
+    ],
+    "AUT": [
+      {
+        "gyldigFra": "1900-01-01",
+        "gyldigTil": "9999-12-31"
+      }
+    ],
+    "SWE": [
+      {
+        "gyldigFra": "1900-01-01",
+        "gyldigTil": "9999-12-31"
+      }
+    ],
+    "HUN": [
+      {
+        "gyldigFra": "1900-01-01",
+        "gyldigTil": "9999-12-31"
+      }
+    ],
+    "ISL": [
+      {
+        "gyldigFra": "1900-01-01",
+        "gyldigTil": "9999-12-31"
+      }
+    ],
+    "ESP": [
+      {
+        "gyldigFra": "1900-01-01",
+        "gyldigTil": "9999-12-31"
+      }
+    ],
+    "EST": [
+      {
+        "gyldigFra": "1900-01-01",
+        "gyldigTil": "9999-12-31"
+      }
+    ],
+    "BEL": [
+      {
+        "gyldigFra": "1900-01-01",
+        "gyldigTil": "9999-12-31"
+      }
+    ],
+    "LIE": [
+      {
+        "gyldigFra": "1900-01-01",
+        "gyldigTil": "9999-12-31"
+      }
+    ],
+    "FIN": [
+      {
+        "gyldigFra": "1900-01-01",
+        "gyldigTil": "9999-12-31"
+      }
+    ],
+    "POL": [
+      {
+        "gyldigFra": "1900-01-01",
+        "gyldigTil": "9999-12-31"
+      }
+    ],
+    "BGR": [
+      {
+        "gyldigFra": "1900-01-01",
+        "gyldigTil": "9999-12-31"
+      }
+    ],
+    "LUX": [
+      {
+        "gyldigFra": "1900-01-01",
+        "gyldigTil": "9999-12-31"
+      }
+    ],
+    "CZE": [
+      {
+        "gyldigFra": "1900-01-01",
+        "gyldigTil": "9999-12-31"
+      }
+    ],
+    "FRA": [
+      {
+        "gyldigFra": "1900-01-01",
+        "gyldigTil": "9999-12-31"
+      }
+    ],
+    "DEU": [
+      {
+        "gyldigFra": "1900-01-01",
+        "gyldigTil": "9999-12-31"
+      }
+    ],
+    "LVA": [
+      {
+        "gyldigFra": "1900-01-01",
+        "gyldigTil": "9999-12-31"
+      }
+    ],
+    "ITA": [
+      {
+        "gyldigFra": "1900-01-01",
+        "gyldigTil": "9999-12-31"
+      }
+    ],
+    "GRC": [
+      {
+        "gyldigFra": "1900-01-01",
+        "gyldigTil": "9999-12-31"
+      }
+    ],
+    "ROU": [
+      {
+        "gyldigFra": "1900-01-01",
+        "gyldigTil": "9999-12-31"
       }
     ]
   }
