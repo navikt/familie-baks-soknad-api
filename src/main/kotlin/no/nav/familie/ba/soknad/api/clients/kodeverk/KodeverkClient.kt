@@ -18,6 +18,14 @@ class KodeverkClient(
 
     private val kodeverkUri: URI = URI.create(kodeverkBaseUrl)
 
+    fun hentAlleLand(): KodeverkDto {
+        return getForEntity(uri = kodeverkUri("Landkoder"))
+    }
+
+    fun hentEØSLand(): KodeverkDto {
+        return getForEntity(uri = kodeverkUri("EEAFreg"))
+    }
+
     fun hentPostnummer(): KodeverkDto {
         return getForEntity(uri = kodeverkUri("Postnummer"))
     }
