@@ -21,22 +21,24 @@ class KodeverkTestConfig {
     @Primary
     fun kodeverkClientMock(): KodeverkClient {
         val kodeverkClient: KodeverkClient = mockk()
-        every { kodeverkClient.hentPostnummer() } returns mockPostnummerRespons()
+        every { kodeverkClient.hentPostnummer() } returns lastMockResponse(filename = "kodeverkPostnummerRespons.json")
+        every { kodeverkClient.hentEØSLand() } returns lastMockResponse(filename = "kodeverkEOSLandResponse.json")
+        every { kodeverkClient.hentAlleLand() } returns lastMockResponse(filename = "kodeverkAlleLandResponse.json")
         every { kodeverkClient.ping() } returns Unit
         return kodeverkClient
     }
 
-    private fun mockPostnummerRespons(): KodeverkDto {
-        val postnummerResponseBody = File(getFile())
+    private fun lastMockResponse(filename: String): KodeverkDto {
+        val fileResponseBody = File(getFile(filename = filename))
         return try {
-            objectMapper.readValue(postnummerResponseBody)
+            objectMapper.readValue(fileResponseBody)
         } catch (e: IOException) {
-            throw RuntimeException("Feil ved mapping av postnummerMock", e)
+            throw RuntimeException("Feil ved mapping av $filename", e)
         }
     }
 
-    private fun getFile(): String {
-        return javaClass.classLoader?.getResource("kodeverk/kodeverkPostnummerRespons.json")?.file
-            ?: error("Testkonfigurasjon feil")
+    private fun getFile(filename: String): String {
+        return javaClass.classLoader?.getResource("kodeverk/$filename")?.file
+               ?: error("Testkonfigurasjon feil")
     }
 }
