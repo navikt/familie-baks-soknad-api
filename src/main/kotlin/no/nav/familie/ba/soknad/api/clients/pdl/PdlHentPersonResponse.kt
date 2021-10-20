@@ -49,7 +49,8 @@ data class PdlError(
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class Extension(
     val code: String,
-    val details: Details
+    val details: Details?,
+    val classification: String?
 )
 
 @JsonIgnoreProperties(ignoreUnknown = true)
