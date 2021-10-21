@@ -18,6 +18,3 @@ _F.eks. commit for commit, alt i ett?_
 ### 💬 Ønsker du en muntlig gjennomgang?
 - [ ] Ja
 - [ ] Nei
-  
-### 👀 Screen shots
-_Har det visuelle endret seg? Legg til før- og etterbilder!_

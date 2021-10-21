@@ -16,6 +16,15 @@
       }
     },
     {
+      "message": "Fant ikke person",
+      "path": [
+        "person"
+      ],
+      "extensions": {
+        "code": "unauthorized"
+      }
+    },
+    {
       "message": "Ikke tilgang",
       "path": [
         "person"
