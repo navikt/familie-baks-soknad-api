@@ -42,8 +42,6 @@ class ClientMocks {
         every { mockMottakClient.ping() } just Runs
         every { mockMottakClient.sendSøknad(any()) } returns
             Ressurs.success(Kvittering("søknad mottatt OK", LocalDateTime.now()))
-        every { mockMottakClient.sendSøknadV3(any()) } returns
-            Ressurs.success(Kvittering("søknad mottatt OK", LocalDateTime.now()))
         return mockMottakClient
     }
 
