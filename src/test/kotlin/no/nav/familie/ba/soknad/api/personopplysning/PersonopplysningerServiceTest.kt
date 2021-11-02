@@ -109,8 +109,8 @@ class PersonopplysningerServiceTest {
     @Test
     fun `borMedSøker skal returnere false når søkerAdressen er null`() {
         val søkerAdresse = null
-        val barneAdresse = null
-        val borMedSøker = PdlBarnMapper.borBarnMedSoeker(søkerAdresse, barneAdresse)
+        val barneAdresse = Bostedsadresse()
+        val borMedSøker = PdlBarnMapper.borBarnMedSoeker(søkerAdresse, listOf(barneAdresse))
 
         assertFalse(borMedSøker)
     }
@@ -119,7 +119,7 @@ class PersonopplysningerServiceTest {
     fun `borMedSøker skal returnere true når adressene til barn og søker er like`() {
         val borMedSøker = PdlBarnMapper.borBarnMedSoeker(
             soekerAdresse = gyldigBostedAdresse,
-            barneAdresse = gyldigBostedAdresse
+            barneAdresser = listOf(gyldigBostedAdresse)
         )
 
         assertTrue(borMedSøker)
@@ -138,7 +138,7 @@ class PersonopplysningerServiceTest {
         )
         val borMedSøker = PdlBarnMapper.borBarnMedSoeker(
             soekerAdresse = gyldigBostedAdresse,
-            barneAdresse = barneAdresse
+            barneAdresser = listOf(barneAdresse)
         )
 
         assertFalse(borMedSøker)
@@ -149,7 +149,7 @@ class PersonopplysningerServiceTest {
         val ukjentAdresse = Bostedsadresse(ukjentBosted = UkjentBosted("oslo"))
         val borMedSøker = PdlBarnMapper.borBarnMedSoeker(
             soekerAdresse = ukjentAdresse,
-            barneAdresse = ukjentAdresse
+            barneAdresser = listOf(ukjentAdresse)
         )
 
         assertFalse(borMedSøker)
@@ -171,7 +171,7 @@ class PersonopplysningerServiceTest {
         )
         val borMedSøker = PdlBarnMapper.borBarnMedSoeker(
             soekerAdresse = søkerAdresse,
-            barneAdresse = gyldigBostedAdresse
+            barneAdresser = listOf(gyldigBostedAdresse)
         )
 
         assertTrue(borMedSøker)

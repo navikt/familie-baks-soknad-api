@@ -7,17 +7,16 @@ import no.nav.familie.kontrakter.felles.personopplysning.Bostedsadresse
 
 object PdlBarnMapper {
 
-    fun borBarnMedSoeker(soekerAdresse: Bostedsadresse?, barneAdresse: Bostedsadresse?): Boolean {
+    fun borBarnMedSoeker(soekerAdresse: Bostedsadresse?, barneAdresser: List<Bostedsadresse>): Boolean {
         fun adresseListe(bostedsadresse: Bostedsadresse): List<Any?> {
             return listOfNotNull(bostedsadresse.matrikkeladresse, bostedsadresse.vegadresse)
         }
 
-        return if (soekerAdresse == null || barneAdresse == null) false
-
-        else {
-            val soekerAdresser = adresseListe(soekerAdresse)
-            val barneAdresser = adresseListe(barneAdresse)
-            soekerAdresser.any { barneAdresser.contains(it) }
+        return if (soekerAdresse == null || barneAdresser.isEmpty()) {
+            false
+        } else {
+            val alleBarnetsAdresser = barneAdresser.flatMap { adresseListe(it) }
+            adresseListe(soekerAdresse).any { alleBarnetsAdresser.contains(it) }
         }
     }
 
@@ -35,7 +34,7 @@ object PdlBarnMapper {
                     true -> false
                     false -> borBarnMedSoeker(
                         soekerAdresse = soekerAdresse,
-                        barneAdresse = barnRespons.data.person.bostedsadresse.firstOrNull()
+                        barneAdresser = barnRespons.data.person.bostedsadresse.filterNotNull()
                     )
                 },
                 adressebeskyttelse = barnHarAdresseBeskyttelse
