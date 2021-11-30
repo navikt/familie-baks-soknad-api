@@ -23,6 +23,8 @@ import no.nav.familie.ba.soknad.api.clients.pdl.PdlSystemClient
 import no.nav.familie.ba.soknad.api.clients.pdl.SIVILSTANDSTYPE
 import no.nav.familie.ba.soknad.api.domene.Kvittering
 import no.nav.familie.http.sts.StsRestClient
+import no.nav.familie.kontrakter.ba.søknad.v5.Søknad as SøknadV5
+import no.nav.familie.kontrakter.ba.søknad.v6.Søknad
 import no.nav.familie.kontrakter.felles.Ressurs
 import no.nav.familie.kontrakter.felles.personopplysning.Bostedsadresse
 import no.nav.familie.kontrakter.felles.personopplysning.Vegadresse
@@ -40,7 +42,9 @@ class ClientMocks {
     fun mockMottakClient(): MottakClient {
         val mockMottakClient = mockk<MottakClient>()
         every { mockMottakClient.ping() } just Runs
-        every { mockMottakClient.sendSøknad(any()) } returns
+        every { mockMottakClient.sendSøknad(any<Søknad>()) } returns
+            Ressurs.success(Kvittering("søknad mottatt OK", LocalDateTime.now()))
+        every { mockMottakClient.sendSøknad(any<SøknadV5>()) } returns
             Ressurs.success(Kvittering("søknad mottatt OK", LocalDateTime.now()))
         return mockMottakClient
     }
