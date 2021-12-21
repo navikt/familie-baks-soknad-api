@@ -14,7 +14,6 @@
         <version>2.3.8.RELEASE</version>
     </parent>
 
-
     <properties>
         <revision>1.0</revision>
         <sha1/>
