@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController
 class SøknadController(private val mottakClient: MottakClient) {
 
     @PostMapping("/soknad/v6")
-    fun søknadsMottak(@RequestBody(required = true) søknad: Søknad): ResponseEntity<Ressurs<Kvittering>> {
+    fun søknadsmottak(@RequestBody(required = true) søknad: Søknad): ResponseEntity<Ressurs<Kvittering>> {
 
         val søknadMedIdentFraToken = søknad.copy(
             søker = søknad.søker.copy(
@@ -33,7 +33,7 @@ class SøknadController(private val mottakClient: MottakClient) {
     }
 
     @PostMapping("/soknad/v7")
-    fun søknadsMottakV7(@RequestBody(required = true) søknad: SøknadNewWip): ResponseEntity<Ressurs<Kvittering>> {
+    fun søknadsmottakV7(@RequestBody(required = true) søknad: SøknadNewWip): ResponseEntity<Ressurs<Kvittering>> {
 
         val søknadMedIdentFraToken = søknad.copy(
             søker = søknad.søker.copy(

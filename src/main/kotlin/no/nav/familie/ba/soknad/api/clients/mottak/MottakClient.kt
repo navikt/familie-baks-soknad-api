@@ -39,19 +39,17 @@ class MottakClient(
 
     fun sendSøknad(søknad: Søknad): Ressurs<Kvittering> {
         val uri: URI = URI.create("$mottakBaseUrl/api/soknad/v6")
-        val multipartBuilder = MultipartBuilder().withJson("søknad", søknad)
-        val payload: MultiValueMap<String, Any> = multipartBuilder.build()
-        return håndterSendingAvSøknad(uri = uri, payload = payload)
+        return håndterSendingAvSøknad(uri = uri, søknad = søknad)
     }
     fun sendSøknadV7(søknad: SøknadNewWip): Ressurs<Kvittering> {
         val uri: URI = URI.create("$mottakBaseUrl/api/soknad/v7")
-        val multipartBuilder = MultipartBuilder().withJson("søknad", søknad)
-        val payload: MultiValueMap<String, Any> = multipartBuilder.build()
-        return håndterSendingAvSøknad(uri = uri, payload = payload)
+        return håndterSendingAvSøknad(uri = uri, søknad = søknad)
     }
 
-    fun håndterSendingAvSøknad(uri: URI, payload: MultiValueMap<String, Any>): Ressurs<Kvittering> {
+    fun håndterSendingAvSøknad(uri: URI, søknad: Any): Ressurs<Kvittering> {
         try {
+            val multipartBuilder = MultipartBuilder().withJson("søknad", søknad)
+            val payload: MultiValueMap<String, Any> = multipartBuilder.build()
             val response = postForEntity<Ressurs<Kvittering>>(
                 uri = uri,
                 payload = payload,
