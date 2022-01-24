@@ -4,6 +4,7 @@ import io.mockk.Runs
 import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
+import java.time.LocalDateTime
 import no.nav.familie.ba.soknad.api.clients.mottak.MottakClient
 import no.nav.familie.ba.soknad.api.clients.pdl.ADRESSEBESKYTTELSEGRADERING
 import no.nav.familie.ba.soknad.api.clients.pdl.Adressebeskyttelse
@@ -31,7 +32,6 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Primary
 import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
-import java.time.LocalDateTime
 
 @Component
 class ClientMocks {

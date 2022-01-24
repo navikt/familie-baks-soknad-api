@@ -1,6 +1,8 @@
 package no.nav.familie.ba.soknad.api.clients.mottak
 
 import com.fasterxml.jackson.databind.JsonNode
+import java.lang.IllegalStateException
+import java.net.URI
 import no.nav.familie.ba.soknad.api.controllers.SøknadNewWip
 import no.nav.familie.ba.soknad.api.domene.Kvittering
 import no.nav.familie.http.client.AbstractPingableRestClient
@@ -15,8 +17,6 @@ import org.springframework.stereotype.Component
 import org.springframework.util.MultiValueMap
 import org.springframework.web.client.RestOperations
 import org.springframework.web.client.exchange
-import java.lang.IllegalStateException
-import java.net.URI
 
 @Component
 class MottakClient(

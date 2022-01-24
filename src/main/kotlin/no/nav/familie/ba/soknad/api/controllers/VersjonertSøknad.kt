@@ -6,4 +6,3 @@ sealed class VersjonertSøknad
 
 data class SøknadV6(val søknad: Søknad) : VersjonertSøknad()
 data class SøknadV7(val søknad: SøknadNewWip) : VersjonertSøknad()
-
