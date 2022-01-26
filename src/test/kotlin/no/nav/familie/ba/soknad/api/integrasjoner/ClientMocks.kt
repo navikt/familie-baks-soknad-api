@@ -21,9 +21,9 @@ import no.nav.familie.ba.soknad.api.clients.pdl.PdlSivilstand
 import no.nav.familie.ba.soknad.api.clients.pdl.PdlStatsborgerskap
 import no.nav.familie.ba.soknad.api.clients.pdl.PdlSystemClient
 import no.nav.familie.ba.soknad.api.clients.pdl.SIVILSTANDSTYPE
+import no.nav.familie.ba.soknad.api.controllers.SøknadNewWip
 import no.nav.familie.ba.soknad.api.domene.Kvittering
 import no.nav.familie.http.sts.StsRestClient
-import no.nav.familie.kontrakter.ba.søknad.v5.Søknad as SøknadV5
 import no.nav.familie.kontrakter.ba.søknad.v6.Søknad
 import no.nav.familie.kontrakter.felles.Ressurs
 import no.nav.familie.kontrakter.felles.personopplysning.Bostedsadresse
@@ -44,7 +44,7 @@ class ClientMocks {
         every { mockMottakClient.ping() } just Runs
         every { mockMottakClient.sendSøknad(any<Søknad>()) } returns
             Ressurs.success(Kvittering("søknad mottatt OK", LocalDateTime.now()))
-        every { mockMottakClient.sendSøknad(any<SøknadV5>()) } returns
+        every { mockMottakClient.sendSøknadV7(any<SøknadNewWip>()) } returns
             Ressurs.success(Kvittering("søknad mottatt OK", LocalDateTime.now()))
         return mockMottakClient
     }
