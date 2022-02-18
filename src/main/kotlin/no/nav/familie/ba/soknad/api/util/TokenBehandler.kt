@@ -14,14 +14,10 @@ object TokenBehandler {
         val contextHolder = SpringTokenValidationContextHolder()
         return if (contextHolder.tokenValidationContext.getClaims(ISSUER)["pid"] !== null) {
             contextHolder.tokenValidationContext.getClaims(ISSUER)["pid"].toString()
-        }
-        else if (contextHolder.tokenValidationContext.getClaims(ISSUER)["sub"] !== null) {
+        } else if (contextHolder.tokenValidationContext.getClaims(ISSUER)["sub"] !== null) {
             contextHolder.tokenValidationContext.getClaims(ISSUER)["sub"].toString()
-        }
-        else {
+        } else {
             error("Finner ikke sub/pid på token")
         }
-
-
     }
 }
