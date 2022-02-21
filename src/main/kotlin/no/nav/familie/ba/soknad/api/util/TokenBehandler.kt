@@ -12,12 +12,9 @@ object TokenBehandler {
 
     fun hentFnr(): String {
         val contextHolder = SpringTokenValidationContextHolder()
-        return if (contextHolder.tokenValidationContext.getClaims(ISSUER)["pid"] !== null) {
-            contextHolder.tokenValidationContext.getClaims(ISSUER)["pid"].toString()
-        } else if (contextHolder.tokenValidationContext.getClaims(ISSUER)["sub"] !== null) {
-            contextHolder.tokenValidationContext.getClaims(ISSUER)["sub"].toString()
-        } else {
-            error("Finner ikke sub/pid på token")
-        }
+        val claims = contextHolder.tokenValidationContext.getClaims(ISSUER)
+        return claims.getStringClaim("pid")
+               ?: claims.getStringClaim("sub")
+               ?: error("Finner ikke sub/pid på token")
     }
 }
