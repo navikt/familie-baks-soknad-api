@@ -10,7 +10,8 @@ import no.nav.familie.kontrakter.ba.søknad.v4.Søknadsfelt
 import no.nav.familie.kontrakter.ba.søknad.v4.Søknadstype
 import no.nav.familie.kontrakter.ba.søknad.v4.TidligereSamboer
 import no.nav.familie.kontrakter.ba.søknad.v4.Utenlandsopphold
-import no.nav.familie.kontrakter.ba.søknad.v6.Barn
+import no.nav.familie.kontrakter.ba.søknad.v5.RegistrertBostedType
+import no.nav.familie.kontrakter.ba.søknad.v6.AndreForelder
 
 /**
  * WIP v7 av Søknad.
@@ -66,3 +67,23 @@ data class Utbetalingsperiode(
     val utbetalingFraDato: Søknadsfelt<String?>,
     val utbetalingTilDato: Søknadsfelt<String?>,
 )
+
+data class Barn(
+    val ident: Søknadsfelt<String>,
+    val navn: Søknadsfelt<String>,
+    val registrertBostedType: Søknadsfelt<RegistrertBostedType>,
+    val alder: Søknadsfelt<String>,
+    val spørsmål: Map<String, Søknadsfelt<Any>>,
+    val utenlandsperioder: List<Søknadsfelt<Utenlandsopphold>> = listOf(),
+    val andreForelder: AndreForelder? = null,
+    val eøsBarnetrygdsperioder: List<Søknadsfelt<EøsBarnetrygdsperiode>>
+)
+
+data class EøsBarnetrygdsperiode(
+    val mottarEøsBarnetrygdNå: Søknadsfelt<String?>,
+    val barnetrygdsland: Søknadsfelt<String?>,
+    val fraDatoBarnetrygdperiode: Søknadsfelt<String?>,
+    val tilDatoBarnetrygdperiode: Søknadsfelt<String?>,
+    val månedligBeløp: Søknadsfelt<String?>,
+)
+
