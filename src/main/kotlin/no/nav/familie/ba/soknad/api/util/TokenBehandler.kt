@@ -15,7 +15,7 @@ object TokenBehandler {
         val contextHolder = SpringTokenValidationContextHolder()
         val claims = contextHolder.tokenValidationContext.getClaims(ISSUER)
         return claims.getStringClaim("pid")
-           ?: claims.getStringClaim("sub")
-           ?: error("Finner ikke sub/pid på token")
+            ?: claims.getStringClaim("sub")
+            ?: error("Finner ikke sub/pid på token")
     }
 }
