@@ -86,4 +86,3 @@ data class EøsBarnetrygdsperiode(
     val tilDatoBarnetrygdperiode: Søknadsfelt<String?>,
     val månedligBeløp: Søknadsfelt<String?>,
 )
-
