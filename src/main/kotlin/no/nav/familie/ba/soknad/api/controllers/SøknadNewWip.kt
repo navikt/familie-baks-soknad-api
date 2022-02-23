@@ -63,9 +63,9 @@ data class Pensjonsperiode(
 
 data class Utbetalingsperiode(
     val fårUtbetalingNå: Søknadsfelt<String?>,
-    val utbetalingLand: Søknadsfelt<String?>,
-    val utbetalingFraDato: Søknadsfelt<String?>,
-    val utbetalingTilDato: Søknadsfelt<String?>,
+    val utbetalingLand: Søknadsfelt<String>,
+    val utbetalingFraDato: Søknadsfelt<String>,
+    val utbetalingTilDato: Søknadsfelt<String>,
 )
 
 data class Barn(
@@ -82,7 +82,7 @@ data class Barn(
 data class EøsBarnetrygdsperiode(
     val mottarEøsBarnetrygdNå: Søknadsfelt<String?>,
     val barnetrygdsland: Søknadsfelt<String?>,
-    val fraDatoBarnetrygdperiode: Søknadsfelt<String?>,
+    val fraDatoBarnetrygdperiode: Søknadsfelt<String>,
     val tilDatoBarnetrygdperiode: Søknadsfelt<String?>,
-    val månedligBeløp: Søknadsfelt<String?>,
+    val månedligBeløp: Søknadsfelt<String>,
 )
