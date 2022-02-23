@@ -11,7 +11,7 @@ import no.nav.familie.kontrakter.ba.søknad.v4.Søknadstype
 import no.nav.familie.kontrakter.ba.søknad.v4.TidligereSamboer
 import no.nav.familie.kontrakter.ba.søknad.v4.Utenlandsopphold
 import no.nav.familie.kontrakter.ba.søknad.v5.RegistrertBostedType
-import no.nav.familie.kontrakter.ba.søknad.v6.AndreForelder
+import no.nav.familie.kontrakter.ba.søknad.v6.AndreForelderUtvidet
 
 /**
  * WIP v7 av Søknad.
@@ -77,6 +77,25 @@ data class Barn(
     val utenlandsperioder: List<Søknadsfelt<Utenlandsopphold>> = listOf(),
     val andreForelder: AndreForelder? = null,
     val eøsBarnetrygdsperioder: List<Søknadsfelt<EøsBarnetrygdsperiode>>
+)
+
+data class AndreForelder(
+    val navn: Søknadsfelt<String>,
+    val fnr: Søknadsfelt<String>,
+    val fødselsdato: Søknadsfelt<String>,
+    val arbeidUtlandet: Søknadsfelt<String>,
+    val arbeidUtlandetHvilketLand: Søknadsfelt<String>,
+    val pensjonUtland: Søknadsfelt<String>,
+    val pensjonHvilketLand: Søknadsfelt<String>,
+    val skriftligAvtaleOmDeltBosted: Søknadsfelt<String>,
+    val utvidet: AndreForelderUtvidet,
+
+    //EØS
+    val andreUtbetalingsperioder: List<Søknadsfelt<Utbetalingsperiode>> = listOf(),
+    val arbeidsperioderUtland: List<Søknadsfelt<Arbeidsperiode>> = listOf(),
+    val arbeidsperioderNorge: List<Søknadsfelt<Arbeidsperiode>> = listOf(),
+    val pensjonsperioderNorge: List<Søknadsfelt<Pensjonsperiode>> = listOf(),
+    val pensjonsperioderUtland: List<Søknadsfelt<Pensjonsperiode>> = listOf()
 )
 
 data class EøsBarnetrygdsperiode(
