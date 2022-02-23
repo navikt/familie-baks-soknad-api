@@ -90,7 +90,7 @@ data class AndreForelder(
     val skriftligAvtaleOmDeltBosted: Søknadsfelt<String>,
     val utvidet: AndreForelderUtvidet,
 
-    //EØS
+    // EØS
     val andreUtbetalingsperioder: List<Søknadsfelt<Utbetalingsperiode>> = listOf(),
     val arbeidsperioderUtland: List<Søknadsfelt<Arbeidsperiode>> = listOf(),
     val arbeidsperioderNorge: List<Søknadsfelt<Arbeidsperiode>> = listOf(),
