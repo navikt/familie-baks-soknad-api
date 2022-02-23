@@ -3,7 +3,8 @@ package no.nav.familie.ba.soknad.api.util
 import no.nav.security.token.support.spring.SpringTokenValidationContextHolder
 
 object TokenBehandler {
-    const val ISSUER = "selvbetjening"
+
+    private const val ISSUER = "selvbetjening"
 
     fun hentToken(): String {
         val contextHolder = SpringTokenValidationContextHolder()
@@ -12,6 +13,9 @@ object TokenBehandler {
 
     fun hentFnr(): String {
         val contextHolder = SpringTokenValidationContextHolder()
-        return contextHolder.tokenValidationContext.getClaims(ISSUER)["sub"].toString()
+        val claims = contextHolder.tokenValidationContext.getClaims(ISSUER)
+        return claims.getStringClaim("pid")
+            ?: claims.getStringClaim("sub")
+            ?: error("Finner ikke sub/pid på token")
     }
 }
