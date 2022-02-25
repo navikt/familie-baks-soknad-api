@@ -97,6 +97,7 @@ class PersonopplysningerServiceTest {
         val person = personopplysningerService.hentPersoninfo("23058518298")
         assertEquals(person.barn.size, 0)
     }
+
     @Test
     fun `hentPersonInfo skal returnere tom liste med barn, der barn er over atten`() {
         every { pdlClient.hentPerson(any()) } returns pdlMockFor("pdlBarnErOverAtten")
@@ -239,10 +240,11 @@ class PersonopplysningerServiceTest {
         every { kodeverkClient.hentPostnummer() } returns kodeverkMockFor("kodeverkPostnummerRespons")
         val person = personopplysningerService.hentPersoninfo("1")
         assertEquals(person.adresse?.adressenavn, "Tilleggsnavn")
-        assertEquals(person.adresse?.bruksenhetnummer, "1456")
+        assertEquals(person.adresse?.bruksenhetsnummer, "1456")
         assertEquals(person.adresse?.postnummer, "4971")
         assertEquals(person.adresse?.poststed, "SUNDEBRU")
     }
+
     @Test
     fun `hentPerson sine barn har adressebeskyttelse og barnets navn blir null`() {
         every { pdlClient.hentPerson(any()) } returns pdlMockFor("pdlPersonMedFlereRelasjoner")

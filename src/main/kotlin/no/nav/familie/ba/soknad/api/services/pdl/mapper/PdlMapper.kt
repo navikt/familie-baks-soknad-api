@@ -8,13 +8,13 @@ import no.nav.familie.ba.soknad.api.clients.pdl.PdlPersonData
 import no.nav.familie.ba.soknad.api.clients.pdl.PdlSivilstand
 import no.nav.familie.ba.soknad.api.clients.pdl.PdlStatsborgerskap
 import no.nav.familie.ba.soknad.api.clients.pdl.SIVILSTANDSTYPE
-import no.nav.familie.ba.soknad.api.domene.Adresse
 import no.nav.familie.ba.soknad.api.domene.Barn
 import no.nav.familie.ba.soknad.api.domene.Person
 import no.nav.familie.ba.soknad.api.domene.Sivilstand
 import no.nav.familie.ba.soknad.api.domene.Statborgerskap
 import no.nav.familie.ba.soknad.api.services.kodeverk.CachedKodeverkService
 import no.nav.familie.kontrakter.ba.søknad.SIVILSTANDTYPE
+import no.nav.familie.kontrakter.ba.søknad.SøknadAdresse
 import no.nav.familie.kontrakter.felles.personopplysning.Bostedsadresse
 
 object PdlMapper {
@@ -64,26 +64,24 @@ object PdlMapper {
         }
     }
 
-    fun mapAdresser(bostedsadresse: Bostedsadresse?, kodeverkService: CachedKodeverkService): Adresse? {
+    fun mapAdresser(bostedsadresse: Bostedsadresse?, kodeverkService: CachedKodeverkService): SøknadAdresse? {
         if (bostedsadresse?.vegadresse != null) {
-            return Adresse(
+            return SøknadAdresse(
                 adressenavn = bostedsadresse.vegadresse!!.adressenavn,
                 postnummer = bostedsadresse.vegadresse!!.postnummer,
                 husnummer = bostedsadresse.vegadresse!!.husnummer,
                 husbokstav = bostedsadresse.vegadresse!!.husbokstav,
-                bruksenhetnummer = bostedsadresse.vegadresse!!.bruksenhetsnummer,
-                bostedskommune = null,
+                bruksenhetsnummer = bostedsadresse.vegadresse!!.bruksenhetsnummer,
                 poststed = kodeverkService.hentPostnummer().getOrDefault(bostedsadresse.vegadresse!!.postnummer, "")
             )
         }
         if (bostedsadresse?.matrikkeladresse != null) {
-            return Adresse(
+            return SøknadAdresse(
                 adressenavn = bostedsadresse.matrikkeladresse!!.tilleggsnavn,
                 postnummer = bostedsadresse.matrikkeladresse!!.postnummer,
                 husnummer = null,
                 husbokstav = null,
-                bruksenhetnummer = bostedsadresse.matrikkeladresse!!.bruksenhetsnummer,
-                bostedskommune = null,
+                bruksenhetsnummer = bostedsadresse.matrikkeladresse!!.bruksenhetsnummer,
                 poststed = kodeverkService.hentPostnummer().getOrDefault(bostedsadresse.matrikkeladresse!!.postnummer, "")
             )
         }

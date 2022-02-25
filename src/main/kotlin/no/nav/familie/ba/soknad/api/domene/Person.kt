@@ -1,6 +1,7 @@
 package no.nav.familie.ba.soknad.api.domene
 
 import no.nav.familie.kontrakter.ba.søknad.SIVILSTANDTYPE
+import no.nav.familie.kontrakter.ba.søknad.SøknadAdresse
 
 data class Person(
     val ident: String,
@@ -8,7 +9,7 @@ data class Person(
     val barn: Set<Barn>,
     val statsborgerskap: List<Statborgerskap>,
     val sivilstand: Sivilstand,
-    val adresse: Adresse?,
+    val adresse: SøknadAdresse?,
     val adressebeskyttelse: Boolean
 )
 
@@ -18,16 +19,6 @@ data class Barn(
     val borMedSøker: Boolean,
     val fødselsdato: String?,
     val adressebeskyttelse: Boolean
-)
-
-data class Adresse(
-    val adressenavn: String?,
-    val postnummer: String?,
-    val husnummer: String?,
-    val husbokstav: String?,
-    val bruksenhetnummer: String?,
-    val bostedskommune: String?,
-    val poststed: String?
 )
 
 data class Statborgerskap(
