@@ -2,7 +2,6 @@ package no.nav.familie.ba.soknad.api.personopplysning
 
 import io.mockk.every
 import io.mockk.mockk
-import java.io.File
 import no.nav.familie.ba.soknad.api.clients.kodeverk.KodeverkClient
 import no.nav.familie.ba.soknad.api.clients.pdl.PdlBrukerClient
 import no.nav.familie.ba.soknad.api.clients.pdl.PdlHentPersonResponse
@@ -21,6 +20,7 @@ import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import java.io.File
 
 class PersonopplysningerServiceTest {
 
@@ -31,7 +31,7 @@ class PersonopplysningerServiceTest {
     private lateinit var kodeverkService: CachedKodeverkService
     private val mapper = objectMapper
     private val gyldigBostedAdresse = Bostedsadresse(
-        matrikkeladresse = Matrikkeladresse(3, "E67", "tillegg", "1456", "1223")
+            matrikkeladresse = Matrikkeladresse(3, "E67", "tillegg", "1456", "1223")
     )
 
     @BeforeEach
@@ -97,6 +97,7 @@ class PersonopplysningerServiceTest {
         val person = personopplysningerService.hentPersoninfo("23058518298")
         assertEquals(person.barn.size, 0)
     }
+
     @Test
     fun `hentPersonInfo skal returnere tom liste med barn, der barn er over atten`() {
         every { pdlClient.hentPerson(any()) } returns pdlMockFor("pdlBarnErOverAtten")
@@ -118,8 +119,8 @@ class PersonopplysningerServiceTest {
     @Test
     fun `borMedSøker skal returnere true når adressene til barn og søker er like`() {
         val borMedSøker = PdlBarnMapper.borBarnMedSoeker(
-            soekerAdresse = gyldigBostedAdresse,
-            barneAdresser = listOf(gyldigBostedAdresse)
+                soekerAdresse = gyldigBostedAdresse,
+                barneAdresser = listOf(gyldigBostedAdresse)
         )
 
         assertTrue(borMedSøker)
@@ -128,17 +129,17 @@ class PersonopplysningerServiceTest {
     @Test
     fun `borMedSøker skal returnere false når søker og barn har ulik adresse, men lik type`() {
         val barneAdresse = gyldigBostedAdresse.copy(
-            matrikkeladresse = Matrikkeladresse(
-                1,
-                "E2",
-                "tillegg",
-                "1456",
-                "1223"
-            )
+                matrikkeladresse = Matrikkeladresse(
+                        1,
+                        "E2",
+                        "tillegg",
+                        "1456",
+                        "1223"
+                )
         )
         val borMedSøker = PdlBarnMapper.borBarnMedSoeker(
-            soekerAdresse = gyldigBostedAdresse,
-            barneAdresser = listOf(barneAdresse)
+                soekerAdresse = gyldigBostedAdresse,
+                barneAdresser = listOf(barneAdresse)
         )
 
         assertFalse(borMedSøker)
@@ -148,8 +149,8 @@ class PersonopplysningerServiceTest {
     fun `borMedSøker skal returnere false hvis søkerAdresse er ukjent`() {
         val ukjentAdresse = Bostedsadresse(ukjentBosted = UkjentBosted("oslo"))
         val borMedSøker = PdlBarnMapper.borBarnMedSoeker(
-            soekerAdresse = ukjentAdresse,
-            barneAdresser = listOf(ukjentAdresse)
+                soekerAdresse = ukjentAdresse,
+                barneAdresser = listOf(ukjentAdresse)
         )
 
         assertFalse(borMedSøker)
@@ -158,20 +159,20 @@ class PersonopplysningerServiceTest {
     @Test
     fun `borMedSøker skal returnere true hvis flere adresser finnes, og minst en matcher`() {
         val søkerAdresse = gyldigBostedAdresse.copy(
-            vegadresse = Vegadresse(
-                adressenavn = "adresse",
-                husbokstav = "A",
-                bruksenhetsnummer = "1",
-                husnummer = "1",
-                kommunenummer = "1",
-                matrikkelId = 1,
-                postnummer = "0101",
-                tilleggsnavn = "tillegg"
-            )
+                vegadresse = Vegadresse(
+                        adressenavn = "adresse",
+                        husbokstav = "A",
+                        bruksenhetsnummer = "1",
+                        husnummer = "1",
+                        kommunenummer = "1",
+                        matrikkelId = 1,
+                        postnummer = "0101",
+                        tilleggsnavn = "tillegg"
+                )
         )
         val borMedSøker = PdlBarnMapper.borBarnMedSoeker(
-            soekerAdresse = søkerAdresse,
-            barneAdresser = listOf(gyldigBostedAdresse)
+                soekerAdresse = søkerAdresse,
+                barneAdresser = listOf(gyldigBostedAdresse)
         )
 
         assertTrue(borMedSøker)
@@ -197,11 +198,11 @@ class PersonopplysningerServiceTest {
     }
 
     private fun pdlMockFor(filNavn: String) = mapper.readValue(
-        File(getFile("pdl/$filNavn.json")), PdlHentPersonResponse::class.java
+            File(getFile("pdl/$filNavn.json")), PdlHentPersonResponse::class.java
     )
 
     private fun kodeverkMockFor(filNavn: String) = mapper.readValue(
-        File(getFile("kodeverk/$filNavn.json")), KodeverkDto::class.java
+            File(getFile("kodeverk/$filNavn.json")), KodeverkDto::class.java
     )
 
     private fun getFile(name: String): String {
@@ -239,10 +240,11 @@ class PersonopplysningerServiceTest {
         every { kodeverkClient.hentPostnummer() } returns kodeverkMockFor("kodeverkPostnummerRespons")
         val person = personopplysningerService.hentPersoninfo("1")
         assertEquals(person.adresse?.adressenavn, "Tilleggsnavn")
-        assertEquals(person.adresse?.bruksenhetnummer, "1456")
+        assertEquals(person.adresse?.bruksenhetsnummer, "1456")
         assertEquals(person.adresse?.postnummer, "4971")
         assertEquals(person.adresse?.poststed, "SUNDEBRU")
     }
+
     @Test
     fun `hentPerson sine barn har adressebeskyttelse og barnets navn blir null`() {
         every { pdlClient.hentPerson(any()) } returns pdlMockFor("pdlPersonMedFlereRelasjoner")
