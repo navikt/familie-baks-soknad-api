@@ -43,7 +43,13 @@ data class Søker(
     val arbeidsperioderUtland: List<Søknadsfelt<Arbeidsperiode>> = listOf(),
     val arbeidsperioderNorge: List<Søknadsfelt<Arbeidsperiode>> = listOf(),
     val pensjonsperioderNorge: List<Søknadsfelt<Pensjonsperiode>> = listOf(),
-    val pensjonsperioderUtland: List<Søknadsfelt<Pensjonsperiode>> = listOf()
+    val pensjonsperioderUtland: List<Søknadsfelt<Pensjonsperiode>> = listOf(),
+    val idNummer: List<Søknadsfelt<IdNummer>> = listOf()
+)
+
+data class IdNummer(
+    val idNummer: Søknadsfelt<String>,
+    val land: Søknadsfelt<String>,
 )
 
 data class Arbeidsperiode(
