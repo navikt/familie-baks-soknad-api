@@ -111,6 +111,7 @@ data class AndreForelder(
     val idNummer: List<Søknadsfelt<IdNummer>> = listOf()
 )
 
+// dummy commit
 data class EøsBarnetrygdsperiode(
     val mottarEøsBarnetrygdNå: Søknadsfelt<String?>,
     val barnetrygdsland: Søknadsfelt<String?>,
