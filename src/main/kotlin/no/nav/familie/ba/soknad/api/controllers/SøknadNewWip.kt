@@ -110,6 +110,7 @@ data class AndreForelder(
     val andreUtbetalingsperioder: List<Søknadsfelt<Utbetalingsperiode>> = listOf()
 )
 
+//EØS omsorgsperson
 data class Omsorgsperson(
     val omsorgspersonNavn: Søknadsfelt<String>,
     val omsorgspersonSlektsforhold: Søknadsfelt<String>,
