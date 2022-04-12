@@ -3,7 +3,8 @@ package no.nav.familie.ba.soknad.api.controllers
 import no.nav.familie.ba.soknad.api.clients.mottak.MottakClient
 import no.nav.familie.ba.soknad.api.domene.Kvittering
 import no.nav.familie.ba.soknad.api.util.TokenBehandler
-import no.nav.familie.kontrakter.ba.søknad.v6.Søknad
+import no.nav.familie.kontrakter.ba.søknad.v6.Søknad as SøknadV6
+import no.nav.familie.kontrakter.ba.søknad.v7.Søknad as SøknadV7
 import no.nav.familie.kontrakter.felles.Ressurs
 import no.nav.security.token.support.core.api.ProtectedWithClaims
 import org.springframework.http.MediaType
@@ -19,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController
 class SøknadController(private val mottakClient: MottakClient) {
 
     @PostMapping("/soknad/v6")
-    fun søknadsmottak(@RequestBody(required = true) søknad: Søknad): ResponseEntity<Ressurs<Kvittering>> {
+    fun søknadsmottak(@RequestBody(required = true) søknad: SøknadV6): ResponseEntity<Ressurs<Kvittering>> {
 
         val søknadMedIdentFraToken = søknad.copy(
             søker = søknad.søker.copy(
@@ -33,7 +34,7 @@ class SøknadController(private val mottakClient: MottakClient) {
     }
 
     @PostMapping("/soknad/v7")
-    fun søknadsmottakV7(@RequestBody(required = true) søknad: SøknadNewWip): ResponseEntity<Ressurs<Kvittering>> {
+    fun søknadsmottakV7(@RequestBody(required = true) søknad: SøknadV7): ResponseEntity<Ressurs<Kvittering>> {
 
         val søknadMedIdentFraToken = søknad.copy(
             søker = søknad.søker.copy(
