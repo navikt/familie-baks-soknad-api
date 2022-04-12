@@ -1,13 +1,9 @@
 package no.nav.familie.ba.soknad.api.clients.mottak
 
 import com.fasterxml.jackson.databind.JsonNode
-import java.lang.IllegalStateException
-import java.net.URI
-import no.nav.familie.ba.soknad.api.controllers.SøknadNewWip
 import no.nav.familie.ba.soknad.api.domene.Kvittering
 import no.nav.familie.http.client.AbstractPingableRestClient
 import no.nav.familie.http.client.MultipartBuilder
-import no.nav.familie.kontrakter.ba.søknad.v6.Søknad
 import no.nav.familie.kontrakter.felles.Ressurs
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Qualifier
@@ -17,6 +13,9 @@ import org.springframework.stereotype.Component
 import org.springframework.util.MultiValueMap
 import org.springframework.web.client.RestOperations
 import org.springframework.web.client.exchange
+import java.net.URI
+import no.nav.familie.kontrakter.ba.søknad.v6.Søknad as SøknadV6
+import no.nav.familie.kontrakter.ba.søknad.v7.Søknad as SøknadV7
 
 @Component
 class MottakClient(
@@ -37,11 +36,12 @@ class MottakClient(
         }
     }
 
-    fun sendSøknad(søknad: Søknad): Ressurs<Kvittering> {
+    fun sendSøknad(søknad: SøknadV6): Ressurs<Kvittering> {
         val uri: URI = URI.create("$mottakBaseUrl/api/soknad/v6")
         return håndterSendingAvSøknad(uri = uri, søknad = søknad)
     }
-    fun sendSøknadV7(søknad: SøknadNewWip): Ressurs<Kvittering> {
+
+    fun sendSøknadV7(søknad: SøknadV7): Ressurs<Kvittering> {
         val uri: URI = URI.create("$mottakBaseUrl/api/soknad/v7")
         return håndterSendingAvSøknad(uri = uri, søknad = søknad)
     }
@@ -63,6 +63,7 @@ class MottakClient(
     }
 
     companion object {
+
         private val LOG = LoggerFactory.getLogger(MottakClient::class.java)
     }
 }
