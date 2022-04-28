@@ -1,6 +1,5 @@
 package no.nav.familie.ba.soknad.api.config
 
-import java.net.URI
 import no.nav.familie.ba.soknad.api.util.TokenBehandler
 import no.nav.familie.http.interceptor.ApiKeyInjectingClientInterceptor
 import no.nav.familie.http.interceptor.BearerTokenClientInterceptor
@@ -24,6 +23,7 @@ import org.springframework.http.client.ClientHttpRequestInterceptor
 import org.springframework.http.client.ClientHttpResponse
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter
 import org.springframework.web.client.RestOperations
+import java.net.URI
 
 @SpringBootConfiguration
 @ComponentScan(ApplicationConfig.pakkenavn)
@@ -43,7 +43,7 @@ internal class ApplicationConfig {
     @Bean
     fun apiKeyInjectingClientInterceptor(
         @Value("\${PDL_API_APIKEY}") pdlApiKey: String,
-        @Value("\${PDL_API_URL}") pdlBaseUrl: String,
+        @Value("\${PDL_URL}") pdlBaseUrl: String,
         @Value("\${MOTTAK_APIKEY}") mottakApiKey: String,
         @Value("\${FAMILIE_BA_MOTTAK_URL}") mottakBaseUrl: String,
         @Value("\${KODEVERK_API_KEY}") kodeverkApiKey: String,
@@ -121,6 +121,7 @@ internal class ApplicationConfig {
     }
 
     companion object {
+
         private val log = LoggerFactory.getLogger(ApplicationConfig::class.java)
         const val pakkenavn = "no.nav.familie.ba.soknad.api"
         private const val apiKeyHeader = "x-nav-apiKey"
@@ -128,6 +129,7 @@ internal class ApplicationConfig {
 }
 
 class AddJwtTokenInterceptor : ClientHttpRequestInterceptor {
+
     override fun intercept(request: HttpRequest, body: ByteArray, execution: ClientHttpRequestExecution): ClientHttpResponse {
         request.headers["Authorization"] = "Bearer ${TokenBehandler.hentToken()}"
         return execution.execute(request, body)

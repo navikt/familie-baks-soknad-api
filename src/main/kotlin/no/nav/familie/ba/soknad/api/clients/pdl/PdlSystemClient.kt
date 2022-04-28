@@ -9,7 +9,7 @@ import org.springframework.web.client.RestOperations
 
 @Component
 class PdlSystemClient(
-    @Value("\${PDL_API_URL}") private val pdlBaseUrl: String,
+    @Value("\${PDL_URL}") private val pdlBaseUrl: String,
     @Qualifier("restKlientMedApiKey") private val restOperations: RestOperations,
     private val stsRestClient: StsRestClient
 ) : PdlClient(pdlBaseUrl, restOperations) {
