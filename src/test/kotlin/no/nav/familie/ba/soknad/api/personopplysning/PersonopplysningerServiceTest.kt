@@ -2,11 +2,10 @@ package no.nav.familie.ba.soknad.api.personopplysning
 
 import io.mockk.every
 import io.mockk.mockk
-import java.io.File
 import no.nav.familie.ba.soknad.api.clients.kodeverk.KodeverkClient
+import no.nav.familie.ba.soknad.api.clients.pdl.PdlApp2AppClient
 import no.nav.familie.ba.soknad.api.clients.pdl.PdlBrukerClient
 import no.nav.familie.ba.soknad.api.clients.pdl.PdlHentPersonResponse
-import no.nav.familie.ba.soknad.api.clients.pdl.PdlSystemClient
 import no.nav.familie.ba.soknad.api.services.kodeverk.CachedKodeverkService
 import no.nav.familie.ba.soknad.api.services.pdl.PersonopplysningerService
 import no.nav.familie.ba.soknad.api.services.pdl.mapper.PdlBarnMapper
@@ -21,12 +20,13 @@ import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import java.io.File
 
 class PersonopplysningerServiceTest {
 
     private lateinit var personopplysningerService: PersonopplysningerService
     private lateinit var pdlClient: PdlBrukerClient
-    private lateinit var barnePdlClient: PdlSystemClient
+    private lateinit var barnePdlClient: PdlApp2AppClient
     private lateinit var kodeverkClient: KodeverkClient
     private lateinit var kodeverkService: CachedKodeverkService
     private val mapper = objectMapper

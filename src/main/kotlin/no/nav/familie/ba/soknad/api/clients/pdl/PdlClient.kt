@@ -60,7 +60,7 @@ abstract class PdlClient(
 
     companion object {
 
-        val LOG: Logger = LoggerFactory.getLogger(PdlSystemClient::class.java)
+        val LOG: Logger = LoggerFactory.getLogger(PdlApp2AppClient::class.java)
         const val TEMA: String = "BAR"
     }
 }

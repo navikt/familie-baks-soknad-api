@@ -1,12 +1,9 @@
 package no.nav.familie.ba.soknad.api.services.pdl
 
-import java.time.LocalDate
-import java.time.Period
-import java.time.format.DateTimeFormatter
 import no.nav.familie.ba.soknad.api.clients.kodeverk.KodeverkClient
+import no.nav.familie.ba.soknad.api.clients.pdl.PdlApp2AppClient
 import no.nav.familie.ba.soknad.api.clients.pdl.PdlBrukerClient
 import no.nav.familie.ba.soknad.api.clients.pdl.PdlDoedsafall
-import no.nav.familie.ba.soknad.api.clients.pdl.PdlSystemClient
 import no.nav.familie.ba.soknad.api.domene.Barn
 import no.nav.familie.ba.soknad.api.domene.Person
 import no.nav.familie.ba.soknad.api.services.kodeverk.CachedKodeverkService
@@ -14,16 +11,20 @@ import no.nav.familie.ba.soknad.api.services.pdl.mapper.PdlBarnMapper
 import no.nav.familie.ba.soknad.api.services.pdl.mapper.PdlMapper
 import no.nav.familie.kontrakter.felles.personopplysning.Bostedsadresse
 import org.springframework.stereotype.Service
+import java.time.LocalDate
+import java.time.Period
+import java.time.format.DateTimeFormatter
 
 @Service
 class PersonopplysningerService(
     private val pdlClient: PdlBrukerClient,
-    private val pdlSystemClient: PdlSystemClient,
+    private val pdlApp2AppClient: PdlApp2AppClient,
     kodeverkClient: KodeverkClient
 ) {
+
     val kodeverkService = CachedKodeverkService(kodeverkClient)
     fun hentPersoninfo(personIdent: String, somSystem: Boolean = false): Person {
-        val response = if (somSystem) pdlSystemClient.hentPerson(personIdent) else pdlClient.hentPerson(personIdent)
+        val response = if (somSystem) pdlApp2AppClient.hentPerson(personIdent) else pdlClient.hentPerson(personIdent)
 
         val barnTilSoeker = hentBarnTilSoeker(
             fnrBarn = PdlMapper.mapFnrBarn(response.data.person!!.forelderBarnRelasjon),
@@ -37,7 +38,7 @@ class PersonopplysningerService(
 
     fun hentBarnTilSoeker(fnrBarn: List<String>, sokerAdresse: Bostedsadresse?): Set<Barn> {
         return fnrBarn
-            .map { ident -> pdlSystemClient.hentPerson(ident) }
+            .map { ident -> pdlApp2AppClient.hentPerson(ident) }
             .filter {
                 erBarnILive(it.data.person?.doedsfall) &&
                     erUnderAtten(parseIsoDato(it.data.person?.foedsel?.firstOrNull()?.foedselsdato))

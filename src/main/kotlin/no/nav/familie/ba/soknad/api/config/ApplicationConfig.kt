@@ -2,7 +2,8 @@ package no.nav.familie.ba.soknad.api.config
 
 import no.nav.familie.ba.soknad.api.util.TokenBehandler
 import no.nav.familie.http.interceptor.ApiKeyInjectingClientInterceptor
-import no.nav.familie.http.interceptor.BearerTokenClientInterceptor
+import no.nav.familie.http.interceptor.BearerTokenClientCredentialsClientInterceptor
+import no.nav.familie.http.interceptor.BearerTokenExchangeClientInterceptor
 import no.nav.familie.http.interceptor.ConsumerIdClientInterceptor
 import no.nav.familie.http.interceptor.MdcValuesPropagatingClientInterceptor
 import no.nav.familie.kontrakter.felles.objectMapper
@@ -24,10 +25,17 @@ import org.springframework.http.client.ClientHttpResponse
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter
 import org.springframework.web.client.RestOperations
 import java.net.URI
+import java.time.Duration
+import java.time.temporal.ChronoUnit
 
 @SpringBootConfiguration
 @ComponentScan(ApplicationConfig.pakkenavn)
-@Import(ConsumerIdClientInterceptor::class, BearerTokenClientInterceptor::class)
+@Import(
+    MdcValuesPropagatingClientInterceptor::class,
+    ConsumerIdClientInterceptor::class,
+    BearerTokenExchangeClientInterceptor::class,
+    BearerTokenClientCredentialsClientInterceptor::class,
+)
 @EnableOAuth2Client(cacheEnabled = true)
 internal class ApplicationConfig {
 
@@ -108,14 +116,48 @@ internal class ApplicationConfig {
 
     @Bean("restKlientMottak")
     fun restTemplateMottak(
-        bearerTokenClientInterceptor: BearerTokenClientInterceptor,
+        bearerTokenClientCredentialsClientInterceptor: BearerTokenClientCredentialsClientInterceptor,
         consumerIdClientInterceptor: ConsumerIdClientInterceptor,
     ): RestOperations {
         return RestTemplateBuilder()
             .interceptors(
-                bearerTokenClientInterceptor,
+                bearerTokenClientCredentialsClientInterceptor,
                 consumerIdClientInterceptor,
                 MdcValuesPropagatingClientInterceptor()
+            )
+            .build()
+    }
+
+    @Bean("clientCredential")
+    fun clientCredentialRestTemplateMedApiKey(
+        consumerIdClientInterceptor: ConsumerIdClientInterceptor,
+        bearerTokenClientCredentialsClientInterceptor: BearerTokenClientCredentialsClientInterceptor,
+        mdcValuesPropagatingClientInterceptor: MdcValuesPropagatingClientInterceptor
+    ): RestOperations {
+        return RestTemplateBuilder()
+            .setConnectTimeout(Duration.of(5, ChronoUnit.SECONDS))
+            .setReadTimeout(Duration.of(25, ChronoUnit.SECONDS))
+            .interceptors(
+                consumerIdClientInterceptor,
+                bearerTokenClientCredentialsClientInterceptor,
+                mdcValuesPropagatingClientInterceptor
+            )
+            .build()
+    }
+
+    @Bean("tokenExchange")
+    fun restTemplate(
+        bearerTokenExchangeClientInterceptor: BearerTokenExchangeClientInterceptor,
+        mdcValuesPropagatingClientInterceptor: MdcValuesPropagatingClientInterceptor,
+        consumerIdClientInterceptor: ConsumerIdClientInterceptor
+    ): RestOperations {
+        return RestTemplateBuilder()
+            .setConnectTimeout(Duration.of(5, ChronoUnit.SECONDS))
+            .setReadTimeout(Duration.of(25, ChronoUnit.SECONDS))
+            .interceptors(
+                bearerTokenExchangeClientInterceptor,
+                mdcValuesPropagatingClientInterceptor,
+                consumerIdClientInterceptor
             )
             .build()
     }
