@@ -2,6 +2,7 @@ package no.nav.familie.ba.soknad.api.personopplysning
 
 import io.mockk.every
 import io.mockk.mockk
+import java.io.File
 import no.nav.familie.ba.soknad.api.clients.kodeverk.KodeverkClient
 import no.nav.familie.ba.soknad.api.clients.pdl.PdlApp2AppClient
 import no.nav.familie.ba.soknad.api.clients.pdl.PdlBrukerClient
@@ -20,7 +21,6 @@ import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import java.io.File
 
 class PersonopplysningerServiceTest {
 

@@ -1,5 +1,8 @@
 package no.nav.familie.ba.soknad.api.config
 
+import java.net.URI
+import java.time.Duration
+import java.time.temporal.ChronoUnit
 import no.nav.familie.ba.soknad.api.util.TokenBehandler
 import no.nav.familie.http.interceptor.ApiKeyInjectingClientInterceptor
 import no.nav.familie.http.interceptor.BearerTokenClientCredentialsClientInterceptor
@@ -24,9 +27,6 @@ import org.springframework.http.client.ClientHttpRequestInterceptor
 import org.springframework.http.client.ClientHttpResponse
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter
 import org.springframework.web.client.RestOperations
-import java.net.URI
-import java.time.Duration
-import java.time.temporal.ChronoUnit
 
 @SpringBootConfiguration
 @ComponentScan(ApplicationConfig.pakkenavn)

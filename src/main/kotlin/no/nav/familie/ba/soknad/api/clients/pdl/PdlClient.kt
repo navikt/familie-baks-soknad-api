@@ -1,6 +1,7 @@
 package no.nav.familie.ba.soknad.api.clients.pdl
 
 import com.fasterxml.jackson.databind.JsonNode
+import java.net.URI
 import no.nav.familie.http.client.AbstractPingableRestClient
 import no.nav.familie.http.client.Pingable
 import org.apache.commons.lang3.StringUtils
@@ -11,7 +12,6 @@ import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpMethod
 import org.springframework.web.client.RestOperations
 import org.springframework.web.client.exchange
-import java.net.URI
 
 abstract class PdlClient(
     pdlBaseUrl: String,
