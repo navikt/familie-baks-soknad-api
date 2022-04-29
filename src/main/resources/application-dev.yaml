@@ -1,5 +1,5 @@
 FAMILIE_BA_MOTTAK_URL: https://familie-ba-mottak.dev-fss-pub.nais.io
-PDL_URL: https://pdl-api.dev-fss-pub.nais.io
+PDL_URL: https://pdl-api-q1.dev-fss-pub.nais.io/
 PDL_AUDIENCE: dev-fss:pdl:pdl-api-q1
 PDL_SCOPE: api://dev-fss.pdl.pdl-api-q1/.default
 STS_URL: https://api-gw-q1.oera.no/security-token-service/rest/v1/sts/token
