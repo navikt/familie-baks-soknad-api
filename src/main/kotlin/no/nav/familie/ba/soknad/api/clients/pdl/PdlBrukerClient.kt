@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component
 import org.springframework.web.client.RestOperations
 
 @Component
-abstract class PdlBrukerClient(
+class PdlBrukerClient(
     @Value("\${PDL_URL}") private val pdlBaseUrl: String,
     @Qualifier("tokenExchange") private val restOperations: RestOperations,
 ) : PdlClient(pdlBaseUrl, restOperations) {

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component
 import org.springframework.web.client.RestOperations
 
 @Component
-abstract class PdlApp2AppClient(
+class PdlApp2AppClient(
     @Value("\${PDL_URL}") private val pdlBaseUrl: String,
     @Qualifier("clientCredential") private val restOperations: RestOperations,
 ) : PdlClient(pdlBaseUrl, restOperations) {
@@ -17,4 +17,5 @@ abstract class PdlApp2AppClient(
             add("Tema", TEMA)
         }
     }
+
 }
