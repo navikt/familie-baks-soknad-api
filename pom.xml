@@ -23,7 +23,8 @@
         <kontrakter.version>2.0_20220412101553_5627657</kontrakter.version>
         <felles.version>1.20210419103325_d044927</felles.version>
         <mockk.version>1.12.1</mockk.version>
-        <token-validation-spring.version>1.3.2</token-validation-spring.version>
+        <token-validation-spring.version>2.0.15</token-validation-spring.version>
+        <token-validation-test-support.version>2.0.5</token-validation-test-support.version>
         <!--suppress UnresolvedMavenProperty  Ligger som secret i github-->
         <sonar.projectKey>${SONAR_PROJECTKEY}</sonar.projectKey>
         <sonar.organization>navit</sonar.organization>
@@ -114,7 +115,7 @@
         <dependency>
             <groupId>no.nav.security</groupId>
             <artifactId>token-validation-test-support</artifactId>
-            <version>${token-validation-spring.version}</version>
+            <version>${token-validation-test-support.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -125,7 +126,7 @@
         </dependency>
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-test-junit</artifactId>
+            <artifactId>kotlin-test-junit5</artifactId>
             <version>${kotlin.version}</version>
             <scope>test</scope>
         </dependency>
