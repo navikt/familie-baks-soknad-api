@@ -36,6 +36,7 @@ import org.springframework.web.client.RestOperations
     ConsumerIdClientInterceptor::class,
     BearerTokenExchangeClientInterceptor::class,
     BearerTokenClientCredentialsClientInterceptor::class,
+    BearerTokenClientInterceptor::class
 )
 @EnableOAuth2Client(cacheEnabled = true)
 internal class ApplicationConfig {
@@ -117,12 +118,12 @@ internal class ApplicationConfig {
 
     @Bean("restKlientMottak")
     fun restTemplateMottak(
-        bearerTokenClientCredentialsClientInterceptor: BearerTokenClientCredentialsClientInterceptor,
+        bearerTokenClientInterceptor: BearerTokenClientInterceptor,
         consumerIdClientInterceptor: ConsumerIdClientInterceptor,
     ): RestOperations {
         return RestTemplateBuilder()
             .interceptors(
-                bearerTokenClientCredentialsClientInterceptor,
+                bearerTokenClientInterceptor,
                 consumerIdClientInterceptor,
                 MdcValuesPropagatingClientInterceptor()
             )
