@@ -1,9 +1,13 @@
 package no.nav.familie.ba.soknad.api.config
 
 import java.net.URI
+import java.time.Duration
+import java.time.temporal.ChronoUnit
 import no.nav.familie.ba.soknad.api.util.TokenBehandler
 import no.nav.familie.http.interceptor.ApiKeyInjectingClientInterceptor
+import no.nav.familie.http.interceptor.BearerTokenClientCredentialsClientInterceptor
 import no.nav.familie.http.interceptor.BearerTokenClientInterceptor
+import no.nav.familie.http.interceptor.BearerTokenExchangeClientInterceptor
 import no.nav.familie.http.interceptor.ConsumerIdClientInterceptor
 import no.nav.familie.http.interceptor.MdcValuesPropagatingClientInterceptor
 import no.nav.familie.kontrakter.felles.objectMapper
@@ -27,7 +31,13 @@ import org.springframework.web.client.RestOperations
 
 @SpringBootConfiguration
 @ComponentScan(ApplicationConfig.pakkenavn)
-@Import(ConsumerIdClientInterceptor::class, BearerTokenClientInterceptor::class)
+@Import(
+    MdcValuesPropagatingClientInterceptor::class,
+    ConsumerIdClientInterceptor::class,
+    BearerTokenExchangeClientInterceptor::class,
+    BearerTokenClientCredentialsClientInterceptor::class,
+    BearerTokenClientInterceptor::class
+)
 @EnableOAuth2Client(cacheEnabled = true)
 internal class ApplicationConfig {
 
@@ -43,7 +53,7 @@ internal class ApplicationConfig {
     @Bean
     fun apiKeyInjectingClientInterceptor(
         @Value("\${PDL_API_APIKEY}") pdlApiKey: String,
-        @Value("\${PDL_API_URL}") pdlBaseUrl: String,
+        @Value("\${PDL_URL}") pdlBaseUrl: String,
         @Value("\${MOTTAK_APIKEY}") mottakApiKey: String,
         @Value("\${FAMILIE_BA_MOTTAK_URL}") mottakBaseUrl: String,
         @Value("\${KODEVERK_API_KEY}") kodeverkApiKey: String,
@@ -120,7 +130,42 @@ internal class ApplicationConfig {
             .build()
     }
 
+    @Bean("clientCredential")
+    fun clientCredentialRestTemplateMedApiKey(
+        consumerIdClientInterceptor: ConsumerIdClientInterceptor,
+        bearerTokenClientCredentialsClientInterceptor: BearerTokenClientCredentialsClientInterceptor,
+        mdcValuesPropagatingClientInterceptor: MdcValuesPropagatingClientInterceptor
+    ): RestOperations {
+        return RestTemplateBuilder()
+            .setConnectTimeout(Duration.of(5, ChronoUnit.SECONDS))
+            .setReadTimeout(Duration.of(25, ChronoUnit.SECONDS))
+            .interceptors(
+                consumerIdClientInterceptor,
+                bearerTokenClientCredentialsClientInterceptor,
+                mdcValuesPropagatingClientInterceptor
+            )
+            .build()
+    }
+
+    @Bean("tokenExchange")
+    fun restTemplate(
+        bearerTokenExchangeClientInterceptor: BearerTokenExchangeClientInterceptor,
+        mdcValuesPropagatingClientInterceptor: MdcValuesPropagatingClientInterceptor,
+        consumerIdClientInterceptor: ConsumerIdClientInterceptor
+    ): RestOperations {
+        return RestTemplateBuilder()
+            .setConnectTimeout(Duration.of(5, ChronoUnit.SECONDS))
+            .setReadTimeout(Duration.of(25, ChronoUnit.SECONDS))
+            .interceptors(
+                bearerTokenExchangeClientInterceptor,
+                mdcValuesPropagatingClientInterceptor,
+                consumerIdClientInterceptor
+            )
+            .build()
+    }
+
     companion object {
+
         private val log = LoggerFactory.getLogger(ApplicationConfig::class.java)
         const val pakkenavn = "no.nav.familie.ba.soknad.api"
         private const val apiKeyHeader = "x-nav-apiKey"
@@ -128,6 +173,7 @@ internal class ApplicationConfig {
 }
 
 class AddJwtTokenInterceptor : ClientHttpRequestInterceptor {
+
     override fun intercept(request: HttpRequest, body: ByteArray, execution: ClientHttpRequestExecution): ClientHttpResponse {
         request.headers["Authorization"] = "Bearer ${TokenBehandler.hentToken()}"
         return execution.execute(request, body)

@@ -2,11 +2,12 @@ package no.nav.familie.ba.soknad.api.clients.pdl
 
 import com.fasterxml.jackson.databind.JsonNode
 import java.net.URI
-import no.nav.familie.http.client.AbstractRestClient
+import no.nav.familie.http.client.AbstractPingableRestClient
 import no.nav.familie.http.client.Pingable
 import org.apache.commons.lang3.StringUtils
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpMethod
 import org.springframework.web.client.RestOperations
@@ -14,9 +15,9 @@ import org.springframework.web.client.exchange
 
 abstract class PdlClient(
     pdlBaseUrl: String,
-    private val restOperations: RestOperations
+    @Qualifier("tokenExchange") private val restOperations: RestOperations
 ) :
-    AbstractRestClient(restOperations, "integrasjon"), Pingable {
+    AbstractPingableRestClient(restOperations, "pdl.integrasjon"), Pingable {
 
     private val pdlUri = URI.create("$pdlBaseUrl/graphql")
 
@@ -47,6 +48,9 @@ abstract class PdlClient(
 
     abstract fun httpHeaders(): HttpHeaders
 
+    override val pingUri: URI
+        get() = pdlUri
+
     override fun ping() {
         try {
             restOperations.exchange<JsonNode>(pdlUri, HttpMethod.OPTIONS)
@@ -58,7 +62,8 @@ abstract class PdlClient(
     }
 
     companion object {
-        val LOG: Logger = LoggerFactory.getLogger(PdlSystemClient::class.java)
+
+        val LOG: Logger = LoggerFactory.getLogger(PdlApp2AppClient::class.java)
         const val TEMA: String = "BAR"
     }
 }

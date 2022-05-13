@@ -21,7 +21,7 @@
         <jvmTarget>17</jvmTarget>
         <java.version>17</java.version>
         <kontrakter.version>2.0_20220412101553_5627657</kontrakter.version>
-        <felles.version>1.20210419103325_d044927</felles.version>
+        <felles.version>1.20220406131143_806a963</felles.version>
         <mockk.version>1.12.1</mockk.version>
         <token-validation-spring.version>2.0.15</token-validation-spring.version>
         <token-validation-test-support.version>2.0.5</token-validation-test-support.version>

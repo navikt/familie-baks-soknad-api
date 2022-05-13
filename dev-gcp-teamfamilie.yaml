@@ -27,6 +27,9 @@ spec:
     enabled: true
   tokenx:
     enabled: true
+  azure:
+    application:
+      enabled: true
   resources:
     limits:
       memory: 1024Mi

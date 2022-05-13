@@ -1,5 +1,7 @@
 FAMILIE_BA_MOTTAK_URL: http://localhost:8090
-PDL_API_URL: http://localhost:1337/rest/api/pdl
+PDL_URL: http://localhost:1337/rest/api/pdl
+PDL_AUDIENCE: dev-fss:pdl:pdl-api-q1
+PDL_SCOPE: api://dev-fss.pdl.pdl-api-q1/.default
 KODEVERK_URL: #Mockes lokalt
 
 PDL_API_APIKEY: test-apikey
@@ -22,6 +24,7 @@ TOKEN_X_PRIVATE_JWK: '{
  "qi": "xjuRb0uidaayF7YXF6DIKFmkXI8445KoFFGR_xCzBaM6BAtNWhhmGL6xQwblzbHnPqlNeestVPX2Eq7EQ0bkDQOG97-zl--nzO97FkRIGl2wfQstbrQxGVuHCTWjOxcf0NDZZ3oO4jnEdmnwwQofkPLRipxrybLIIlw4fBaB0f4"
 }'
 TOKEN_X_CLIENT_ID: dev-local:teamfamilie:familie-ba-soknad-api
+AZURE_OPENID_CONFIG_TOKEN_ENDPOINT: http://localhost
 
 no.nav.security.jwt:
   issuer.selvbetjening:
@@ -33,6 +36,7 @@ no.nav.security.jwt:
       mottak-clientcredentials:
         # bytt ut token-endpoint-url: http://metadata med grant-type: client_credentials dersom man skal kjøre api med mottak lokalt.
         token-endpoint-url: http://metadata # Uten denne prøver token-support å kalle well-known uri i contructor og krasjer appen
-
+      pdl:
+        token-endpoint-url: http://metadata
 CREDENTIAL_USERNAME: dummy
 CREDENTIAL_PASSWORD: dummy
