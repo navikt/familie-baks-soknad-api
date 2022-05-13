@@ -6,6 +6,7 @@ import java.time.temporal.ChronoUnit
 import no.nav.familie.ba.soknad.api.util.TokenBehandler
 import no.nav.familie.http.interceptor.ApiKeyInjectingClientInterceptor
 import no.nav.familie.http.interceptor.BearerTokenClientCredentialsClientInterceptor
+import no.nav.familie.http.interceptor.BearerTokenClientInterceptor
 import no.nav.familie.http.interceptor.BearerTokenExchangeClientInterceptor
 import no.nav.familie.http.interceptor.ConsumerIdClientInterceptor
 import no.nav.familie.http.interceptor.MdcValuesPropagatingClientInterceptor
@@ -111,6 +112,20 @@ internal class ApplicationConfig {
                 MdcValuesPropagatingClientInterceptor()
             )
             .additionalMessageConverters(MappingJackson2HttpMessageConverter(objectMapper))
+            .build()
+    }
+
+    @Bean("restKlientMottak")
+    fun restTemplateMottak(
+        bearerTokenClientCredentialsClientInterceptor: BearerTokenClientCredentialsClientInterceptor,
+        consumerIdClientInterceptor: ConsumerIdClientInterceptor,
+    ): RestOperations {
+        return RestTemplateBuilder()
+            .interceptors(
+                bearerTokenClientCredentialsClientInterceptor,
+                consumerIdClientInterceptor,
+                MdcValuesPropagatingClientInterceptor()
+            )
             .build()
     }
 

@@ -20,7 +20,7 @@ import org.springframework.web.client.exchange
 @Component
 class MottakClient(
     @Value("\${FAMILIE_BA_MOTTAK_URL}") private val mottakBaseUrl: String,
-    @Qualifier("clientCredential") private val restOperations: RestOperations
+    @Qualifier("restKlientMottak") private val restOperations: RestOperations
 ) :
     AbstractPingableRestClient(restOperations, "integrasjon") {
 
