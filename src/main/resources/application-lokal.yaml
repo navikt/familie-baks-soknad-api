@@ -24,6 +24,7 @@ TOKEN_X_PRIVATE_JWK: '{
  "qi": "xjuRb0uidaayF7YXF6DIKFmkXI8445KoFFGR_xCzBaM6BAtNWhhmGL6xQwblzbHnPqlNeestVPX2Eq7EQ0bkDQOG97-zl--nzO97FkRIGl2wfQstbrQxGVuHCTWjOxcf0NDZZ3oO4jnEdmnwwQofkPLRipxrybLIIlw4fBaB0f4"
 }'
 TOKEN_X_CLIENT_ID: dev-local:teamfamilie:familie-ba-soknad-api
+AZURE_OPENID_CONFIG_TOKEN_ENDPOINT: http://localhost
 
 no.nav.security.jwt:
   issuer.selvbetjening:

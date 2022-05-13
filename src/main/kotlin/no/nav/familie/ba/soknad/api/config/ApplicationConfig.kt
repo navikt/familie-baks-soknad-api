@@ -114,20 +114,6 @@ internal class ApplicationConfig {
             .build()
     }
 
-    @Bean("restKlientMottak")
-    fun restTemplateMottak(
-        bearerTokenClientCredentialsClientInterceptor: BearerTokenClientCredentialsClientInterceptor,
-        consumerIdClientInterceptor: ConsumerIdClientInterceptor,
-    ): RestOperations {
-        return RestTemplateBuilder()
-            .interceptors(
-                bearerTokenClientCredentialsClientInterceptor,
-                consumerIdClientInterceptor,
-                MdcValuesPropagatingClientInterceptor()
-            )
-            .build()
-    }
-
     @Bean("clientCredential")
     fun clientCredentialRestTemplateMedApiKey(
         consumerIdClientInterceptor: ConsumerIdClientInterceptor,
