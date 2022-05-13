@@ -2,8 +2,7 @@ FAMILIE_BA_MOTTAK_URL: https://familie-ba-mottak.prod-fss-pub.nais.io
 PDL_URL: https://pdl-api.prod-fss-pub.nais.io
 PDL_AUDIENCE: prod-fss:pdl:pdl-api
 PDL_SCOPE: api://prod-fss.pdl.pdl-api/.default
-STS_URL: https://api-gw.oera.no/security-token-service/rest/v1/sts/token
-KODEVERK_URL: https://api-gw.oera.no/kodeverk
+KODEVERK_URL: https://kodeverk.prod-fss-pub.nais.io
 
 no.nav.security.jwt:
   client:

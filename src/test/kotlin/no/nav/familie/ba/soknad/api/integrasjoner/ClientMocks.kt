@@ -22,7 +22,6 @@ import no.nav.familie.ba.soknad.api.clients.pdl.PdlSivilstand
 import no.nav.familie.ba.soknad.api.clients.pdl.PdlStatsborgerskap
 import no.nav.familie.ba.soknad.api.clients.pdl.SIVILSTANDSTYPE
 import no.nav.familie.ba.soknad.api.domene.Kvittering
-import no.nav.familie.http.sts.StsRestClient
 import no.nav.familie.kontrakter.ba.søknad.v6.Søknad as SøknadV6
 import no.nav.familie.kontrakter.ba.søknad.v7.Søknad as SøknadV7
 import no.nav.familie.kontrakter.felles.Ressurs
@@ -221,13 +220,5 @@ class ClientMocks {
             errors = null
         )
         return mockPdlClient
-    }
-
-    @Bean
-    @Primary
-    @Profile("mock-sts") fun stsRestClientMock(): StsRestClient {
-        val mockStsClient = mockk<StsRestClient>()
-        every { mockStsClient.systemOIDCToken } returns ("MOCKED-OIDC-TOKEN")
-        return mockStsClient
     }
 }

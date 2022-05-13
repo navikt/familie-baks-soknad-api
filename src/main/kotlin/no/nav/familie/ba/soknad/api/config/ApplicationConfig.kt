@@ -84,38 +84,6 @@ internal class ApplicationConfig {
         return AddJwtTokenInterceptor()
     }
 
-    @Bean("restKlientMedApiKeyOgBrukerToken")
-    fun restTemplateMedApiKey(
-        consumerIdClientInterceptor: ConsumerIdClientInterceptor,
-        apiKeyInjectingClientInterceptor: ClientHttpRequestInterceptor,
-        jwtTokenInjectingInterceptor: ClientHttpRequestInterceptor
-    ): RestOperations {
-        return RestTemplateBuilder()
-            .interceptors(
-                consumerIdClientInterceptor,
-                apiKeyInjectingClientInterceptor,
-                jwtTokenInjectingInterceptor,
-                MdcValuesPropagatingClientInterceptor()
-            )
-            .additionalMessageConverters(MappingJackson2HttpMessageConverter(objectMapper))
-            .build()
-    }
-
-    @Bean("restKlientMedApiKey")
-    fun stsRestTemplateMedApiKey(
-        consumerIdClientInterceptor: ConsumerIdClientInterceptor,
-        apiKeyInjectingClientInterceptor: ClientHttpRequestInterceptor
-    ): RestOperations {
-        return RestTemplateBuilder()
-            .interceptors(
-                consumerIdClientInterceptor,
-                apiKeyInjectingClientInterceptor,
-                MdcValuesPropagatingClientInterceptor()
-            )
-            .additionalMessageConverters(MappingJackson2HttpMessageConverter(objectMapper))
-            .build()
-    }
-
     @Bean("restKlientMottak")
     fun restTemplateMottak(
         bearerTokenClientInterceptor: BearerTokenClientInterceptor,
