@@ -27,6 +27,9 @@ spec:
     enabled: true
   tokenx:
     enabled: true
+  azure:
+    application:
+      enabled: true
   resources:
     limits:
       memory: 1024Mi
@@ -40,6 +43,7 @@ spec:
         - application: familie-ba-soknad
     outbound:
       external:
+        - host: pdl-api.prod-fss-pub.nais.io
         - host: familie-ba-mottak.prod-fss-pub.nais.io
         - host: api-gw.oera.no
         - host: login.microsoftonline.com
