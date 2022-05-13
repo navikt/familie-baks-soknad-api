@@ -21,7 +21,6 @@ management:
 
 FAMILIE_BA_MOTTAK_URL: dummy
 PDL_URL: dummy
-STS_URL: dummy
 KODEVERK_URL: dummy
 
 no.nav.security.jwt:
