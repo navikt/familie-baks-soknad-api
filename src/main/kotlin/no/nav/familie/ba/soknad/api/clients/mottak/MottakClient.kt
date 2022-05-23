@@ -1,6 +1,7 @@
 package no.nav.familie.ba.soknad.api.clients.mottak
 
 import com.fasterxml.jackson.databind.JsonNode
+import no.nav.familie.ba.soknad.api.controllers.SøknadWipV8
 import java.net.URI
 import no.nav.familie.ba.soknad.api.domene.Kvittering
 import no.nav.familie.http.client.AbstractPingableRestClient
@@ -43,6 +44,11 @@ class MottakClient(
 
     fun sendSøknadV7(søknad: SøknadV7): Ressurs<Kvittering> {
         val uri: URI = URI.create("$mottakBaseUrl/api/soknad/v7")
+        return håndterSendingAvSøknad(uri = uri, søknad = søknad)
+    }
+
+    fun sendSøknadV8(søknad: SøknadWipV8): Ressurs<Kvittering> {
+        val uri: URI = URI.create("$mottakBaseUrl/api/soknad/v8")
         return håndterSendingAvSøknad(uri = uri, søknad = søknad)
     }
 

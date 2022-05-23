@@ -46,4 +46,18 @@ class SøknadController(private val mottakClient: MottakClient) {
 
         return ResponseEntity.ok().body(mottakClient.sendSøknadV7(søknadMedIdentFraToken))
     }
+
+    @PostMapping("/soknad/v8")
+    fun søknadsmottakV8(@RequestBody(required = true) søknad: SøknadWipV8): ResponseEntity<Ressurs<Kvittering>> {
+
+        val søknadMedIdentFraToken = søknad.copy(
+            søker = søknad.søker.copy(
+                ident = søknad.søker.ident.copy(
+                    verdi = søknad.søker.ident.verdi.mapValues { TokenBehandler.hentFnr() }
+                )
+            )
+        )
+
+        return ResponseEntity.ok().body(mottakClient.sendSøknadV8(søknadMedIdentFraToken))
+    }
 }

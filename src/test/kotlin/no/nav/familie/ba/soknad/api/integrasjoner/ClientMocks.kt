@@ -21,6 +21,7 @@ import no.nav.familie.ba.soknad.api.clients.pdl.PdlPersonData
 import no.nav.familie.ba.soknad.api.clients.pdl.PdlSivilstand
 import no.nav.familie.ba.soknad.api.clients.pdl.PdlStatsborgerskap
 import no.nav.familie.ba.soknad.api.clients.pdl.SIVILSTANDSTYPE
+import no.nav.familie.ba.soknad.api.controllers.SøknadWipV8
 import no.nav.familie.ba.soknad.api.domene.Kvittering
 import no.nav.familie.kontrakter.ba.søknad.v6.Søknad as SøknadV6
 import no.nav.familie.kontrakter.ba.søknad.v7.Søknad as SøknadV7
@@ -44,6 +45,8 @@ class ClientMocks {
         every { mockMottakClient.sendSøknad(any<SøknadV6>()) } returns
             Ressurs.success(Kvittering("søknad mottatt OK", LocalDateTime.now()))
         every { mockMottakClient.sendSøknadV7(any<SøknadV7>()) } returns
+            Ressurs.success(Kvittering("søknad mottatt OK", LocalDateTime.now()))
+        every { mockMottakClient.sendSøknadV8(any<SøknadWipV8>()) } returns
             Ressurs.success(Kvittering("søknad mottatt OK", LocalDateTime.now()))
         return mockMottakClient
     }
