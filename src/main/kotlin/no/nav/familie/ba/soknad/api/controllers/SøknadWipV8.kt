@@ -9,13 +9,13 @@ import no.nav.familie.kontrakter.ba.søknad.v4.Søknadsfelt
 import no.nav.familie.kontrakter.ba.søknad.v4.Søknadstype
 import no.nav.familie.kontrakter.ba.søknad.v4.TidligereSamboer
 import no.nav.familie.kontrakter.ba.søknad.v4.Utenlandsopphold
+import no.nav.familie.kontrakter.ba.søknad.v5.RegistrertBostedType
+import no.nav.familie.kontrakter.ba.søknad.v7.AndreForelder
 import no.nav.familie.kontrakter.ba.søknad.v7.Arbeidsperiode
-import no.nav.familie.kontrakter.ba.søknad.v7.Utbetalingsperiode
 import no.nav.familie.kontrakter.ba.søknad.v7.EøsBarnetrygdsperiode
 import no.nav.familie.kontrakter.ba.søknad.v7.IdNummer
 import no.nav.familie.kontrakter.ba.søknad.v7.Pensjonsperiode
-import no.nav.familie.kontrakter.ba.søknad.v5.RegistrertBostedType
-import no.nav.familie.kontrakter.ba.søknad.v7.AndreForelder
+import no.nav.familie.kontrakter.ba.søknad.v7.Utbetalingsperiode
 
 data class SøknadWipV8(
     val kontraktVersjon: Int,
