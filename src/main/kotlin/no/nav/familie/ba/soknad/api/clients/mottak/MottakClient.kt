@@ -1,8 +1,8 @@
 package no.nav.familie.ba.soknad.api.clients.mottak
 
 import com.fasterxml.jackson.databind.JsonNode
-import no.nav.familie.ba.soknad.api.controllers.SøknadWipV8
 import java.net.URI
+import no.nav.familie.ba.soknad.api.controllers.SøknadWipV8
 import no.nav.familie.ba.soknad.api.domene.Kvittering
 import no.nav.familie.http.client.AbstractPingableRestClient
 import no.nav.familie.http.client.MultipartBuilder
