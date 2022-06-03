@@ -23,8 +23,7 @@
         <kontrakter.version>2.0_20220603092438_b924d91</kontrakter.version>
         <felles.version>1.20220406131143_806a963</felles.version>
         <mockk.version>1.12.1</mockk.version>
-        <token-validation-spring.version>2.0.15</token-validation-spring.version>
-        <token-validation-test-support.version>2.0.5</token-validation-test-support.version>
+        <token-validation-spring.version>2.0.20</token-validation-spring.version>
         <!--suppress UnresolvedMavenProperty  Ligger som secret i github-->
         <sonar.projectKey>${SONAR_PROJECTKEY}</sonar.projectKey>
         <sonar.organization>navit</sonar.organization>
@@ -88,6 +87,16 @@
             <groupId>no.nav.familie.kontrakter</groupId>
             <artifactId>barnetrygd</artifactId>
             <version>${kontrakter.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>no.nav.security</groupId>
+                    <artifactId>token-client-spring</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>no.nav.security</groupId>
+                    <artifactId>token-client-core</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>no.nav.familie.felles</groupId>
@@ -114,8 +123,8 @@
         </dependency>
         <dependency>
             <groupId>no.nav.security</groupId>
-            <artifactId>token-validation-test-support</artifactId>
-            <version>${token-validation-test-support.version}</version>
+            <artifactId>token-validation-spring-test</artifactId>
+            <version>${token-validation-spring.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>

@@ -1,12 +1,11 @@
 package no.nav.familie.ba.soknad.api
 
 import no.nav.security.token.support.spring.api.EnableJwtTokenValidation
-import no.nav.security.token.support.test.spring.TokenGeneratorConfiguration
+import no.nav.security.token.support.spring.test.EnableMockOAuth2Server
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
-import org.springframework.context.annotation.Import
 
-@Import(TokenGeneratorConfiguration::class)
+@EnableMockOAuth2Server
 @SpringBootApplication(scanBasePackages = ["no.nav.familie.ba.soknad.api"])
 @EnableJwtTokenValidation
 class LokalLauncher
