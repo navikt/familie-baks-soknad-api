@@ -51,7 +51,7 @@ object PdlMapper {
 
     fun mapFnrBarn(familierelasjoner: List<PdlFamilierelasjon>): List<String> {
         return familierelasjoner.filter { relasjon -> relasjon.relatertPersonsRolle == FAMILIERELASJONSROLLE.BARN }
-            .map { it.relatertPersonsIdent }
+            .mapNotNull { it.relatertPersonsIdent }
     }
 
     private fun mapStatsborgerskap(statsborgerskap: List<PdlStatsborgerskap>): List<Statborgerskap> {
