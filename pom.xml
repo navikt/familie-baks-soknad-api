@@ -91,16 +91,6 @@
             <groupId>no.nav.familie.kontrakter</groupId>
             <artifactId>barnetrygd</artifactId>
             <version>${kontrakter.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>no.nav.security</groupId>
-                    <artifactId>token-client-spring</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>no.nav.security</groupId>
-                    <artifactId>token-client-core</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>no.nav.familie.felles</groupId>
