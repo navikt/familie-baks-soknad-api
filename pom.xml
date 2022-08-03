@@ -23,7 +23,7 @@
         <kontrakter.version>2.0_20220603092438_b924d91</kontrakter.version>
         <felles.version>1.20220406131143_806a963</felles.version>
         <mockk.version>1.12.1</mockk.version>
-        <token-validation-spring.version>2.0.20</token-validation-spring.version>
+        <token-validation-spring.version>2.0.21</token-validation-spring.version>
         <!--suppress UnresolvedMavenProperty  Ligger som secret i github-->
         <sonar.projectKey>${SONAR_PROJECTKEY}</sonar.projectKey>
         <sonar.organization>navit</sonar.organization>
@@ -33,8 +33,7 @@
         <sonar.login>${SONAR_LOGIN}</sonar.login>
         <kotlin.version>1.6.20</kotlin.version>
         <!-- Må settes for å kunne kjøre opp mock-oauth2-server i unit-tester -->
-        <okhttp3.version>4.9.0</okhttp3.version>
-        <mock-oauth2-server.version>0.4.3</mock-oauth2-server.version>
+        <okhttp3.version>4.9.1</okhttp3.version>
         <!-- Må settes for å kunne kjøre opp mock-oauth2-server i unit-tester -->
     </properties>
 
