@@ -90,7 +90,7 @@ data class PdlSivilstand(
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class PdlFamilierelasjon(
-    val relatertPersonsIdent: String,
+    val relatertPersonsIdent: String? = null,
     val relatertPersonsRolle: FAMILIERELASJONSROLLE
 )
 
@@ -111,7 +111,8 @@ enum class FAMILIERELASJONSROLLE {
     BARN,
     FAR,
     MEDMOR,
-    MOR
+    MOR,
+    DOEDFOEDT_BARN
 }
 
 @JsonIgnoreProperties(ignoreUnknown = true)

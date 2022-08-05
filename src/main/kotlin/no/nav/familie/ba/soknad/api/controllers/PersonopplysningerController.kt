@@ -27,17 +27,4 @@ class PersonopplysningerController(private val personopplysningerService: Person
             )
         )
     }
-
-    @PostMapping("/adressebeskyttelse")
-    fun harAdressesperre(@RequestParam ident: String): ResponseEntity<Ressurs<Boolean>> {
-        runCatching {
-            val svar = personopplysningerService.hentPersoninfo(ident, true).adressebeskyttelse
-            return ResponseEntity.ok(
-                Ressurs.success(svar)
-            )
-        }
-
-        // Hvis vi for noen som helst grunn får feil, behandle det som at personen har beskyttelse
-        return ResponseEntity.ok(Ressurs.success(true))
-    }
 }
