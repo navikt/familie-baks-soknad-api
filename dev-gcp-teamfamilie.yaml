@@ -43,6 +43,7 @@ spec:
     inbound:
       rules:
         - application: familie-ba-soknad
+        - application: familie-ks-soknad
     outbound:
       external:
         - host: familie-ba-mottak.dev-fss-pub.nais.io
