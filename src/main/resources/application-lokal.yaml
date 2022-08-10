@@ -27,9 +27,10 @@ AZURE_OPENID_CONFIG_TOKEN_ENDPOINT: http://localhost
 
 no.nav.security.jwt:
   issuer.selvbetjening:
-    discoveryurl: http://metadata
+    discoveryurl: http://localhost:${mock-oauth2-server.port}/selvbetjening/.well-known/openid-configuration
     accepted_audience: aud-localhost
     cookie_name: localhost-idtoken
+    proxyurl:
   client:
     registration:
       mottak-clientcredentials:
