@@ -29,6 +29,7 @@ abstract class PdlClient(
             query = query
         )
 
+        secureLogger.info(pdlPersonRequest.toString())
         val response = postForEntity<PdlHentPersonResponse>(
             uri = pdlUri,
             payload = pdlPersonRequest,
@@ -63,6 +64,7 @@ abstract class PdlClient(
 
     companion object {
 
+        private val secureLogger = LoggerFactory.getLogger("secureLogger")
         val LOG: Logger = LoggerFactory.getLogger(PdlApp2AppClient::class.java)
         const val TEMA: String = "BAR"
     }
