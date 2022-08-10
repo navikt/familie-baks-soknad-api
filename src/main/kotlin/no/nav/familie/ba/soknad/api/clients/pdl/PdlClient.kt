@@ -36,6 +36,8 @@ abstract class PdlClient(
             httpHeaders = httpHeaders()
         )
 
+        secureLogger.info(response.toString())
+
         if (!response.harFeil()) {
             return response
         } else {
