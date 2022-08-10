@@ -36,7 +36,13 @@ abstract class PdlClient(
             httpHeaders = httpHeaders()
         )
 
-        secureLogger.info(response.toString())
+        val responseString = postForEntity<String>(
+            uri = pdlUri,
+            payload = pdlPersonRequest,
+            httpHeaders = httpHeaders()
+        )
+
+        secureLogger.info(responseString)
 
         if (!response.harFeil()) {
             return response
