@@ -1,6 +1,8 @@
 package no.nav.familie.ba.soknad.api.controllers
 
+import java.time.LocalDateTime
 import no.nav.familie.ba.soknad.api.clients.mottak.MottakClient
+import no.nav.familie.ba.soknad.api.domene.KontantstøtteSøknad
 import no.nav.familie.ba.soknad.api.domene.Kvittering
 import no.nav.familie.ba.soknad.api.util.TokenBehandler
 import no.nav.familie.kontrakter.ba.søknad.v8.Søknad as SøknadV8
@@ -30,5 +32,31 @@ class SøknadController(private val mottakClient: MottakClient) {
         )
 
         return ResponseEntity.ok().body(mottakClient.sendSøknadV8(søknadMedIdentFraToken))
+    }
+
+    @PostMapping("/soknad/kontantstotte")
+    fun søknadsmottakKontantStotte(
+        @RequestBody(required = true)
+        søknad: KontantstøtteSøknad
+    ): ResponseEntity<Ressurs<Kvittering>> {
+
+        val søknadMedIdentFraToken = søknad.copy(
+            søker = søknad.søker.copy(
+                ident = søknad.søker.ident.copy(
+                    verdi = søknad.søker.ident.verdi.mapValues { TokenBehandler.hentFnr() }
+                )
+            )
+        )
+
+        // Todo: legg inn integrasjon mot kontantstøttemottak
+        return ResponseEntity.ok()
+            .body(
+                Ressurs(
+                    data = Kvittering("suksess", LocalDateTime.now()),
+                    melding = "suksess",
+                    status = Ressurs.Status.SUKSESS,
+                    stacktrace = null
+                )
+            )
     }
 }

@@ -2,7 +2,6 @@ package no.nav.familie.ba.soknad.api
 
 import no.nav.security.token.support.spring.api.EnableJwtTokenValidation
 import no.nav.security.token.support.spring.test.EnableMockOAuth2Server
-import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.builder.SpringApplicationBuilder
 
