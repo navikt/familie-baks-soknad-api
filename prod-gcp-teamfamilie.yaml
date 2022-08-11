@@ -41,6 +41,7 @@ spec:
     inbound:
       rules:
         - application: familie-ba-soknad
+        - application: familie-ks-soknad
     outbound:
       external:
         - host: pdl-api.prod-fss-pub.nais.io
