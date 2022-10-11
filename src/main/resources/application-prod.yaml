@@ -1,4 +1,4 @@
-FAMILIE_BA_MOTTAK_URL: https://familie-ba-mottak.prod-fss-pub.nais.io
+FAMILIE_BA_MOTTAK_URL: http://familie-baks-mottak
 PDL_URL: https://pdl-api.prod-fss-pub.nais.io
 PDL_AUDIENCE: prod-fss:pdl:pdl-api
 PDL_SCOPE: api://prod-fss.pdl.pdl-api/.default
@@ -9,6 +9,6 @@ no.nav.security.jwt:
     registration:
       mottak-clientcredentials:
         token-exchange:
-          audience: prod-fss:teamfamilie:familie-ba-mottak
+          audience: prod-gcp:teamfamilie:familie-baks-mottak
 
 logging.level.no.nav.security: INFO
