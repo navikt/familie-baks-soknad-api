@@ -18,7 +18,7 @@ import org.springframework.web.client.exchange
 
 @Component
 class MottakClient(
-    @Value("\${FAMILIE_BA_MOTTAK_URL}") private val mottakBaseUrl: String,
+    @Value("\${FAMILIE_BAKS_MOTTAK_URL}") private val mottakBaseUrl: String,
     @Qualifier("restKlientMottak") private val restOperations: RestOperations
 ) :
     AbstractPingableRestClient(restOperations, "integrasjon") {
@@ -28,10 +28,10 @@ class MottakClient(
     override fun ping() {
         try {
             restOperations.exchange<JsonNode>(pingUri, HttpMethod.OPTIONS)
-            LOG.debug("Ping mot familie-ba-mottak OK")
+            LOG.debug("Ping mot familie-baks-mottak OK")
         } catch (e: Exception) {
-            LOG.warn("Ping mot familie-ba-mottak feilet")
-            throw IllegalStateException("Ping mot familie-ba-mottak feilet", e)
+            LOG.warn("Ping mot familie-baks-mottak feilet")
+            throw IllegalStateException("Ping mot familie-baks-mottak feilet", e)
         }
     }
 
@@ -52,7 +52,7 @@ class MottakClient(
             LOG.info("Sende søknad til mottak OK: ${response.data}")
             return response
         } catch (e: Exception) {
-            throw IllegalStateException("Sende søknad til familie-ba-mottak feilet", e)
+            throw IllegalStateException("Sende søknad til familie-baks-mottak feilet", e)
         }
     }
 

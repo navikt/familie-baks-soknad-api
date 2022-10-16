@@ -55,7 +55,7 @@ internal class ApplicationConfig {
         @Value("\${PDL_API_APIKEY}") pdlApiKey: String,
         @Value("\${PDL_URL}") pdlBaseUrl: String,
         @Value("\${MOTTAK_APIKEY}") mottakApiKey: String,
-        @Value("\${FAMILIE_BA_MOTTAK_URL}") mottakBaseUrl: String,
+        @Value("\${FAMILIE_BAKS_MOTTAK_URL}") mottakBaseUrl: String,
         @Value("\${KODEVERK_API_KEY}") kodeverkApiKey: String,
         @Value("\${KODEVERK_URL}") kodeverkBaseUrl: String,
     ): ClientHttpRequestInterceptor {
