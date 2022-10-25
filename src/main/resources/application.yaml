@@ -19,7 +19,7 @@ management:
     base-path: "/internal"
   metrics.export.prometheus.enabled: true
 
-FAMILIE_BA_MOTTAK_URL: dummy
+FAMILIE_BAKS_MOTTAK_URL: dummy
 PDL_URL: dummy
 KODEVERK_URL: dummy
 
@@ -31,7 +31,7 @@ no.nav.security.jwt:
   client:
     registration:
       mottak-clientcredentials:
-        resource-url: ${FAMILIE_BA_MOTTAK_URL}
+        resource-url: ${FAMILIE_BAKS_MOTTAK_URL}
         well-known-url: ${TOKEN_X_WELL_KNOWN_URL}
         grant-type: urn:ietf:params:oauth:grant-type:token-exchange
         authentication:

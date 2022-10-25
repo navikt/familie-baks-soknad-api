@@ -48,7 +48,6 @@ spec:
       rules:
         - application: familie-baks-mottak
       external:
-        - host: familie-ba-mottak.dev-fss-pub.nais.io
         - host: api-gw-q1.oera.no
         - host: login.microsoftonline.com
   vault:

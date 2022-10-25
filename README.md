@@ -5,12 +5,12 @@ API for søknadsdialog for barnetrygd
 ## Kjøring lokalt
 
 Applikasjonen kan startes lokalt fra filen `LokalLauncher`. Serveren blir da tilgjengelig på `localhost:8080`. Applikasjonen er
-avhengig av to tjenester: familie-ba-mottak og pdl-api. Lokalt er disse mocket ut og mockene er knyttet til
-spring-profilene `mock-mottak` og `mock-pdl`. Man kan velge å kjøre appen sammen med familie-ba-mottak og familie-mock-server,
+avhengig av to tjenester: familie-baks-mottak og pdl-api. Lokalt er disse mocket ut og mockene er knyttet til
+spring-profilene `mock-mottak` og `mock-pdl`. Man kan velge å kjøre appen sammen med familie-baks-mottak og familie-mock-server,
 dette gjøres ved å fjerne disse spring-profilene fra `LokalLauncher`. familie-mock-server fungerer som en ekstern mock for
 pdl-api.
 
-For å kjøre mot familie-ba-mottak lokalt må man gjøre noe endringer i `application-lokal.yaml`. <br>
+For å kjøre mot familie-baks-mottak lokalt må man gjøre noe endringer i `application-lokal.yaml`. <br>
 Sette ```TOKEN_X_WELL_KNOWN_URL``` til ```https://fakedings.dev-gcp.nais.io/default/.well-known/openid-configuration``` <br>
 og bytte ut `token-endpoint-url: http://metadata` med `grant-type: client_credentials`
 
