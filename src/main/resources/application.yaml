@@ -1,4 +1,4 @@
-application.name: familie-ba-soknad-api
+application.name: familie-baks-soknad-api
 
 server:
   servlet:

@@ -1,7 +1,7 @@
 apiVersion: "nais.io/v1alpha1"
 kind: "Application"
 metadata:
-  name: familie-ba-soknad-api
+  name: familie-baks-soknad-api
   namespace: teamfamilie
   labels:
     team: teamfamilie
@@ -38,7 +38,7 @@ spec:
       memory: 512Mi
       cpu: 200m
   ingresses:
-    - https://familie-ba-soknad-api.dev.nav.no
+    - https://familie-baks-soknad-api.dev.nav.no
   accessPolicy:
     inbound:
       rules:
@@ -58,5 +58,5 @@ spec:
     - name: SPRING_PROFILES_ACTIVE
       value: dev
   envFrom:
-    - secret: ba-soknad-api
+    - secret: baks-soknad-api
     - configmap: loginservice-idporten

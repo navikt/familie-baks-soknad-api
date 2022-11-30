@@ -1,4 +1,4 @@
-# familie-ba-soknad-api
+# familie-baks-soknad-api
 
 API for søknadsdialog for barnetrygd
 

@@ -6,7 +6,7 @@
 
     <groupId>no.nav</groupId>
     <packaging>jar</packaging>
-    <artifactId>familie-ba-soknad-api</artifactId>
+    <artifactId>familie-baks-soknad-api</artifactId>
     <version>${revision}${sha1}${changelist}</version>
     <parent>
         <groupId>org.springframework.boot</groupId>
