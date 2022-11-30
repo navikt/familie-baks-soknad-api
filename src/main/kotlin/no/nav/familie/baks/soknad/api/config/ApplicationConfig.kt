@@ -51,23 +51,6 @@ internal class ApplicationConfig {
     }
 
     @Bean
-    fun apiKeyInjectingClientInterceptor(
-        @Value("\${PDL_API_APIKEY}") pdlApiKey: String,
-        @Value("\${PDL_URL}") pdlBaseUrl: String,
-        @Value("\${MOTTAK_APIKEY}") mottakApiKey: String,
-        @Value("\${FAMILIE_BAKS_MOTTAK_URL}") mottakBaseUrl: String,
-        @Value("\${KODEVERK_API_KEY}") kodeverkApiKey: String,
-        @Value("\${KODEVERK_URL}") kodeverkBaseUrl: String,
-    ): ClientHttpRequestInterceptor {
-        val map = mapOf(
-            Pair(URI.create(pdlBaseUrl), Pair(apiKeyHeader, pdlApiKey)),
-            Pair(URI.create(mottakBaseUrl), Pair(apiKeyHeader, mottakApiKey)),
-            Pair(URI.create(kodeverkBaseUrl), Pair(apiKeyHeader, kodeverkApiKey))
-        )
-        return ApiKeyInjectingClientInterceptor(map)
-    }
-
-    @Bean
     @Primary
     fun restTemplate(consumerIdClientInterceptor: ConsumerIdClientInterceptor): RestOperations {
         return RestTemplateBuilder()
@@ -87,7 +70,7 @@ internal class ApplicationConfig {
     @Bean("restKlientMottak")
     fun restTemplateMottak(
         bearerTokenClientInterceptor: BearerTokenClientInterceptor,
-        consumerIdClientInterceptor: ConsumerIdClientInterceptor,
+        consumerIdClientInterceptor: ConsumerIdClientInterceptor
     ): RestOperations {
         return RestTemplateBuilder()
             .interceptors(
