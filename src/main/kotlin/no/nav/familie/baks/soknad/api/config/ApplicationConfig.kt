@@ -135,7 +135,7 @@ internal class ApplicationConfig {
     companion object {
 
         private val log = LoggerFactory.getLogger(ApplicationConfig::class.java)
-        const val pakkenavn = "no.nav.familie.ba.soknad.api"
+        const val pakkenavn = "no.nav.familie.baks.soknad.api"
         private const val apiKeyHeader = "x-nav-apiKey"
     }
 }

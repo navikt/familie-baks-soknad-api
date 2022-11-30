@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.builder.SpringApplicationBuilder
 
 @EnableMockOAuth2Server
-@SpringBootApplication(scanBasePackages = ["no.nav.familie.ba.soknad.api"])
+@SpringBootApplication(scanBasePackages = ["no.nav.familie.baks.soknad.api"])
 @EnableJwtTokenValidation
 class LokalLauncher
 
