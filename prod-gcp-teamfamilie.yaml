@@ -1,7 +1,7 @@
 apiVersion: "nais.io/v1alpha1"
 kind: "Application"
 metadata:
-  name: familie-ba-soknad-api
+  name: familie-baks-soknad-api
   namespace: teamfamilie
   labels:
     team: teamfamilie
@@ -57,5 +57,4 @@ spec:
     - name: SPRING_PROFILES_ACTIVE
       value: prod
   envFrom:
-    - secret: ba-soknad-api
     - configmap: loginservice-idporten
