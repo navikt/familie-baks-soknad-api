@@ -57,5 +57,4 @@ spec:
     - name: SPRING_PROFILES_ACTIVE
       value: prod
   envFrom:
-    - secret: baks-soknad-api
     - configmap: loginservice-idporten
