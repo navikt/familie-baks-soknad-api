@@ -3,7 +3,7 @@ on:
   push:
     branches-ignore:
       # build-deploy-prod deployer allerede til dev, dette førte til en race condition som stopper deploy til prod
-      - 'master'
+      - 'main'
 
 env:
   IMAGE: docker.pkg.github.com/${{ github.repository }}/familie-baks-soknad-api:${{ github.sha }}
