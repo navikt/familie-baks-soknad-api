@@ -1,11 +1,10 @@
 package no.nav.familie.baks.soknad.api.clients.mottak
 
 import com.fasterxml.jackson.databind.JsonNode
-import java.net.URI
+import no.nav.familie.baks.soknad.api.domene.KontantstøtteSøknad
 import no.nav.familie.baks.soknad.api.domene.Kvittering
 import no.nav.familie.http.client.AbstractPingableRestClient
 import no.nav.familie.http.client.MultipartBuilder
-import no.nav.familie.kontrakter.ba.søknad.v8.Søknad as SøknadV8
 import no.nav.familie.kontrakter.felles.Ressurs
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Qualifier
@@ -15,6 +14,8 @@ import org.springframework.stereotype.Component
 import org.springframework.util.MultiValueMap
 import org.springframework.web.client.RestOperations
 import org.springframework.web.client.exchange
+import java.net.URI
+import no.nav.familie.kontrakter.ba.søknad.v8.Søknad as SøknadV8
 
 @Component
 class MottakClient(
@@ -35,9 +36,14 @@ class MottakClient(
         }
     }
 
-    fun sendSøknadV8(søknad: SøknadV8): Ressurs<Kvittering> {
+    fun sendBarnetrygdSøknad(søknad: SøknadV8): Ressurs<Kvittering> {
         val uri: URI = URI.create("$mottakBaseUrl/api/soknad/v8")
         return håndterSendingAvSøknad(uri = uri, søknad = søknad)
+    }
+
+    fun sendKontantstøtteSøknad(kontantstøtteSøknad: KontantstøtteSøknad): Ressurs<Kvittering> {
+        val uri: URI = URI.create("$mottakBaseUrl/api/kontantstotte/soknad")
+        return håndterSendingAvSøknad(uri = uri, søknad = kontantstøtteSøknad)
     }
 
     fun håndterSendingAvSøknad(uri: URI, søknad: Any): Ressurs<Kvittering> {
