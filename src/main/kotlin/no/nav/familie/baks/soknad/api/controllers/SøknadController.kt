@@ -45,7 +45,6 @@ class SøknadController(private val mottakClient: MottakClient) {
             )
         )
 
-        // Todo: legg inn integrasjon mot kontantstøttemottak
         return ResponseEntity.ok().body(mottakClient.sendKontantstøtteSøknad(kontantstøtteSøknadMedIdentFraToken))
     }
 }
