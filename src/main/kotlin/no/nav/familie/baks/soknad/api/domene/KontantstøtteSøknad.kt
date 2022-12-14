@@ -4,7 +4,7 @@ data class KontantstøtteSøknad(
     val kontraktVersjon: Int,
     val antallEøsSteg: Int,
     val søker: Søker,
-    val barn: List<Barn>,
+    val barn: List<SøknadBarn>,
     val dokumentasjon: List<Søknaddokumentasjon>,
     val teksterTilPdf: Map<String, TekstPåSpråkMap>,
     val originalSpråk: Locale,
