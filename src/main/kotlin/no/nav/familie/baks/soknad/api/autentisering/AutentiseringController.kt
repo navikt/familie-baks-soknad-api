@@ -18,11 +18,18 @@ class AutentiseringController {
 
     val innlogget = Metrics.counter("innlogget")
     val innloggetUtvidet = Metrics.counter("innlogget.utvidet")
+    val innloggetKontantstøtte = Metrics.counter("innlogget.kontantstotte")
 
     @GetMapping("/innlogget")
     fun verifiserAutentisering(@RequestParam(required = false) søknadstype: Søknadstype?): ResponseEntity<Ressurs<String>> {
         if (søknadstype == Søknadstype.UTVIDET) innloggetUtvidet.increment() else innlogget.increment()
 
+        return ResponseEntity.ok(Ressurs.success("Autentisert kall"))
+    }
+
+    @GetMapping("/innlogget/kontantstotte")
+    fun verifiserAutentiseringKontantstøtte(): ResponseEntity<Ressurs<String>> {
+        innloggetKontantstøtte.increment()
         return ResponseEntity.ok(Ressurs.success("Autentisert kall"))
     }
 }
