@@ -1,11 +1,11 @@
 package no.nav.familie.baks.soknad.api.clients.mottak
 
 import com.fasterxml.jackson.databind.JsonNode
-import no.nav.familie.baks.soknad.api.domene.KontantstøtteSøknad
 import no.nav.familie.baks.soknad.api.domene.Kvittering
 import no.nav.familie.http.client.AbstractPingableRestClient
 import no.nav.familie.http.client.MultipartBuilder
 import no.nav.familie.kontrakter.felles.Ressurs
+import no.nav.familie.kontrakter.ks.søknad.v1.KontantstøtteSøknad
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.beans.factory.annotation.Value
