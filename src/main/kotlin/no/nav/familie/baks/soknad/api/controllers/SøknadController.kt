@@ -1,10 +1,10 @@
 package no.nav.familie.baks.soknad.api.controllers
 
 import no.nav.familie.baks.soknad.api.clients.mottak.MottakClient
-import no.nav.familie.baks.soknad.api.domene.KontantstøtteSøknad
 import no.nav.familie.baks.soknad.api.domene.Kvittering
 import no.nav.familie.baks.soknad.api.util.TokenBehandler
 import no.nav.familie.kontrakter.felles.Ressurs
+import no.nav.familie.kontrakter.ks.søknad.v1.KontantstøtteSøknad
 import no.nav.security.token.support.core.api.ProtectedWithClaims
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
