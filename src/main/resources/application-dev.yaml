@@ -1,7 +1,7 @@
 FAMILIE_BAKS_MOTTAK_URL: http://familie-baks-mottak
-PDL_URL: https://pdl-api-q1.dev-fss-pub.nais.io
-PDL_AUDIENCE: dev-fss:pdl:pdl-api-q1
-PDL_SCOPE: api://dev-fss.pdl.pdl-api-q1/.default
+PDL_URL: https://pdl-api.dev-fss-pub.nais.io
+PDL_AUDIENCE: dev-fss:pdl:pdl-api
+PDL_SCOPE: api://dev-fss.pdl.pdl-api/.default
 KODEVERK_URL: https://kodeverk.dev-fss-pub.nais.io
 
 no.nav.security.jwt:
