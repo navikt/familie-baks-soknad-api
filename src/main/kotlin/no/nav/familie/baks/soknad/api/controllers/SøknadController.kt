@@ -3,6 +3,7 @@ package no.nav.familie.baks.soknad.api.controllers
 import no.nav.familie.baks.soknad.api.clients.mottak.MottakClient
 import no.nav.familie.baks.soknad.api.domene.Kvittering
 import no.nav.familie.baks.soknad.api.util.TokenBehandler
+import no.nav.familie.kontrakter.ba.søknad.v8.Søknad as SøknadV8
 import no.nav.familie.kontrakter.felles.Ressurs
 import no.nav.familie.kontrakter.ks.søknad.v1.KontantstøtteSøknad
 import no.nav.security.token.support.core.api.ProtectedWithClaims
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
-import no.nav.familie.kontrakter.ba.søknad.v8.Søknad as SøknadV8
 
 @RestController
 @RequestMapping(path = ["/api"], produces = [MediaType.APPLICATION_JSON_VALUE])
