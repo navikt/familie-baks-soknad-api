@@ -21,8 +21,8 @@
         <jvmTarget>17</jvmTarget>
         <java.version>17</java.version>
         <kontrakter.version>2.0_20230118143254_b2fe23e</kontrakter.version>
-        <felles.version>1.20220406131143_806a963</felles.version>
-        <mockk.version>1.12.1</mockk.version>
+        <felles.version>1.20230117091843_19b020f</felles.version>
+        <mockk.version>1.12.5</mockk.version>
         <token-validation-spring.version>2.0.21</token-validation-spring.version>
         <!--suppress UnresolvedMavenProperty  Ligger som secret i github-->
         <sonar.projectKey>${SONAR_PROJECTKEY}</sonar.projectKey>
