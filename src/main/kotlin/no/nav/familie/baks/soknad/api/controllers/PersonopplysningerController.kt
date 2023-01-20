@@ -6,6 +6,7 @@ import no.nav.familie.baks.soknad.api.services.pdl.PersonopplysningerService
 import no.nav.familie.baks.soknad.api.util.TokenBehandler
 import no.nav.familie.kontrakter.felles.Ressurs
 import no.nav.security.token.support.core.api.ProtectedWithClaims
+import no.nav.security.token.support.core.api.RequiredIssuers
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
@@ -15,7 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@ProtectedWithClaims(issuer = "selvbetjening", claimMap = ["acr=Level4"])
+@RequiredIssuers(
+    ProtectedWithClaims(issuer = "tokenx", claimMap = ["acr=Level4"]),
+    ProtectedWithClaims(issuer = "selvbetjening", claimMap = ["acr=Level4"])
+)
 @RequestMapping(path = ["/api"], produces = [MediaType.APPLICATION_JSON_VALUE])
 class PersonopplysningerController(private val personopplysningerService: PersonopplysningerService) {
 

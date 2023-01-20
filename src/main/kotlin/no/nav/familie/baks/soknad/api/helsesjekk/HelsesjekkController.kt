@@ -5,13 +5,17 @@ import no.nav.familie.baks.soknad.api.clients.mottak.MottakClient
 import no.nav.familie.baks.soknad.api.clients.pdl.PdlApp2AppClient
 import no.nav.familie.kontrakter.felles.Ressurs
 import no.nav.security.token.support.core.api.ProtectedWithClaims
+import no.nav.security.token.support.core.api.RequiredIssuers
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/api/helse")
-@ProtectedWithClaims(issuer = "selvbetjening", claimMap = ["acr=Level4"])
+@RequiredIssuers(
+    ProtectedWithClaims(issuer = "tokenx", claimMap = ["acr=Level4"]),
+    ProtectedWithClaims(issuer = "selvbetjening", claimMap = ["acr=Level4"])
+)
 class HelsesjekkController(
     private val mottakClient: MottakClient,
     private val pdlClient: PdlApp2AppClient,
