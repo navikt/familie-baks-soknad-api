@@ -1,5 +1,8 @@
 package no.nav.familie.baks.soknad.api.services.pdl
 
+import java.time.LocalDate
+import java.time.Period
+import java.time.format.DateTimeFormatter
 import no.nav.familie.baks.soknad.api.clients.kodeverk.KodeverkClient
 import no.nav.familie.baks.soknad.api.clients.pdl.PdlApp2AppClient
 import no.nav.familie.baks.soknad.api.clients.pdl.PdlBrukerClient
@@ -12,9 +15,6 @@ import no.nav.familie.baks.soknad.api.services.pdl.mapper.PdlBarnMapper
 import no.nav.familie.baks.soknad.api.services.pdl.mapper.PdlMapper
 import no.nav.familie.kontrakter.felles.personopplysning.Bostedsadresse
 import org.springframework.stereotype.Service
-import java.time.LocalDate
-import java.time.Period
-import java.time.format.DateTimeFormatter
 
 @Service
 class PersonopplysningerService(

@@ -26,6 +26,7 @@ import no.nav.familie.kontrakter.ba.søknad.v8.Søknad as SøknadV8
 import no.nav.familie.kontrakter.felles.Ressurs
 import no.nav.familie.kontrakter.felles.personopplysning.Bostedsadresse
 import no.nav.familie.kontrakter.felles.personopplysning.Vegadresse
+import no.nav.familie.kontrakter.ks.søknad.v1.KontantstøtteSøknad
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Primary
 import org.springframework.context.annotation.Profile
@@ -41,6 +42,8 @@ class ClientMocks {
         val mockMottakClient = mockk<MottakClient>()
         every { mockMottakClient.ping() } just Runs
         every { mockMottakClient.sendBarnetrygdSøknad(any<SøknadV8>()) } returns
+            Ressurs.success(Kvittering("søknad mottatt OK", LocalDateTime.now()))
+        every { mockMottakClient.sendKontantstøtteSøknad(any<KontantstøtteSøknad>()) } returns
             Ressurs.success(Kvittering("søknad mottatt OK", LocalDateTime.now()))
         return mockMottakClient
     }
@@ -123,7 +126,7 @@ class ClientMocks {
             data = PdlPerson(
                 person = PdlPersonData(
                     navn = listOf(PdlNavn("Barn", etternavn = "Barnessen III")),
-                    foedsel = listOf(PdlFødselsDato("2010-01-01")),
+                    foedsel = listOf(PdlFødselsDato("2022-01-01")),
                     bostedsadresse = listOf(
                         Bostedsadresse(
                             vegadresse = Vegadresse(

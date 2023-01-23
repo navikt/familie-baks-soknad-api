@@ -2,6 +2,9 @@ package no.nav.familie.baks.soknad.api.personopplysning
 
 import io.mockk.every
 import io.mockk.mockk
+import java.io.File
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import no.nav.familie.baks.soknad.api.clients.kodeverk.KodeverkClient
 import no.nav.familie.baks.soknad.api.clients.pdl.ADRESSEBESKYTTELSEGRADERING
 import no.nav.familie.baks.soknad.api.clients.pdl.Adressebeskyttelse
@@ -31,9 +34,6 @@ import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import java.io.File
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 
 class PersonopplysningerServiceTest {
 
