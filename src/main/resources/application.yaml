@@ -24,6 +24,7 @@ PDL_URL: dummy
 KODEVERK_URL: dummy
 
 no.nav.security.jwt:
+<<<<<<< Updated upstream
   issuer.selvbetjening:
     discoveryurl: ${LOGINSERVICE_IDPORTEN_DISCOVERY_URL}
     accepted_audience: ${LOGINSERVICE_IDPORTEN_AUDIENCE}
@@ -31,6 +32,16 @@ no.nav.security.jwt:
   tokenx:
     discovery-url: ${TOKEN_X_WELL_KNOWN_URL}
     accepted-audience: ${TOKEN_X_CLIENT_ID}
+=======
+  issuer:
+    selvbetjening:
+      discoveryurl: ${LOGINSERVICE_IDPORTEN_DISCOVERY_URL}
+      accepted_audience: ${LOGINSERVICE_IDPORTEN_AUDIENCE}
+      cookie_name: selvbetjening-idtoken
+    tokenx:
+      discovery-url: ${TOKEN_X_WELL_KNOWN_URL}
+      accepted-audience: ${TOKEN_X_CLIENT_ID}
+>>>>>>> Stashed changes
   client:
     registration:
       mottak-clientcredentials:
