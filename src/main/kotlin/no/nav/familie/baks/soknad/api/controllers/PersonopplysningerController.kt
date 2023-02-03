@@ -23,19 +23,6 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping(path = ["/api"], produces = [MediaType.APPLICATION_JSON_VALUE])
 class PersonopplysningerController(private val personopplysningerService: PersonopplysningerService) {
 
-    // TODO: Fjerne denne når ba-soknad og ks-soknad er oppdatert
-    @PostMapping("/personopplysning")
-    fun personInfo(): ResponseEntity<Ressurs<Person?>> {
-        return ResponseEntity.ok(
-            Ressurs.success(
-                personopplysningerService.hentPersoninfo(
-                    EksternBrukerUtils.hentFnrFraToken(),
-                    Ytelse.BARNETRYGD
-                )
-            )
-        )
-    }
-
     @GetMapping("/personopplysning")
     fun personInfo(@RequestParam ytelse: Ytelse): ResponseEntity<Ressurs<Person?>> {
         return ResponseEntity.ok(
