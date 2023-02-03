@@ -25,15 +25,6 @@ class AutentiseringController {
     val innloggetUtvidetBarnetrygd = Metrics.counter("innlogget.utvidet.barnetrygd")
     val innloggetKontantstøtte = Metrics.counter("innlogget.kontantstotte")
 
-    @Deprecated("Erstattes med endepunktet /innlogget/barnetrygd")
-    @GetMapping("/innlogget")
-    fun verifiserAutentisering(@RequestParam(required = false) søknadstype: Søknadstype?): ResponseEntity<Ressurs<String>> {
-        if (søknadstype == Søknadstype.UTVIDET) innloggetUtvidetBarnetrygd.increment()
-        else innloggetOrdinaerBarnetrygd.increment()
-
-        return ResponseEntity.ok(Ressurs.success("Autentisert kall"))
-    }
-
     @GetMapping("/innlogget/barnetrygd")
     fun verifiserAutentiseringBarnetrygd(
         @RequestParam(required = false)
