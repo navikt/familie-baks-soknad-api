@@ -4,7 +4,8 @@ import no.nav.familie.baks.soknad.api.clients.mottak.MottakClient
 import no.nav.familie.baks.soknad.api.domene.Kvittering
 import no.nav.familie.kontrakter.ba.søknad.v8.Søknad as SøknadV8
 import no.nav.familie.kontrakter.felles.Ressurs
-import no.nav.familie.kontrakter.ks.søknad.v1.KontantstøtteSøknad
+import no.nav.familie.kontrakter.ks.søknad.v1.KontantstøtteSøknad as KontantstøtteSøknadV1
+import no.nav.familie.kontrakter.ks.søknad.v2.KontantstøtteSøknad
 import no.nav.familie.sikkerhet.EksternBrukerUtils
 import no.nav.security.token.support.core.api.ProtectedWithClaims
 import no.nav.security.token.support.core.api.RequiredIssuers
@@ -36,7 +37,24 @@ class SøknadController(private val mottakClient: MottakClient) {
         return ResponseEntity.ok().body(mottakClient.sendBarnetrygdSøknad(søknadMedIdentFraToken))
     }
 
+    @Deprecated("Endepunkt med gammel kontraktversjon av søknaden")
     @PostMapping("/soknad/kontantstotte")
+    fun søknadsmottakKontantStotte(
+        @RequestBody(required = true)
+        kontantstøtteSøknad: KontantstøtteSøknadV1
+    ): ResponseEntity<Ressurs<Kvittering>> {
+        val kontantstøtteSøknadMedIdentFraToken = kontantstøtteSøknad.copy(
+            søker = kontantstøtteSøknad.søker.copy(
+                ident = kontantstøtteSøknad.søker.ident.copy(
+                    verdi = kontantstøtteSøknad.søker.ident.verdi.mapValues { EksternBrukerUtils.hentFnrFraToken() }
+                )
+            )
+        )
+
+        return ResponseEntity.ok().body(mottakClient.sendKontantstøtteSøknad(kontantstøtteSøknadMedIdentFraToken))
+    }
+
+    @PostMapping("/soknad/kontantstotte/v2")
     fun søknadsmottakKontantStotte(
         @RequestBody(required = true)
         kontantstøtteSøknad: KontantstøtteSøknad
