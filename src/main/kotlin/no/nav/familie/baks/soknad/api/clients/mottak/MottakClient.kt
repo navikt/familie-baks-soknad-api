@@ -49,7 +49,7 @@ class MottakClient(
     }
 
     fun sendKontantstøtteSøknad(kontantstøtteSøknad: KontantstøtteSøknad): Ressurs<Kvittering> {
-        val uri: URI = URI.create("$mottakBaseUrl/api/kontantstotte/soknad")
+        val uri: URI = URI.create("$mottakBaseUrl/api/kontantstotte/soknad/v2")
         return håndterSendingAvSøknad(uri = uri, søknad = kontantstøtteSøknad)
     }
 
