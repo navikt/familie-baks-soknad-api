@@ -1,5 +1,6 @@
 name: Build-Deploy-Preprod
 on:
+  workflow_dispatch:
   push:
     branches-ignore:
       # build-deploy-prod deployer allerede til dev, dette førte til en race condition som stopper deploy til prod
