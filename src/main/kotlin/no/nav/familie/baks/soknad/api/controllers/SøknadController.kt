@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController
 class SøknadController(private val mottakClient: MottakClient) {
 
     @PostMapping("/soknad/v8")
-    fun søknadsmottakBarnetrygdV8(@RequestBody(required = true) søknad: BarnetrygdSøknadV8): ResponseEntity<Ressurs<Kvittering>> {
+    fun søknadsmottakBarnetrygd(@RequestBody(required = true) søknad: BarnetrygdSøknadV8): ResponseEntity<Ressurs<Kvittering>> {
         val søknadMedIdentFraToken = søknad.copy(
             søker = søknad.søker.copy(
                 ident = søknad.søker.ident.copy(
@@ -39,7 +39,7 @@ class SøknadController(private val mottakClient: MottakClient) {
 
     @Deprecated("Endepunkt med gammel kontraktversjon av søknaden")
     @PostMapping("/soknad/kontantstotte")
-    fun søknadsmottakKontantstøtte(
+    fun søknadsmottakKontantstøtteV1(
         @RequestBody(required = true)
         kontantstøtteSøknad: KontantstøtteSøknadV1
     ): ResponseEntity<Ressurs<Kvittering>> {
