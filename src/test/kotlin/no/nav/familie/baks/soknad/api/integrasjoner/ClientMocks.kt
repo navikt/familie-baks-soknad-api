@@ -26,7 +26,7 @@ import no.nav.familie.kontrakter.ba.søknad.v8.Søknad as SøknadV8
 import no.nav.familie.kontrakter.felles.Ressurs
 import no.nav.familie.kontrakter.felles.personopplysning.Bostedsadresse
 import no.nav.familie.kontrakter.felles.personopplysning.Vegadresse
-import no.nav.familie.kontrakter.ks.søknad.v1.KontantstøtteSøknad
+import no.nav.familie.kontrakter.ks.søknad.v2.KontantstøtteSøknad
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Primary
 import org.springframework.context.annotation.Profile

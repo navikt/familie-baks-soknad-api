@@ -7,7 +7,8 @@ import no.nav.familie.http.client.AbstractPingableRestClient
 import no.nav.familie.http.client.MultipartBuilder
 import no.nav.familie.kontrakter.ba.søknad.v8.Søknad as SøknadV8
 import no.nav.familie.kontrakter.felles.Ressurs
-import no.nav.familie.kontrakter.ks.søknad.v1.KontantstøtteSøknad
+import no.nav.familie.kontrakter.ks.søknad.v1.KontantstøtteSøknad as KontantstøtteSøknadV1
+import no.nav.familie.kontrakter.ks.søknad.v2.KontantstøtteSøknad
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.beans.factory.annotation.Value
@@ -41,8 +42,14 @@ class MottakClient(
         return håndterSendingAvSøknad(uri = uri, søknad = søknad)
     }
 
-    fun sendKontantstøtteSøknad(kontantstøtteSøknad: KontantstøtteSøknad): Ressurs<Kvittering> {
+    @Deprecated("Bruker gammel kontraktversjon (v1) av søknaden")
+    fun sendKontantstøtteSøknad(kontantstøtteSøknad: KontantstøtteSøknadV1): Ressurs<Kvittering> {
         val uri: URI = URI.create("$mottakBaseUrl/api/kontantstotte/soknad")
+        return håndterSendingAvSøknad(uri = uri, søknad = kontantstøtteSøknad)
+    }
+
+    fun sendKontantstøtteSøknad(kontantstøtteSøknad: KontantstøtteSøknad): Ressurs<Kvittering> {
+        val uri: URI = URI.create("$mottakBaseUrl/api/kontantstotte/soknad/v2")
         return håndterSendingAvSøknad(uri = uri, søknad = kontantstøtteSøknad)
     }
 
