@@ -5,8 +5,8 @@ on:
     branches:
       - 'main'
 env:
-  IMAGE: docker.pkg.github.com/${{ github.repository }}/familie-baks-soknad-api:${{ github.sha }}
-  IMAGE_LATEST: docker.pkg.github.com/${{ github.repository }}/familie-baks-soknad-api:latest
+  IMAGE: ghcr.io/${{ github.repository }}/familie-baks-soknad-api:${{ github.sha }}
+  IMAGE_LATEST: ghcr.io/${{ github.repository }}/familie-baks-soknad-api:latest
 jobs:
   deploy-to-prod:
     name: Bygg app/image, push til github, deploy til dev-gcp
@@ -39,7 +39,7 @@ jobs:
           DOCKER_USERNAME: x-access-token
           DOCKER_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin docker.pkg.github.com
+          echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin ghcr.io
       - name: Push Docker image med versjonstag
         run: docker push ${IMAGE}
       - name: Push Docker image med 'latest' tag
