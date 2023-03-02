@@ -4,8 +4,8 @@ import no.nav.familie.baks.soknad.api.clients.mottak.MottakClient
 import no.nav.familie.baks.soknad.api.domene.Kvittering
 import no.nav.familie.kontrakter.ba.søknad.v8.Søknad as BarnetrygdSøknadV8
 import no.nav.familie.kontrakter.felles.Ressurs
-import no.nav.familie.kontrakter.ks.søknad.v1.KontantstøtteSøknad as KontantstøtteSøknadV1
 import no.nav.familie.kontrakter.ks.søknad.v2.KontantstøtteSøknad as KontantstøtteSøknadV2
+import no.nav.familie.kontrakter.ks.søknad.v3.KontantstøtteSøknad as KontantstøtteSøknadV3
 import no.nav.familie.sikkerhet.EksternBrukerUtils
 import no.nav.security.token.support.core.api.ProtectedWithClaims
 import no.nav.security.token.support.core.api.RequiredIssuers
@@ -37,11 +37,10 @@ class SøknadController(private val mottakClient: MottakClient) {
         return ResponseEntity.ok().body(mottakClient.sendBarnetrygdSøknad(søknadMedIdentFraToken))
     }
 
-    @Deprecated("Endepunkt med gammel kontraktversjon av søknaden")
-    @PostMapping("/soknad/kontantstotte")
-    fun søknadsmottakKontantstøtteV1(
+    @PostMapping("/soknad/kontantstotte/v2")
+    fun søknadsmottakKontantstøtte(
         @RequestBody(required = true)
-        kontantstøtteSøknad: KontantstøtteSøknadV1
+        kontantstøtteSøknad: KontantstøtteSøknadV2
     ): ResponseEntity<Ressurs<Kvittering>> {
         val kontantstøtteSøknadMedIdentFraToken = kontantstøtteSøknad.copy(
             søker = kontantstøtteSøknad.søker.copy(
@@ -54,10 +53,10 @@ class SøknadController(private val mottakClient: MottakClient) {
         return ResponseEntity.ok().body(mottakClient.sendKontantstøtteSøknad(kontantstøtteSøknadMedIdentFraToken))
     }
 
-    @PostMapping("/soknad/kontantstotte/v2")
+    @PostMapping("/soknad/kontantstotte/v3")
     fun søknadsmottakKontantstøtte(
         @RequestBody(required = true)
-        kontantstøtteSøknad: KontantstøtteSøknadV2
+        kontantstøtteSøknad: KontantstøtteSøknadV3
     ): ResponseEntity<Ressurs<Kvittering>> {
         val kontantstøtteSøknadMedIdentFraToken = kontantstøtteSøknad.copy(
             søker = kontantstøtteSøknad.søker.copy(
