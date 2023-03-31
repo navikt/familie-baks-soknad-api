@@ -7,8 +7,8 @@ import no.nav.familie.http.client.AbstractPingableRestClient
 import no.nav.familie.http.client.MultipartBuilder
 import no.nav.familie.kontrakter.ba.søknad.v8.Søknad as SøknadV8
 import no.nav.familie.kontrakter.felles.Ressurs
-import no.nav.familie.kontrakter.ks.søknad.v2.KontantstøtteSøknad as KontantstøtteSøknadV2
 import no.nav.familie.kontrakter.ks.søknad.v3.KontantstøtteSøknad as KontantstøtteSøknadV3
+import no.nav.familie.kontrakter.ks.søknad.v4.KontantstøtteSøknad as KontantstøtteSøknadV4
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.beans.factory.annotation.Value
@@ -42,13 +42,13 @@ class MottakClient(
         return håndterSendingAvSøknad(uri = uri, søknad = søknad)
     }
 
-    fun sendKontantstøtteSøknad(kontantstøtteSøknad: KontantstøtteSøknadV2): Ressurs<Kvittering> {
-        val uri: URI = URI.create("$mottakBaseUrl/api/kontantstotte/soknad/v2")
+    fun sendKontantstøtteSøknad(kontantstøtteSøknad: KontantstøtteSøknadV3): Ressurs<Kvittering> {
+        val uri: URI = URI.create("$mottakBaseUrl/api/kontantstotte/soknad/v3")
         return håndterSendingAvSøknad(uri = uri, søknad = kontantstøtteSøknad)
     }
 
-    fun sendKontantstøtteSøknad(kontantstøtteSøknad: KontantstøtteSøknadV3): Ressurs<Kvittering> {
-        val uri: URI = URI.create("$mottakBaseUrl/api/kontantstotte/soknad/v3")
+    fun sendKontantstøtteSøknad(kontantstøtteSøknad: KontantstøtteSøknadV4): Ressurs<Kvittering> {
+        val uri: URI = URI.create("$mottakBaseUrl/api/kontantstotte/soknad/v4")
         return håndterSendingAvSøknad(uri = uri, søknad = kontantstøtteSøknad)
     }
 
