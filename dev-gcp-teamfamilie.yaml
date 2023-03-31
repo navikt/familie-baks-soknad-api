@@ -37,8 +37,6 @@ spec:
     requests:
       memory: 512Mi
       cpu: 200m
-  ingresses:
-    - https://familie-baks-soknad-api.dev.nav.no
   accessPolicy:
     inbound:
       rules:

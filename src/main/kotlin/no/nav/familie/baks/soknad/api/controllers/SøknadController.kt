@@ -1,13 +1,14 @@
 package no.nav.familie.baks.soknad.api.controllers
 
-import java.time.LocalDateTime
 import no.nav.familie.baks.soknad.api.clients.mottak.MottakClient
-import no.nav.familie.baks.soknad.api.domene.KontantstøtteSøknad
 import no.nav.familie.baks.soknad.api.domene.Kvittering
-import no.nav.familie.baks.soknad.api.util.TokenBehandler
-import no.nav.familie.kontrakter.ba.søknad.v8.Søknad as SøknadV8
+import no.nav.familie.kontrakter.ba.søknad.v8.Søknad as BarnetrygdSøknadV8
 import no.nav.familie.kontrakter.felles.Ressurs
+import no.nav.familie.kontrakter.ks.søknad.v3.KontantstøtteSøknad as KontantstøtteSøknadV3
+import no.nav.familie.kontrakter.ks.søknad.v4.KontantstøtteSøknad as KontantstøtteSøknadV4
+import no.nav.familie.sikkerhet.EksternBrukerUtils
 import no.nav.security.token.support.core.api.ProtectedWithClaims
+import no.nav.security.token.support.core.api.RequiredIssuers
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
@@ -17,46 +18,53 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping(path = ["/api"], produces = [MediaType.APPLICATION_JSON_VALUE])
-@ProtectedWithClaims(issuer = "selvbetjening", claimMap = ["acr=Level4"])
+@RequiredIssuers(
+    ProtectedWithClaims(issuer = EksternBrukerUtils.ISSUER_TOKENX, claimMap = ["acr=Level4"])
+)
 class SøknadController(private val mottakClient: MottakClient) {
 
     @PostMapping("/soknad/v8")
-    fun søknadsmottakV8(@RequestBody(required = true) søknad: SøknadV8): ResponseEntity<Ressurs<Kvittering>> {
-
+    fun søknadsmottakBarnetrygd(@RequestBody(required = true) søknad: BarnetrygdSøknadV8): ResponseEntity<Ressurs<Kvittering>> {
         val søknadMedIdentFraToken = søknad.copy(
             søker = søknad.søker.copy(
                 ident = søknad.søker.ident.copy(
-                    verdi = søknad.søker.ident.verdi.mapValues { TokenBehandler.hentFnr() }
+                    verdi = søknad.søker.ident.verdi.mapValues { EksternBrukerUtils.hentFnrFraToken() }
                 )
             )
         )
 
-        return ResponseEntity.ok().body(mottakClient.sendSøknadV8(søknadMedIdentFraToken))
+        return ResponseEntity.ok().body(mottakClient.sendBarnetrygdSøknad(søknadMedIdentFraToken))
     }
 
-    @PostMapping("/soknad/kontantstotte")
-    fun søknadsmottakKontantStotte(
+    @PostMapping("/soknad/kontantstotte/v3")
+    fun søknadsmottakKontantstøtte(
         @RequestBody(required = true)
-        søknad: KontantstøtteSøknad
+        kontantstøtteSøknad: KontantstøtteSøknadV3
     ): ResponseEntity<Ressurs<Kvittering>> {
-
-        val søknadMedIdentFraToken = søknad.copy(
-            søker = søknad.søker.copy(
-                ident = søknad.søker.ident.copy(
-                    verdi = søknad.søker.ident.verdi.mapValues { TokenBehandler.hentFnr() }
+        val kontantstøtteSøknadMedIdentFraToken = kontantstøtteSøknad.copy(
+            søker = kontantstøtteSøknad.søker.copy(
+                ident = kontantstøtteSøknad.søker.ident.copy(
+                    verdi = kontantstøtteSøknad.søker.ident.verdi.mapValues { EksternBrukerUtils.hentFnrFraToken() }
                 )
             )
         )
 
-        // Todo: legg inn integrasjon mot kontantstøttemottak
-        return ResponseEntity.ok()
-            .body(
-                Ressurs(
-                    data = Kvittering("suksess", LocalDateTime.now()),
-                    melding = "suksess",
-                    status = Ressurs.Status.SUKSESS,
-                    stacktrace = null
+        return ResponseEntity.ok().body(mottakClient.sendKontantstøtteSøknad(kontantstøtteSøknadMedIdentFraToken))
+    }
+
+    @PostMapping("/soknad/kontantstotte/v4")
+    fun søknadsmottakKontantstøtte(
+        @RequestBody(required = true)
+        kontantstøtteSøknad: KontantstøtteSøknadV4
+    ): ResponseEntity<Ressurs<Kvittering>> {
+        val kontantstøtteSøknadMedIdentFraToken = kontantstøtteSøknad.copy(
+            søker = kontantstøtteSøknad.søker.copy(
+                ident = kontantstøtteSøknad.søker.ident.copy(
+                    verdi = kontantstøtteSøknad.søker.ident.verdi.mapValues { EksternBrukerUtils.hentFnrFraToken() }
                 )
             )
+        )
+
+        return ResponseEntity.ok().body(mottakClient.sendKontantstøtteSøknad(kontantstøtteSøknadMedIdentFraToken))
     }
 }
