@@ -4,7 +4,6 @@ import io.mockk.Runs
 import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
-import java.time.LocalDateTime
 import no.nav.familie.baks.soknad.api.clients.mottak.MottakClient
 import no.nav.familie.baks.soknad.api.clients.pdl.ADRESSEBESKYTTELSEGRADERING
 import no.nav.familie.baks.soknad.api.clients.pdl.Adressebeskyttelse
@@ -22,14 +21,16 @@ import no.nav.familie.baks.soknad.api.clients.pdl.PdlSivilstand
 import no.nav.familie.baks.soknad.api.clients.pdl.PdlStatsborgerskap
 import no.nav.familie.baks.soknad.api.clients.pdl.SIVILSTANDSTYPE
 import no.nav.familie.baks.soknad.api.domene.Kvittering
-import no.nav.familie.kontrakter.ba.søknad.v8.Søknad as SøknadV8
 import no.nav.familie.kontrakter.felles.Ressurs
 import no.nav.familie.kontrakter.felles.personopplysning.Bostedsadresse
 import no.nav.familie.kontrakter.felles.personopplysning.Vegadresse
+import no.nav.familie.kontrakter.ks.søknad.v4.KontantstøtteSøknad
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Primary
 import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
+import java.time.LocalDateTime
+import no.nav.familie.kontrakter.ba.søknad.v8.Søknad as SøknadV8
 
 @Component
 class ClientMocks {
@@ -40,7 +41,9 @@ class ClientMocks {
     fun mockMottakClient(): MottakClient {
         val mockMottakClient = mockk<MottakClient>()
         every { mockMottakClient.ping() } just Runs
-        every { mockMottakClient.sendSøknadV8(any<SøknadV8>()) } returns
+        every { mockMottakClient.sendBarnetrygdSøknad(any<SøknadV8>()) } returns
+            Ressurs.success(Kvittering("søknad mottatt OK", LocalDateTime.now()))
+        every { mockMottakClient.sendKontantstøtteSøknad(any<KontantstøtteSøknad>()) } returns
             Ressurs.success(Kvittering("søknad mottatt OK", LocalDateTime.now()))
         return mockMottakClient
     }
@@ -123,7 +126,7 @@ class ClientMocks {
             data = PdlPerson(
                 person = PdlPersonData(
                     navn = listOf(PdlNavn("Barn", etternavn = "Barnessen III")),
-                    foedsel = listOf(PdlFødselsDato("2010-01-01")),
+                    foedsel = listOf(PdlFødselsDato("2022-01-01")),
                     bostedsadresse = listOf(
                         Bostedsadresse(
                             vegadresse = Vegadresse(

@@ -21,8 +21,8 @@
         <jvmTarget>17</jvmTarget>
         <java.version>17</java.version>
         <kontrakter.version>2.0_20230403092149_17a57fc</kontrakter.version>
-        <felles.version>1.20220406131143_806a963</felles.version>
-        <mockk.version>1.12.1</mockk.version>
+        <felles.version>1.20230117091843_19b020f</felles.version>
+        <mockk.version>1.12.5</mockk.version>
         <token-validation-spring.version>2.0.21</token-validation-spring.version>
         <!--suppress UnresolvedMavenProperty  Ligger som secret i github-->
         <sonar.projectKey>${SONAR_PROJECTKEY}</sonar.projectKey>
@@ -31,7 +31,7 @@
         <start-class>no.nav.familie.baks.soknad.api.LauncherKt</start-class>
         <!--suppress UnresolvedMavenProperty Ligger som secret i github-->
         <sonar.login>${SONAR_LOGIN}</sonar.login>
-        <kotlin.version>1.7.10</kotlin.version>
+        <kotlin.version>1.8.0</kotlin.version>
         <!-- Må settes for å kunne kjøre opp mock-oauth2-server i unit-tester -->
         <okhttp3.version>4.9.1</okhttp3.version>
         <!-- Må settes for å kunne kjøre opp mock-oauth2-server i unit-tester -->
@@ -89,6 +89,11 @@
         <dependency>
             <groupId>no.nav.familie.kontrakter</groupId>
             <artifactId>barnetrygd</artifactId>
+            <version>${kontrakter.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>no.nav.familie.kontrakter</groupId>
+            <artifactId>kontantstotte</artifactId>
             <version>${kontrakter.version}</version>
         </dependency>
         <dependency>

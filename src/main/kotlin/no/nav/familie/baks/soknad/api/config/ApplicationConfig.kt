@@ -1,10 +1,7 @@
 package no.nav.familie.baks.soknad.api.config
 
-import java.net.URI
 import java.time.Duration
 import java.time.temporal.ChronoUnit
-import no.nav.familie.baks.soknad.api.util.TokenBehandler
-import no.nav.familie.http.interceptor.ApiKeyInjectingClientInterceptor
 import no.nav.familie.http.interceptor.BearerTokenClientCredentialsClientInterceptor
 import no.nav.familie.http.interceptor.BearerTokenClientInterceptor
 import no.nav.familie.http.interceptor.BearerTokenExchangeClientInterceptor
@@ -12,9 +9,9 @@ import no.nav.familie.http.interceptor.ConsumerIdClientInterceptor
 import no.nav.familie.http.interceptor.MdcValuesPropagatingClientInterceptor
 import no.nav.familie.kontrakter.felles.objectMapper
 import no.nav.familie.log.filter.LogFilter
+import no.nav.familie.sikkerhet.EksternBrukerUtils
 import no.nav.security.token.support.client.spring.oauth2.EnableOAuth2Client
 import org.slf4j.LoggerFactory
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.SpringBootConfiguration
 import org.springframework.boot.web.client.RestTemplateBuilder
 import org.springframework.boot.web.servlet.FilterRegistrationBean
@@ -126,7 +123,7 @@ internal class ApplicationConfig {
 class AddJwtTokenInterceptor : ClientHttpRequestInterceptor {
 
     override fun intercept(request: HttpRequest, body: ByteArray, execution: ClientHttpRequestExecution): ClientHttpResponse {
-        request.headers["Authorization"] = "Bearer ${TokenBehandler.hentToken()}"
+        request.headers["Authorization"] = "Bearer ${EksternBrukerUtils.getBearerTokenForLoggedInUser()}"
         return execution.execute(request, body)
     }
 }

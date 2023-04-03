@@ -37,8 +37,6 @@ spec:
     requests:
       memory: 512Mi
       cpu: 200m
-  ingresses:
-    - https://familie-baks-soknad-api.dev.nav.no
   accessPolicy:
     inbound:
       rules:
@@ -50,6 +48,8 @@ spec:
       external:
         - host: api-gw-q1.oera.no
         - host: login.microsoftonline.com
+        - host: pdl-api.dev-fss-pub.nais.io
+        - host: kodeverk.dev-fss-pub.nais.io
   vault:
     enabled: false
   env:
