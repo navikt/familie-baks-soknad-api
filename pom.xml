@@ -20,7 +20,7 @@
         <changelist>-SNAPSHOT</changelist>
         <jvmTarget>17</jvmTarget>
         <java.version>17</java.version>
-        <kontrakter.version>2.0_20220603092438_b924d91</kontrakter.version>
+        <kontrakter.version>2.0_20230403092149_17a57fc</kontrakter.version>
         <felles.version>1.20220406131143_806a963</felles.version>
         <mockk.version>1.12.1</mockk.version>
         <token-validation-spring.version>2.0.21</token-validation-spring.version>
@@ -288,7 +288,8 @@
                         <phase>verify</phase>
                         <configuration>
                             <target name="ktlint">
-                                <java taskname="ktlint" dir="${basedir}" fork="true" failonerror="true" classname="com.pinterest.ktlint.Main" classpathref="maven.plugin.classpath">
+                                <java taskname="ktlint" dir="${basedir}" fork="true" failonerror="true"
+                                      classname="com.pinterest.ktlint.Main" classpathref="maven.plugin.classpath">
                                     <arg value="src/**/*.kt"/>
                                 </java>
                             </target>
@@ -302,7 +303,8 @@
                         <id>ktlint-format</id>
                         <configuration>
                             <target name="ktlint">
-                                <java taskname="ktlint" dir="${basedir}" fork="true" failonerror="true" classname="com.pinterest.ktlint.Main" classpathref="maven.plugin.classpath">
+                                <java taskname="ktlint" dir="${basedir}" fork="true" failonerror="true"
+                                      classname="com.pinterest.ktlint.Main" classpathref="maven.plugin.classpath">
                                     <arg value="-F"/>
                                     <arg value="src/**/*.kt"/>
                                 </java>
