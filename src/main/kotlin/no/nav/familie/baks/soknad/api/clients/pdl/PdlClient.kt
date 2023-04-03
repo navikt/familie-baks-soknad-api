@@ -7,7 +7,6 @@ import no.nav.familie.http.client.Pingable
 import org.apache.commons.lang3.StringUtils
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpMethod
 import org.springframework.web.client.RestOperations
@@ -15,7 +14,7 @@ import org.springframework.web.client.exchange
 
 abstract class PdlClient(
     pdlBaseUrl: String,
-    @Qualifier("tokenExchange") private val restOperations: RestOperations
+    private val restOperations: RestOperations
 ) :
     AbstractPingableRestClient(restOperations, "pdl.integrasjon"), Pingable {
 
@@ -46,7 +45,11 @@ abstract class PdlClient(
         }
     }
 
-    abstract fun httpHeaders(): HttpHeaders
+    private fun httpHeaders(): HttpHeaders {
+        return HttpHeaders().apply {
+            add("Tema", TEMA)
+        }
+    }
 
     override val pingUri: URI
         get() = pdlUri
