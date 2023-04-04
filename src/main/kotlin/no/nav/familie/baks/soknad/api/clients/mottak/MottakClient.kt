@@ -1,14 +1,11 @@
 package no.nav.familie.baks.soknad.api.clients.mottak
 
 import com.fasterxml.jackson.databind.JsonNode
-import java.net.URI
 import no.nav.familie.baks.soknad.api.domene.Kvittering
 import no.nav.familie.http.client.AbstractPingableRestClient
 import no.nav.familie.http.client.MultipartBuilder
-import no.nav.familie.kontrakter.ba.søknad.v8.Søknad as SøknadV8
+import no.nav.familie.http.util.UriUtil
 import no.nav.familie.kontrakter.felles.Ressurs
-import no.nav.familie.kontrakter.ks.søknad.v3.KontantstøtteSøknad as KontantstøtteSøknadV3
-import no.nav.familie.kontrakter.ks.søknad.v4.KontantstøtteSøknad as KontantstøtteSøknadV4
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.beans.factory.annotation.Value
@@ -17,6 +14,10 @@ import org.springframework.stereotype.Component
 import org.springframework.util.MultiValueMap
 import org.springframework.web.client.RestOperations
 import org.springframework.web.client.exchange
+import java.net.URI
+import no.nav.familie.kontrakter.ba.søknad.v8.Søknad as SøknadV8
+import no.nav.familie.kontrakter.ks.søknad.v3.KontantstøtteSøknad as KontantstøtteSøknadV3
+import no.nav.familie.kontrakter.ks.søknad.v4.KontantstøtteSøknad as KontantstøtteSøknadV4
 
 @Component
 class MottakClient(
@@ -25,7 +26,7 @@ class MottakClient(
 ) :
     AbstractPingableRestClient(restOperations, "integrasjon") {
 
-    override val pingUri: URI = URI.create("$mottakBaseUrl/api/soknad")
+    override val pingUri: URI = UriUtil.uri(URI.create(mottakBaseUrl), "api/soknad")
 
     override fun ping() {
         try {
@@ -38,17 +39,17 @@ class MottakClient(
     }
 
     fun sendBarnetrygdSøknad(søknad: SøknadV8): Ressurs<Kvittering> {
-        val uri: URI = URI.create("$mottakBaseUrl/api/soknad/v8")
+        val uri: URI = UriUtil.uri(URI.create(mottakBaseUrl), "api/soknad/v8")
         return håndterSendingAvSøknad(uri = uri, søknad = søknad)
     }
 
     fun sendKontantstøtteSøknad(kontantstøtteSøknad: KontantstøtteSøknadV3): Ressurs<Kvittering> {
-        val uri: URI = URI.create("$mottakBaseUrl/api/kontantstotte/soknad/v3")
+        val uri: URI = UriUtil.uri(URI.create(mottakBaseUrl), "api/kontantstotte/soknad/v3")
         return håndterSendingAvSøknad(uri = uri, søknad = kontantstøtteSøknad)
     }
 
     fun sendKontantstøtteSøknad(kontantstøtteSøknad: KontantstøtteSøknadV4): Ressurs<Kvittering> {
-        val uri: URI = URI.create("$mottakBaseUrl/api/kontantstotte/soknad/v4")
+        val uri: URI = UriUtil.uri(URI.create(mottakBaseUrl), "api/kontantstotte/soknad/v4")
         return håndterSendingAvSøknad(uri = uri, søknad = kontantstøtteSøknad)
     }
 
