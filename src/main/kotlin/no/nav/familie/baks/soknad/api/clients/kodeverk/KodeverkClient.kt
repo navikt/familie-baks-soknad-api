@@ -1,5 +1,6 @@
 package no.nav.familie.baks.soknad.api.clients.kodeverk
 
+import java.net.URI
 import no.nav.familie.http.client.AbstractPingableRestClient
 import no.nav.familie.http.client.Pingable
 import no.nav.familie.http.util.UriUtil
@@ -7,7 +8,6 @@ import no.nav.familie.kontrakter.felles.kodeverk.KodeverkDto
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 import org.springframework.web.client.RestOperations
-import java.net.URI
 
 @Component
 class KodeverkClient(
