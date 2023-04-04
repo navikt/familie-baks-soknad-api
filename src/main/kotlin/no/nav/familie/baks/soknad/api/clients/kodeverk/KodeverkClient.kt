@@ -33,7 +33,7 @@ class KodeverkClient(
         val query = if (medHistorikk) QUERY_MED_HISTORIKK else QUERY
         return UriUtil.uri(
             base = kodeverkUri,
-            path = "/api/v1/kodeverk/$kodeverksnavn/koder/betydninger",
+            path = "api/v1/kodeverk/$kodeverksnavn/koder/betydninger",
             query = query
         )
     }
