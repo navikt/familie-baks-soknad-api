@@ -70,7 +70,7 @@ internal class ApplicationConfig {
     }
 
     @Bean("tokenExchange")
-    fun restTemplate(
+    fun tokenExchangeRestTemplate(
         bearerTokenExchangeClientInterceptor: BearerTokenExchangeClientInterceptor,
         mdcValuesPropagatingClientInterceptor: MdcValuesPropagatingClientInterceptor,
         consumerIdClientInterceptor: ConsumerIdClientInterceptor
