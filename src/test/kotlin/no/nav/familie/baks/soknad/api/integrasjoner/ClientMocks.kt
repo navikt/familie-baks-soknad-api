@@ -22,6 +22,7 @@ import no.nav.familie.baks.soknad.api.clients.pdl.PdlSivilstand
 import no.nav.familie.baks.soknad.api.clients.pdl.PdlStatsborgerskap
 import no.nav.familie.baks.soknad.api.clients.pdl.SIVILSTANDSTYPE
 import no.nav.familie.baks.soknad.api.domene.Kvittering
+import no.nav.familie.baks.soknad.api.domene.Ytelse
 import no.nav.familie.kontrakter.ba.søknad.v8.Søknad as SøknadV8
 import no.nav.familie.kontrakter.felles.Ressurs
 import no.nav.familie.kontrakter.felles.personopplysning.Bostedsadresse
@@ -55,7 +56,7 @@ class ClientMocks {
         val mockPdlClient = mockk<PdlBrukerClient>()
 
         every { mockPdlClient.ping() } just Runs
-        every { mockPdlClient.hentPerson(any()) } returns PdlHentPersonResponse(
+        every { mockPdlClient.hentPerson(any(), Ytelse.BARNETRYGD) } returns PdlHentPersonResponse(
             data = PdlPerson(
                 person = PdlPersonData(
                     navn = listOf(
@@ -111,7 +112,8 @@ class ClientMocks {
                     )
                 )
             ),
-            errors = null
+            errors = null,
+            extensions = null
         )
         return mockPdlClient
     }
@@ -122,7 +124,7 @@ class ClientMocks {
     fun mockEkspAuthPdlClient(): PdlApp2AppClient {
         val mockPdlClient = mockk<PdlApp2AppClient>()
 
-        every { mockPdlClient.hentPerson("12345678987") } returns PdlHentPersonResponse(
+        every { mockPdlClient.hentPerson("12345678987", Ytelse.BARNETRYGD) } returns PdlHentPersonResponse(
             data = PdlPerson(
                 person = PdlPersonData(
                     navn = listOf(PdlNavn("Barn", etternavn = "Barnessen III")),
@@ -152,9 +154,10 @@ class ClientMocks {
                     )
                 )
             ),
-            errors = null
+            errors = null,
+            extensions = null
         )
-        every { mockPdlClient.hentPerson("23456789876") } returns PdlHentPersonResponse(
+        every { mockPdlClient.hentPerson("23456789876", Ytelse.BARNETRYGD) } returns PdlHentPersonResponse(
             data = PdlPerson(
                 person = PdlPersonData(
                     navn = listOf(PdlNavn("Barn", etternavn = "Barnessen II")),
@@ -184,41 +187,44 @@ class ClientMocks {
                     )
                 )
             ),
-            errors = null
+            errors = null,
+            extensions = null
         )
         // Catch-all så man kan teste manuell registrerting av barn i dialogen
-        every { mockPdlClient.hentPerson(not(or("12345678987", "23456789876"))) } returns PdlHentPersonResponse(
-            data = PdlPerson(
-                person = PdlPersonData(
-                    navn = listOf(PdlNavn("Barn", etternavn = "Barnessen IV")),
-                    foedsel = listOf(PdlFødselsDato("2008-10-01")),
-                    bostedsadresse = listOf(
-                        Bostedsadresse(
-                            vegadresse = Vegadresse(
-                                21,
-                                "2",
-                                "A",
-                                "H0101",
-                                "Solveien",
-                                "",
-                                "",
-                                "2304"
-                            ),
-                            ukjentBosted = null,
-                            matrikkeladresse = null
+        every { mockPdlClient.hentPerson(not(or("12345678987", "23456789876")), Ytelse.BARNETRYGD) } returns
+            PdlHentPersonResponse(
+                data = PdlPerson(
+                    person = PdlPersonData(
+                        navn = listOf(PdlNavn("Barn", etternavn = "Barnessen IV")),
+                        foedsel = listOf(PdlFødselsDato("2008-10-01")),
+                        bostedsadresse = listOf(
+                            Bostedsadresse(
+                                vegadresse = Vegadresse(
+                                    21,
+                                    "2",
+                                    "A",
+                                    "H0101",
+                                    "Solveien",
+                                    "",
+                                    "",
+                                    "2304"
+                                ),
+                                ukjentBosted = null,
+                                matrikkeladresse = null
+                            )
+                        ),
+                        adressebeskyttelse = emptyList(),
+                        statsborgerskap = emptyList(),
+                        sivilstand = emptyList(),
+                        doedsfall = emptyList(),
+                        folkeregisteridentifikator = listOf(
+                            PdlFolkeregisteridentifikator(identifikasjonsnummer = "31051575728")
                         )
-                    ),
-                    adressebeskyttelse = emptyList(),
-                    statsborgerskap = emptyList(),
-                    sivilstand = emptyList(),
-                    doedsfall = emptyList(),
-                    folkeregisteridentifikator = listOf(
-                        PdlFolkeregisteridentifikator(identifikasjonsnummer = "31051575728")
                     )
-                )
-            ),
-            errors = null
-        )
+                ),
+                errors = null,
+                extensions = null
+            )
         return mockPdlClient
     }
 }

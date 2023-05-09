@@ -2,6 +2,7 @@ package no.nav.familie.baks.soknad.api.clients.pdl
 
 import com.fasterxml.jackson.databind.JsonNode
 import java.net.URI
+import no.nav.familie.baks.soknad.api.domene.Ytelse
 import no.nav.familie.http.client.AbstractPingableRestClient
 import no.nav.familie.http.client.Pingable
 import no.nav.familie.http.util.UriUtil
@@ -21,7 +22,7 @@ abstract class PdlClient(
 
     private val pdlUri = UriUtil.uri(base = URI.create(pdlBaseUrl), path = "graphql")
 
-    fun hentPerson(personIdent: String): PdlHentPersonResponse {
+    fun hentPerson(personIdent: String, ytelse: Ytelse): PdlHentPersonResponse {
         val query = this::class.java.getResource("/pdl/hent-person-med-relasjoner.graphql").readText().graphqlCompatible()
 
         val pdlPersonRequest = PdlPersonRequest(
@@ -32,23 +33,27 @@ abstract class PdlClient(
         val response = postForEntity<PdlHentPersonResponse>(
             uri = pdlUri,
             payload = pdlPersonRequest,
-            httpHeaders = httpHeaders()
+            httpHeaders = httpHeaders(ytelse)
         )
 
-        if (!response.harFeil()) {
-            return response
-        } else {
-            LOG.info("Code: " + response.errors?.get(0)?.extensions?.code)
-            LOG.info("Cause: " + response.errors?.get(0)?.extensions?.details?.cause)
-            LOG.info("Policy: " + response.errors?.get(0)?.extensions?.details?.policy)
-            LOG.info("Type: " + response.errors?.get(0)?.extensions?.details?.type)
-            throw Exception(response.errorMessages())
+        if (response.harFeil()) {
+            LOG.error("Feil ved henting av person fra PDL. Se securelogs for detaljer.")
+            secureLogger.error("Feil ved henting av person fra PDL: ${response.errorMessages()}")
+            throw Exception("En feil har oppstått ved henting av person")
         }
+
+        if (response.harAdvarsel()) {
+            LOG.warn("Advarsel ved henting av person fra PDL. Se securelogs for detaljer.")
+            secureLogger.warn("Advarsel ved henting av person fra PDL: ${response.extensions?.warnings}")
+        }
+
+        return response
     }
 
-    private fun httpHeaders(): HttpHeaders {
+    private fun httpHeaders(ytelse: Ytelse): HttpHeaders {
         return HttpHeaders().apply {
-            add("Tema", TEMA)
+            add("Tema", ytelse.tema.name)
+            add("behandlingsnummer", ytelse.behandlingsnummer)
         }
     }
 
@@ -66,9 +71,7 @@ abstract class PdlClient(
     }
 
     companion object {
-
         val LOG: Logger = LoggerFactory.getLogger(PdlApp2AppClient::class.java)
-        const val TEMA: String = "BAR"
     }
 }
 

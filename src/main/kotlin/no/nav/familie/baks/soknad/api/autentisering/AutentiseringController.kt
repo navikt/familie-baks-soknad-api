@@ -29,8 +29,11 @@ class AutentiseringController {
         @RequestParam(required = false)
         søknadstype: Søknadstype?
     ): ResponseEntity<Ressurs<String>> {
-        if (søknadstype == Søknadstype.UTVIDET) innloggetUtvidetBarnetrygd.increment()
-        else innloggetOrdinaerBarnetrygd.increment()
+        if (søknadstype == Søknadstype.UTVIDET) {
+            innloggetUtvidetBarnetrygd.increment()
+        } else {
+            innloggetOrdinaerBarnetrygd.increment()
+        }
 
         return ResponseEntity.ok(Ressurs.success("Autentisert kall"))
     }

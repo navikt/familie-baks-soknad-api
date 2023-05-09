@@ -58,8 +58,8 @@ class PersonopplysningerServiceTest {
 
     @Test
     fun `hentPersonInfo skal kun returnere familierelasjoner av type BARN`() {
-        every { pdlClient.hentPerson(any()) } returns pdlMockFor("pdlPersonMedFlereRelasjoner")
-        every { barnePdlClient.hentPerson("12345678910") } returns pdlMockFor("pdlPersonBarn")
+        every { pdlClient.hentPerson(any(), Ytelse.BARNETRYGD) } returns pdlMockFor("pdlPersonMedFlereRelasjoner")
+        every { barnePdlClient.hentPerson("12345678910", Ytelse.BARNETRYGD) } returns pdlMockFor("pdlPersonBarn")
         every { kodeverkClient.hentPostnummer() } returns kodeverkMockFor("kodeverkPostnummerRespons")
         val person = personopplysningerService.hentPersoninfo("1", Ytelse.BARNETRYGD)
 
@@ -70,7 +70,7 @@ class PersonopplysningerServiceTest {
 
     @Test
     fun `hentPersonInfo skal returnere tom liste hvis det er familierelasjoner, men ingen barn`() {
-        every { pdlClient.hentPerson(any()) } returns pdlMockFor("pdlPersonMedRelasjonerIngenBarn")
+        every { pdlClient.hentPerson(any(), Ytelse.BARNETRYGD) } returns pdlMockFor("pdlPersonMedRelasjonerIngenBarn")
         every { kodeverkClient.hentPostnummer() } returns kodeverkMockFor("kodeverkPostnummerRespons")
         val person = personopplysningerService.hentPersoninfo("1", Ytelse.BARNETRYGD)
         assertTrue(person.barn.isEmpty())
@@ -78,7 +78,7 @@ class PersonopplysningerServiceTest {
 
     @Test
     fun `hentPersonInfo skal returnere ident`() {
-        every { pdlClient.hentPerson(any()) } returns pdlMockFor("pdlPersonMedRelasjonerIngenBarn")
+        every { pdlClient.hentPerson(any(), Ytelse.BARNETRYGD) } returns pdlMockFor("pdlPersonMedRelasjonerIngenBarn")
         every { kodeverkClient.hentPostnummer() } returns kodeverkMockFor("kodeverkPostnummerRespons")
         val person = personopplysningerService.hentPersoninfo("1", Ytelse.BARNETRYGD)
         assertEquals("23058518298", person.ident)
@@ -86,7 +86,7 @@ class PersonopplysningerServiceTest {
 
     @Test
     fun `hentPersonInfo skal returnere liste med statsborgerskap hvis det er flere fra pdl`() {
-        every { pdlClient.hentPerson(any()) } returns pdlMockFor("pdlPersonMedFlereStatsborgerskap")
+        every { pdlClient.hentPerson(any(), Ytelse.BARNETRYGD) } returns pdlMockFor("pdlPersonMedFlereStatsborgerskap")
         every { kodeverkClient.hentPostnummer() } returns kodeverkMockFor("kodeverkPostnummerRespons")
         val person = personopplysningerService.hentPersoninfo("1", Ytelse.BARNETRYGD)
         assertEquals(person!!.statsborgerskap.size, 2)
@@ -96,7 +96,7 @@ class PersonopplysningerServiceTest {
 
     @Test
     fun `hentPersonInfo skal returnere tom liste hvis ingen familierelasjoner`() {
-        every { pdlClient.hentPerson(any()) } returns pdlMockFor("pdlPersonUtenRelasjoner")
+        every { pdlClient.hentPerson(any(), Ytelse.BARNETRYGD) } returns pdlMockFor("pdlPersonUtenRelasjoner")
         every { kodeverkClient.hentPostnummer() } returns kodeverkMockFor("kodeverkPostnummerRespons")
         val person = personopplysningerService.hentPersoninfo("1", Ytelse.BARNETRYGD)
         assertTrue(person!!.barn.isEmpty())
@@ -104,8 +104,8 @@ class PersonopplysningerServiceTest {
 
     @Test
     fun `hentPersonInfo skal returnere tom liste med barn, der barn er dod`() {
-        every { pdlClient.hentPerson(any()) } returns pdlMockFor("pdlBrukerMedDoedBarn")
-        every { barnePdlClient.hentPerson("12345678910") } returns pdlMockFor("pdlBarnErDoed")
+        every { pdlClient.hentPerson(any(), Ytelse.BARNETRYGD) } returns pdlMockFor("pdlBrukerMedDoedBarn")
+        every { barnePdlClient.hentPerson("12345678910", Ytelse.BARNETRYGD) } returns pdlMockFor("pdlBarnErDoed")
         every { kodeverkClient.hentPostnummer() } returns kodeverkMockFor("kodeverkPostnummerRespons")
         val person = personopplysningerService.hentPersoninfo("23058518298", Ytelse.BARNETRYGD)
         assertEquals(person.barn.size, 0)
@@ -113,8 +113,8 @@ class PersonopplysningerServiceTest {
 
     @Test
     fun `hentPersonInfo skal returnere tom liste med barn, der barn er over atten`() {
-        every { pdlClient.hentPerson(any()) } returns pdlMockFor("pdlBarnErOverAtten")
-        every { barnePdlClient.hentPerson("12345678910") } returns pdlMockFor("pdlBrukerMedBarnOverAtten")
+        every { pdlClient.hentPerson(any(), Ytelse.BARNETRYGD) } returns pdlMockFor("pdlBarnErOverAtten")
+        every { barnePdlClient.hentPerson("12345678910", Ytelse.BARNETRYGD) } returns pdlMockFor("pdlBrukerMedBarnOverAtten")
         every { kodeverkClient.hentPostnummer() } returns kodeverkMockFor("kodeverkPostnummerRespons")
         val person = personopplysningerService.hentPersoninfo("23058518298", Ytelse.BARNETRYGD)
         assertEquals(person.barn.size, 0)
@@ -194,7 +194,7 @@ class PersonopplysningerServiceTest {
     @Test
     fun `hentPerson skal sette flagg om person har adressebeskyttelse`() {
         every { kodeverkClient.hentPostnummer() } returns kodeverkMockFor("kodeverkPostnummerRespons")
-        every { pdlClient.hentPerson(any()) } returns pdlMockFor("pdlPersonUtenRelasjonerGradertAdresse")
+        every { pdlClient.hentPerson(any(), Ytelse.BARNETRYGD) } returns pdlMockFor("pdlPersonUtenRelasjonerGradertAdresse")
 
         val person = personopplysningerService.hentPersoninfo("1", Ytelse.BARNETRYGD)
         assertTrue(person.adressebeskyttelse)
@@ -203,7 +203,7 @@ class PersonopplysningerServiceTest {
     @Test
     fun `hentPerson skal sette flagg om person har adressebeskyttelse, og returnere null om bruker har adresse`() {
         every { kodeverkClient.hentPostnummer() } returns kodeverkMockFor("kodeverkPostnummerRespons")
-        every { pdlClient.hentPerson(any()) } returns pdlMockFor("pdlSoekerHarAdresseOgAdressebeskyttelse")
+        every { pdlClient.hentPerson(any(), Ytelse.BARNETRYGD) } returns pdlMockFor("pdlSoekerHarAdresseOgAdressebeskyttelse")
 
         val person = personopplysningerService.hentPersoninfo("1", Ytelse.BARNETRYGD)
         assertEquals(person.adresse, null)
@@ -226,8 +226,8 @@ class PersonopplysningerServiceTest {
 
     @Test
     fun `hentPerson returnerer rett adresse fra pdl`() {
-        every { pdlClient.hentPerson(any()) } returns pdlMockFor("pdlPersonMedFlereRelasjoner")
-        every { barnePdlClient.hentPerson("12345678910") } returns pdlMockFor("pdlPersonBarn")
+        every { pdlClient.hentPerson(any(), Ytelse.BARNETRYGD) } returns pdlMockFor("pdlPersonMedFlereRelasjoner")
+        every { barnePdlClient.hentPerson("12345678910", Ytelse.BARNETRYGD) } returns pdlMockFor("pdlPersonBarn")
         every { kodeverkClient.hentPostnummer() } returns kodeverkMockFor("kodeverkPostnummerRespons")
 
         val person = personopplysningerService.hentPersoninfo("1", Ytelse.BARNETRYGD)
@@ -240,8 +240,8 @@ class PersonopplysningerServiceTest {
 
     @Test
     fun `hentPerson sine barn har adressebeskyttelse`() {
-        every { pdlClient.hentPerson(any()) } returns pdlMockFor("pdlPersonMedFlereRelasjoner")
-        every { barnePdlClient.hentPerson("12345678910") } returns pdlMockFor("pdlBarnHarAdresseBeskyttelse")
+        every { pdlClient.hentPerson(any(), Ytelse.BARNETRYGD) } returns pdlMockFor("pdlPersonMedFlereRelasjoner")
+        every { barnePdlClient.hentPerson("12345678910", Ytelse.BARNETRYGD) } returns pdlMockFor("pdlBarnHarAdresseBeskyttelse")
         every { kodeverkClient.hentPostnummer() } returns kodeverkMockFor("kodeverkPostnummerRespons")
 
         val person = personopplysningerService.hentPersoninfo("1", Ytelse.BARNETRYGD)
@@ -251,7 +251,7 @@ class PersonopplysningerServiceTest {
 
     @Test
     fun `hentPerson sine returnerer rett matrikkeladresse`() {
-        every { pdlClient.hentPerson(any()) } returns pdlMockFor("pdlMedMatrikkelAdresse")
+        every { pdlClient.hentPerson(any(), Ytelse.BARNETRYGD) } returns pdlMockFor("pdlMedMatrikkelAdresse")
         every { kodeverkClient.hentPostnummer() } returns kodeverkMockFor("kodeverkPostnummerRespons")
         val person = personopplysningerService.hentPersoninfo("1", Ytelse.BARNETRYGD)
         assertEquals(person.adresse?.adressenavn, "Tilleggsnavn")
@@ -262,8 +262,8 @@ class PersonopplysningerServiceTest {
 
     @Test
     fun `hentPerson sine barn har adressebeskyttelse og barnets navn blir null`() {
-        every { pdlClient.hentPerson(any()) } returns pdlMockFor("pdlPersonMedFlereRelasjoner")
-        every { barnePdlClient.hentPerson("12345678910") } returns pdlMockFor("pdlBarnHarAdresseBeskyttelse")
+        every { pdlClient.hentPerson(any(), Ytelse.BARNETRYGD) } returns pdlMockFor("pdlPersonMedFlereRelasjoner")
+        every { barnePdlClient.hentPerson("12345678910", Ytelse.BARNETRYGD) } returns pdlMockFor("pdlBarnHarAdresseBeskyttelse")
         every { kodeverkClient.hentPostnummer() } returns kodeverkMockFor("kodeverkPostnummerRespons")
 
         val person = personopplysningerService.hentPersoninfo("1", Ytelse.BARNETRYGD)
@@ -274,11 +274,11 @@ class PersonopplysningerServiceTest {
 
     @Test
     fun `hentPerson skal ikke returnere barn som er 2 år og 6 mnd`() {
-        every { barnePdlClient.hentPerson("23042018298") } returns lagPdlHentPersonRespons(
+        every { barnePdlClient.hentPerson("23042018298", Ytelse.KONTANTSTOTTE) } returns lagPdlHentPersonRespons(
             "23042018298",
             LocalDate.now().minusYears(2).minusMonths(6)
         )
-        every { pdlClient.hentPerson("23058518298") } returns lagPdlHentPersonRespons(
+        every { pdlClient.hentPerson("23058518298", Ytelse.KONTANTSTOTTE) } returns lagPdlHentPersonRespons(
             "23058518298",
             LocalDate.of(1985, 5, 23),
             listOf(
@@ -295,11 +295,11 @@ class PersonopplysningerServiceTest {
 
     @Test
     fun `hentPerson skal returnere barn som er 1 dag mindre enn 2 år og 6 mnd`() {
-        every { barnePdlClient.hentPerson("23042018298") } returns lagPdlHentPersonRespons(
+        every { barnePdlClient.hentPerson("23042018298", Ytelse.KONTANTSTOTTE) } returns lagPdlHentPersonRespons(
             "23042018298",
             LocalDate.now().minusYears(2).minusMonths(6).plusDays(1)
         )
-        every { pdlClient.hentPerson("23058518298") } returns lagPdlHentPersonRespons(
+        every { pdlClient.hentPerson("23058518298", Ytelse.KONTANTSTOTTE) } returns lagPdlHentPersonRespons(
             "23058518298",
             LocalDate.of(1985, 5, 23),
             listOf(
@@ -348,7 +348,8 @@ class PersonopplysningerServiceTest {
                     forelderBarnRelasjon = forelderBarnRelasjoner
                 )
             ),
-            errors = null
+            errors = null,
+            extensions = null
         )
     }
 }
