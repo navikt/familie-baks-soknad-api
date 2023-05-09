@@ -38,13 +38,19 @@ abstract class PdlClient(
 
         if (response.harFeil()) {
             LOG.error("Feil ved henting av person fra PDL. Se securelogs for detaljer.")
-            secureLogger.error("Feil ved henting av person fra PDL: ${response.errorMessages()}")
+            secureLogger.error(
+                "Feil ved henting av person fra PDL: ${response.errorMessages()}. " +
+                    "Behandlingsnummer: ${ytelse.behandlingsnummer}."
+            )
             throw Exception("En feil har oppstått ved henting av person")
         }
 
         if (response.harAdvarsel()) {
             LOG.warn("Advarsel ved henting av person fra PDL. Se securelogs for detaljer.")
-            secureLogger.warn("Advarsel ved henting av person fra PDL: ${response.extensions?.warnings}")
+            secureLogger.warn(
+                "Advarsel ved henting av person fra PDL: ${response.extensions?.warnings}. " +
+                    "Behandlingsnummer: ${ytelse.behandlingsnummer}."
+            )
         }
 
         return response
@@ -71,6 +77,7 @@ abstract class PdlClient(
     }
 
     companion object {
+
         val LOG: Logger = LoggerFactory.getLogger(PdlApp2AppClient::class.java)
     }
 }
