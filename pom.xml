@@ -20,7 +20,7 @@
         <changelist>-SNAPSHOT</changelist>
         <jvmTarget>17</jvmTarget>
         <java.version>17</java.version>
-        <kontrakter.version>3.0_20230404085353_8385387-JAKARTA</kontrakter.version>
+        <kontrakter.version>3.0_20230509152247_36d24db</kontrakter.version>
         <felles.version>2.20230210162649_a258d57-SPRING_BOOT_3</felles.version>
         <mockk.version>1.12.5</mockk.version>
         <token-validation-spring.version>3.0.3</token-validation-spring.version>

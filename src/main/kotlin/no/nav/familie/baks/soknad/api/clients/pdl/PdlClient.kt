@@ -40,7 +40,7 @@ abstract class PdlClient(
             LOG.error("Feil ved henting av person fra PDL. Se securelogs for detaljer.")
             secureLogger.error(
                 "Feil ved henting av person fra PDL: ${response.errorMessages()}. " +
-                    "Behandlingsnummer: ${ytelse.behandlingsnummer}."
+                    "Behandlingsnummer: ${ytelse.tema.behandlingsnummer}."
             )
             throw Exception("En feil har oppstått ved henting av person")
         }
@@ -49,7 +49,7 @@ abstract class PdlClient(
             LOG.warn("Advarsel ved henting av person fra PDL. Se securelogs for detaljer.")
             secureLogger.warn(
                 "Advarsel ved henting av person fra PDL: ${response.extensions?.warnings}. " +
-                    "Behandlingsnummer: ${ytelse.behandlingsnummer}."
+                    "Behandlingsnummer: ${ytelse.tema.behandlingsnummer}."
             )
         }
 
@@ -59,7 +59,7 @@ abstract class PdlClient(
     private fun httpHeaders(ytelse: Ytelse): HttpHeaders {
         return HttpHeaders().apply {
             add("Tema", ytelse.tema.name)
-            add("behandlingsnummer", ytelse.behandlingsnummer)
+            add("behandlingsnummer", ytelse.tema.behandlingsnummer)
         }
     }
 
