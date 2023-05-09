@@ -4,7 +4,7 @@ import java.time.Period
 import no.nav.familie.kontrakter.felles.Tema
 
 enum class Ytelse(val aldersgrense: Aldersgrense, val tema: Tema, val behandlingsnummer: String) {
-    BARNETRYGD(Aldersgrense(18, 0), Tema.BAR, "284"),
+    BARNETRYGD(Aldersgrense(18, 0), Tema.BAR, "B284"),
     KONTANTSTOTTE(Aldersgrense(2, 6), Tema.KON, "B278")
 }
 
