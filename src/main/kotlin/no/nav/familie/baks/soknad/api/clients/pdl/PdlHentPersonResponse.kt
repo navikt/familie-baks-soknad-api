@@ -3,20 +3,23 @@ package no.nav.familie.baks.soknad.api.clients.pdl
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import no.nav.familie.kontrakter.felles.personopplysning.Bostedsadresse
 
-private fun harFeil(errors: List<PdlError>?) = !errors.isNullOrEmpty()
-
-private fun errorMessages(errors: List<PdlError>?): String {
-    return errors?.joinToString { it -> it.message } ?: ""
-}
-
 data class PdlHentPersonResponse(
     val data: PdlPerson,
-    val errors: List<PdlError>?
+    val errors: List<PdlError>?,
+    val extensions: PdlExtensions?
 ) {
 
-    fun harFeil(): Boolean = harFeil(errors)
+    fun harFeil(): Boolean {
+        return !errors.isNullOrEmpty()
+    }
 
-    fun errorMessages(): String = errorMessages(errors)
+    fun harAdvarsel(): Boolean {
+        return !extensions?.warnings.isNullOrEmpty()
+    }
+
+    fun errorMessages(): String {
+        return errors?.joinToString { it -> it.message } ?: ""
+    }
 }
 
 data class PdlPerson(val person: PdlPersonData?)
@@ -43,15 +46,20 @@ data class PdlFødselsDato(val foedselsdato: String?)
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class PdlError(
     val message: String,
-    val extensions: Extension?
+    val extensions: PdlErrorExtension?
 )
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-data class Extension(
+data class PdlErrorExtension(
     val code: String,
     val details: Details?,
     val classification: String?
 )
+@JsonIgnoreProperties(ignoreUnknown = true)
+data class PdlExtensions(val warnings: List<PdlWarning>?)
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+data class PdlWarning(val details: Any?, val id: String?, val message: String?, val query: String?)
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class PdlDoedsafall(val doedsdato: String?)

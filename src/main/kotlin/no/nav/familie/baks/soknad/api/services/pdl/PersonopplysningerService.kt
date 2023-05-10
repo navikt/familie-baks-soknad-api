@@ -25,7 +25,8 @@ class PersonopplysningerService(
 
     val kodeverkService = CachedKodeverkService(kodeverkClient)
     fun hentPersoninfo(personIdent: String, ytelse: Ytelse, somSystem: Boolean = false): Person {
-        val response = if (somSystem) pdlApp2AppClient.hentPerson(personIdent) else pdlClient.hentPerson(personIdent)
+        val response = if (somSystem) pdlApp2AppClient.hentPerson(personIdent, ytelse)
+        else pdlClient.hentPerson(personIdent, ytelse)
 
         val barnTilSoeker = hentBarnTilSoeker(
             fnrBarn = PdlMapper.mapFnrBarn(response.data.person!!.forelderBarnRelasjon),
@@ -40,7 +41,7 @@ class PersonopplysningerService(
 
     fun hentBarnTilSoeker(fnrBarn: List<String>, sokerAdresse: Bostedsadresse?, ytelse: Ytelse): Set<Barn> {
         return fnrBarn
-            .map { ident -> pdlApp2AppClient.hentPerson(ident) }
+            .map { ident -> pdlApp2AppClient.hentPerson(ident, ytelse) }
             .filter {
                 erBarnILive(it.data.person?.doedsfall) && erBarnetsAlderUnderAldersgrenseForYtelse(
                     parseIsoDato(it.data.person?.foedsel?.firstOrNull()?.foedselsdato),
