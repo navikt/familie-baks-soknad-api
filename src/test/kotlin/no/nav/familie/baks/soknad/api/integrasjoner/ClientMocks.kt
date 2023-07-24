@@ -56,7 +56,7 @@ class ClientMocks {
         val mockPdlClient = mockk<PdlBrukerClient>()
 
         every { mockPdlClient.ping() } just Runs
-        every { mockPdlClient.hentPerson(any(), Ytelse.BARNETRYGD) } returns PdlHentPersonResponse(
+        every { mockPdlClient.hentPerson(any(), any()) } returns PdlHentPersonResponse(
             data = PdlPerson(
                 person = PdlPersonData(
                     navn = listOf(
@@ -124,7 +124,7 @@ class ClientMocks {
     fun mockEkspAuthPdlClient(): PdlApp2AppClient {
         val mockPdlClient = mockk<PdlApp2AppClient>()
 
-        every { mockPdlClient.hentPerson("12345678987", Ytelse.BARNETRYGD) } returns PdlHentPersonResponse(
+        every { mockPdlClient.hentPerson("12345678987", any()) } returns PdlHentPersonResponse(
             data = PdlPerson(
                 person = PdlPersonData(
                     navn = listOf(PdlNavn("Barn", etternavn = "Barnessen III")),
@@ -157,7 +157,7 @@ class ClientMocks {
             errors = null,
             extensions = null
         )
-        every { mockPdlClient.hentPerson("23456789876", Ytelse.BARNETRYGD) } returns PdlHentPersonResponse(
+        every { mockPdlClient.hentPerson("23456789876", any()) } returns PdlHentPersonResponse(
             data = PdlPerson(
                 person = PdlPersonData(
                     navn = listOf(PdlNavn("Barn", etternavn = "Barnessen II")),
@@ -191,7 +191,7 @@ class ClientMocks {
             extensions = null
         )
         // Catch-all så man kan teste manuell registrerting av barn i dialogen
-        every { mockPdlClient.hentPerson(not(or("12345678987", "23456789876")), Ytelse.BARNETRYGD) } returns
+        every { mockPdlClient.hentPerson(not(or("12345678987", "23456789876")), any()) } returns
             PdlHentPersonResponse(
                 data = PdlPerson(
                     person = PdlPersonData(
