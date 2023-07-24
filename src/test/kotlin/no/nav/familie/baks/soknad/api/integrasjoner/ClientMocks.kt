@@ -22,7 +22,6 @@ import no.nav.familie.baks.soknad.api.clients.pdl.PdlSivilstand
 import no.nav.familie.baks.soknad.api.clients.pdl.PdlStatsborgerskap
 import no.nav.familie.baks.soknad.api.clients.pdl.SIVILSTANDSTYPE
 import no.nav.familie.baks.soknad.api.domene.Kvittering
-import no.nav.familie.baks.soknad.api.domene.Ytelse
 import no.nav.familie.kontrakter.ba.søknad.v8.Søknad as SøknadV8
 import no.nav.familie.kontrakter.felles.Ressurs
 import no.nav.familie.kontrakter.felles.personopplysning.Bostedsadresse
