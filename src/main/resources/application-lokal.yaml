@@ -8,7 +8,7 @@ PDL_API_APIKEY: test-apikey
 MOTTAK_APIKEY: test-apikey
 KODEVERK_API_KEY: test-apikey
 
-TOKEN_X_WELL_KNOWN_URL: http://localhost # bytt ut http://localhost med https://fakedings.dev-gcp.nais.io/default/.well-known/openid-configuration dersom du skal kjøre api med mottak lokalt.
+TOKEN_X_WELL_KNOWN_URL: http://localhost # bytt ut http://localhost med https://fakedings.intern.dev.nav.no/default/.well-known/openid-configuration dersom du skal kjøre api med mottak lokalt.
 TOKEN_X_PRIVATE_JWK: '{
  "use": "sig",
  "kty": "RSA",
