@@ -11,7 +11,7 @@ dette gjøres ved å fjerne disse spring-profilene fra `LokalLauncher`. familie-
 pdl-api.
 
 For å kjøre mot familie-baks-mottak lokalt må man gjøre noe endringer i `application-lokal.yaml`. <br>
-Sette ```TOKEN_X_WELL_KNOWN_URL``` til ```https://fakedings.dev-gcp.nais.io/default/.well-known/openid-configuration``` <br>
+Sette ```TOKEN_X_WELL_KNOWN_URL``` til ```https://fakedings.intern.dev.nav.no/default/.well-known/openid-configuration``` <br>
 og bytte ut `token-endpoint-url: http://metadata` med `grant-type: client_credentials`
 
 I tillegg må man enten hente ut et nytt JWT-token ved å logge inn på poden til mottak eller sette @Unprotected på endepunkt i

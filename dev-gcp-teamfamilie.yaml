@@ -57,5 +57,3 @@ spec:
       value: teamfamilie
     - name: SPRING_PROFILES_ACTIVE
       value: dev
-  envFrom:
-    - configmap: loginservice-idporten
