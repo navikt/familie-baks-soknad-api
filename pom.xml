@@ -18,8 +18,8 @@
         <revision>1.0</revision>
         <sha1/>
         <changelist>-SNAPSHOT</changelist>
-        <jvmTarget>17</jvmTarget>
-        <java.version>17</java.version>
+        <jvmTarget>21</jvmTarget>
+        <java.version>21</java.version>
         <kontrakter.version>3.0_20230509152247_36d24db</kontrakter.version>
         <felles.version>2.20230210162649_a258d57-SPRING_BOOT_3</felles.version>
         <mockk.version>1.12.5</mockk.version>
