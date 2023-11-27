@@ -31,7 +31,7 @@
         <start-class>no.nav.familie.baks.soknad.api.LauncherKt</start-class>
         <!--suppress UnresolvedMavenProperty Ligger som secret i github-->
         <sonar.login>${SONAR_LOGIN}</sonar.login>
-        <kotlin.version>1.8.20</kotlin.version>
+        <kotlin.version>1.9.21</kotlin.version>
         <!-- Må settes for å kunne kjøre opp mock-oauth2-server i unit-tester -->
         <okhttp3.version>4.9.1</okhttp3.version>
         <!-- Må settes for å kunne kjøre opp mock-oauth2-server i unit-tester -->
