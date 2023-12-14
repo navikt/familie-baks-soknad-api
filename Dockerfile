@@ -1,4 +1,4 @@
-FROM ghcr.io/navikt/baseimages/temurin:17-appdynamics
+FROM ghcr.io/navikt/baseimages/temurin:21
 
 ENV APPLICATION_NAME=familie-baks-soknad-api
 ENV APPD_ENABLED=TRUE
