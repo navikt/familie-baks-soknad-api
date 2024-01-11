@@ -23,7 +23,7 @@
         <kontrakter.version>3.0_20231130135617_c1535fc</kontrakter.version>
         <felles.version>2.20231201131108_ea25dd3</felles.version>
         <mockk.version>1.13.8</mockk.version>
-        <token-validation-spring.version>3.2.0</token-validation-spring.version>
+        <token-validation-spring.version>4.0.4</token-validation-spring.version>
         <!--suppress UnresolvedMavenProperty  Ligger som secret i github-->
         <sonar.projectKey>${SONAR_PROJECTKEY}</sonar.projectKey>
         <sonar.organization>navit</sonar.organization>
