@@ -21,7 +21,6 @@ class HelsesjekkController(
     private val pdlClient: PdlApp2AppClient,
     private val kodeverkClient: KodeverkClient
 ) {
-
     @GetMapping("soknad-api")
     fun pingApi(): Ressurs<String> {
         return Ressurs.success("OK")

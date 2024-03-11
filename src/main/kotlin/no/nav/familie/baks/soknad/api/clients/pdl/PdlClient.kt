@@ -1,7 +1,6 @@
 package no.nav.familie.baks.soknad.api.clients.pdl
 
 import com.fasterxml.jackson.databind.JsonNode
-import java.net.URI
 import no.nav.familie.baks.soknad.api.domene.Ytelse
 import no.nav.familie.http.client.AbstractPingableRestClient
 import no.nav.familie.http.client.Pingable
@@ -13,28 +12,33 @@ import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpMethod
 import org.springframework.web.client.RestOperations
 import org.springframework.web.client.exchange
+import java.net.URI
 
 abstract class PdlClient(
     pdlBaseUrl: String,
     private val restOperations: RestOperations
 ) :
     AbstractPingableRestClient(restOperations, "pdl.integrasjon"), Pingable {
-
     private val pdlUri = UriUtil.uri(base = URI.create(pdlBaseUrl), path = "graphql")
 
-    fun hentPerson(personIdent: String, ytelse: Ytelse): PdlHentPersonResponse {
+    fun hentPerson(
+        personIdent: String,
+        ytelse: Ytelse
+    ): PdlHentPersonResponse {
         val query = this::class.java.getResource("/pdl/hent-person-med-relasjoner.graphql").readText().graphqlCompatible()
 
-        val pdlPersonRequest = PdlPersonRequest(
-            variables = PdlPersonRequestVariables(personIdent),
-            query = query
-        )
+        val pdlPersonRequest =
+            PdlPersonRequest(
+                variables = PdlPersonRequestVariables(personIdent),
+                query = query
+            )
 
-        val response = postForEntity<PdlHentPersonResponse>(
-            uri = pdlUri,
-            payload = pdlPersonRequest,
-            httpHeaders = httpHeaders(ytelse)
-        )
+        val response =
+            postForEntity<PdlHentPersonResponse>(
+                uri = pdlUri,
+                payload = pdlPersonRequest,
+                httpHeaders = httpHeaders(ytelse)
+            )
 
         if (response.harFeil()) {
             LOG.error("Feil ved henting av person fra PDL. Se securelogs for detaljer.")
@@ -77,7 +81,6 @@ abstract class PdlClient(
     }
 
     companion object {
-
         val LOG: Logger = LoggerFactory.getLogger(PdlApp2AppClient::class.java)
     }
 }

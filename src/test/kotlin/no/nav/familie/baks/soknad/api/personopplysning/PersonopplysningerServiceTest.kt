@@ -2,9 +2,6 @@ package no.nav.familie.baks.soknad.api.personopplysning
 
 import io.mockk.every
 import io.mockk.mockk
-import java.io.File
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 import no.nav.familie.baks.soknad.api.clients.kodeverk.KodeverkClient
 import no.nav.familie.baks.soknad.api.clients.pdl.ADRESSEBESKYTTELSEGRADERING
 import no.nav.familie.baks.soknad.api.clients.pdl.Adressebeskyttelse
@@ -34,18 +31,21 @@ import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import java.io.File
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class PersonopplysningerServiceTest {
-
     private lateinit var personopplysningerService: PersonopplysningerService
     private lateinit var pdlClient: PdlBrukerClient
     private lateinit var barnePdlClient: PdlApp2AppClient
     private lateinit var kodeverkClient: KodeverkClient
     private lateinit var kodeverkService: CachedKodeverkService
     private val mapper = objectMapper
-    private val gyldigBostedAdresse = Bostedsadresse(
-        matrikkeladresse = Matrikkeladresse(3, "E67", "tillegg", "1456", "1223")
-    )
+    private val gyldigBostedAdresse =
+        Bostedsadresse(
+            matrikkeladresse = Matrikkeladresse(3, "E67", "tillegg", "1456", "1223")
+        )
 
     @BeforeEach
     fun setUp() {
@@ -131,29 +131,33 @@ class PersonopplysningerServiceTest {
 
     @Test
     fun `borMedSøker skal returnere true når adressene til barn og søker er like`() {
-        val borMedSøker = PdlBarnMapper.borBarnMedSoeker(
-            soekerAdresse = gyldigBostedAdresse,
-            barneAdresser = listOf(gyldigBostedAdresse)
-        )
+        val borMedSøker =
+            PdlBarnMapper.borBarnMedSoeker(
+                soekerAdresse = gyldigBostedAdresse,
+                barneAdresser = listOf(gyldigBostedAdresse)
+            )
 
         assertTrue(borMedSøker)
     }
 
     @Test
     fun `borMedSøker skal returnere false når søker og barn har ulik adresse, men lik type`() {
-        val barneAdresse = gyldigBostedAdresse.copy(
-            matrikkeladresse = Matrikkeladresse(
-                1,
-                "E2",
-                "tillegg",
-                "1456",
-                "1223"
+        val barneAdresse =
+            gyldigBostedAdresse.copy(
+                matrikkeladresse =
+                    Matrikkeladresse(
+                        1,
+                        "E2",
+                        "tillegg",
+                        "1456",
+                        "1223"
+                    )
             )
-        )
-        val borMedSøker = PdlBarnMapper.borBarnMedSoeker(
-            soekerAdresse = gyldigBostedAdresse,
-            barneAdresser = listOf(barneAdresse)
-        )
+        val borMedSøker =
+            PdlBarnMapper.borBarnMedSoeker(
+                soekerAdresse = gyldigBostedAdresse,
+                barneAdresser = listOf(barneAdresse)
+            )
 
         assertFalse(borMedSøker)
     }
@@ -161,32 +165,36 @@ class PersonopplysningerServiceTest {
     @Test
     fun `borMedSøker skal returnere false hvis søkerAdresse er ukjent`() {
         val ukjentAdresse = Bostedsadresse(ukjentBosted = UkjentBosted("oslo"))
-        val borMedSøker = PdlBarnMapper.borBarnMedSoeker(
-            soekerAdresse = ukjentAdresse,
-            barneAdresser = listOf(ukjentAdresse)
-        )
+        val borMedSøker =
+            PdlBarnMapper.borBarnMedSoeker(
+                soekerAdresse = ukjentAdresse,
+                barneAdresser = listOf(ukjentAdresse)
+            )
 
         assertFalse(borMedSøker)
     }
 
     @Test
     fun `borMedSøker skal returnere true hvis flere adresser finnes, og minst en matcher`() {
-        val søkerAdresse = gyldigBostedAdresse.copy(
-            vegadresse = Vegadresse(
-                adressenavn = "adresse",
-                husbokstav = "A",
-                bruksenhetsnummer = "1",
-                husnummer = "1",
-                kommunenummer = "1",
-                matrikkelId = 1,
-                postnummer = "0101",
-                tilleggsnavn = "tillegg"
+        val søkerAdresse =
+            gyldigBostedAdresse.copy(
+                vegadresse =
+                    Vegadresse(
+                        adressenavn = "adresse",
+                        husbokstav = "A",
+                        bruksenhetsnummer = "1",
+                        husnummer = "1",
+                        kommunenummer = "1",
+                        matrikkelId = 1,
+                        postnummer = "0101",
+                        tilleggsnavn = "tillegg"
+                    )
             )
-        )
-        val borMedSøker = PdlBarnMapper.borBarnMedSoeker(
-            soekerAdresse = søkerAdresse,
-            barneAdresser = listOf(gyldigBostedAdresse)
-        )
+        val borMedSøker =
+            PdlBarnMapper.borBarnMedSoeker(
+                soekerAdresse = søkerAdresse,
+                barneAdresser = listOf(gyldigBostedAdresse)
+            )
 
         assertTrue(borMedSøker)
     }
@@ -210,15 +218,17 @@ class PersonopplysningerServiceTest {
         assertEquals(person.adressebeskyttelse, true)
     }
 
-    private fun pdlMockFor(filNavn: String) = mapper.readValue(
-        File(getFile("pdl/$filNavn.json")),
-        PdlHentPersonResponse::class.java
-    )
+    private fun pdlMockFor(filNavn: String) =
+        mapper.readValue(
+            File(getFile("pdl/$filNavn.json")),
+            PdlHentPersonResponse::class.java
+        )
 
-    private fun kodeverkMockFor(filNavn: String) = mapper.readValue(
-        File(getFile("kodeverk/$filNavn.json")),
-        KodeverkDto::class.java
-    )
+    private fun kodeverkMockFor(filNavn: String) =
+        mapper.readValue(
+            File(getFile("kodeverk/$filNavn.json")),
+            KodeverkDto::class.java
+        )
 
     private fun getFile(name: String): String {
         return javaClass.classLoader?.getResource(name)?.file ?: error("Testkonfigurasjon feil")
@@ -274,20 +284,22 @@ class PersonopplysningerServiceTest {
 
     @Test
     fun `hentPerson skal ikke returnere barn som er 2 år og 6 mnd`() {
-        every { barnePdlClient.hentPerson("23042018298", Ytelse.KONTANTSTOTTE) } returns lagPdlHentPersonRespons(
-            "23042018298",
-            LocalDate.now().minusYears(2).minusMonths(6)
-        )
-        every { pdlClient.hentPerson("23058518298", Ytelse.KONTANTSTOTTE) } returns lagPdlHentPersonRespons(
-            "23058518298",
-            LocalDate.of(1985, 5, 23),
-            listOf(
-                PdlFamilierelasjon(
-                    "23042018298",
-                    FAMILIERELASJONSROLLE.BARN
+        every { barnePdlClient.hentPerson("23042018298", Ytelse.KONTANTSTOTTE) } returns
+            lagPdlHentPersonRespons(
+                "23042018298",
+                LocalDate.now().minusYears(2).minusMonths(6)
+            )
+        every { pdlClient.hentPerson("23058518298", Ytelse.KONTANTSTOTTE) } returns
+            lagPdlHentPersonRespons(
+                "23058518298",
+                LocalDate.of(1985, 5, 23),
+                listOf(
+                    PdlFamilierelasjon(
+                        "23042018298",
+                        FAMILIERELASJONSROLLE.BARN
+                    )
                 )
             )
-        )
         every { kodeverkClient.hentPostnummer() } returns kodeverkMockFor("kodeverkPostnummerRespons")
         val person = personopplysningerService.hentPersoninfo("23058518298", Ytelse.KONTANTSTOTTE)
         assertEquals(person.barn.size, 0)
@@ -295,20 +307,22 @@ class PersonopplysningerServiceTest {
 
     @Test
     fun `hentPerson skal returnere barn som er 1 dag mindre enn 2 år og 6 mnd`() {
-        every { barnePdlClient.hentPerson("23042018298", Ytelse.KONTANTSTOTTE) } returns lagPdlHentPersonRespons(
-            "23042018298",
-            LocalDate.now().minusYears(2).minusMonths(6).plusDays(1)
-        )
-        every { pdlClient.hentPerson("23058518298", Ytelse.KONTANTSTOTTE) } returns lagPdlHentPersonRespons(
-            "23058518298",
-            LocalDate.of(1985, 5, 23),
-            listOf(
-                PdlFamilierelasjon(
-                    "23042018298",
-                    FAMILIERELASJONSROLLE.BARN
+        every { barnePdlClient.hentPerson("23042018298", Ytelse.KONTANTSTOTTE) } returns
+            lagPdlHentPersonRespons(
+                "23042018298",
+                LocalDate.now().minusYears(2).minusMonths(6).plusDays(1)
+            )
+        every { pdlClient.hentPerson("23058518298", Ytelse.KONTANTSTOTTE) } returns
+            lagPdlHentPersonRespons(
+                "23058518298",
+                LocalDate.of(1985, 5, 23),
+                listOf(
+                    PdlFamilierelasjon(
+                        "23042018298",
+                        FAMILIERELASJONSROLLE.BARN
+                    )
                 )
             )
-        )
         every { kodeverkClient.hentPostnummer() } returns kodeverkMockFor("kodeverkPostnummerRespons")
         val person = personopplysningerService.hentPersoninfo("23058518298", Ytelse.KONTANTSTOTTE)
         assertEquals(1, person.barn.size)
@@ -320,34 +334,39 @@ class PersonopplysningerServiceTest {
         forelderBarnRelasjoner: List<PdlFamilierelasjon> = emptyList()
     ): PdlHentPersonResponse {
         return PdlHentPersonResponse(
-            data = PdlPerson(
-                person = PdlPersonData(
-                    navn = listOf(PdlNavn(fornavn = "ENGASJERT", etternavn = "FYR")),
-                    adressebeskyttelse = listOf(
-                        Adressebeskyttelse(ADRESSEBESKYTTELSEGRADERING.UGRADERT)
-                    ),
-                    folkeregisteridentifikator = listOf(PdlFolkeregisteridentifikator(fnr)),
-                    bostedsadresse = listOf(
-                        Bostedsadresse(
-                            vegadresse = Vegadresse(
-                                3L,
-                                "E22",
-                                "A",
-                                "1456",
-                                "Testgate",
-                                kommunenummer = "12",
-                                tilleggsnavn = "Tilleggsnavn",
-                                postnummer = "4971"
-                            )
+            data =
+                PdlPerson(
+                    person =
+                        PdlPersonData(
+                            navn = listOf(PdlNavn(fornavn = "ENGASJERT", etternavn = "FYR")),
+                            adressebeskyttelse =
+                                listOf(
+                                    Adressebeskyttelse(ADRESSEBESKYTTELSEGRADERING.UGRADERT)
+                                ),
+                            folkeregisteridentifikator = listOf(PdlFolkeregisteridentifikator(fnr)),
+                            bostedsadresse =
+                                listOf(
+                                    Bostedsadresse(
+                                        vegadresse =
+                                            Vegadresse(
+                                                3L,
+                                                "E22",
+                                                "A",
+                                                "1456",
+                                                "Testgate",
+                                                kommunenummer = "12",
+                                                tilleggsnavn = "Tilleggsnavn",
+                                                postnummer = "4971"
+                                            )
+                                    )
+                                ),
+                            statsborgerskap = listOf(PdlStatsborgerskap("NOR")),
+                            foedsel = listOf(PdlFødselsDato(fødselsdato.format(DateTimeFormatter.ISO_DATE))),
+                            doedsfall = emptyList(),
+                            sivilstand = emptyList(),
+                            forelderBarnRelasjon = forelderBarnRelasjoner
                         )
-                    ),
-                    statsborgerskap = listOf(PdlStatsborgerskap("NOR")),
-                    foedsel = listOf(PdlFødselsDato(fødselsdato.format(DateTimeFormatter.ISO_DATE))),
-                    doedsfall = emptyList(),
-                    sivilstand = emptyList(),
-                    forelderBarnRelasjon = forelderBarnRelasjoner
-                )
-            ),
+                ),
             errors = null,
             extensions = null
         )

@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController
     ProtectedWithClaims(issuer = EksternBrukerUtils.ISSUER_TOKENX, claimMap = ["acr=Level4"])
 )
 class AutentiseringController {
-
     val innloggetOrdinaerBarnetrygd = Metrics.counter("innlogget.ordinaer.barnetrygd")
     val innloggetUtvidetBarnetrygd = Metrics.counter("innlogget.utvidet.barnetrygd")
     val innloggetKontantstøtte = Metrics.counter("innlogget.kontantstotte")
