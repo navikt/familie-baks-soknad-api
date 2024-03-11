@@ -6,8 +6,10 @@ import no.nav.familie.baks.soknad.api.services.pdl.mapper.PdlMapper.harPersonAdr
 import no.nav.familie.kontrakter.felles.personopplysning.Bostedsadresse
 
 object PdlBarnMapper {
-
-    fun borBarnMedSoeker(soekerAdresse: Bostedsadresse?, barneAdresser: List<Bostedsadresse>): Boolean {
+    fun borBarnMedSoeker(
+        soekerAdresse: Bostedsadresse?,
+        barneAdresser: List<Bostedsadresse>
+    ): Boolean {
         fun adresseListe(bostedsadresse: Bostedsadresse): List<Any?> {
             return listOfNotNull(bostedsadresse.matrikkeladresse, bostedsadresse.vegadresse)
         }
@@ -22,21 +24,28 @@ object PdlBarnMapper {
 
     fun mapBarn(
         barnRespons: PdlHentPersonResponse,
-        soekerAdresse: Bostedsadresse?,
+        soekerAdresse: Bostedsadresse?
     ): Barn {
         return Result.runCatching {
             val barnHarAdresseBeskyttelse = harPersonAdresseBeskyttelse(barnRespons.data.person?.adressebeskyttelse)
             Barn(
                 ident = barnRespons.data.person?.folkeregisteridentifikator?.first()?.identifikasjonsnummer!!,
-                navn = if (barnHarAdresseBeskyttelse) { null } else { barnRespons.data.person.navn.firstOrNull()!!.fulltNavn() },
+                navn =
+                    if (barnHarAdresseBeskyttelse) {
+                        null
+                    } else {
+                        barnRespons.data.person.navn.firstOrNull()!!.fulltNavn()
+                    },
                 fødselsdato = barnRespons.data.person.foedsel.firstOrNull()?.foedselsdato,
-                borMedSøker = when (barnHarAdresseBeskyttelse) {
-                    true -> false
-                    false -> borBarnMedSoeker(
-                        soekerAdresse = soekerAdresse,
-                        barneAdresser = barnRespons.data.person.bostedsadresse.filterNotNull()
-                    )
-                },
+                borMedSøker =
+                    when (barnHarAdresseBeskyttelse) {
+                        true -> false
+                        false ->
+                            borBarnMedSoeker(
+                                soekerAdresse = soekerAdresse,
+                                barneAdresser = barnRespons.data.person.bostedsadresse.filterNotNull()
+                            )
+                    },
                 adressebeskyttelse = barnHarAdresseBeskyttelse
             )
         }.fold(

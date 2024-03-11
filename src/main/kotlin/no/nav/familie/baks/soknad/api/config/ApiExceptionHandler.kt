@@ -12,7 +12,6 @@ import org.springframework.web.client.HttpClientErrorException
 
 @ControllerAdvice
 class ApiExceptionHandler {
-
     @ExceptionHandler(Throwable::class)
     fun handleThrowable(throwable: Throwable): ResponseEntity<Ressurs<Nothing>> {
         val feilmelding = (throwable.cause?.message ?: throwable.message).toString()

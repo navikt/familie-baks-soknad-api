@@ -13,13 +13,16 @@ class LokalLauncher
 /**
  * Denne settes til en fixed port for å kunne bruke samme port som familie-dokument
  */
-private const val mockOauth2ServerPort: String = "11588"
+private const val MOCK_OAUTH2_SERVER_PORT: String = "11588"
 
 fun main(args: Array<String>) {
     SpringApplicationBuilder(LokalLauncher::class.java)
         .profiles(
-            "lokal", "mock-pdl", "mock-kodeverk", "mock-mottak"
+            "lokal",
+            "mock-pdl",
+            "mock-kodeverk",
+            "mock-mottak"
         )
-        .properties(mapOf("mock-oauth2-server.port" to mockOauth2ServerPort))
+        .properties(mapOf("mock-oauth2-server.port" to MOCK_OAUTH2_SERVER_PORT))
         .run(*args)
 }

@@ -1,7 +1,5 @@
 package no.nav.familie.baks.soknad.api.config
 
-import java.time.Duration
-import java.time.temporal.ChronoUnit
 import no.nav.familie.http.interceptor.BearerTokenClientCredentialsClientInterceptor
 import no.nav.familie.http.interceptor.BearerTokenExchangeClientInterceptor
 import no.nav.familie.http.interceptor.ConsumerIdClientInterceptor
@@ -19,9 +17,11 @@ import org.springframework.context.annotation.Import
 import org.springframework.context.annotation.Primary
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter
 import org.springframework.web.client.RestOperations
+import java.time.Duration
+import java.time.temporal.ChronoUnit
 
 @SpringBootConfiguration
-@ComponentScan(ApplicationConfig.pakkenavn)
+@ComponentScan(ApplicationConfig.PAKKENAVN)
 @Import(
     MdcValuesPropagatingClientInterceptor::class,
     ConsumerIdClientInterceptor::class,
@@ -30,7 +30,6 @@ import org.springframework.web.client.RestOperations
 )
 @EnableOAuth2Client(cacheEnabled = true)
 internal class ApplicationConfig {
-
     @Bean
     fun logFilter(): FilterRegistrationBean<LogFilter> {
         logger.info("Registering LogFilter filter")
@@ -87,8 +86,7 @@ internal class ApplicationConfig {
     }
 
     companion object {
-
         private val logger = LoggerFactory.getLogger(ApplicationConfig::class.java)
-        const val pakkenavn = "no.nav.familie.baks.soknad.api"
+        const val PAKKENAVN = "no.nav.familie.baks.soknad.api"
     }
 }

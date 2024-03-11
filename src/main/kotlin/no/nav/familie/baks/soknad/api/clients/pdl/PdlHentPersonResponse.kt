@@ -8,7 +8,6 @@ data class PdlHentPersonResponse(
     val errors: List<PdlError>?,
     val extensions: PdlExtensions?
 ) {
-
     fun harFeil(): Boolean {
         return !errors.isNullOrEmpty()
     }
@@ -55,6 +54,7 @@ data class PdlErrorExtension(
     val details: Details?,
     val classification: String?
 )
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class PdlExtensions(val warnings: List<PdlWarning>?)
 
@@ -77,7 +77,6 @@ data class PdlNavn(
     val mellomnavn: String? = null,
     val etternavn: String
 ) {
-
     fun fulltNavn(): String {
         return when (mellomnavn) {
             null -> "$fornavn $etternavn"

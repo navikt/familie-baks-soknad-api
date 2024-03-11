@@ -18,20 +18,21 @@ import no.nav.familie.kontrakter.ba.søknad.SøknadAdresse
 import no.nav.familie.kontrakter.felles.personopplysning.Bostedsadresse
 
 object PdlMapper {
-
     fun mapTilPersonInfo(
         person: PdlPersonData,
         barn: Set<Barn>,
         kodeverkService: CachedKodeverkService
     ): Person {
-
         val statsborgerskap: List<Statborgerskap> = mapStatsborgerskap(person.statsborgerskap)
         val sivilstandType = mapSivilstandType(person.sivilstand!!)
 
         val harBrukerAdressebeskyttelse = harPersonAdresseBeskyttelse(person.adressebeskyttelse)
-        val adresse = if (!harBrukerAdressebeskyttelse)
-            mapAdresser(person.bostedsadresse.firstOrNull(), kodeverkService)
-        else null
+        val adresse =
+            if (!harBrukerAdressebeskyttelse) {
+                mapAdresser(person.bostedsadresse.firstOrNull(), kodeverkService)
+            } else {
+                null
+            }
 
         return Result.runCatching {
             Person(
@@ -64,7 +65,10 @@ object PdlMapper {
         }
     }
 
-    fun mapAdresser(bostedsadresse: Bostedsadresse?, kodeverkService: CachedKodeverkService): SøknadAdresse? {
+    fun mapAdresser(
+        bostedsadresse: Bostedsadresse?,
+        kodeverkService: CachedKodeverkService
+    ): SøknadAdresse? {
         if (bostedsadresse?.vegadresse != null) {
             return SøknadAdresse(
                 adressenavn = bostedsadresse.vegadresse!!.adressenavn,
@@ -108,7 +112,6 @@ object PdlMapper {
     }
 
     fun harPersonAdresseBeskyttelse(adresseBeskyttelse: List<Adressebeskyttelse>?): Boolean {
-
         if (!adresseBeskyttelse.isNullOrEmpty() &&
             adresseBeskyttelse.any {
                 it.gradering != ADRESSEBESKYTTELSEGRADERING.UGRADERT
