@@ -40,6 +40,7 @@ spec:
     inbound:
       rules:
         - application: familie-ba-soknad
+        - application: familie-ba-soknad-gammel-url
         - application: familie-ks-soknad
     outbound:
       rules:
