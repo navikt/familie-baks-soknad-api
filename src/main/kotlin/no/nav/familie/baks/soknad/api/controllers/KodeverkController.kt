@@ -17,18 +17,19 @@ import org.springframework.web.bind.annotation.RestController
 )
 @RequestMapping(path = ["/api/kodeverk"], produces = [MediaType.APPLICATION_JSON_VALUE])
 class KodeverkController(private val cachedKodeverkService: CachedKodeverkService) {
-
     @GetMapping("/alle-land")
-    fun alleLand(): ResponseEntity<Ressurs<Map<String, String>>> = ResponseEntity.ok(
-        Ressurs.success(
-            cachedKodeverkService.hentAlleLand()
+    fun alleLand(): ResponseEntity<Ressurs<Map<String, String>>> =
+        ResponseEntity.ok(
+            Ressurs.success(
+                cachedKodeverkService.hentAlleLand()
+            )
         )
-    )
 
     @GetMapping("/eos-land")
-    fun eøsLand(): ResponseEntity<Ressurs<Map<String, String>>> = ResponseEntity.ok(
-        Ressurs.success(
-            cachedKodeverkService.hentEØSLand()
+    fun eøsLand(): ResponseEntity<Ressurs<Map<String, String>>> =
+        ResponseEntity.ok(
+            Ressurs.success(
+                cachedKodeverkService.hentEØSLand()
+            )
         )
-    )
 }

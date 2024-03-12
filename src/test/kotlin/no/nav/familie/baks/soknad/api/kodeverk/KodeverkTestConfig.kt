@@ -3,8 +3,6 @@ package no.nav.familie.baks.soknad.api.kodeverk
 import com.fasterxml.jackson.module.kotlin.readValue
 import io.mockk.every
 import io.mockk.mockk
-import java.io.File
-import java.io.IOException
 import no.nav.familie.baks.soknad.api.clients.kodeverk.KodeverkClient
 import no.nav.familie.kontrakter.felles.kodeverk.KodeverkDto
 import no.nav.familie.kontrakter.felles.objectMapper
@@ -12,10 +10,11 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Primary
 import org.springframework.context.annotation.Profile
+import java.io.File
+import java.io.IOException
 
 @Configuration
 class KodeverkTestConfig {
-
     @Bean
     @Profile("mock-kodeverk")
     @Primary

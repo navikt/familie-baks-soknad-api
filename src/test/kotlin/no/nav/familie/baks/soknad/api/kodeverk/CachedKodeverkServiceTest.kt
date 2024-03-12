@@ -2,10 +2,6 @@ package no.nav.familie.baks.soknad.api.kodeverk
 
 import io.mockk.every
 import io.mockk.mockk
-import java.lang.reflect.Modifier
-import java.time.LocalDate
-import kotlin.reflect.full.declaredMemberFunctions
-import kotlin.reflect.jvm.javaMethod
 import no.nav.familie.baks.soknad.api.clients.kodeverk.KodeverkClient
 import no.nav.familie.baks.soknad.api.services.kodeverk.CachedKodeverkService
 import no.nav.familie.kontrakter.felles.kodeverk.BeskrivelseDto
@@ -15,9 +11,12 @@ import no.nav.familie.kontrakter.felles.kodeverk.KodeverkSpråk
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.cache.annotation.Cacheable
+import java.lang.reflect.Modifier
+import java.time.LocalDate
+import kotlin.reflect.full.declaredMemberFunctions
+import kotlin.reflect.jvm.javaMethod
 
 class CachedKodeverkServiceTest {
-
     private val kodeverkClientMock: KodeverkClient = mockk()
     private val kodeverkService = CachedKodeverkService(kodeverkClientMock)
 
@@ -43,9 +42,10 @@ class CachedKodeverkServiceTest {
 
     @Test
     fun `alle public metoder skal være annotert med @Cacheable`() {
-        val publikMetoderUtenCacheable = CachedKodeverkService::class.declaredMemberFunctions
-            .filter { Modifier.isPublic(it.javaMethod!!.modifiers) }
-            .filter { it.annotations.none { it.annotationClass == Cacheable::class } }
+        val publikMetoderUtenCacheable =
+            CachedKodeverkService::class.declaredMemberFunctions
+                .filter { Modifier.isPublic(it.javaMethod!!.modifiers) }
+                .filter { it.annotations.none { it.annotationClass == Cacheable::class } }
         assertThat(publikMetoderUtenCacheable).isEmpty()
     }
 

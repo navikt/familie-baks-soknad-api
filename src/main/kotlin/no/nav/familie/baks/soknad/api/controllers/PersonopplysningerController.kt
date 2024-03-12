@@ -20,9 +20,10 @@ import org.springframework.web.bind.annotation.RestController
 )
 @RequestMapping(path = ["/api"], produces = [MediaType.APPLICATION_JSON_VALUE])
 class PersonopplysningerController(private val personopplysningerService: PersonopplysningerService) {
-
     @GetMapping("/personopplysning")
-    fun personInfo(@RequestParam ytelse: Ytelse): ResponseEntity<Ressurs<Person?>> {
+    fun personInfo(
+        @RequestParam ytelse: Ytelse
+    ): ResponseEntity<Ressurs<Person?>> {
         return ResponseEntity.ok(
             Ressurs.success(
                 personopplysningerService.hentPersoninfo(
