@@ -1,5 +1,12 @@
 version: 2
 
+registries:
+  familie-felles:
+    type: maven-repository
+    url: https://maven.pkg.github.com/navikt/maven-release
+    username: x-access-token
+    password: "${{secrets.READER_TOKEN}}"
+
 updates:
   - package-ecosystem: github-actions
     directory: "/"
@@ -11,3 +18,5 @@ updates:
     schedule:
       interval: "daily"
     open-pull-requests-limit: 10
+    registries:
+      - familie-felles
