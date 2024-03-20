@@ -8,7 +8,7 @@ PDL_API_APIKEY: test-apikey
 MOTTAK_APIKEY: test-apikey
 KODEVERK_API_KEY: test-apikey
 
-TOKEN_X_WELL_KNOWN_URL: http://localhost # bytt ut http://localhost med https://fakedings.intern.dev.nav.no/default/.well-known/openid-configuration dersom du skal kjøre api med mottak lokalt.
+TOKEN_X_WELL_KNOWN_URL: https://fakedings.intern.dev.nav.no/fake/.well-known/openid-configuration
 TOKEN_X_PRIVATE_JWK: '{
  "use": "sig",
  "kty": "RSA",
@@ -28,8 +28,8 @@ AZURE_OPENID_CONFIG_TOKEN_ENDPOINT: http://localhost
 no.nav.security.jwt:
   issuer:
     tokenx:
-      discoveryurl: http://localhost:${mock-oauth2-server.port}/tokenx/.well-known/openid-configuration
-      accepted_audience: familie-app
+      discoveryurl: https://fakedings.intern.dev.nav.no/fake/.well-known/openid-configuration
+      accepted_audience: dev-gcp:teamfamilie:familie-baks-soknad-api
   client:
     registration:
       mottak-clientcredentials:
