@@ -45,7 +45,7 @@ spec:
         - application: familie-baks-mottak
       external:
         - host: pdl-api.prod-fss-pub.nais.io
-        - host: kodeverk.prod-fss-pub.nais.io
+        - host: kodeverk-api.nav.no
         - host: api-gw.oera.no
         - host: login.microsoftonline.com
   vault:
