@@ -43,7 +43,7 @@ tilgang til `read:packages`.
 ## Deploy
 
 Applikasjonen kjører i clusteret `dev-gcp`. Deploy gjøres via Github Actions, der det er satt opp to ulike workflows. Den ene
-workflowen kjører for brancher med en åpen pull request og inkluderer sonar-analyse. Den andre kjører ved push til main.
+workflowen kjører for brancher med en åpen pull request. Den andre kjører ved push til main.
 
 ## Kodestil
 
