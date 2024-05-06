@@ -243,6 +243,8 @@
                             <goal>single</goal>
                         </goals>
                         <configuration>
+                            <source>${java.version}</source>
+                            <target>${jvmTarget}</target>
                             <archive>
                                 <manifest>
                                     <addClasspath>true</addClasspath>
