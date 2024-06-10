@@ -16,7 +16,6 @@ import org.springframework.web.client.RestOperations
 import org.springframework.web.client.exchange
 import java.net.URI
 import no.nav.familie.kontrakter.ba.søknad.v8.Søknad as SøknadV8
-import no.nav.familie.kontrakter.ks.søknad.v3.KontantstøtteSøknad as KontantstøtteSøknadV3
 import no.nav.familie.kontrakter.ks.søknad.v4.KontantstøtteSøknad as KontantstøtteSøknadV4
 
 @Component
@@ -40,11 +39,6 @@ class MottakClient(
     fun sendBarnetrygdSøknad(søknad: SøknadV8): Ressurs<Kvittering> {
         val uri: URI = UriUtil.uri(URI.create(mottakBaseUrl), "api/soknad/v8")
         return håndterSendingAvSøknad(uri = uri, søknad = søknad)
-    }
-
-    fun sendKontantstøtteSøknad(kontantstøtteSøknad: KontantstøtteSøknadV3): Ressurs<Kvittering> {
-        val uri: URI = UriUtil.uri(URI.create(mottakBaseUrl), "api/kontantstotte/soknad/v3")
-        return håndterSendingAvSøknad(uri = uri, søknad = kontantstøtteSøknad)
     }
 
     fun sendKontantstøtteSøknad(kontantstøtteSøknad: KontantstøtteSøknadV4): Ressurs<Kvittering> {
