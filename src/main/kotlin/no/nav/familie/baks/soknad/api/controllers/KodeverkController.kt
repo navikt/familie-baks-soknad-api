@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RestController
     ProtectedWithClaims(issuer = EksternBrukerUtils.ISSUER_TOKENX, claimMap = ["acr=Level4"])
 )
 @RequestMapping(path = ["/api/kodeverk"], produces = [MediaType.APPLICATION_JSON_VALUE])
-class KodeverkController(private val cachedKodeverkService: CachedKodeverkService) {
+class KodeverkController(
+    private val cachedKodeverkService: CachedKodeverkService
+) {
     @GetMapping("/alle-land")
     fun alleLand(): ResponseEntity<Ressurs<Map<String, String>>> =
         ResponseEntity.ok(

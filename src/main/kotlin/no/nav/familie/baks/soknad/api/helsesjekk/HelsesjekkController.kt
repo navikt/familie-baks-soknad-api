@@ -22,34 +22,32 @@ class HelsesjekkController(
     private val kodeverkClient: KodeverkClient
 ) {
     @GetMapping("soknad-api")
-    fun pingApi(): Ressurs<String> {
-        return Ressurs.success("OK")
-    }
+    fun pingApi(): Ressurs<String> = Ressurs.success("OK")
 
     @GetMapping("pdl")
-    fun pingPdl(): Ressurs<String> {
-        return Result.runCatching { pdlClient.ping() }
+    fun pingPdl(): Ressurs<String> =
+        Result
+            .runCatching { pdlClient.ping() }
             .fold(
                 onSuccess = { Ressurs.success("Ping mot PDL-API OK") },
                 onFailure = { throw it }
             )
-    }
 
     @GetMapping("mottak")
-    fun pingMottak(): Ressurs<String> {
-        return Result.runCatching { mottakClient.ping() }
+    fun pingMottak(): Ressurs<String> =
+        Result
+            .runCatching { mottakClient.ping() }
             .fold(
                 onSuccess = { Ressurs.success("Ping mot mottak OK") },
                 onFailure = { throw it }
             )
-    }
 
     @GetMapping("kodeverk")
-    fun pingKodeverk(): Ressurs<String> {
-        return Result.runCatching { kodeverkClient.ping() }
+    fun pingKodeverk(): Ressurs<String> =
+        Result
+            .runCatching { kodeverkClient.ping() }
             .fold(
                 onSuccess = { Ressurs.success("Ping mot kodeverk OK") },
                 onFailure = { throw it }
             )
-    }
 }

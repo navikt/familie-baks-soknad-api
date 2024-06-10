@@ -19,18 +19,73 @@ class PdlGraphqlTest {
     @Test
     fun testDeserialization() {
         val resp = mapper.readValue(File(getFile("pdl/pdlPersonMedFlereRelasjoner.json")), PdlHentPersonResponse::class.java)
-        assertEquals("23058518298", resp.data.person?.folkeregisteridentifikator?.firstOrNull()?.identifikasjonsnummer)
+        assertEquals(
+            "23058518298",
+            resp.data.person
+                ?.folkeregisteridentifikator
+                ?.firstOrNull()
+                ?.identifikasjonsnummer
+        )
         assertEquals(listOf(PdlDoedsafall(null)), resp.data.person?.doedsfall)
-        assertEquals("ENGASJERT", resp.data.person!!.navn.first().fornavn)
-        assertEquals("FYR", resp.data.person!!.navn.first().etternavn)
-        assertEquals(2, resp.data.person!!.forelderBarnRelasjon.size)
-        assertEquals(null, resp.data.person!!.bostedsadresse.first()!!.matrikkeladresse)
-        assertEquals(null, resp.data.person!!.bostedsadresse.first()!!.ukjentBosted)
-        assertEquals(3, resp.data.person!!.bostedsadresse.first()!!.vegadresse!!.matrikkelId)
-        assertEquals("E22", resp.data.person!!.bostedsadresse.first()!!.vegadresse!!.husnummer)
+        assertEquals(
+            "ENGASJERT",
+            resp.data.person!!
+                .navn
+                .first()
+                .fornavn
+        )
+        assertEquals(
+            "FYR",
+            resp.data.person!!
+                .navn
+                .first()
+                .etternavn
+        )
+        assertEquals(
+            2,
+            resp.data.person!!
+                .forelderBarnRelasjon.size
+        )
+        assertEquals(
+            null,
+            resp.data.person!!
+                .bostedsadresse
+                .first()!!
+                .matrikkeladresse
+        )
+        assertEquals(
+            null,
+            resp.data.person!!
+                .bostedsadresse
+                .first()!!
+                .ukjentBosted
+        )
+        assertEquals(
+            3,
+            resp.data.person!!
+                .bostedsadresse
+                .first()!!
+                .vegadresse!!
+                .matrikkelId
+        )
+        assertEquals(
+            "E22",
+            resp.data.person!!
+                .bostedsadresse
+                .first()!!
+                .vegadresse!!
+                .husnummer
+        )
         assertEquals(listOf(Adressebeskyttelse(ADRESSEBESKYTTELSEGRADERING.UGRADERT)), resp.data.person!!.adressebeskyttelse)
         assertEquals(listOf(PdlStatsborgerskap("NOR")), resp.data.person!!.statsborgerskap)
-        assertEquals("GIFT", resp.data.person!!.sivilstand?.firstOrNull()?.type?.name)
+        assertEquals(
+            "GIFT",
+            resp.data.person!!
+                .sivilstand
+                ?.firstOrNull()
+                ?.type
+                ?.name
+        )
     }
 
     @Test
@@ -39,10 +94,37 @@ class PdlGraphqlTest {
         assertTrue(resp.harFeil())
         assertTrue(resp.errorMessages().contains("Fant ikke person"))
         assertTrue(resp.errorMessages().contains("Ikke tilgang"))
-        assertTrue(resp.errors?.get(0)?.extensions?.code.equals("unauthorized"))
-        assertTrue(resp.errors?.get(0)?.extensions?.details?.type.equals("abac-deny"))
-        assertTrue(resp.errors?.get(0)?.extensions?.details?.cause.equals("cause-0001-manglerrolle"))
-        assertTrue(resp.errors?.get(0)?.extensions?.details?.policy.equals("adressebeskyttelse_strengt_fortrolig_adresse"))
+        assertTrue(
+            resp.errors
+                ?.get(0)
+                ?.extensions
+                ?.code
+                .equals("unauthorized")
+        )
+        assertTrue(
+            resp.errors
+                ?.get(0)
+                ?.extensions
+                ?.details
+                ?.type
+                .equals("abac-deny")
+        )
+        assertTrue(
+            resp.errors
+                ?.get(0)
+                ?.extensions
+                ?.details
+                ?.cause
+                .equals("cause-0001-manglerrolle")
+        )
+        assertTrue(
+            resp.errors
+                ?.get(0)
+                ?.extensions
+                ?.details
+                ?.policy
+                .equals("adressebeskyttelse_strengt_fortrolig_adresse")
+        )
     }
 
     @Test
@@ -57,7 +139,5 @@ class PdlGraphqlTest {
         )
     }
 
-    private fun getFile(name: String): String {
-        return javaClass.classLoader?.getResource(name)?.file ?: error("Testkonfigurasjon feil")
-    }
+    private fun getFile(name: String): String = javaClass.classLoader?.getResource(name)?.file ?: error("Testkonfigurasjon feil")
 }

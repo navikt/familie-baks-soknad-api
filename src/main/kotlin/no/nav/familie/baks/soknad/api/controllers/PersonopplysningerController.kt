@@ -19,12 +19,14 @@ import org.springframework.web.bind.annotation.RestController
     ProtectedWithClaims(issuer = EksternBrukerUtils.ISSUER_TOKENX, claimMap = ["acr=Level4"])
 )
 @RequestMapping(path = ["/api"], produces = [MediaType.APPLICATION_JSON_VALUE])
-class PersonopplysningerController(private val personopplysningerService: PersonopplysningerService) {
+class PersonopplysningerController(
+    private val personopplysningerService: PersonopplysningerService
+) {
     @GetMapping("/personopplysning")
     fun personInfo(
         @RequestParam ytelse: Ytelse
-    ): ResponseEntity<Ressurs<Person?>> {
-        return ResponseEntity.ok(
+    ): ResponseEntity<Ressurs<Person?>> =
+        ResponseEntity.ok(
             Ressurs.success(
                 personopplysningerService.hentPersoninfo(
                     EksternBrukerUtils.hentFnrFraToken(),
@@ -32,5 +34,4 @@ class PersonopplysningerController(private val personopplysningerService: Person
                 )
             )
         )
-    }
 }

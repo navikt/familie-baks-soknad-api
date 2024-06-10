@@ -8,20 +8,16 @@ data class PdlHentPersonResponse(
     val errors: List<PdlError>?,
     val extensions: PdlExtensions?
 ) {
-    fun harFeil(): Boolean {
-        return !errors.isNullOrEmpty()
-    }
+    fun harFeil(): Boolean = !errors.isNullOrEmpty()
 
-    fun harAdvarsel(): Boolean {
-        return !extensions?.warnings.isNullOrEmpty()
-    }
+    fun harAdvarsel(): Boolean = !extensions?.warnings.isNullOrEmpty()
 
-    fun errorMessages(): String {
-        return errors?.joinToString { it -> it.message } ?: ""
-    }
+    fun errorMessages(): String = errors?.joinToString { it -> it.message } ?: ""
 }
 
-data class PdlPerson(val person: PdlPersonData?)
+data class PdlPerson(
+    val person: PdlPersonData?
+)
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class PdlPersonData(
@@ -37,10 +33,14 @@ data class PdlPersonData(
 )
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-data class PdlFolkeregisteridentifikator(val identifikasjonsnummer: String?)
+data class PdlFolkeregisteridentifikator(
+    val identifikasjonsnummer: String?
+)
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-data class PdlFødselsDato(val foedselsdato: String?)
+data class PdlFødselsDato(
+    val foedselsdato: String?
+)
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class PdlError(
@@ -56,13 +56,22 @@ data class PdlErrorExtension(
 )
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-data class PdlExtensions(val warnings: List<PdlWarning>?)
+data class PdlExtensions(
+    val warnings: List<PdlWarning>?
+)
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-data class PdlWarning(val details: Any?, val id: String?, val message: String?, val query: String?)
+data class PdlWarning(
+    val details: Any?,
+    val id: String?,
+    val message: String?,
+    val query: String?
+)
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-data class PdlDoedsafall(val doedsdato: String?)
+data class PdlDoedsafall(
+    val doedsdato: String?
+)
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class Details(
@@ -77,12 +86,11 @@ data class PdlNavn(
     val mellomnavn: String? = null,
     val etternavn: String
 ) {
-    fun fulltNavn(): String {
-        return when (mellomnavn) {
+    fun fulltNavn(): String =
+        when (mellomnavn) {
             null -> "$fornavn $etternavn"
             else -> "$fornavn $mellomnavn $etternavn"
         }
-    }
 }
 
 @JsonIgnoreProperties(ignoreUnknown = true)
