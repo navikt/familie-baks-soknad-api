@@ -39,7 +39,9 @@ class PersonopplysningerService(
         val barnTilSoeker =
             hentBarnTilSoeker(
                 fnrBarn = PdlMapper.mapFnrBarn(response.data.person!!.forelderBarnRelasjon),
-                sokerAdresse = response.data.person.bostedsadresse.firstOrNull(),
+                sokerAdresse =
+                    response.data.person.bostedsadresse
+                        .firstOrNull(),
                 ytelse
             )
 
@@ -52,22 +54,24 @@ class PersonopplysningerService(
         fnrBarn: List<String>,
         sokerAdresse: Bostedsadresse?,
         ytelse: Ytelse
-    ): Set<Barn> {
-        return fnrBarn
+    ): Set<Barn> =
+        fnrBarn
             .map { ident -> pdlApp2AppClient.hentPerson(ident, ytelse) }
             .filter {
                 erBarnILive(it.data.person?.doedsfall) &&
                     erBarnetsAlderUnderAldersgrenseForYtelse(
-                        parseIsoDato(it.data.person?.foedsel?.firstOrNull()?.foedselsdato),
+                        parseIsoDato(
+                            it.data.person
+                                ?.foedsel
+                                ?.firstOrNull()
+                                ?.foedselsdato
+                        ),
                         ytelse
                     )
-            }
-            .map { PdlBarnMapper.mapBarn(it, sokerAdresse) }.toSet()
-    }
+            }.map { PdlBarnMapper.mapBarn(it, sokerAdresse) }
+            .toSet()
 
-    private fun erBarnILive(doedsfall: List<PdlDoedsafall>?): Boolean {
-        return doedsfall?.firstOrNull()?.doedsdato == null
-    }
+    private fun erBarnILive(doedsfall: List<PdlDoedsafall>?): Boolean = doedsfall?.firstOrNull()?.doedsdato == null
 
     fun erBarnetsAlderUnderAldersgrenseForYtelse(
         fødselsdato: LocalDate?,
@@ -80,7 +84,5 @@ class PersonopplysningerService(
         return alder.toTotalMonths() < ytelse.aldersgrense.toTotalMonths()
     }
 
-    fun parseIsoDato(dato: String?): LocalDate? {
-        return LocalDate.parse(dato, DateTimeFormatter.ISO_DATE)
-    }
+    fun parseIsoDato(dato: String?): LocalDate? = LocalDate.parse(dato, DateTimeFormatter.ISO_DATE)
 }

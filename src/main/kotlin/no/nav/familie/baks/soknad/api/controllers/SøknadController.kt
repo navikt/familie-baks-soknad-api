@@ -20,7 +20,9 @@ import no.nav.familie.kontrakter.ks.søknad.v4.KontantstøtteSøknad as Kontants
 @RequiredIssuers(
     ProtectedWithClaims(issuer = EksternBrukerUtils.ISSUER_TOKENX, claimMap = ["acr=Level4"])
 )
-class SøknadController(private val mottakClient: MottakClient) {
+class SøknadController(
+    private val mottakClient: MottakClient
+) {
     @PostMapping("/soknad/v8")
     fun søknadsmottakBarnetrygd(
         @RequestBody(required = true) søknad: BarnetrygdSøknadV8
@@ -31,7 +33,9 @@ class SøknadController(private val mottakClient: MottakClient) {
                     søknad.søker.copy(
                         ident =
                             søknad.søker.ident.copy(
-                                verdi = søknad.søker.ident.verdi.mapValues { EksternBrukerUtils.hentFnrFraToken() }
+                                verdi =
+                                    søknad.søker.ident.verdi
+                                        .mapValues { EksternBrukerUtils.hentFnrFraToken() }
                             )
                     )
             )
@@ -50,7 +54,9 @@ class SøknadController(private val mottakClient: MottakClient) {
                     kontantstøtteSøknad.søker.copy(
                         ident =
                             kontantstøtteSøknad.søker.ident.copy(
-                                verdi = kontantstøtteSøknad.søker.ident.verdi.mapValues { EksternBrukerUtils.hentFnrFraToken() }
+                                verdi =
+                                    kontantstøtteSøknad.søker.ident.verdi
+                                        .mapValues { EksternBrukerUtils.hentFnrFraToken() }
                             )
                     )
             )

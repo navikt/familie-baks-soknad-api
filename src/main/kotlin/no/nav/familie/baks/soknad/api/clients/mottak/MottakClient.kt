@@ -22,8 +22,7 @@ import no.nav.familie.kontrakter.ks.søknad.v4.KontantstøtteSøknad as Kontants
 class MottakClient(
     @Value("\${FAMILIE_BAKS_MOTTAK_URL}") private val mottakBaseUrl: String,
     @Qualifier("tokenExchange") private val restOperations: RestOperations
-) :
-    AbstractPingableRestClient(restOperations, "integrasjon") {
+) : AbstractPingableRestClient(restOperations, "integrasjon") {
     override val pingUri: URI = UriUtil.uri(URI.create(mottakBaseUrl), "api/soknad")
 
     override fun ping() {

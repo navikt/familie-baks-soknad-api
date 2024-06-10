@@ -34,36 +34,37 @@ object PdlMapper {
                 null
             }
 
-        return Result.runCatching {
-            Person(
-                ident = person.folkeregisteridentifikator.firstOrNull()?.identifikasjonsnummer!!,
-                navn = person.navn.first().fulltNavn(),
-                statsborgerskap = statsborgerskap,
-                sivilstand = Sivilstand(sivilstandType),
-                adresse = adresse,
-                barn = barn,
-                adressebeskyttelse = harBrukerAdressebeskyttelse
+        return Result
+            .runCatching {
+                Person(
+                    ident = person.folkeregisteridentifikator.firstOrNull()?.identifikasjonsnummer!!,
+                    navn = person.navn.first().fulltNavn(),
+                    statsborgerskap = statsborgerskap,
+                    sivilstand = Sivilstand(sivilstandType),
+                    adresse = adresse,
+                    barn = barn,
+                    adressebeskyttelse = harBrukerAdressebeskyttelse
+                )
+            }.fold(
+                onSuccess = { it },
+                onFailure = { throw it }
             )
-        }.fold(
-            onSuccess = { it },
-            onFailure = { throw it }
-        )
     }
 
-    fun mapFnrBarn(familierelasjoner: List<PdlFamilierelasjon>): List<String> {
-        return familierelasjoner.filter { relasjon -> relasjon.relatertPersonsRolle == FAMILIERELASJONSROLLE.BARN }
+    fun mapFnrBarn(familierelasjoner: List<PdlFamilierelasjon>): List<String> =
+        familierelasjoner
+            .filter { relasjon -> relasjon.relatertPersonsRolle == FAMILIERELASJONSROLLE.BARN }
             .mapNotNull { it.relatertPersonsIdent }
-    }
 
-    private fun mapStatsborgerskap(statsborgerskap: List<PdlStatsborgerskap>): List<Statborgerskap> {
-        return statsborgerskap.map {
-            Statborgerskap(
-                landkode = it.land
-            )
-        }.distinctBy {
-            it.landkode
-        }
-    }
+    private fun mapStatsborgerskap(statsborgerskap: List<PdlStatsborgerskap>): List<Statborgerskap> =
+        statsborgerskap
+            .map {
+                Statborgerskap(
+                    landkode = it.land
+                )
+            }.distinctBy {
+                it.landkode
+            }
 
     fun mapAdresser(
         bostedsadresse: Bostedsadresse?,

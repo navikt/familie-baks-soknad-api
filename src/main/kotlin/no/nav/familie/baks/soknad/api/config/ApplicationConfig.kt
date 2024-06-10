@@ -41,49 +41,43 @@ internal class ApplicationConfig {
 
     @Bean
     @Primary
-    fun restTemplate(consumerIdClientInterceptor: ConsumerIdClientInterceptor): RestOperations {
-        return RestTemplateBuilder()
+    fun restTemplate(consumerIdClientInterceptor: ConsumerIdClientInterceptor): RestOperations =
+        RestTemplateBuilder()
             .interceptors(
                 consumerIdClientInterceptor,
                 MdcValuesPropagatingClientInterceptor()
-            )
-            .additionalMessageConverters(MappingJackson2HttpMessageConverter(objectMapper))
+            ).additionalMessageConverters(MappingJackson2HttpMessageConverter(objectMapper))
             .build()
-    }
 
     @Bean("clientCredential")
     fun clientCredentialRestTemplateMedApiKey(
         consumerIdClientInterceptor: ConsumerIdClientInterceptor,
         bearerTokenClientCredentialsClientInterceptor: BearerTokenClientCredentialsClientInterceptor,
         mdcValuesPropagatingClientInterceptor: MdcValuesPropagatingClientInterceptor
-    ): RestOperations {
-        return RestTemplateBuilder()
+    ): RestOperations =
+        RestTemplateBuilder()
             .setConnectTimeout(Duration.of(5, ChronoUnit.SECONDS))
             .setReadTimeout(Duration.of(25, ChronoUnit.SECONDS))
             .interceptors(
                 consumerIdClientInterceptor,
                 bearerTokenClientCredentialsClientInterceptor,
                 mdcValuesPropagatingClientInterceptor
-            )
-            .build()
-    }
+            ).build()
 
     @Bean("tokenExchange")
     fun tokenExchangeRestTemplate(
         bearerTokenExchangeClientInterceptor: BearerTokenExchangeClientInterceptor,
         mdcValuesPropagatingClientInterceptor: MdcValuesPropagatingClientInterceptor,
         consumerIdClientInterceptor: ConsumerIdClientInterceptor
-    ): RestOperations {
-        return RestTemplateBuilder()
+    ): RestOperations =
+        RestTemplateBuilder()
             .setConnectTimeout(Duration.of(5, ChronoUnit.SECONDS))
             .setReadTimeout(Duration.of(25, ChronoUnit.SECONDS))
             .interceptors(
                 bearerTokenExchangeClientInterceptor,
                 mdcValuesPropagatingClientInterceptor,
                 consumerIdClientInterceptor
-            )
-            .build()
-    }
+            ).build()
 
     companion object {
         private val logger = LoggerFactory.getLogger(ApplicationConfig::class.java)

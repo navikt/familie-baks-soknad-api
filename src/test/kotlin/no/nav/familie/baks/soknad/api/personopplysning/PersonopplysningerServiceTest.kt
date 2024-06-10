@@ -230,9 +230,7 @@ class PersonopplysningerServiceTest {
             KodeverkDto::class.java
         )
 
-    private fun getFile(name: String): String {
-        return javaClass.classLoader?.getResource(name)?.file ?: error("Testkonfigurasjon feil")
-    }
+    private fun getFile(name: String): String = javaClass.classLoader?.getResource(name)?.file ?: error("Testkonfigurasjon feil")
 
     @Test
     fun `hentPerson returnerer rett adresse fra pdl`() {
@@ -310,7 +308,11 @@ class PersonopplysningerServiceTest {
         every { barnePdlClient.hentPerson("23042018298", Ytelse.KONTANTSTOTTE) } returns
             lagPdlHentPersonRespons(
                 "23042018298",
-                LocalDate.now().minusYears(2).minusMonths(6).plusDays(1)
+                LocalDate
+                    .now()
+                    .minusYears(2)
+                    .minusMonths(6)
+                    .plusDays(1)
             )
         every { pdlClient.hentPerson("23058518298", Ytelse.KONTANTSTOTTE) } returns
             lagPdlHentPersonRespons(
@@ -332,8 +334,8 @@ class PersonopplysningerServiceTest {
         fnr: String,
         fødselsdato: LocalDate,
         forelderBarnRelasjoner: List<PdlFamilierelasjon> = emptyList()
-    ): PdlHentPersonResponse {
-        return PdlHentPersonResponse(
+    ): PdlHentPersonResponse =
+        PdlHentPersonResponse(
             data =
                 PdlPerson(
                     person =
@@ -370,5 +372,4 @@ class PersonopplysningerServiceTest {
             errors = null,
             extensions = null
         )
-    }
 }

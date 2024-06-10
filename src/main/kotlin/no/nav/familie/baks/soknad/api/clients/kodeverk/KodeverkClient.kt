@@ -13,20 +13,15 @@ import java.net.URI
 class KodeverkClient(
     @Value("\${KODEVERK_URL}") private val kodeverkBaseUrl: String,
     restOperations: RestOperations
-) : AbstractPingableRestClient(restOperations, "integrasjon"), Pingable {
+) : AbstractPingableRestClient(restOperations, "integrasjon"),
+    Pingable {
     private val kodeverkUri: URI = URI.create(kodeverkBaseUrl)
 
-    fun hentAlleLand(): KodeverkDto {
-        return getForEntity(uri = kodeverkUri("Landkoder"))
-    }
+    fun hentAlleLand(): KodeverkDto = getForEntity(uri = kodeverkUri("Landkoder"))
 
-    fun hentEØSLand(): KodeverkDto {
-        return getForEntity(uri = kodeverkUri("EEAFreg"))
-    }
+    fun hentEØSLand(): KodeverkDto = getForEntity(uri = kodeverkUri("EEAFreg"))
 
-    fun hentPostnummer(): KodeverkDto {
-        return getForEntity(uri = kodeverkUri("Postnummer"))
-    }
+    fun hentPostnummer(): KodeverkDto = getForEntity(uri = kodeverkUri("Postnummer"))
 
     fun kodeverkUri(
         kodeverksnavn: String,

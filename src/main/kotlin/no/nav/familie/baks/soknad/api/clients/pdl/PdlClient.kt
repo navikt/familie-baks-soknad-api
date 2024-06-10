@@ -17,15 +17,19 @@ import java.net.URI
 abstract class PdlClient(
     pdlBaseUrl: String,
     private val restOperations: RestOperations
-) :
-    AbstractPingableRestClient(restOperations, "pdl.integrasjon"), Pingable {
+) : AbstractPingableRestClient(restOperations, "pdl.integrasjon"),
+    Pingable {
     private val pdlUri = UriUtil.uri(base = URI.create(pdlBaseUrl), path = "graphql")
 
     fun hentPerson(
         personIdent: String,
         ytelse: Ytelse
     ): PdlHentPersonResponse {
-        val query = this::class.java.getResource("/pdl/hent-person-med-relasjoner.graphql").readText().graphqlCompatible()
+        val query =
+            this::class.java
+                .getResource("/pdl/hent-person-med-relasjoner.graphql")
+                .readText()
+                .graphqlCompatible()
 
         val pdlPersonRequest =
             PdlPersonRequest(
@@ -60,12 +64,11 @@ abstract class PdlClient(
         return response
     }
 
-    private fun httpHeaders(ytelse: Ytelse): HttpHeaders {
-        return HttpHeaders().apply {
+    private fun httpHeaders(ytelse: Ytelse): HttpHeaders =
+        HttpHeaders().apply {
             add("Tema", ytelse.tema.name)
             add("behandlingsnummer", ytelse.tema.behandlingsnummer)
         }
-    }
 
     override val pingUri: URI
         get() = pdlUri
@@ -85,6 +88,4 @@ abstract class PdlClient(
     }
 }
 
-fun String.graphqlCompatible(): String {
-    return StringUtils.normalizeSpace(this.replace("\n", ""))
-}
+fun String.graphqlCompatible(): String = StringUtils.normalizeSpace(this.replace("\n", ""))
