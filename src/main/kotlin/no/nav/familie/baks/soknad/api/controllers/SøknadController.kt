@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import no.nav.familie.kontrakter.ba.søknad.v8.Søknad as BarnetrygdSøknadV8
-import no.nav.familie.kontrakter.ks.søknad.v3.KontantstøtteSøknad as KontantstøtteSøknadV3
 import no.nav.familie.kontrakter.ks.søknad.v4.KontantstøtteSøknad as KontantstøtteSøknadV4
 
 @RestController
@@ -38,25 +37,6 @@ class SøknadController(private val mottakClient: MottakClient) {
             )
 
         return ResponseEntity.ok().body(mottakClient.sendBarnetrygdSøknad(søknadMedIdentFraToken))
-    }
-
-    @PostMapping("/soknad/kontantstotte/v3")
-    fun søknadsmottakKontantstøtte(
-        @RequestBody(required = true)
-        kontantstøtteSøknad: KontantstøtteSøknadV3
-    ): ResponseEntity<Ressurs<Kvittering>> {
-        val kontantstøtteSøknadMedIdentFraToken =
-            kontantstøtteSøknad.copy(
-                søker =
-                    kontantstøtteSøknad.søker.copy(
-                        ident =
-                            kontantstøtteSøknad.søker.ident.copy(
-                                verdi = kontantstøtteSøknad.søker.ident.verdi.mapValues { EksternBrukerUtils.hentFnrFraToken() }
-                            )
-                    )
-            )
-
-        return ResponseEntity.ok().body(mottakClient.sendKontantstøtteSøknad(kontantstøtteSøknadMedIdentFraToken))
     }
 
     @PostMapping("/soknad/kontantstotte/v4")
