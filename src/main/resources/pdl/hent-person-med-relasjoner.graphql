@@ -8,7 +8,7 @@ query ($ident: ID!) {
         folkeregisteridentifikator{
             identifikasjonsnummer
         }
-        foedsel {
+        foedselsdato {
             foedselsdato
         }
         doedsfall {
