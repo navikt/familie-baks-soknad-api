@@ -14,13 +14,12 @@ import java.net.URI
 class KontoregisterClient(
     @Value("\${KONTOREGISTER_URL}") private val kontoregisterBaseUrl: String,
     @Qualifier("tokenExchange") private val restOperations: RestOperations
-) :
-    AbstractRestClient(restOperations, "kontoregister") {
-    fun hentKontonummer(kontohaver: KontoregisterRequestDto): Ressurs<KontoregisterResponseDto> {
+) : AbstractRestClient(restOperations, "kontoregister") {
+    fun hentKontonummer(kontohaver: String): Ressurs<KontoregisterResponseDto> {
         val uri: URI = UriUtil.uri(URI.create(kontoregisterBaseUrl), "hent-aktiv-konto")
         return postForEntity<Ressurs<KontoregisterResponseDto>>(
             uri = uri,
-            payload = kontohaver
+            payload = KontoregisterRequestDto(kontohaver)
         )
     }
 
@@ -29,8 +28,17 @@ class KontoregisterClient(
     }
 }
 
-data class KontoregisterRequestDto(val kontohaver: String)
+data class KontoregisterRequestDto(
+    val kontohaver: String
+)
 
-data class KontoregisterResponseDto(val kontonummer: String, val utenlandskKontoInfo: UtenlandskKontoInfo)
+data class KontoregisterResponseDto(
+    val kontonummer: String,
+    val utenlandskKontoInfo: UtenlandskKontoInfo
+)
 
-data class UtenlandskKontoInfo(val banknavn: String, val bankkode: String, val bankLandkode: String)
+data class UtenlandskKontoInfo(
+    val banknavn: String,
+    val bankkode: String,
+    val bankLandkode: String
+)
