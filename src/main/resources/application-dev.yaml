@@ -11,5 +11,8 @@ no.nav.security.jwt:
       mottak-clientcredentials:
         token-exchange:
           audience: dev-gcp:teamfamilie:familie-baks-mottak
+      kontoregister-clientcredentials:
+        token-exchange:
+          audience: dev-gcp:okonomi:sokos-kontoregister-person
 
 logging.level.no.nav.security: INFO
