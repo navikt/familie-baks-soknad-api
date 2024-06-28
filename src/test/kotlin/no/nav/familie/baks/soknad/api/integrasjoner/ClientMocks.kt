@@ -106,7 +106,7 @@ class ClientMocks {
                                             type = SIVILSTANDSTYPE.GIFT
                                         )
                                     ),
-                                foedsel =
+                                foedselsdato =
                                     listOf(
                                         PdlFødselsDato(
                                             "2020-02-25"
@@ -140,7 +140,7 @@ class ClientMocks {
                         person =
                             PdlPersonData(
                                 navn = listOf(PdlNavn("Barn", etternavn = "Barnessen III")),
-                                foedsel = listOf(PdlFødselsDato("2022-01-01")),
+                                foedselsdato = listOf(PdlFødselsDato("2022-01-01")),
                                 bostedsadresse =
                                     listOf(
                                         Bostedsadresse(
@@ -179,7 +179,7 @@ class ClientMocks {
                         person =
                             PdlPersonData(
                                 navn = listOf(PdlNavn("Barn", etternavn = "Barnessen II")),
-                                foedsel = listOf(PdlFødselsDato("2008-10-01")),
+                                foedselsdato = listOf(PdlFødselsDato("2008-10-01")),
                                 bostedsadresse =
                                     listOf(
                                         Bostedsadresse(
@@ -219,7 +219,7 @@ class ClientMocks {
                         person =
                             PdlPersonData(
                                 navn = listOf(PdlNavn("Barn", etternavn = "Barnessen IV")),
-                                foedsel = listOf(PdlFødselsDato("2008-10-01")),
+                                foedselsdato = listOf(PdlFødselsDato("2008-10-01")),
                                 bostedsadresse =
                                     listOf(
                                         Bostedsadresse(

@@ -62,7 +62,7 @@ class PersonopplysningerService(
                     erBarnetsAlderUnderAldersgrenseForYtelse(
                         parseIsoDato(
                             it.data.person
-                                ?.foedsel
+                                ?.foedselsdato
                                 ?.firstOrNull()
                                 ?.foedselsdato
                         ),

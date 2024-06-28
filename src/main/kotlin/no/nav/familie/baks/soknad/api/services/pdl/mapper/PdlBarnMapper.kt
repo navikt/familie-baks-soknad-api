@@ -43,7 +43,7 @@ object PdlBarnMapper {
                                 .fulltNavn()
                         },
                     fødselsdato =
-                        barnRespons.data.person.foedsel
+                        barnRespons.data.person.foedselsdato
                             .firstOrNull()
                             ?.foedselsdato,
                     borMedSøker =

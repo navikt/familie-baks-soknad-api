@@ -363,7 +363,7 @@ class PersonopplysningerServiceTest {
                                     )
                                 ),
                             statsborgerskap = listOf(PdlStatsborgerskap("NOR")),
-                            foedsel = listOf(PdlFødselsDato(fødselsdato.format(DateTimeFormatter.ISO_DATE))),
+                            foedselsdato = listOf(PdlFødselsDato(fødselsdato.format(DateTimeFormatter.ISO_DATE))),
                             doedsfall = emptyList(),
                             sivilstand = emptyList(),
                             forelderBarnRelasjon = forelderBarnRelasjoner
