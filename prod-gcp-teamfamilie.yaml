@@ -43,6 +43,8 @@ spec:
     outbound:
       rules:
         - application: familie-baks-mottak
+        - application: sokos-kontoregister-person
+          namespace: okonomi
       external:
         - host: pdl-api.prod-fss-pub.nais.io
         - host: kodeverk-api.nav.no
