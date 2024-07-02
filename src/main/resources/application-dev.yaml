@@ -3,6 +3,7 @@ PDL_URL: https://pdl-api.dev-fss-pub.nais.io
 PDL_AUDIENCE: dev-fss:pdl:pdl-api
 PDL_SCOPE: api://dev-fss.pdl.pdl-api/.default
 KODEVERK_URL: https://kodeverk-api.nav.no
+KONTOREGISTER_URL: http://sokos-kontoregister-person.okonomi/api/borger/v1
 
 no.nav.security.jwt:
   client:
@@ -10,5 +11,8 @@ no.nav.security.jwt:
       mottak-clientcredentials:
         token-exchange:
           audience: dev-gcp:teamfamilie:familie-baks-mottak
+      kontoregister-clientcredentials:
+        token-exchange:
+          audience: dev-gcp:okonomi:sokos-kontoregister-person
 
 logging.level.no.nav.security: INFO
