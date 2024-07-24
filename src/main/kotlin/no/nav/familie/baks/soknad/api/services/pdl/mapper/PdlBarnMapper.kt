@@ -27,23 +27,25 @@ object PdlBarnMapper {
     ): Barn =
         Result
             .runCatching {
-                val barnHarAdresseBeskyttelse = harPersonAdresseBeskyttelse(barnRespons.data.person?.adressebeskyttelse)
+                val pdlPersonDataBarn = barnRespons.data.person!!
+                val barnHarAdresseBeskyttelse = harPersonAdresseBeskyttelse(pdlPersonDataBarn.adressebeskyttelse)
                 Barn(
                     ident =
-                        barnRespons.data.person
-                            ?.folkeregisteridentifikator
-                            ?.first()
-                            ?.identifikasjonsnummer!!,
+                        when (barnHarAdresseBeskyttelse) {
+                            true -> null
+                            false ->
+                                pdlPersonDataBarn.folkeregisteridentifikator.first().identifikasjonsnummer!!
+                        },
                     navn =
-                        if (barnHarAdresseBeskyttelse) {
-                            null
-                        } else {
-                            barnRespons.data.person.navn
-                                .firstOrNull()!!
-                                .fulltNavn()
+                        when (barnHarAdresseBeskyttelse) {
+                            true -> null
+                            false ->
+                                pdlPersonDataBarn.navn
+                                    .firstOrNull()!!
+                                    .fulltNavn()
                         },
                     fødselsdato =
-                        barnRespons.data.person.foedselsdato
+                        pdlPersonDataBarn.foedselsdato
                             .firstOrNull()
                             ?.foedselsdato,
                     borMedSøker =
@@ -53,7 +55,7 @@ object PdlBarnMapper {
                                 borBarnMedSoeker(
                                     soekerAdresse = soekerAdresse,
                                     barneAdresser =
-                                        barnRespons.data.person.bostedsadresse
+                                        pdlPersonDataBarn.bostedsadresse
                                             .filterNotNull()
                                 )
                         },
