@@ -253,8 +253,7 @@ class PersonopplysningerServiceTest {
         every { kodeverkClient.hentPostnummer() } returns kodeverkMockFor("kodeverkPostnummerRespons")
 
         val person = personopplysningerService.hentPersoninfo("1", Ytelse.BARNETRYGD)
-        assertTrue(person.barn.toList()[0].adressebeskyttelse)
-        assertFalse(person.barn.toList()[0].borMedSøker)
+        assertTrue(person.barn.isEmpty())
     }
 
     @Test
@@ -275,9 +274,7 @@ class PersonopplysningerServiceTest {
         every { kodeverkClient.hentPostnummer() } returns kodeverkMockFor("kodeverkPostnummerRespons")
 
         val person = personopplysningerService.hentPersoninfo("1", Ytelse.BARNETRYGD)
-        assertTrue(person.barn.toList()[0].adressebeskyttelse)
-        assertEquals(person.barn.toList()[0].navn, null)
-        assertFalse(person.barn.toList()[0].borMedSøker)
+        assertTrue(person.barn.isEmpty())
     }
 
     @Test

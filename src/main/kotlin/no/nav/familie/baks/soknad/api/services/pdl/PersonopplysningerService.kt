@@ -58,6 +58,8 @@ class PersonopplysningerService(
         fnrBarn
             .map { ident -> pdlApp2AppClient.hentPerson(ident, ytelse) }
             .filter {
+                !PdlMapper.harPersonAdresseBeskyttelse(it.data.person?.adressebeskyttelse)
+            }.filter {
                 erBarnILive(it.data.person?.doedsfall) &&
                     erBarnetsAlderUnderAldersgrenseForYtelse(
                         parseIsoDato(
