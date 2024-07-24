@@ -253,8 +253,11 @@ class PersonopplysningerServiceTest {
         every { kodeverkClient.hentPostnummer() } returns kodeverkMockFor("kodeverkPostnummerRespons")
 
         val person = personopplysningerService.hentPersoninfo("1", Ytelse.BARNETRYGD)
-        assertTrue(person.barn.toList()[0].adressebeskyttelse)
-        assertFalse(person.barn.toList()[0].borMedSøker)
+        val barn = person.barn.toList()[0]
+        assertTrue(barn.adressebeskyttelse)
+        assertFalse(barn.borMedSøker)
+        assertEquals(barn.navn, null)
+        assertEquals(barn.ident, null)
     }
 
     @Test
