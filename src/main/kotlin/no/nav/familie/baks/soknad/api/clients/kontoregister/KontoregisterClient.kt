@@ -33,12 +33,5 @@ data class KontoregisterRequestDto(
 )
 
 data class KontoregisterResponseDto(
-    val kontonummer: String,
-    val utenlandskKontoInfo: UtenlandskKontoInfo
-)
-
-data class UtenlandskKontoInfo(
-    val banknavn: String,
-    val bankkode: String,
-    val bankLandkode: String
+    val kontonummer: String
 )
