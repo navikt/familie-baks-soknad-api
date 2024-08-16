@@ -17,10 +17,17 @@ class KontoregisterClient(
 ) : AbstractRestClient(restOperations, "kontoregister") {
     fun hentKontonummer(kontohaver: String): Ressurs<KontoregisterResponseDto> {
         val uri: URI = UriUtil.uri(URI.create(kontoregisterBaseUrl), "hent-aktiv-konto")
-        return postForEntity<Ressurs<KontoregisterResponseDto>>(
-            uri = uri,
-            payload = KontoregisterRequestDto(kontohaver)
-        )
+        val postForEntity =
+            postForEntity<KontoregisterResponseDto>(
+                uri = uri,
+                payload = KontoregisterRequestDto(kontohaver)
+            )
+
+        return if (postForEntity.kontonummer.isNotEmpty()) {
+            Ressurs.success(data = postForEntity)
+        } else {
+            Ressurs.failure("Klarte ikke finne kontonummer")
+        }
     }
 
     companion object {
