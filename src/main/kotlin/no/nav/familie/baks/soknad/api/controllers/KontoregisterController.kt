@@ -23,6 +23,17 @@ class KontoregisterController(
     @GetMapping("/hent-kontonr")
     fun hentKontoForInnloggetBruker(): ResponseEntity<Ressurs<KontoregisterResponseDto>> {
         val fnr = EksternBrukerUtils.hentFnrFraToken()
-        return ResponseEntity.ok().body(kontoregisterClient.hentKontonummer(fnr))
+        val kontoregisterResponseDto = kontoregisterClient.hentKontonummer(kontohaver = fnr)
+
+        val body =
+            if (kontoregisterResponseDto.kontonummer.isNotEmpty()) {
+                Ressurs.success(
+                    data = kontoregisterResponseDto
+                )
+            } else {
+                Ressurs.failure("Klarte ikke finne kontonummer")
+            }
+
+        return ResponseEntity.ok().body(body)
     }
 }

@@ -2,7 +2,6 @@ package no.nav.familie.baks.soknad.api.clients.mottak
 
 import no.nav.familie.http.client.AbstractRestClient
 import no.nav.familie.http.util.UriUtil
-import no.nav.familie.kontrakter.felles.Ressurs
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.beans.factory.annotation.Value
@@ -15,19 +14,12 @@ class KontoregisterClient(
     @Value("\${KONTOREGISTER_URL}") private val kontoregisterBaseUrl: String,
     @Qualifier("tokenExchange") private val restOperations: RestOperations
 ) : AbstractRestClient(restOperations, "kontoregister") {
-    fun hentKontonummer(kontohaver: String): Ressurs<KontoregisterResponseDto> {
+    fun hentKontonummer(kontohaver: String): KontoregisterResponseDto {
         val uri: URI = UriUtil.uri(URI.create(kontoregisterBaseUrl), "hent-aktiv-konto")
-        val postForEntity =
-            postForEntity<KontoregisterResponseDto>(
-                uri = uri,
-                payload = KontoregisterRequestDto(kontohaver)
-            )
-
-        return if (postForEntity.kontonummer.isNotEmpty()) {
-            Ressurs.success(data = postForEntity)
-        } else {
-            Ressurs.failure("Klarte ikke finne kontonummer")
-        }
+        return postForEntity<KontoregisterResponseDto>(
+            uri = uri,
+            payload = KontoregisterRequestDto(kontohaver)
+        )
     }
 
     companion object {
