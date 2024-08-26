@@ -4,7 +4,6 @@ import io.mockk.every
 import io.mockk.mockk
 import no.nav.familie.baks.soknad.api.clients.mottak.KontoregisterClient
 import no.nav.familie.baks.soknad.api.clients.mottak.KontoregisterResponseDto
-import no.nav.familie.kontrakter.felles.Ressurs
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Primary
@@ -17,11 +16,11 @@ class KontoregisterTestConfig {
     @Primary
     fun kontoregisterClientMock(): KontoregisterClient {
         val kontoregisterClient: KontoregisterClient = mockk()
-        val kontoregisterResponse =
+
+        every { kontoregisterClient.hentKontonummer(any()) } returns
             KontoregisterResponseDto(
                 "815.493.00"
             )
-        every { kontoregisterClient.hentKontonummer(any()) } returns Ressurs.success(kontoregisterResponse)
         return kontoregisterClient
     }
 }
