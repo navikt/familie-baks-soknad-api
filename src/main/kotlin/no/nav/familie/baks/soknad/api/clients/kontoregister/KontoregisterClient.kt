@@ -2,7 +2,6 @@ package no.nav.familie.baks.soknad.api.clients.mottak
 
 import no.nav.familie.http.client.AbstractRestClient
 import no.nav.familie.http.util.UriUtil
-import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
@@ -20,10 +19,6 @@ class KontoregisterClient(
             uri = uri,
             payload = KontoregisterRequestDto(kontohaver)
         )
-    }
-
-    companion object {
-        private val LOG = LoggerFactory.getLogger(MottakClient::class.java)
     }
 }
 
