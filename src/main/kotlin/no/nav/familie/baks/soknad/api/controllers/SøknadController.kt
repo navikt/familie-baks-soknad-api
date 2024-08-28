@@ -1,6 +1,5 @@
 package no.nav.familie.baks.soknad.api.controllers
 
-import no.nav.familie.baks.soknad.api.clients.mottak.MottakClient
 import no.nav.familie.baks.soknad.api.domene.Kvittering
 import no.nav.familie.kontrakter.felles.Ressurs
 import no.nav.familie.sikkerhet.EksternBrukerUtils
@@ -13,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import no.nav.familie.kontrakter.ba.søknad.v8.Søknad as BarnetrygdSøknadV8
+import no.nav.familie.kontrakter.ba.søknad.v9.BarnetrygdSøknad as BarnetrygdSøknadV9
 import no.nav.familie.kontrakter.ks.søknad.v4.KontantstøtteSøknad as KontantstøtteSøknadV4
+import no.nav.familie.kontrakter.ks.søknad.v5.KontantstøtteSøknad as KontantstøtteSøknadV5
 
 @RestController
 @RequestMapping(path = ["/api"], produces = [MediaType.APPLICATION_JSON_VALUE])
@@ -21,46 +22,31 @@ import no.nav.familie.kontrakter.ks.søknad.v4.KontantstøtteSøknad as Kontants
     ProtectedWithClaims(issuer = EksternBrukerUtils.ISSUER_TOKENX, claimMap = ["acr=Level4"])
 )
 class SøknadController(
-    private val mottakClient: MottakClient
+    private val søknadService: SøknadService
 ) {
+    @Deprecated("Bruk nytt endepunkt med oppdatert kontrakt /soknad/v9 ")
     @PostMapping("/soknad/v8")
     fun søknadsmottakBarnetrygd(
         @RequestBody(required = true) søknad: BarnetrygdSøknadV8
-    ): ResponseEntity<Ressurs<Kvittering>> {
-        val søknadMedIdentFraToken =
-            søknad.copy(
-                søker =
-                    søknad.søker.copy(
-                        ident =
-                            søknad.søker.ident.copy(
-                                verdi =
-                                    søknad.søker.ident.verdi
-                                        .mapValues { EksternBrukerUtils.hentFnrFraToken() }
-                            )
-                    )
-            )
+    ): ResponseEntity<Ressurs<Kvittering>> = ResponseEntity.ok().body(søknadService.mottaOgSendBarnetrygdsøknad(søknad))
 
-        return ResponseEntity.ok().body(mottakClient.sendBarnetrygdSøknad(søknadMedIdentFraToken))
-    }
+    @PostMapping("/soknad/v9")
+    fun søknadsmottakBarnetrygd(
+        @RequestBody(required = true) søknad: BarnetrygdSøknadV9
+    ): ResponseEntity<Ressurs<Kvittering>> = ResponseEntity.ok().body(søknadService.mottaOgSendBarnetrygdsøknad(søknad))
 
+    @Deprecated("Bruk nytt endepunkt med oppdatert kontrakt /soknad/kontantstotte/v5 ")
     @PostMapping("/soknad/kontantstotte/v4")
     fun søknadsmottakKontantstøtte(
         @RequestBody(required = true)
         kontantstøtteSøknad: KontantstøtteSøknadV4
-    ): ResponseEntity<Ressurs<Kvittering>> {
-        val kontantstøtteSøknadMedIdentFraToken =
-            kontantstøtteSøknad.copy(
-                søker =
-                    kontantstøtteSøknad.søker.copy(
-                        ident =
-                            kontantstøtteSøknad.søker.ident.copy(
-                                verdi =
-                                    kontantstøtteSøknad.søker.ident.verdi
-                                        .mapValues { EksternBrukerUtils.hentFnrFraToken() }
-                            )
-                    )
-            )
+    ): ResponseEntity<Ressurs<Kvittering>> =
+        ResponseEntity.ok().body(søknadService.mottaOgSendKontantstøttesøknad(kontantstøtteSøknad))
 
-        return ResponseEntity.ok().body(mottakClient.sendKontantstøtteSøknad(kontantstøtteSøknadMedIdentFraToken))
-    }
+    @PostMapping("/soknad/kontantstotte/v5")
+    fun søknadsmottakKontantstøtte(
+        @RequestBody(required = true)
+        kontantstøtteSøknad: KontantstøtteSøknadV5
+    ): ResponseEntity<Ressurs<Kvittering>> =
+        ResponseEntity.ok().body(søknadService.mottaOgSendKontantstøttesøknad(kontantstøtteSøknad))
 }

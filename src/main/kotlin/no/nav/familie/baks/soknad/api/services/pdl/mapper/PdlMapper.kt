@@ -112,14 +112,9 @@ object PdlMapper {
         }
     }
 
-    fun harPersonAdresseBeskyttelse(adresseBeskyttelse: List<Adressebeskyttelse>?): Boolean {
-        if (!adresseBeskyttelse.isNullOrEmpty() &&
+    fun harPersonAdresseBeskyttelse(adresseBeskyttelse: List<Adressebeskyttelse>?): Boolean =
+        !adresseBeskyttelse.isNullOrEmpty() &&
             adresseBeskyttelse.any {
                 it.gradering != ADRESSEBESKYTTELSEGRADERING.UGRADERT
             }
-        ) {
-            return true
-        }
-        return false
-    }
 }
