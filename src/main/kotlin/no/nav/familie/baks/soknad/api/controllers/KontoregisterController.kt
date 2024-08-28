@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.client.HttpClientErrorException
 
 @RestController
 @RequestMapping(path = ["/api/kontoregister"], produces = [MediaType.APPLICATION_JSON_VALUE])
@@ -22,18 +23,22 @@ class KontoregisterController(
 ) {
     @GetMapping("/hent-kontonr")
     fun hentKontoForInnloggetBruker(): ResponseEntity<Ressurs<KontoregisterResponseDto>> {
-        val fnr = EksternBrukerUtils.hentFnrFraToken()
-        val kontoregisterResponseDto = kontoregisterClient.hentKontonummer(kontohaver = fnr)
+        try {
+            val fnr = EksternBrukerUtils.hentFnrFraToken()
+            val kontoregisterResponseDto = kontoregisterClient.hentKontonummer(kontohaver = fnr)
 
-        val body =
-            if (kontoregisterResponseDto.kontonummer.isNotEmpty()) {
-                Ressurs.success(
-                    data = kontoregisterResponseDto
-                )
-            } else {
-                Ressurs.failure("Klarte ikke finne kontonummer")
-            }
+            val body =
+                if (kontoregisterResponseDto.kontonummer.isNotEmpty()) {
+                    Ressurs.success(
+                        data = kontoregisterResponseDto
+                    )
+                } else {
+                    Ressurs.failure("Klarte ikke finne kontonummer")
+                }
 
-        return ResponseEntity.ok().body(body)
+            return ResponseEntity.ok().body(body)
+        } catch (e: HttpClientErrorException.NotFound) {
+            return ResponseEntity.status(404).body(Ressurs.failure("Klarte ikke finne kontonummer"))
+        }
     }
 }
