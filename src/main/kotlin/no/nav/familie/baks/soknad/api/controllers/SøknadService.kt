@@ -1,10 +1,9 @@
 package no.nav.familie.baks.soknad.api.controllers
 
 import no.nav.familie.baks.soknad.api.clients.mottak.MottakClient
-import no.nav.familie.baks.soknad.api.clients.pdl.PdlBrukerClient
 import no.nav.familie.baks.soknad.api.domene.Kvittering
 import no.nav.familie.baks.soknad.api.domene.Ytelse
-import no.nav.familie.baks.soknad.api.services.pdl.mapper.PdlMapper
+import no.nav.familie.baks.soknad.api.services.pdl.PersonopplysningerService
 import no.nav.familie.kontrakter.felles.Ressurs
 import no.nav.familie.sikkerhet.EksternBrukerUtils
 import org.springframework.stereotype.Service
@@ -16,7 +15,7 @@ import no.nav.familie.kontrakter.ks.søknad.v5.KontantstøtteSøknad as Kontants
 @Service
 class SøknadService(
     val mottakClient: MottakClient,
-    val pdlClient: PdlBrukerClient
+    val personopplysningerService: PersonopplysningerService
 ) {
     @Deprecated("Vi bruker ny versjon av kontantstøttesøknad")
     fun mottaOgSendKontantstøttesøknad(kontantstøtteSøknad: KontantstøtteSøknadV4): Ressurs<Kvittering> {
@@ -113,12 +112,10 @@ class SøknadService(
             }
 
     private fun String.harAdressebeskyttelse(ytelse: Ytelse): Boolean =
-        PdlMapper.harPersonAdresseBeskyttelse(
-            pdlClient
-                .hentPerson(
-                    this,
-                    ytelse
-                ).data.person
-                ?.adressebeskyttelse
-        )
+        personopplysningerService
+            .hentPersoninfo(
+                personIdent = this,
+                ytelse = ytelse,
+                somSystem = true
+            ).adressebeskyttelse
 }
