@@ -1,6 +1,8 @@
 package no.nav.familie.baks.soknad.api.controllers
 
 import no.nav.familie.baks.soknad.api.domene.Kvittering
+import no.nav.familie.baks.soknad.api.services.BarnetrygdSøknadService
+import no.nav.familie.baks.soknad.api.services.KontantstøtteSøknadService
 import no.nav.familie.kontrakter.felles.Ressurs
 import no.nav.familie.sikkerhet.EksternBrukerUtils
 import no.nav.security.token.support.core.api.ProtectedWithClaims
@@ -22,18 +24,19 @@ import no.nav.familie.kontrakter.ks.søknad.v5.KontantstøtteSøknad as Kontants
     ProtectedWithClaims(issuer = EksternBrukerUtils.ISSUER_TOKENX, claimMap = ["acr=Level4"])
 )
 class SøknadController(
-    private val søknadService: SøknadService
+    private val kontantstøtteSøknadService: KontantstøtteSøknadService,
+    private val barnetrygdSøknadService: BarnetrygdSøknadService
 ) {
     @Deprecated("Bruk nytt endepunkt med oppdatert kontrakt /soknad/v9 ")
     @PostMapping("/soknad/v8")
     fun søknadsmottakBarnetrygd(
         @RequestBody(required = true) søknad: BarnetrygdSøknadV8
-    ): ResponseEntity<Ressurs<Kvittering>> = ResponseEntity.ok().body(søknadService.mottaOgSendBarnetrygdsøknad(søknad))
+    ): ResponseEntity<Ressurs<Kvittering>> = ResponseEntity.ok().body(barnetrygdSøknadService.mottaOgSendBarnetrygdsøknad(søknad))
 
     @PostMapping("/soknad/v9")
     fun søknadsmottakBarnetrygd(
         @RequestBody(required = true) søknad: BarnetrygdSøknadV9
-    ): ResponseEntity<Ressurs<Kvittering>> = ResponseEntity.ok().body(søknadService.mottaOgSendBarnetrygdsøknad(søknad))
+    ): ResponseEntity<Ressurs<Kvittering>> = ResponseEntity.ok().body(barnetrygdSøknadService.mottaOgSendBarnetrygdsøknad(søknad))
 
     @Deprecated("Bruk nytt endepunkt med oppdatert kontrakt /soknad/kontantstotte/v5 ")
     @PostMapping("/soknad/kontantstotte/v4")
@@ -41,12 +44,12 @@ class SøknadController(
         @RequestBody(required = true)
         kontantstøtteSøknad: KontantstøtteSøknadV4
     ): ResponseEntity<Ressurs<Kvittering>> =
-        ResponseEntity.ok().body(søknadService.mottaOgSendKontantstøttesøknad(kontantstøtteSøknad))
+        ResponseEntity.ok().body(kontantstøtteSøknadService.mottaOgSendKontantstøttesøknad(kontantstøtteSøknad))
 
     @PostMapping("/soknad/kontantstotte/v5")
     fun søknadsmottakKontantstøtte(
         @RequestBody(required = true)
         kontantstøtteSøknad: KontantstøtteSøknadV5
     ): ResponseEntity<Ressurs<Kvittering>> =
-        ResponseEntity.ok().body(søknadService.mottaOgSendKontantstøttesøknad(kontantstøtteSøknad))
+        ResponseEntity.ok().body(kontantstøtteSøknadService.mottaOgSendKontantstøttesøknad(kontantstøtteSøknad))
 }
