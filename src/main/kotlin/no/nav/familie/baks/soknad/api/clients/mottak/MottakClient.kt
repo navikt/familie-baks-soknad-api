@@ -15,8 +15,10 @@ import org.springframework.util.MultiValueMap
 import org.springframework.web.client.RestOperations
 import org.springframework.web.client.exchange
 import java.net.URI
-import no.nav.familie.kontrakter.ba.søknad.v8.Søknad as SøknadV8
+import no.nav.familie.kontrakter.ba.søknad.v8.Søknad as BarnetrygdSøknadV8
+import no.nav.familie.kontrakter.ba.søknad.v9.BarnetrygdSøknad as BarnetrygdSøknadV9
 import no.nav.familie.kontrakter.ks.søknad.v4.KontantstøtteSøknad as KontantstøtteSøknadV4
+import no.nav.familie.kontrakter.ks.søknad.v5.KontantstøtteSøknad as KontantstøtteSøknadV5
 
 @Component
 class MottakClient(
@@ -35,13 +37,25 @@ class MottakClient(
         }
     }
 
-    fun sendBarnetrygdSøknad(søknad: SøknadV8): Ressurs<Kvittering> {
+    @Deprecated("Vi bruker ny versjon av barnetrygdsøknad")
+    fun sendBarnetrygdSøknad(søknad: BarnetrygdSøknadV8): Ressurs<Kvittering> {
         val uri: URI = UriUtil.uri(URI.create(mottakBaseUrl), "api/soknad/v8")
         return håndterSendingAvSøknad(uri = uri, søknad = søknad)
     }
 
+    fun sendBarnetrygdSøknad(søknad: BarnetrygdSøknadV9): Ressurs<Kvittering> {
+        val uri: URI = UriUtil.uri(URI.create(mottakBaseUrl), "api/soknad/v9")
+        return håndterSendingAvSøknad(uri = uri, søknad = søknad)
+    }
+
+    @Deprecated(message = "Vi bruker en ny versjon av kontantstøttesøknad")
     fun sendKontantstøtteSøknad(kontantstøtteSøknad: KontantstøtteSøknadV4): Ressurs<Kvittering> {
         val uri: URI = UriUtil.uri(URI.create(mottakBaseUrl), "api/kontantstotte/soknad/v4")
+        return håndterSendingAvSøknad(uri = uri, søknad = kontantstøtteSøknad)
+    }
+
+    fun sendKontantstøtteSøknad(kontantstøtteSøknad: KontantstøtteSøknadV5): Ressurs<Kvittering> {
+        val uri: URI = UriUtil.uri(URI.create(mottakBaseUrl), "api/kontantstotte/soknad/v5")
         return håndterSendingAvSøknad(uri = uri, søknad = kontantstøtteSøknad)
     }
 
