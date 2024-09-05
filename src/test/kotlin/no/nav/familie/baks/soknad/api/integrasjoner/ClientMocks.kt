@@ -24,13 +24,15 @@ import no.nav.familie.baks.soknad.api.domene.Kvittering
 import no.nav.familie.kontrakter.felles.Ressurs
 import no.nav.familie.kontrakter.felles.personopplysning.Bostedsadresse
 import no.nav.familie.kontrakter.felles.personopplysning.Vegadresse
-import no.nav.familie.kontrakter.ks.søknad.v4.KontantstøtteSøknad
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Primary
 import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 import java.time.LocalDateTime
-import no.nav.familie.kontrakter.ba.søknad.v8.Søknad as SøknadV8
+import no.nav.familie.kontrakter.ba.søknad.v8.Søknad as BarnetrygdSøknadV8
+import no.nav.familie.kontrakter.ba.søknad.v9.BarnetrygdSøknad as BarnetrygdSøknadV9
+import no.nav.familie.kontrakter.ks.søknad.v4.KontantstøtteSøknad as KontantstøtteSøknadV4
+import no.nav.familie.kontrakter.ks.søknad.v5.KontantstøtteSøknad as KontantstøtteSøknadV5
 
 @Component
 class ClientMocks {
@@ -40,9 +42,13 @@ class ClientMocks {
     fun mockMottakClient(): MottakClient {
         val mockMottakClient = mockk<MottakClient>()
         every { mockMottakClient.ping() } just Runs
-        every { mockMottakClient.sendBarnetrygdSøknad(any<SøknadV8>()) } returns
+        every { mockMottakClient.sendBarnetrygdSøknad(any<BarnetrygdSøknadV8>()) } returns
             Ressurs.success(Kvittering("søknad mottatt OK", LocalDateTime.now()))
-        every { mockMottakClient.sendKontantstøtteSøknad(any<KontantstøtteSøknad>()) } returns
+        every { mockMottakClient.sendBarnetrygdSøknad(any<BarnetrygdSøknadV9>()) } returns
+            Ressurs.success(Kvittering("søknad mottatt OK", LocalDateTime.now()))
+        every { mockMottakClient.sendKontantstøtteSøknad(any<KontantstøtteSøknadV4>()) } returns
+            Ressurs.success(Kvittering("søknad mottatt OK", LocalDateTime.now()))
+        every { mockMottakClient.sendKontantstøtteSøknad(any<KontantstøtteSøknadV5>()) } returns
             Ressurs.success(Kvittering("søknad mottatt OK", LocalDateTime.now()))
         return mockMottakClient
     }
