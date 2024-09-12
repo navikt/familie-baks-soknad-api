@@ -1,10 +1,8 @@
 name: Build-Deploy-Preprod
 on:
   workflow_dispatch:
-  push:
-    branches-ignore:
-      # build-deploy-prod deployer allerede til dev, dette førte til en race condition som stopper deploy til prod
-      - 'main'
+  pull_request:
+    types: [ opened, synchronize, reopened, ready_for_review ]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref_name }}
