@@ -23,7 +23,7 @@
         <kontrakter.version>3.0_20241009100044_c0fcd51</kontrakter.version>
         <felles.version>3.20240913110742_adb42f8</felles.version>
         <mockk.version>1.13.13</mockk.version>
-        <token-validation-spring.version>5.0.5</token-validation-spring.version>
+        <token-validation-spring.version>5.0.8</token-validation-spring.version>
         <start-class>no.nav.familie.baks.soknad.api.LauncherKt</start-class>
         <kotlin.version>2.0.21</kotlin.version>
         <bytebuddy.version>1.15.7</bytebuddy.version>
