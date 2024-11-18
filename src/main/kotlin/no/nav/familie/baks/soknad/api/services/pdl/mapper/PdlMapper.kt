@@ -13,8 +13,8 @@ import no.nav.familie.baks.soknad.api.domene.Person
 import no.nav.familie.baks.soknad.api.domene.Sivilstand
 import no.nav.familie.baks.soknad.api.domene.Statborgerskap
 import no.nav.familie.baks.soknad.api.services.kodeverk.CachedKodeverkService
-import no.nav.familie.kontrakter.ba.søknad.SIVILSTANDTYPE
-import no.nav.familie.kontrakter.ba.søknad.SøknadAdresse
+import no.nav.familie.kontrakter.ba.søknad.v1.SIVILSTANDTYPE
+import no.nav.familie.kontrakter.ba.søknad.v1.SøknadAdresse
 import no.nav.familie.kontrakter.felles.personopplysning.Bostedsadresse
 
 object PdlMapper {
