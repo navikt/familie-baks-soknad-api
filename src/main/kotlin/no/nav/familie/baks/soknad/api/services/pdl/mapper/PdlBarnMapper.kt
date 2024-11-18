@@ -10,8 +10,7 @@ object PdlBarnMapper {
         soekerAdresse: Bostedsadresse?,
         barneAdresser: List<Bostedsadresse>
     ): Boolean {
-        fun adresseListe(bostedsadresse: Bostedsadresse): List<Any?> =
-            listOfNotNull(bostedsadresse.matrikkeladresse, bostedsadresse.vegadresse)
+        fun adresseListe(bostedsadresse: Bostedsadresse): List<Any?> = listOfNotNull(bostedsadresse.matrikkeladresse, bostedsadresse.vegadresse)
 
         return if (soekerAdresse == null || barneAdresser.isEmpty()) {
             false

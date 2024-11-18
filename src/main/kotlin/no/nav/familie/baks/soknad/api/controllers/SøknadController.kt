@@ -43,13 +43,11 @@ class SøknadController(
     fun søknadsmottakKontantstøtte(
         @RequestBody(required = true)
         kontantstøtteSøknad: KontantstøtteSøknadV4
-    ): ResponseEntity<Ressurs<Kvittering>> =
-        ResponseEntity.ok().body(kontantstøtteSøknadService.mottaOgSendKontantstøttesøknad(kontantstøtteSøknad))
+    ): ResponseEntity<Ressurs<Kvittering>> = ResponseEntity.ok().body(kontantstøtteSøknadService.mottaOgSendKontantstøttesøknad(kontantstøtteSøknad))
 
     @PostMapping("/soknad/kontantstotte/v5")
     fun søknadsmottakKontantstøtte(
         @RequestBody(required = true)
         kontantstøtteSøknad: KontantstøtteSøknadV5
-    ): ResponseEntity<Ressurs<Kvittering>> =
-        ResponseEntity.ok().body(kontantstøtteSøknadService.mottaOgSendKontantstøttesøknad(kontantstøtteSøknad))
+    ): ResponseEntity<Ressurs<Kvittering>> = ResponseEntity.ok().body(kontantstøtteSøknadService.mottaOgSendKontantstøttesøknad(kontantstøtteSøknad))
 }
