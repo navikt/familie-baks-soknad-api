@@ -5,6 +5,7 @@ import no.nav.familie.http.interceptor.BearerTokenExchangeClientInterceptor
 import no.nav.familie.http.interceptor.ConsumerIdClientInterceptor
 import no.nav.familie.http.interceptor.MdcValuesPropagatingClientInterceptor
 import no.nav.familie.kontrakter.felles.objectMapper
+import no.nav.familie.log.NavSystemtype
 import no.nav.familie.log.filter.LogFilter
 import no.nav.security.token.support.client.spring.oauth2.EnableOAuth2Client
 import org.slf4j.LoggerFactory
@@ -34,7 +35,7 @@ internal class ApplicationConfig {
     fun logFilter(): FilterRegistrationBean<LogFilter> {
         logger.info("Registering LogFilter filter")
         val filterRegistration: FilterRegistrationBean<LogFilter> = FilterRegistrationBean()
-        filterRegistration.filter = LogFilter()
+        filterRegistration.filter = LogFilter(NavSystemtype.NAV_EKSTERN_BRUKERFLATE)
         filterRegistration.order = 1
         return filterRegistration
     }
