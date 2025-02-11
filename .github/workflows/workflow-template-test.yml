@@ -7,7 +7,7 @@ on:
         type: string
         description: 'Deploye?'
 jobs:
-  build-app:
+  build-maven-app:
     name: Build
     permissions:
       contents: read
@@ -26,7 +26,7 @@ jobs:
     needs: [ build-app ]
     uses: navikt/familie-baks-gha-workflows/.github/workflows/deploy.yml@main
     with:
-      image: ${{ needs.build-app.outputs.build-version }}
+      image: ${{ needs.build-maven-app.outputs.image }}
       cluster: dev-gcp
       nais-file-path: dev-gcp-teamfamilie.yaml
     secrets: inherit
