@@ -23,7 +23,7 @@ jobs:
     if: inputs.deploy == 'true'
     permissions:
       id-token: write
-    needs: [ build-app ]
+    needs: [ build-maven-app ]
     uses: navikt/familie-baks-gha-workflows/.github/workflows/deploy.yml@main
     with:
       image: ${{ needs.build-maven-app.outputs.image }}
