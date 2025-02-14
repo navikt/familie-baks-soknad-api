@@ -6,6 +6,10 @@ on:
         required: true
         type: string
         description: 'Deploye?'
+      test:
+        required: false
+        type: boolean
+        description: 'Tester input'
 jobs:
   build-maven-app:
     name: Build
