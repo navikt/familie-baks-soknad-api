@@ -2,7 +2,7 @@ FROM gcr.io/distroless/java21:nonroot
 
 ENV APP_NAME=familie-baks-soknad-api
 
-COPY --chown=nonroot:nonroot ./target/familie-baks-infotrygd-feed-1.0-SNAPSHOT.jar /app/app.jar
+COPY --chown=nonroot:nonroot ./target/familie-baks-soknad-api-1.0-SNAPSHOT.jar /app/app.jar
 WORKDIR /app
 
 ENV TZ="Europe/Oslo"
