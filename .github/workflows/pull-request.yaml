@@ -1,4 +1,4 @@
-name: Pull request to dev
+name: Pull request
 on:
   workflow_dispatch:
   pull_request:
