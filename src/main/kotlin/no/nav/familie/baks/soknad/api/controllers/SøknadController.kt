@@ -90,10 +90,12 @@ fun BarnetrygdSøknadV9.valider() {
         liste.forEach { textField ->
             // valider alle verider i tekstfelt
             textField.verdi.values.forEach { verdi ->
+                require(verdi.toString().length > 500) { "Tekstfelt er for langt" }
                 require(!Regex("[<>'\"]").containsMatchIn(verdi.toString())) { "Tekstfelt inneholder ugyldige tegn" }
             }
             // valider alle labler i tekstfelt
             textField.label.values.forEach { label ->
+                require(label.toString().length > 500) { "Tekstfelt(label) er for langt" }
                 require(!Regex("[<>'\"]").containsMatchIn(label.toString())) { "Tekstfelt(label) inneholder ugyldige tegn" }
             }
         }
