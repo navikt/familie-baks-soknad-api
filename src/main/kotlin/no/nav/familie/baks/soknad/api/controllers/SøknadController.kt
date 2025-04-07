@@ -54,7 +54,7 @@ fun BarnetrygdSøknadV9.valider() {
     barn.forEach { barn ->
         barn.ident.verdi.values.forEach { fnr ->
             val erGyldig = runCatching { Fødselsnummer(fnr) }.isSuccess
-            require(erGyldig) { "Ugyldig format på barnets fødselsnummer" }
+            require(erGyldig || fnr.all { it.isDigit() }) { "Ugyldig format på barnets fødselsnummer" }
         }
     }
 
@@ -68,12 +68,12 @@ fun BarnetrygdSøknadV9.valider() {
     ).forEach { textField ->
         // valider alle verdier i tekstfelt
         textField.verdi.values.forEach { verdi ->
-            require(verdi.toString().length > 500) { "Tekstfelt er for langt" }
+            require(verdi.toString().length < 500) { "Tekstfelt er for langt" }
             require(!Regex("[<>'\"]").containsMatchIn(verdi.toString())) { "Tekstfelt inneholder ugyldige tegn" }
         }
         // valider alle labler i tekstfelt
         textField.label.values.forEach { label ->
-            require(label.toString().length > 500) { "Tekstfelt(label) er for langt" }
+            require(label.toString().length < 500) { "Tekstfelt(label) er for langt" }
             require(!Regex("[<>'\"]").containsMatchIn(label.toString())) { "Tekstfelt(label) inneholder ugyldige tegn" }
         }
     }
@@ -90,12 +90,12 @@ fun BarnetrygdSøknadV9.valider() {
         liste.forEach { textField ->
             // valider alle verider i tekstfelt
             textField.verdi.values.forEach { verdi ->
-                require(verdi.toString().length > 500) { "Tekstfelt er for langt" }
+                require(verdi.toString().length < 500) { "Tekstfelt er for langt" }
                 require(!Regex("[<>'\"]").containsMatchIn(verdi.toString())) { "Tekstfelt inneholder ugyldige tegn" }
             }
             // valider alle labler i tekstfelt
             textField.label.values.forEach { label ->
-                require(label.toString().length > 500) { "Tekstfelt(label) er for langt" }
+                require(label.toString().length < 500) { "Tekstfelt(label) er for langt" }
                 require(!Regex("[<>'\"]").containsMatchIn(label.toString())) { "Tekstfelt(label) inneholder ugyldige tegn" }
             }
         }
@@ -105,13 +105,13 @@ fun BarnetrygdSøknadV9.valider() {
 fun KontantstøtteSøknadV5.valider() {
     søker.ident.verdi.values.forEach { fnr ->
         val erGyldig = runCatching { Fødselsnummer(fnr) }.isSuccess
-        require(erGyldig) { "Ugyldig format på fødselsnummer" }
+        require(erGyldig || fnr.all { it.isDigit() }) { "Ugyldig format på barnets fødselsnummer" }
     }
 
     barn.forEach { barn ->
         barn.ident.verdi.values.forEach { fnr ->
             val erGyldig = runCatching { Fødselsnummer(fnr) }.isSuccess
-            require(erGyldig) { "Ugyldig format på barnets fødselsnummer" }
+            require(erGyldig || fnr.all { it.isDigit() }) { "Ugyldig format på barnets fødselsnummer" }
         }
     }
 
@@ -124,10 +124,12 @@ fun KontantstøtteSøknadV5.valider() {
     ).forEach { textField ->
         // valider alle verdier i tekstfelt
         textField.verdi.values.forEach { verdi ->
+            require(verdi.toString().length < 500) { "Tekstfelt(label) er for langt" }
             require(!Regex("[<>'\"]").containsMatchIn(verdi.toString())) { "Tekstfelt inneholder ugyldige tegn" }
         }
         // valider alle labler i tekstfelt
         textField.label.values.forEach { label ->
+            require(label.toString().length < 500) { "Tekstfelt(label) er for langt" }
             require(!Regex("[<>'\"]").containsMatchIn(label.toString())) { "Tekstfelt(label) inneholder ugyldige tegn" }
         }
     }
@@ -143,10 +145,12 @@ fun KontantstøtteSøknadV5.valider() {
         liste.forEach { textField ->
             // valider alle verider i tekstfelt
             textField.verdi.values.forEach { verdi ->
+                require(verdi.toString().length < 500) { "Tekstfelt(label) er for langt" }
                 require(!Regex("[<>'\"]").containsMatchIn(verdi.toString())) { "Tekstfelt inneholder ugyldige tegn" }
             }
             // valider alle labler i tekstfelt
             textField.label.values.forEach { label ->
+                require(label.toString().length < 500) { "Tekstfelt(label) er for langt" }
                 require(!Regex("[<>'\"]").containsMatchIn(label.toString())) { "Tekstfelt(label) inneholder ugyldige tegn" }
             }
         }
