@@ -12,7 +12,7 @@ jobs:
     with:
       skip-tests: true
       build-image: true
-      push-image: false
+      push-image: true
     secrets: inherit
   trivy:
     name: Trivy
