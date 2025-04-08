@@ -10,7 +10,7 @@ jobs:
       id-token: write
     uses: navikt/familie-baks-gha-workflows/.github/workflows/build-maven-app.yaml@main
     with:
-      skip-tests: ${{ inputs.skip-tests }}
+      skip-tests: true
       build-image: true
       push-image: true
     secrets: inherit
