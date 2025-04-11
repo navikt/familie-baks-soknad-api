@@ -6,21 +6,9 @@ jobs:
   build:
     name: Build
     permissions:
-      contents: read
-      id-token: write
-    uses: navikt/familie-baks-gha-workflows/.github/workflows/build-maven-app.yaml@main
-    with:
-      skip-tests: true
-      build-image: true
-      push-image: true
+      contents: write # to write sarif
+      security-events: write # push sarif to github security
+      id-token: write # nais/login
+    uses: navikt/familie-baks-gha-workflows/.github/workflows/scan-vulnerabilities-maven.yaml@scan-vulnerabilities
     secrets: inherit
-  trivy:
-    name: Trivy
-    permissions:
-      contents: write
-      security-events: write
-      id-token: write
-    needs: [ build ]
-    uses: navikt/familie-baks-gha-workflows/.github/workflows/trivy.yaml@main
-    with:
-      image: ${{ needs.build.outputs.image }}
+
