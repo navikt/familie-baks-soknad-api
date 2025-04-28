@@ -64,10 +64,10 @@ fun BarnetrygdSøknadV9.valider() {
         søker.adresse,
         søker.nåværendeSamboer
     ).forEach { textField ->
-        // valider alle verdier i tekstfelt
-        validerLabel(textField)
         // valider alle labler i tekstfelt
         validerVerdiITextfelt(textField)
+        // valider alle verdier i tekstfelt
+        validerLabel(textField)
     }
     listOfNotNull(
         søker.andreUtbetalingsperioder,
@@ -131,8 +131,8 @@ fun KontantstøtteSøknadV5.valider() {
 
 private fun validerLabel(textField: Søknadsfelt<out Any?>) {
     textField.label.values.forEach { label ->
-        require(label.toString().length < 200) { "Tekstfelt(label) er for langt" }
-        require(!Regex("[<>'\"]").containsMatchIn(label.toString())) { "Tekstfelt(label) inneholder ugyldige tegn" }
+        require(label.length < 200) { "Tekstfelt(label) er for langt" }
+        require(!Regex("[<>'\"]").containsMatchIn(label)) { "Tekstfelt(label) inneholder ugyldige tegn" }
     }
 }
 
