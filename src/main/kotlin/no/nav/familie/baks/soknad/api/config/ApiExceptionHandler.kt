@@ -25,6 +25,7 @@ class ApiExceptionHandler {
         return when (throwable) {
             is HttpClientErrorException -> ResponseEntity.status(throwable.statusCode).body(Ressurs.failure(feilmelding))
             is JwtTokenUnauthorizedException -> ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Ressurs.failure(feilmelding))
+            is IllegalArgumentException -> ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Ressurs.failure(feilmelding))
             else -> ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Ressurs.failure(feilmelding))
         }
     }
