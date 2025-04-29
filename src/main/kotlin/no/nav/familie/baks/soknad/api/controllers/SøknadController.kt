@@ -54,6 +54,14 @@ fun BarnetrygdSøknadV9.valider() {
         barn.ident.verdi.values.forEach { fnr ->
             require(fnr.all { it.isDigit() }) { "Ugyldig format på barnets fødselsnummer" }
         }
+        listOfNotNull(
+            barn.navn
+        ).forEach { textField ->
+            // valider alle verdier i tekstfelt
+            validerVerdiITextfelt(textField)
+            // valider alle labler i tekstfelt
+            validerLabel(textField)
+        }
     }
 
     // XSS prevention - sanitize text fields
@@ -96,6 +104,15 @@ fun KontantstøtteSøknadV5.valider() {
     barn.forEach { barn ->
         barn.ident.verdi.values.forEach { fnr ->
             require(fnr.all { it.isDigit() }) { "Ugyldig format på barnets fødselsnummer" }
+        }
+        listOfNotNull(
+            barn.navn,
+            barn.adresse
+        ).forEach { textField ->
+            // valider alle verdier i tekstfelt
+            validerVerdiITextfelt(textField)
+            // valider alle labler i tekstfelt
+            validerLabel(textField)
         }
     }
 
