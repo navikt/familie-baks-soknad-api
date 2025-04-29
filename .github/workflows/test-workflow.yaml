@@ -1,0 +1,13 @@
+# Trenger en workflow som ikke er i bruk for testing og utvikling av workflow templates i egen branch.
+# Skriver man om en eksisterende workflow i egen branch blir det veldig forvirrende i grensesnittet til GitHub for de som ikke er i loopen.
+name: Test workflow
+on:
+  workflow_dispatch:
+jobs:
+  test-workflow:
+    name: Test workflow
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run script
+        run: |
+          echo "This is a workflow"
