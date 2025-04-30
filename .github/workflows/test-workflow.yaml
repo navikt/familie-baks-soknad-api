@@ -31,6 +31,8 @@ jobs:
           team: 'teamfamilie'
           push_image: true
           byosbom: target/classes/META-INF/sbom/application.cdx.json
+    outputs:
+      image: ${{ steps.docker-build-push.outputs.image }}
   deploy-with-new-image:
     name: Deploy with new image
     permissions:
