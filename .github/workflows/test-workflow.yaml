@@ -1,13 +1,39 @@
-# Trenger en workflow som ikke er i bruk for testing og utvikling av workflow templates i egen branch.
-# Skriver man om en eksisterende workflow i egen branch blir det veldig forvirrende i grensesnittet til GitHub for de som ikke er i loopen.
 name: Test workflow
 on:
   workflow_dispatch:
+
 jobs:
-  test-workflow:
-    name: Test workflow
+  build:
+    name: Build
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
     steps:
-      - name: Run script
-        run: |
-          echo "This is a workflow"
+      - name: Checkout code
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # ratchet:actions/checkout@v4
+      - name: Setup java and maven
+        uses: navikt/familie-baks-gha-workflows/.github/actions/setup-java-maven@main # ratchet:exclude
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          java-version: 21
+      - name: Maven install
+        uses: navikt/familie-baks-gha-workflows/.github/actions/build-maven@main # ratchet:exclude
+        env:
+          TESTCONTAINERS_REUSE_ENABLE: true
+        with:
+          skip-tests: true
+      - name: Build and push docker image
+        id: build-push-docker-image
+        uses: navikt/familie-baks-gha-workflows/.github/actions/build-push-docker-image@main # ratchet:exclude
+        with:
+          push-image: true
+          byosbom: ${{ inputs.byosbom }}
+      - name: Build and push docker image
+        id: docker-build-push
+        uses: nais/docker-build-push@791ebb6f74b82849c742a9bc9c97abe44c6c111f # ratchet:nais/docker-build-push@v0
+        with:
+          pull: true
+          team: 'teamfamilie'
+          push_image: true
+          byosbom: target/classes/META-INF/sbom/application.cdx.json
