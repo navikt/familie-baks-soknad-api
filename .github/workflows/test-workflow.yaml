@@ -25,12 +25,12 @@ jobs:
           skip-tests: true
       - name: Build and push docker image
         id: docker-build-push
-        uses: nais/docker-build-push@791ebb6f74b82849c742a9bc9c97abe44c6c111f # ratchet:nais/docker-build-push@v0
+        uses: nais/docker-build-push@v0
         with:
           pull: true
           team: 'teamfamilie'
           push_image: true
-#          byosbom: target/classes/META-INF/sbom/application.cdx.json
+          byosbom: target/classes/META-INF/sbom/application.cdx.json
     outputs:
       image: ${{ steps.docker-build-push.outputs.image }}
   deploy-with-new-image:
@@ -38,7 +38,7 @@ jobs:
     permissions:
       id-token: write
     needs: [ build ]
-    uses: navikt/familie-baks-gha-workflows/.github/workflows/deploy.yaml@54c5d9228a37ca88ea58074a00eaa9cf9e90e7ec # ratchet:navikt/familie-baks-gha-workflows/.github/workflows/deploy.yaml@main
+    uses: navikt/familie-baks-gha-workflows/.github/workflows/deploy.yaml@main
     with:
       image: ${{ needs.build.outputs.image }}
       cluster: dev-gcp
