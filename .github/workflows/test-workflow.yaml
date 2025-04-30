@@ -24,12 +24,6 @@ jobs:
         with:
           skip-tests: true
       - name: Build and push docker image
-        id: build-push-docker-image
-        uses: navikt/familie-baks-gha-workflows/.github/actions/build-push-docker-image@main # ratchet:exclude
-        with:
-          push-image: true
-          byosbom: ${{ inputs.byosbom }}
-      - name: Build and push docker image
         id: docker-build-push
         uses: nais/docker-build-push@791ebb6f74b82849c742a9bc9c97abe44c6c111f # ratchet:nais/docker-build-push@v0
         with:
