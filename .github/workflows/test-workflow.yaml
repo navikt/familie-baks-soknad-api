@@ -5,40 +5,22 @@ on:
 jobs:
   build:
     name: Build
-    runs-on: ubuntu-latest
     permissions:
       contents: read
       id-token: write
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # ratchet:actions/checkout@v4
-      - name: Setup java and maven
-        uses: navikt/familie-baks-gha-workflows/.github/actions/setup-java-maven@main # ratchet:exclude
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          java-version: 21
-      - name: Maven install
-        uses: navikt/familie-baks-gha-workflows/.github/actions/build-maven@main # ratchet:exclude
-        env:
-          TESTCONTAINERS_REUSE_ENABLE: true
-        with:
-          skip-tests: true
-      - name: Build and push docker image
-        id: docker-build-push
-        uses: nais/docker-build-push@v0
-        with:
-          pull: true
-          team: 'teamfamilie'
-          push_image: true
-          byosbom: target/classes/META-INF/sbom/application.cdx.json
-    outputs:
-      image: ${{ steps.docker-build-push.outputs.image }}
+    uses: navikt/familie-baks-gha-workflows/.github/workflows/build-maven-app.yaml@byosbom-fiks
+    with:
+      skip-tests: true
+      build-image: true
+      push-image: true
+      byosbom: target/classes/META-INF/sbom/application.cdx.json
+    secrets: inherit
   deploy-with-new-image:
     name: Deploy with new image
     permissions:
       id-token: write
-    needs: [ build ]
-    uses: navikt/familie-baks-gha-workflows/.github/workflows/deploy.yaml@main
+    needs: [build]
+    uses: navikt/familie-baks-gha-workflows/.github/workflows/deploy.yaml@54c5d9228a37ca88ea58074a00eaa9cf9e90e7ec # ratchet:navikt/familie-baks-gha-workflows/.github/workflows/deploy.yaml@main
     with:
       image: ${{ needs.build.outputs.image }}
       cluster: dev-gcp
