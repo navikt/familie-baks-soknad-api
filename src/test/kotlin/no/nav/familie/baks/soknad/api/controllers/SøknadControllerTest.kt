@@ -9,6 +9,7 @@ import no.nav.familie.baks.soknad.api.services.KontantstøtteSøknadTestData
 import no.nav.familie.kontrakter.felles.Ressurs
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.`when`
 import java.time.LocalDateTime
@@ -27,7 +28,20 @@ class SøknadControllerTest {
 
         val response = søknadController.søknadsmottakBarnetrygd(søknad)
 
-        assertEquals(200, response.statusCodeValue)
+        assertEquals(200, response.statusCode.value())
+        assertEquals(kvittering, response.body?.data)
+    }
+
+    @Test
+    fun søknadsmottakBarnetrygd_logger_men_kaster_ikke_feil_ved_ugyldig_input() {
+        val søknad = BarnetrygdSøknadTestData.barnetrygdSøknad(søker = BarnetrygdSøknadTestData.søker().copy(navn = søknadsfelt("navn", "Navn <>")))
+        søknadController.søknadsmottakBarnetrygd(søknad)
+        val kvittering = Kvittering("OK", LocalDateTime.now())
+        `when`(barnetrygdSøknadService.mottaOgSendBarnetrygdsøknad(søknad)).thenReturn(Ressurs.success(kvittering))
+
+        val response = søknadController.søknadsmottakBarnetrygd(søknad)
+
+        assertEquals(200, response.statusCode.value())
         assertEquals(kvittering, response.body?.data)
     }
 
@@ -36,10 +50,10 @@ class SøknadControllerTest {
         val søknad = BarnetrygdSøknadTestData.barnetrygdSøknad(søker = BarnetrygdSøknadTestData.søker().copy(navn = søknadsfelt("navn", "Navn <>")))
         val exception =
             assertThrows(IllegalArgumentException::class.java) {
-                søknadController.søknadsmottakBarnetrygd(søknad)
+                søknad.valider()
             }
 
-        assertEquals("Tekstfelt inneholder ugyldige tegn", exception.message)
+        assertTrue(exception.message!!.startsWith("Tekstfelt inneholder ugyldige tegn"))
     }
 
     @Test
@@ -50,7 +64,7 @@ class SøknadControllerTest {
 
         val response = søknadController.søknadsmottakKontantstøtte(søknad)
 
-        assertEquals(200, response.statusCodeValue)
+        assertEquals(200, response.statusCode.value())
         assertEquals(kvittering, response.body?.data)
     }
 
@@ -60,10 +74,10 @@ class SøknadControllerTest {
 
         val exception =
             assertThrows(IllegalArgumentException::class.java) {
-                søknadController.søknadsmottakKontantstøtte(søknad)
+                søknad.valider()
             }
 
-        assertEquals("Tekstfelt inneholder ugyldige tegn", exception.message)
+        assertTrue(exception.message!!.startsWith("Tekstfelt inneholder ugyldige tegn"))
     }
 
     @Test
@@ -72,10 +86,10 @@ class SøknadControllerTest {
 
         val exception =
             assertThrows(IllegalArgumentException::class.java) {
-                søknadController.søknadsmottakKontantstøtte(søknad)
+                søknad.valider()
             }
 
-        assertEquals("Tekstfelt er for langt", exception.message)
+        assertTrue(exception.message!!.startsWith("Tekstfelt er for langt"))
     }
 
     @Test
@@ -83,10 +97,10 @@ class SøknadControllerTest {
         val søknad = BarnetrygdSøknadTestData.barnetrygdSøknad(søker = BarnetrygdSøknadTestData.søker().copy(navn = søknadsfelt("navn", "Navn er over 200 tegn".padEnd(200, 'a'))))
         val exception =
             assertThrows(IllegalArgumentException::class.java) {
-                søknadController.søknadsmottakBarnetrygd(søknad)
+                søknad.valider()
             }
 
-        assertEquals("Tekstfelt er for langt", exception.message)
+        assertTrue(exception.message!!.startsWith("Tekstfelt er for langt"))
     }
 
     @Test
@@ -95,10 +109,10 @@ class SøknadControllerTest {
 
         val exception =
             assertThrows(IllegalArgumentException::class.java) {
-                søknadController.søknadsmottakKontantstøtte(søknad)
+                søknad.valider()
             }
 
-        assertEquals("Tekstfelt(label) er for langt", exception.message)
+        assertTrue(exception.message!!.startsWith("Tekstfelt(label) er for langt"))
     }
 
     @Test
@@ -106,9 +120,9 @@ class SøknadControllerTest {
         val søknad = BarnetrygdSøknadTestData.barnetrygdSøknad(søker = BarnetrygdSøknadTestData.søker().copy(navn = søknadsfelt("navn".padEnd(200, 'a'), "Navn")))
         val exception =
             assertThrows(IllegalArgumentException::class.java) {
-                søknadController.søknadsmottakBarnetrygd(søknad)
+                søknad.valider()
             }
 
-        assertEquals("Tekstfelt(label) er for langt", exception.message)
+        assertTrue(exception.message!!.startsWith("Tekstfelt(label) er for langt"))
     }
 }

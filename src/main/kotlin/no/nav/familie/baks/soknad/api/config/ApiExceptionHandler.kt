@@ -36,6 +36,13 @@ class ApiExceptionHandler {
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(Ressurs.ikkeTilgang("Ikke tilgang"))
     }
 
+    @ExceptionHandler(IllegalArgumentException::class)
+    fun handleIllegalArgumentException(illegalArgumentException: IllegalArgumentException): ResponseEntity<Ressurs<String>> {
+        val feilmelding = (illegalArgumentException.cause?.message ?: illegalArgumentException.message).toString()
+        secureLogger.info("Validering av søknad feilet", illegalArgumentException)
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Ressurs.failure(feilmelding))
+    }
+
     /**
      * AsyncRequestNotUsableException er en exception som blir kastet når en async request blir avbrutt. Velger
      * å skjule denne exceptionen fra loggen da den ikke er interessant for oss.

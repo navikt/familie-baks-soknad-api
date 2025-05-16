@@ -8,6 +8,8 @@ import no.nav.familie.kontrakter.felles.søknad.Søknadsfelt
 import no.nav.familie.sikkerhet.EksternBrukerUtils
 import no.nav.security.token.support.core.api.ProtectedWithClaims
 import no.nav.security.token.support.core.api.RequiredIssuers
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
@@ -26,11 +28,19 @@ class SøknadController(
     private val kontantstøtteSøknadService: KontantstøtteSøknadService,
     private val barnetrygdSøknadService: BarnetrygdSøknadService
 ) {
+    private val logger = LoggerFactory.getLogger(SøknadController::class.java)
+    protected val secureLogger: Logger = LoggerFactory.getLogger("secureLogger")
+
     @PostMapping("/soknad/v9")
     fun søknadsmottakBarnetrygd(
         @RequestBody(required = true) søknad: BarnetrygdSøknadV9
     ): ResponseEntity<Ressurs<Kvittering>> {
-        søknad.valider()
+        try {
+            søknad.valider()
+        } catch (e: Exception) {
+            logger.error("Validering av barnetrygd-søknad feilet. Søknaden sendes videre til journalføring, men man bør se på hvorfor det feiler. Se securelogs for detaljer.")
+            secureLogger.error("Validering av barnetrygd-søknad feilet", e)
+        }
         return ResponseEntity.ok().body(barnetrygdSøknadService.mottaOgSendBarnetrygdsøknad(søknad))
     }
 
@@ -39,7 +49,13 @@ class SøknadController(
         @RequestBody(required = true)
         kontantstøtteSøknad: KontantstøtteSøknadV5
     ): ResponseEntity<Ressurs<Kvittering>> {
-        kontantstøtteSøknad.valider()
+        try {
+            kontantstøtteSøknad.valider()
+        } catch (e: Exception) {
+            logger.error("Validering av kontantstøtte-søknad feilet. Søknaden sendes videre til journalføring, men man bør se på hvorfor det feiler. Se securelogs for detaljer.")
+            secureLogger.error("Validering av kontantstøtte-søknad feilet", e)
+        }
+
         return ResponseEntity.ok().body(kontantstøtteSøknadService.mottaOgSendKontantstøttesøknad(kontantstøtteSøknad))
     }
 }
@@ -148,14 +164,14 @@ fun KontantstøtteSøknadV5.valider() {
 
 private fun validerLabel(textField: Søknadsfelt<out Any?>) {
     textField.label.values.forEach { label ->
-        require(label.length < 200) { "Tekstfelt(label) er for langt" }
-        require(!Regex("[<>'\"]").containsMatchIn(label)) { "Tekstfelt(label) inneholder ugyldige tegn" }
+        require(label.length < 200) { "Tekstfelt(label) er for langt. ${textField.label} " }
+        require(!Regex("[<>'\"]").containsMatchIn(label)) { "Tekstfelt(label) inneholder ugyldige tegn. ${textField.label} " }
     }
 }
 
 private fun validerVerdiITextfelt(textField: Søknadsfelt<out Any?>) {
     textField.verdi.values.forEach { verdi ->
-        require(verdi.toString().length < 200) { "Tekstfelt er for langt" }
-        require(!Regex("[<>'\"]").containsMatchIn(verdi.toString())) { "Tekstfelt inneholder ugyldige tegn" }
+        require(verdi.toString().length < 200) { "Tekstfelt er for langt. ${textField.verdi} " }
+        require(!Regex("[<>'\"]").containsMatchIn(verdi.toString())) { "Tekstfelt inneholder ugyldige tegn, ${textField.verdi} " }
     }
 }
