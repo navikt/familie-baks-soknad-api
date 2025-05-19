@@ -57,8 +57,8 @@ internal class ApplicationConfig {
         mdcValuesPropagatingClientInterceptor: MdcValuesPropagatingClientInterceptor
     ): RestOperations =
         RestTemplateBuilder()
-            .setConnectTimeout(Duration.of(5, ChronoUnit.SECONDS))
-            .setReadTimeout(Duration.of(25, ChronoUnit.SECONDS))
+            .connectTimeout(Duration.of(5, ChronoUnit.SECONDS))
+            .readTimeout(Duration.of(25, ChronoUnit.SECONDS))
             .interceptors(
                 consumerIdClientInterceptor,
                 bearerTokenClientCredentialsClientInterceptor,
@@ -72,8 +72,8 @@ internal class ApplicationConfig {
         consumerIdClientInterceptor: ConsumerIdClientInterceptor
     ): RestOperations =
         RestTemplateBuilder()
-            .setConnectTimeout(Duration.of(5, ChronoUnit.SECONDS))
-            .setReadTimeout(Duration.of(25, ChronoUnit.SECONDS))
+            .connectTimeout(Duration.of(5, ChronoUnit.SECONDS))
+            .readTimeout(Duration.of(25, ChronoUnit.SECONDS))
             .interceptors(
                 bearerTokenExchangeClientInterceptor,
                 mdcValuesPropagatingClientInterceptor,
