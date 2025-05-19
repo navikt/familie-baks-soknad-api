@@ -165,7 +165,7 @@ fun KontantstøtteSøknadV5.valider() {
 private fun validerLabel(textField: Søknadsfelt<out Any?>) {
     textField.label.values.forEach { label ->
         require(label.length < 200) { "Tekstfelt(label) er for langt. ${textField.label} " }
-        require(!Regex("[<>'\"]").containsMatchIn(label)) { "Tekstfelt(label) inneholder ugyldige tegn. ${textField.label} " }
+        require(!Regex("[<>\"]").containsMatchIn(label)) { "Tekstfelt(label) inneholder ugyldige tegn. ${textField.label} " }
     }
 }
 
