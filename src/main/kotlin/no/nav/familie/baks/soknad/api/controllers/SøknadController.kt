@@ -38,7 +38,7 @@ class SøknadController(
         try {
             søknad.valider()
         } catch (e: Exception) {
-            logger.error("Validering av barnetrygd-søknad feilet. Søknaden sendes videre til journalføring, men man bør se på hvorfor det feiler. Se securelogs for detaljer.")
+            logger.warn("Validering av barnetrygd-søknad feilet. Søknaden sendes videre til journalføring, men man bør se på hvorfor det feiler. Se securelogs for detaljer.")
             secureLogger.error("Validering av barnetrygd-søknad feilet", e)
         }
         return ResponseEntity.ok().body(barnetrygdSøknadService.mottaOgSendBarnetrygdsøknad(søknad))
@@ -52,7 +52,7 @@ class SøknadController(
         try {
             kontantstøtteSøknad.valider()
         } catch (e: Exception) {
-            logger.error("Validering av kontantstøtte-søknad feilet. Søknaden sendes videre til journalføring, men man bør se på hvorfor det feiler. Se securelogs for detaljer.")
+            logger.warn("Validering av kontantstøtte-søknad feilet. Søknaden sendes videre til journalføring, men man bør se på hvorfor det feiler. Se securelogs for detaljer.")
             secureLogger.error("Validering av kontantstøtte-søknad feilet", e)
         }
 
