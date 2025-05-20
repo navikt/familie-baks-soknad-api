@@ -162,16 +162,19 @@ fun KontantstøtteSøknadV5.valider() {
     }
 }
 
-private fun validerLabel(textField: Søknadsfelt<out Any?>) {
+private fun validerLabel(
+    textField: Søknadsfelt<out Any?>,
+    length: Int = 200
+) {
     textField.label.values.forEach { label ->
-        require(label.length < 200) { "Tekstfelt(label) er for langt. ${textField.label} " }
-        require(!Regex("[<>\"]").containsMatchIn(label)) { "Tekstfelt(label) inneholder ugyldige tegn. ${textField.label} " }
+        require(label.length < length) { "Tekstfelt(label) er for langt. $label" }
+        require(!Regex("[<>\"]").containsMatchIn(label)) { "Tekstfelt(label) inneholder ugyldige tegn. $label " }
     }
 }
 
 private fun validerVerdiITextfelt(textField: Søknadsfelt<out Any?>) {
     textField.verdi.values.forEach { verdi ->
-        require(verdi.toString().length < 200) { "Tekstfelt er for langt. ${textField.verdi} " }
-        require(!Regex("[<>'\"]").containsMatchIn(verdi.toString())) { "Tekstfelt inneholder ugyldige tegn, ${textField.verdi} " }
+        require(verdi.toString().length < 200) { "Tekstfelt er for langt. $verdi " }
+        require(!Regex("[<>'\"]").containsMatchIn(verdi.toString())) { "Tekstfelt inneholder ugyldige tegn, $verdi " }
     }
 }
