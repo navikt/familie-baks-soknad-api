@@ -23,9 +23,9 @@
         "nn" : "Ident"
       },
       "verdi" : {
-        "nb" : "12498733725",
-        "nn" : "12498733725",
-        "en" : "12498733725"
+        "nb" : "12498700000",
+        "nn" : "12498700000",
+        "en" : "12498700000"
       }
     },
     "sivilstand" : {
@@ -66,7 +66,7 @@
       },
       "verdi" : {
         "nb" : {
-          "adressenavn" : "Hubroveien",
+          "adressenavn" : "Veiveien",
           "postnummer" : "8300",
           "husbokstav" : "A",
           "bruksenhetsnummer" : null,
@@ -74,7 +74,7 @@
           "poststed" : "SVOLVÆR"
         },
         "nn" : {
-          "adressenavn" : "Hubroveien",
+          "adressenavn" : "Veiveien",
           "postnummer" : "8300",
           "husbokstav" : "A",
           "bruksenhetsnummer" : null,
@@ -82,7 +82,7 @@
           "poststed" : "SVOLVÆR"
         },
         "en" : {
-          "adressenavn" : "Hubroveien",
+          "adressenavn" : "Veiveien",
           "postnummer" : "8300",
           "husbokstav" : "A",
           "bruksenhetsnummer" : null,
