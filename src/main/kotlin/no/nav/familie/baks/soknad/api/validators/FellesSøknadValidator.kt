@@ -31,3 +31,21 @@ internal fun String.validerVerdiITextfelt(
     require(this.length < length) { "Tekstfelt er for langt. $this " }
     require(!Regex("[<>'\"]").containsMatchIn(this)) { "Tekstfelt inneholder ugyldige tegn, $this " }
 }
+
+internal fun validerListeAvSøknadsfelt(liste: List<Søknadsfelt<out Any>>) {
+    liste.forEach { søknadsfelt ->
+        val mapAvLabels = søknadsfelt.label
+        søknadsfelt.label.keys.forEach { locale ->
+            mapAvLabels.getValue(locale).validerLabel()
+        }
+        val mapAvVerdier = søknadsfelt.verdi
+        mapAvVerdier.keys.forEach { locale ->
+            mapAvLabels.getValue(locale).validerVerdiITextfelt()
+        }
+    }
+}
+
+internal fun validerLabelOgVerdi(textField: Søknadsfelt<out Any?>) {
+    textField.validerVerdiITextfelt()
+    textField.validerLabel()
+}
