@@ -6,12 +6,14 @@ import no.nav.familie.baks.soknad.api.services.BarnetrygdSøknadTestData
 import no.nav.familie.baks.soknad.api.services.BarnetrygdSøknadTestData.søknadsfelt
 import no.nav.familie.baks.soknad.api.services.KontantstøtteSøknadService
 import no.nav.familie.baks.soknad.api.services.KontantstøtteSøknadTestData
+import no.nav.familie.kontrakter.ba.søknad.v9.BarnetrygdSøknad
 import no.nav.familie.kontrakter.felles.Ressurs
 import no.nav.familie.kontrakter.felles.objectMapper
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.`when`
+import java.io.File
 import java.time.LocalDateTime
 import kotlin.test.Test
 
@@ -126,5 +128,17 @@ class SøknadControllerTest {
             }
 
         assertThat(exception.message).startsWith("Tekstfelt(label) er for langt. ${"navn".padEnd(200, 'a')}")
+    }
+
+    @Test
+    fun `test at testsøknad json kan parses til barnetrygd søknad og valideres`() {
+        // Hent barnetrygd.json
+        val filePath =
+            javaClass.classLoader.getResource("barnetrygd.json")?.file
+                ?: error("Kunne ikke finne barnetrygd.json")
+
+        // Parse JSON til BarnetrygdSøknad
+        val søknad = objectMapper.readValue(File(filePath), BarnetrygdSøknad::class.java)
+        søknad.valider()
     }
 }

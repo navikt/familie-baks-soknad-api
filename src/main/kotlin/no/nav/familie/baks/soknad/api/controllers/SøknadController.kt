@@ -103,11 +103,23 @@ fun BarnetrygdSøknadV9.valider() {
         søker.utenlandsperioder,
         søker.arbeidsperioderUtland
     ).forEach { liste ->
-        liste.forEach { textField ->
+        liste.forEach { listeElement ->
             // valider alle verider i tekstfelt
-            validerVerdiITextfelt(textField)
+            val label = listeElement.label
+            label.keys.forEach {
+                val v = label.getValue(it)
+                require(v.length < 200) { "Tekstfelt(label) er for langt. $v" }
+                require(!Regex("[<>\"]").containsMatchIn(v)) { "Tekstfelt(label) inneholder ugyldige tegn. $v " }
+            }
+            val verdi = listeElement.verdi
+            verdi.keys.forEach {
+                val v = label.getValue(it)
+                require(v.length < 200) { "Tekstfelt(verdi) er for langt. $v" }
+                require(!Regex("[<>\"]").containsMatchIn(v)) { "Tekstfelt(verdi) inneholder ugyldige tegn. $v " }
+            }
+            // rvaliderLabel(v)
+
             // valider alle labler i tekstfelt
-            validerLabel(textField)
         }
     }
 }

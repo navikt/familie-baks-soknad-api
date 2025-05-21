@@ -1,0 +1,1754 @@
+{
+  "søknadstype" : "ORDINÆR",
+  "kontraktVersjon" : 9,
+  "antallEøsSteg" : 2,
+  "søker" : {
+    "harEøsSteg" : true,
+    "navn" : {
+      "label" : {
+        "en" : "Name",
+        "nb" : "Navn",
+        "nn" : "Namn"
+      },
+      "verdi" : {
+        "nb" : "USYMMETRISK JOURNAL",
+        "nn" : "USYMMETRISK JOURNAL",
+        "en" : "USYMMETRISK JOURNAL"
+      }
+    },
+    "ident" : {
+      "label" : {
+        "en" : "Ident",
+        "nb" : "Ident",
+        "nn" : "Ident"
+      },
+      "verdi" : {
+        "nb" : "12498733725",
+        "nn" : "12498733725",
+        "en" : "12498733725"
+      }
+    },
+    "sivilstand" : {
+      "label" : {
+        "en" : "Marital status",
+        "nb" : "Sivilstatus",
+        "nn" : "Sivilstatus"
+      },
+      "verdi" : {
+        "nb" : "UGIFT",
+        "nn" : "UGIFT",
+        "en" : "UGIFT"
+      }
+    },
+    "statsborgerskap" : {
+      "label" : {
+        "en" : "Citizenship",
+        "nb" : "Statsborgerskap",
+        "nn" : "Statsborgarskap"
+      },
+      "verdi" : {
+        "nb" : [
+          "Norge"
+        ],
+        "nn" : [
+          "Noreg"
+        ],
+        "en" : [
+          "Norway"
+        ]
+      }
+    },
+    "adresse" : {
+      "label" : {
+        "en" : "Address",
+        "nb" : "Adresse",
+        "nn" : "Adresse"
+      },
+      "verdi" : {
+        "nb" : {
+          "adressenavn" : "Hubroveien",
+          "postnummer" : "8300",
+          "husbokstav" : "A",
+          "bruksenhetsnummer" : null,
+          "husnummer" : "1",
+          "poststed" : "SVOLVÆR"
+        },
+        "nn" : {
+          "adressenavn" : "Hubroveien",
+          "postnummer" : "8300",
+          "husbokstav" : "A",
+          "bruksenhetsnummer" : null,
+          "husnummer" : "1",
+          "poststed" : "SVOLVÆR"
+        },
+        "en" : {
+          "adressenavn" : "Hubroveien",
+          "postnummer" : "8300",
+          "husbokstav" : "A",
+          "bruksenhetsnummer" : null,
+          "husnummer" : "1",
+          "poststed" : "SVOLVÆR"
+        }
+      }
+    },
+    "adressebeskyttelse" : false,
+    "utenlandsperioder" : [
+      {
+        "label" : {
+          "en" : "Stay abroad 1",
+          "nn" : "Utanlandsopphald 1",
+          "nb" : "Utenlandsopphold 1"
+        },
+        "verdi" : {
+          "nb" : {
+            "utenlandsoppholdÅrsak" : {
+              "label" : {
+                "en" : "What best describes the period you stayed outside of Norway?",
+                "nn" : "Kva beskriv perioden du oppheldt deg utanfor Noreg best?",
+                "nb" : "Hva beskriver perioden du oppholdt deg utenfor Norge best?"
+              },
+              "verdi" : {
+                "en" : "I have permanently moved from Norway",
+                "nn" : "Eg har flytta permanent frå Noreg",
+                "nb" : "Jeg har flyttet permanent fra Norge"
+              }
+            },
+            "oppholdsland" : {
+              "label" : {
+                "en" : "Which country have you moved to?",
+                "nn" : "Kva land har du flytta til?",
+                "nb" : "Hvilket land har du flyttet til?"
+              },
+              "verdi" : {
+                "nb" : "Australia",
+                "nn" : "Australia",
+                "en" : "Australia"
+              }
+            },
+            "oppholdslandFraDato" : {
+              "label" : {
+                "en" : "When did you move from Norway?",
+                "nn" : "Når flytta du frå Noreg?",
+                "nb" : "Når flyttet du fra Norge?"
+              },
+              "verdi" : {
+                "nb" : "2025-05-01",
+                "nn" : "2025-05-01",
+                "en" : "2025-05-01"
+              }
+            },
+            "oppholdslandTilDato" : {
+              "label" : {
+                "en" : "When is the stay ending?",
+                "nn" : "Når skal opphaldet avsluttast?",
+                "nb" : "Når avsluttes oppholdet?"
+              },
+              "verdi" : {}
+            }
+          },
+          "nn" : {
+            "utenlandsoppholdÅrsak" : {
+              "label" : {
+                "en" : "What best describes the period you stayed outside of Norway?",
+                "nn" : "Kva beskriv perioden du oppheldt deg utanfor Noreg best?",
+                "nb" : "Hva beskriver perioden du oppholdt deg utenfor Norge best?"
+              },
+              "verdi" : {
+                "en" : "I have permanently moved from Norway",
+                "nn" : "Eg har flytta permanent frå Noreg",
+                "nb" : "Jeg har flyttet permanent fra Norge"
+              }
+            },
+            "oppholdsland" : {
+              "label" : {
+                "en" : "Which country have you moved to?",
+                "nn" : "Kva land har du flytta til?",
+                "nb" : "Hvilket land har du flyttet til?"
+              },
+              "verdi" : {
+                "nb" : "Australia",
+                "nn" : "Australia",
+                "en" : "Australia"
+              }
+            },
+            "oppholdslandFraDato" : {
+              "label" : {
+                "en" : "When did you move from Norway?",
+                "nn" : "Når flytta du frå Noreg?",
+                "nb" : "Når flyttet du fra Norge?"
+              },
+              "verdi" : {
+                "nb" : "2025-05-01",
+                "nn" : "2025-05-01",
+                "en" : "2025-05-01"
+              }
+            },
+            "oppholdslandTilDato" : {
+              "label" : {
+                "en" : "When is the stay ending?",
+                "nn" : "Når skal opphaldet avsluttast?",
+                "nb" : "Når avsluttes oppholdet?"
+              },
+              "verdi" : {}
+            }
+          },
+          "en" : {
+            "utenlandsoppholdÅrsak" : {
+              "label" : {
+                "en" : "What best describes the period you stayed outside of Norway?",
+                "nn" : "Kva beskriv perioden du oppheldt deg utanfor Noreg best?",
+                "nb" : "Hva beskriver perioden du oppholdt deg utenfor Norge best?"
+              },
+              "verdi" : {
+                "en" : "I have permanently moved from Norway",
+                "nn" : "Eg har flytta permanent frå Noreg",
+                "nb" : "Jeg har flyttet permanent fra Norge"
+              }
+            },
+            "oppholdsland" : {
+              "label" : {
+                "en" : "Which country have you moved to?",
+                "nn" : "Kva land har du flytta til?",
+                "nb" : "Hvilket land har du flyttet til?"
+              },
+              "verdi" : {
+                "nb" : "Australia",
+                "nn" : "Australia",
+                "en" : "Australia"
+              }
+            },
+            "oppholdslandFraDato" : {
+              "label" : {
+                "en" : "When did you move from Norway?",
+                "nn" : "Når flytta du frå Noreg?",
+                "nb" : "Når flyttet du fra Norge?"
+              },
+              "verdi" : {
+                "nb" : "2025-05-01",
+                "nn" : "2025-05-01",
+                "en" : "2025-05-01"
+              }
+            },
+            "oppholdslandTilDato" : {
+              "label" : {
+                "en" : "When is the stay ending?",
+                "nn" : "Når skal opphaldet avsluttast?",
+                "nb" : "Når avsluttes oppholdet?"
+              },
+              "verdi" : {}
+            }
+          }
+        }
+      }
+    ],
+    "idNummer" : [],
+    "spørsmål" : {
+      "borPåRegistrertAdresse" : {
+        "label" : {
+          "en" : "Do you live at this address?",
+          "nb" : "Bor du på denne adressen?",
+          "nn" : "Bur du på denne adressa?"
+        },
+        "verdi" : {
+          "nb" : "JA",
+          "nn" : "JA",
+          "en" : "JA"
+        }
+      },
+      "værtINorgeITolvMåneder" : {
+        "label" : {
+          "en" : "Have you stayed continuously in Norway for the last twelve months?",
+          "nb" : "Har du oppholdt deg sammenhengende i Norge de siste tolv månedene?",
+          "nn" : "Har du opphalde deg samanhengande i Noreg dei siste tolv månadene?"
+        },
+        "verdi" : {
+          "nb" : "NEI",
+          "nn" : "NEI",
+          "en" : "NEI"
+        }
+      },
+      "erAsylsøker" : {
+        "label" : {
+          "en" : "Are you an asylum seeker?",
+          "nb" : "Er du asylsøker?",
+          "nn" : "Er du asylsøkar?"
+        },
+        "verdi" : {
+          "nb" : "NEI",
+          "nn" : "NEI",
+          "en" : "NEI"
+        }
+      },
+      "arbeidIUtlandet" : {
+        "label" : {
+          "en" : "Do you or have you worked outside of Norway, on a foreign ship or on another country's continental shelf?",
+          "nb" : "Arbeider eller har du arbeidet utenfor Norge, på utenlandsk skip eller på utenlandsk kontinentalsokkel?",
+          "nn" : "Arbeider eller har du arbeidt utanfor Noreg, på utanlandsk skip eller på utanlandsk kontinentalsokkel?"
+        },
+        "verdi" : {
+          "nb" : "JA",
+          "nn" : "JA",
+          "en" : "JA"
+        }
+      },
+      "mottarUtenlandspensjon" : {
+        "label" : {
+          "en" : "Do you or have you received a pension from abroad?",
+          "nb" : "Får eller har du fått pensjon fra utlandet?",
+          "nn" : "Får eller har du fått pensjon frå utlandet?"
+        },
+        "verdi" : {
+          "nb" : "JA",
+          "nn" : "JA",
+          "en" : "JA"
+        }
+      },
+      "arbeidINorge" : {
+        "label" : {
+          "en" : "Do you work or have you worked in Norway, on the Norwegian continental shelf or on a ship flying the Norwegian flag?",
+          "nb" : "Arbeider eller har du arbeidet i Norge, på norsk kontinentalsokkel eller på skip med norsk flagg?",
+          "nn" : "Arbeider eller har du arbeidt i Noreg, på norsk kontinentalsokkel eller på skip med norsk flagg?"
+        },
+        "verdi" : {
+          "nb" : "NEI",
+          "nn" : "NEI",
+          "en" : "NEI"
+        }
+      },
+      "pensjonNorge" : {
+        "label" : {
+          "en" : "Do you receive or have you received a pension from Norway?",
+          "nb" : "Får du eller har du fått pensjon fra Norge?",
+          "nn" : "Får du eller har du fått pensjon frå Noreg?"
+        },
+        "verdi" : {
+          "nb" : "JA",
+          "nn" : "JA",
+          "en" : "JA"
+        }
+      },
+      "andreUtbetalinger" : {
+        "label" : {
+          "en" : "Do you receive or have you received benefits that replace income from Norway and/or another EEA member state?",
+          "nb" : "Får du eller har du fått utbetalinger som erstatter arbeidsinntekt fra Norge og/eller andre EØS-land?",
+          "nn" : "Får du eller har du fått utbetalingar som erstattar arbeidsinntekt frå Noreg og/eller andre EØS-land?"
+        },
+        "verdi" : {
+          "nb" : "JA",
+          "nn" : "JA",
+          "en" : "JA"
+        }
+      }
+    },
+    "tidligereSamboere" : [],
+    "nåværendeSamboer" : null,
+    "arbeidsperioderUtland" : [
+      {
+        "label" : {
+          "en" : "Period of work outside of Norway 1",
+          "nn" : "Arbeidsperiode utanfor Noreg 1",
+          "nb" : "Arbeidsperiode utenfor Norge 1"
+        },
+        "verdi" : {
+          "nb" : {
+            "arbeidsperiodeAvsluttet" : {
+              "label" : {
+                "en" : "Has the period of work ended?",
+                "nn" : "Er arbeidsperioden avslutta?",
+                "nb" : "Er arbeidsperioden avsluttet?"
+              },
+              "verdi" : {
+                "nb" : "JA",
+                "nn" : "JA",
+                "en" : "JA"
+              }
+            },
+            "arbeidsperiodeland" : {
+              "label" : {
+                "en" : "Which country did you work in?",
+                "nn" : "Kva land arbeidde du i?",
+                "nb" : "Hvilket land arbeidet du i?"
+              },
+              "verdi" : {
+                "nb" : "Australia",
+                "nn" : "Australia",
+                "en" : "Australia"
+              }
+            },
+            "arbeidsgiver" : null,
+            "fraDatoArbeidsperiode" : null,
+            "tilDatoArbeidsperiode" : null
+          },
+          "nn" : {
+            "arbeidsperiodeAvsluttet" : {
+              "label" : {
+                "en" : "Has the period of work ended?",
+                "nn" : "Er arbeidsperioden avslutta?",
+                "nb" : "Er arbeidsperioden avsluttet?"
+              },
+              "verdi" : {
+                "nb" : "JA",
+                "nn" : "JA",
+                "en" : "JA"
+              }
+            },
+            "arbeidsperiodeland" : {
+              "label" : {
+                "en" : "Which country did you work in?",
+                "nn" : "Kva land arbeidde du i?",
+                "nb" : "Hvilket land arbeidet du i?"
+              },
+              "verdi" : {
+                "nb" : "Australia",
+                "nn" : "Australia",
+                "en" : "Australia"
+              }
+            },
+            "arbeidsgiver" : null,
+            "fraDatoArbeidsperiode" : null,
+            "tilDatoArbeidsperiode" : null
+          },
+          "en" : {
+            "arbeidsperiodeAvsluttet" : {
+              "label" : {
+                "en" : "Has the period of work ended?",
+                "nn" : "Er arbeidsperioden avslutta?",
+                "nb" : "Er arbeidsperioden avsluttet?"
+              },
+              "verdi" : {
+                "nb" : "JA",
+                "nn" : "JA",
+                "en" : "JA"
+              }
+            },
+            "arbeidsperiodeland" : {
+              "label" : {
+                "en" : "Which country did you work in?",
+                "nn" : "Kva land arbeidde du i?",
+                "nb" : "Hvilket land arbeidet du i?"
+              },
+              "verdi" : {
+                "nb" : "Australia",
+                "nn" : "Australia",
+                "en" : "Australia"
+              }
+            },
+            "arbeidsgiver" : null,
+            "fraDatoArbeidsperiode" : null,
+            "tilDatoArbeidsperiode" : null
+          }
+        }
+      }
+    ],
+    "arbeidsperioderNorge" : [],
+    "pensjonsperioderUtland" : [
+      {
+        "label" : {
+          "en" : "Pension from abroad 1",
+          "nn" : "Pensjon frå utlandet 1",
+          "nb" : "Pensjon fra utlandet 1"
+        },
+        "verdi" : {
+          "nb" : {
+            "mottarPensjonNå" : {
+              "label" : {
+                "en" : "Are you currently receiving a pension?",
+                "nn" : "Får du pensjon no?",
+                "nb" : "Får du pensjon nå?"
+              },
+              "verdi" : {
+                "nb" : "JA",
+                "nn" : "JA",
+                "en" : "JA"
+              }
+            },
+            "pensjonsland" : {
+              "label" : {
+                "en" : "Which country do you receive a pension from?",
+                "nn" : "Kva land får du pensjon frå?",
+                "nb" : "Hvilket land får du pensjon fra?"
+              },
+              "verdi" : {
+                "nb" : "Australia",
+                "nn" : "Australia",
+                "en" : "Australia"
+              }
+            },
+            "pensjonFra" : null,
+            "pensjonTil" : null
+          },
+          "nn" : {
+            "mottarPensjonNå" : {
+              "label" : {
+                "en" : "Are you currently receiving a pension?",
+                "nn" : "Får du pensjon no?",
+                "nb" : "Får du pensjon nå?"
+              },
+              "verdi" : {
+                "nb" : "JA",
+                "nn" : "JA",
+                "en" : "JA"
+              }
+            },
+            "pensjonsland" : {
+              "label" : {
+                "en" : "Which country do you receive a pension from?",
+                "nn" : "Kva land får du pensjon frå?",
+                "nb" : "Hvilket land får du pensjon fra?"
+              },
+              "verdi" : {
+                "nb" : "Australia",
+                "nn" : "Australia",
+                "en" : "Australia"
+              }
+            },
+            "pensjonFra" : null,
+            "pensjonTil" : null
+          },
+          "en" : {
+            "mottarPensjonNå" : {
+              "label" : {
+                "en" : "Are you currently receiving a pension?",
+                "nn" : "Får du pensjon no?",
+                "nb" : "Får du pensjon nå?"
+              },
+              "verdi" : {
+                "nb" : "JA",
+                "nn" : "JA",
+                "en" : "JA"
+              }
+            },
+            "pensjonsland" : {
+              "label" : {
+                "en" : "Which country do you receive a pension from?",
+                "nn" : "Kva land får du pensjon frå?",
+                "nb" : "Hvilket land får du pensjon fra?"
+              },
+              "verdi" : {
+                "nb" : "Australia",
+                "nn" : "Australia",
+                "en" : "Australia"
+              }
+            },
+            "pensjonFra" : null,
+            "pensjonTil" : null
+          }
+        }
+      }
+    ],
+    "pensjonsperioderNorge" : [
+      {
+        "label" : {
+          "en" : "Pension from Norway 1",
+          "nn" : "Pensjon frå Noreg 1",
+          "nb" : "Pensjon fra Norge 1"
+        },
+        "verdi" : {
+          "nb" : {
+            "mottarPensjonNå" : {
+              "label" : {
+                "en" : "Are you currently receiving a pension?",
+                "nn" : "Får du pensjon no?",
+                "nb" : "Får du pensjon nå?"
+              },
+              "verdi" : {
+                "nb" : "JA",
+                "nn" : "JA",
+                "en" : "JA"
+              }
+            },
+            "pensjonsland" : null,
+            "pensjonFra" : {
+              "label" : {
+                "en" : "From when have you received a pension?",
+                "nn" : "Når har du fått pensjon frå?",
+                "nb" : "Når har du fått pensjon fra?"
+              },
+              "verdi" : {
+                "nb" : "Mai 2025",
+                "nn" : "Mai 2025",
+                "en" : "May 2025"
+              }
+            },
+            "pensjonTil" : null
+          },
+          "nn" : {
+            "mottarPensjonNå" : {
+              "label" : {
+                "en" : "Are you currently receiving a pension?",
+                "nn" : "Får du pensjon no?",
+                "nb" : "Får du pensjon nå?"
+              },
+              "verdi" : {
+                "nb" : "JA",
+                "nn" : "JA",
+                "en" : "JA"
+              }
+            },
+            "pensjonsland" : null,
+            "pensjonFra" : {
+              "label" : {
+                "en" : "From when have you received a pension?",
+                "nn" : "Når har du fått pensjon frå?",
+                "nb" : "Når har du fått pensjon fra?"
+              },
+              "verdi" : {
+                "nb" : "Mai 2025",
+                "nn" : "Mai 2025",
+                "en" : "May 2025"
+              }
+            },
+            "pensjonTil" : null
+          },
+          "en" : {
+            "mottarPensjonNå" : {
+              "label" : {
+                "en" : "Are you currently receiving a pension?",
+                "nn" : "Får du pensjon no?",
+                "nb" : "Får du pensjon nå?"
+              },
+              "verdi" : {
+                "nb" : "JA",
+                "nn" : "JA",
+                "en" : "JA"
+              }
+            },
+            "pensjonsland" : null,
+            "pensjonFra" : {
+              "label" : {
+                "en" : "From when have you received a pension?",
+                "nn" : "Når har du fått pensjon frå?",
+                "nb" : "Når har du fått pensjon fra?"
+              },
+              "verdi" : {
+                "nb" : "Mai 2025",
+                "nn" : "Mai 2025",
+                "en" : "May 2025"
+              }
+            },
+            "pensjonTil" : null
+          }
+        }
+      }
+    ],
+    "andreUtbetalingsperioder" : [
+      {
+        "label" : {
+          "en" : "Benefit 1",
+          "nn" : "Utbetaling 1",
+          "nb" : "Utbetaling 1"
+        },
+        "verdi" : {
+          "nb" : {
+            "fårUtbetalingNå" : {
+              "label" : {
+                "en" : "Are you currently receiving benefits?",
+                "nn" : "Får du utbetalingar no?",
+                "nb" : "Får du utbetalinger nå?"
+              },
+              "verdi" : {
+                "nb" : "JA",
+                "nn" : "JA",
+                "en" : "JA"
+              }
+            },
+            "utbetalingLand" : {
+              "label" : {
+                "en" : "Which country are you receiving benefits from?",
+                "nn" : "Kva land får du utbetalingar frå?",
+                "nb" : "Hvilket land får du utbetalinger fra?"
+              },
+              "verdi" : {
+                "nb" : "Bulgaria",
+                "nn" : "Bulgaria",
+                "en" : "Bulgaria"
+              }
+            },
+            "utbetalingFraDato" : {
+              "label" : {
+                "en" : "When did the period of receiving benefits start?",
+                "nn" : "Når starta utbetalingane?",
+                "nb" : "Når startet utbetalingene?"
+              },
+              "verdi" : {
+                "nb" : "Mai 2025",
+                "nn" : "Mai 2025",
+                "en" : "May 2025"
+              }
+            },
+            "utbetalingTilDato" : {
+              "label" : {
+                "en" : "When will the period of receiving benefits end?",
+                "nn" : "Når stoppar utbetalingane?",
+                "nb" : "Når stopper utbetalingene?"
+              },
+              "verdi" : {
+                "nb" : "Desember 2025",
+                "nn" : "Desember 2025",
+                "en" : "December 2025"
+              }
+            }
+          },
+          "nn" : {
+            "fårUtbetalingNå" : {
+              "label" : {
+                "en" : "Are you currently receiving benefits?",
+                "nn" : "Får du utbetalingar no?",
+                "nb" : "Får du utbetalinger nå?"
+              },
+              "verdi" : {
+                "nb" : "JA",
+                "nn" : "JA",
+                "en" : "JA"
+              }
+            },
+            "utbetalingLand" : {
+              "label" : {
+                "en" : "Which country are you receiving benefits from?",
+                "nn" : "Kva land får du utbetalingar frå?",
+                "nb" : "Hvilket land får du utbetalinger fra?"
+              },
+              "verdi" : {
+                "nb" : "Bulgaria",
+                "nn" : "Bulgaria",
+                "en" : "Bulgaria"
+              }
+            },
+            "utbetalingFraDato" : {
+              "label" : {
+                "en" : "When did the period of receiving benefits start?",
+                "nn" : "Når starta utbetalingane?",
+                "nb" : "Når startet utbetalingene?"
+              },
+              "verdi" : {
+                "nb" : "Mai 2025",
+                "nn" : "Mai 2025",
+                "en" : "May 2025"
+              }
+            },
+            "utbetalingTilDato" : {
+              "label" : {
+                "en" : "When will the period of receiving benefits end?",
+                "nn" : "Når stoppar utbetalingane?",
+                "nb" : "Når stopper utbetalingene?"
+              },
+              "verdi" : {
+                "nb" : "Desember 2025",
+                "nn" : "Desember 2025",
+                "en" : "December 2025"
+              }
+            }
+          },
+          "en" : {
+            "fårUtbetalingNå" : {
+              "label" : {
+                "en" : "Are you currently receiving benefits?",
+                "nn" : "Får du utbetalingar no?",
+                "nb" : "Får du utbetalinger nå?"
+              },
+              "verdi" : {
+                "nb" : "JA",
+                "nn" : "JA",
+                "en" : "JA"
+              }
+            },
+            "utbetalingLand" : {
+              "label" : {
+                "en" : "Which country are you receiving benefits from?",
+                "nn" : "Kva land får du utbetalingar frå?",
+                "nb" : "Hvilket land får du utbetalinger fra?"
+              },
+              "verdi" : {
+                "nb" : "Bulgaria",
+                "nn" : "Bulgaria",
+                "en" : "Bulgaria"
+              }
+            },
+            "utbetalingFraDato" : {
+              "label" : {
+                "en" : "When did the period of receiving benefits start?",
+                "nn" : "Når starta utbetalingane?",
+                "nb" : "Når startet utbetalingene?"
+              },
+              "verdi" : {
+                "nb" : "Mai 2025",
+                "nn" : "Mai 2025",
+                "en" : "May 2025"
+              }
+            },
+            "utbetalingTilDato" : {
+              "label" : {
+                "en" : "When will the period of receiving benefits end?",
+                "nn" : "Når stoppar utbetalingane?",
+                "nb" : "Når stopper utbetalingene?"
+              },
+              "verdi" : {
+                "nb" : "Desember 2025",
+                "nn" : "Desember 2025",
+                "en" : "December 2025"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "barn" : [
+    {
+      "harEøsSteg" : true,
+      "navn" : {
+        "label" : {
+          "en" : "Name",
+          "nb" : "Navn",
+          "nn" : "Namn"
+        },
+        "verdi" : {
+          "nb" : "JORDISK PEDAGOG",
+          "nn" : "JORDISK PEDAGOG",
+          "en" : "JORDISK PEDAGOG"
+        }
+      },
+      "ident" : {
+        "label" : {
+          "en" : "Ident",
+          "nb" : "Ident",
+          "nn" : "Ident"
+        },
+        "verdi" : {
+          "nb" : "27510865109",
+          "nn" : "27510865109",
+          "en" : "27510865109"
+        }
+      },
+      "registrertBostedType" : {
+        "label" : {
+          "en" : "Registered place of residence",
+          "nb" : "Registrert bosted",
+          "nn" : "Registrert bustad"
+        },
+        "verdi" : {
+          "nb" : "REGISTRERT_SOKERS_ADRESSE",
+          "nn" : "REGISTRERT_SOKERS_ADRESSE",
+          "en" : "REGISTRERT_SOKERS_ADRESSE"
+        }
+      },
+      "alder" : {
+        "label" : {
+          "en" : "Age",
+          "nb" : "Alder",
+          "nn" : "Alder"
+        },
+        "verdi" : {
+          "en" : "16 years",
+          "nb" : "16 år",
+          "nn" : "16 år"
+        }
+      },
+      "utenlandsperioder" : [],
+      "eøsBarnetrygdsperioder" : [
+        {
+          "label" : {
+            "en" : "Period of Child Benefit 1",
+            "nn" : "Barnetrygdperiode 1",
+            "nb" : "Barnetrygdperiode 1"
+          },
+          "verdi" : {
+            "nb" : {
+              "mottarEøsBarnetrygdNå" : {
+                "label" : {
+                  "en" : "Are you currently receiving child benefit from an EEA country?",
+                  "nn" : "Får du barnetrygd frå eit EU/EØS-land no?",
+                  "nb" : "Får du barnetrygd fra et EU/EØS land nå?"
+                },
+                "verdi" : {
+                  "nb" : "JA",
+                  "nn" : "JA",
+                  "en" : "JA"
+                }
+              },
+              "barnetrygdsland" : {
+                "label" : {
+                  "en" : "What country are you receiving child benefit from?",
+                  "nn" : "Kva land får du barnetrygd frå?",
+                  "nb" : "Hvilket land får du barnetrygd fra?"
+                },
+                "verdi" : {
+                  "nb" : "Danmark",
+                  "nn" : "Danmark",
+                  "en" : "Denmark"
+                }
+              },
+              "fraDatoBarnetrygdperiode" : {
+                "label" : {
+                  "en" : "When did the child benefit start?",
+                  "nn" : "Når starta barnetrygd?",
+                  "nb" : "Når startet barnetrygden?"
+                },
+                "verdi" : {
+                  "nb" : "Mai 2025",
+                  "nn" : "Mai 2025",
+                  "en" : "May 2025"
+                }
+              },
+              "tilDatoBarnetrygdperiode" : null,
+              "månedligBeløp" : {
+                "label" : {
+                  "en" : "Amount each month for JORDISK PEDAGOG",
+                  "nn" : "Beløp kvar månad for JORDISK PEDAGOG",
+                  "nb" : "Beløp hver måned for JORDISK PEDAGOG"
+                },
+                "verdi" : {
+                  "nb" : "6465",
+                  "nn" : "6465",
+                  "en" : "6465"
+                }
+              }
+            },
+            "nn" : {
+              "mottarEøsBarnetrygdNå" : {
+                "label" : {
+                  "en" : "Are you currently receiving child benefit from an EEA country?",
+                  "nn" : "Får du barnetrygd frå eit EU/EØS-land no?",
+                  "nb" : "Får du barnetrygd fra et EU/EØS land nå?"
+                },
+                "verdi" : {
+                  "nb" : "JA",
+                  "nn" : "JA",
+                  "en" : "JA"
+                }
+              },
+              "barnetrygdsland" : {
+                "label" : {
+                  "en" : "What country are you receiving child benefit from?",
+                  "nn" : "Kva land får du barnetrygd frå?",
+                  "nb" : "Hvilket land får du barnetrygd fra?"
+                },
+                "verdi" : {
+                  "nb" : "Danmark",
+                  "nn" : "Danmark",
+                  "en" : "Denmark"
+                }
+              },
+              "fraDatoBarnetrygdperiode" : {
+                "label" : {
+                  "en" : "When did the child benefit start?",
+                  "nn" : "Når starta barnetrygd?",
+                  "nb" : "Når startet barnetrygden?"
+                },
+                "verdi" : {
+                  "nb" : "Mai 2025",
+                  "nn" : "Mai 2025",
+                  "en" : "May 2025"
+                }
+              },
+              "tilDatoBarnetrygdperiode" : null,
+              "månedligBeløp" : {
+                "label" : {
+                  "en" : "Amount each month for JORDISK PEDAGOG",
+                  "nn" : "Beløp kvar månad for JORDISK PEDAGOG",
+                  "nb" : "Beløp hver måned for JORDISK PEDAGOG"
+                },
+                "verdi" : {
+                  "nb" : "6465",
+                  "nn" : "6465",
+                  "en" : "6465"
+                }
+              }
+            },
+            "en" : {
+              "mottarEøsBarnetrygdNå" : {
+                "label" : {
+                  "en" : "Are you currently receiving child benefit from an EEA country?",
+                  "nn" : "Får du barnetrygd frå eit EU/EØS-land no?",
+                  "nb" : "Får du barnetrygd fra et EU/EØS land nå?"
+                },
+                "verdi" : {
+                  "nb" : "JA",
+                  "nn" : "JA",
+                  "en" : "JA"
+                }
+              },
+              "barnetrygdsland" : {
+                "label" : {
+                  "en" : "What country are you receiving child benefit from?",
+                  "nn" : "Kva land får du barnetrygd frå?",
+                  "nb" : "Hvilket land får du barnetrygd fra?"
+                },
+                "verdi" : {
+                  "nb" : "Danmark",
+                  "nn" : "Danmark",
+                  "en" : "Denmark"
+                }
+              },
+              "fraDatoBarnetrygdperiode" : {
+                "label" : {
+                  "en" : "When did the child benefit start?",
+                  "nn" : "Når starta barnetrygd?",
+                  "nb" : "Når startet barnetrygden?"
+                },
+                "verdi" : {
+                  "nb" : "Mai 2025",
+                  "nn" : "Mai 2025",
+                  "en" : "May 2025"
+                }
+              },
+              "tilDatoBarnetrygdperiode" : null,
+              "månedligBeløp" : {
+                "label" : {
+                  "en" : "Amount each month for JORDISK PEDAGOG",
+                  "nn" : "Beløp kvar månad for JORDISK PEDAGOG",
+                  "nb" : "Beløp hver måned for JORDISK PEDAGOG"
+                },
+                "verdi" : {
+                  "nb" : "6465",
+                  "nn" : "6465",
+                  "en" : "6465"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "idNummer" : [
+        {
+          "label" : {
+            "en" : "What is the ID-number of JORDISK PEDAGOG in Danmark?",
+            "nb" : "Hva er id-nummeret til JORDISK PEDAGOG i Danmark?",
+            "nn" : "Kva er id-nummeret til JORDISK PEDAGOG i Danmark?"
+          },
+          "verdi" : {
+            "nb" : {
+              "idNummer" : {
+                "label" : {
+                  "en" : "What is the ID-number of JORDISK PEDAGOG in Danmark?",
+                  "nb" : "Hva er id-nummeret til JORDISK PEDAGOG i Danmark?",
+                  "nn" : "Kva er id-nummeret til JORDISK PEDAGOG i Danmark?"
+                },
+                "verdi" : {
+                  "nb" : "654564654564",
+                  "nn" : "654564654564",
+                  "en" : "654564654564"
+                }
+              },
+              "land" : {
+                "label" : {
+                  "en" : "What is the ID-number of JORDISK PEDAGOG in Danmark?",
+                  "nb" : "Hva er id-nummeret til JORDISK PEDAGOG i Danmark?",
+                  "nn" : "Kva er id-nummeret til JORDISK PEDAGOG i Danmark?"
+                },
+                "verdi" : {
+                  "nb" : "DNK",
+                  "nn" : "DNK",
+                  "en" : "DNK"
+                }
+              }
+            },
+            "nn" : {
+              "idNummer" : {
+                "label" : {
+                  "en" : "What is the ID-number of JORDISK PEDAGOG in Danmark?",
+                  "nb" : "Hva er id-nummeret til JORDISK PEDAGOG i Danmark?",
+                  "nn" : "Kva er id-nummeret til JORDISK PEDAGOG i Danmark?"
+                },
+                "verdi" : {
+                  "nb" : "654564654564",
+                  "nn" : "654564654564",
+                  "en" : "654564654564"
+                }
+              },
+              "land" : {
+                "label" : {
+                  "en" : "What is the ID-number of JORDISK PEDAGOG in Danmark?",
+                  "nb" : "Hva er id-nummeret til JORDISK PEDAGOG i Danmark?",
+                  "nn" : "Kva er id-nummeret til JORDISK PEDAGOG i Danmark?"
+                },
+                "verdi" : {
+                  "nb" : "DNK",
+                  "nn" : "DNK",
+                  "en" : "DNK"
+                }
+              }
+            },
+            "en" : {
+              "idNummer" : {
+                "label" : {
+                  "en" : "What is the ID-number of JORDISK PEDAGOG in Danmark?",
+                  "nb" : "Hva er id-nummeret til JORDISK PEDAGOG i Danmark?",
+                  "nn" : "Kva er id-nummeret til JORDISK PEDAGOG i Danmark?"
+                },
+                "verdi" : {
+                  "nb" : "654564654564",
+                  "nn" : "654564654564",
+                  "en" : "654564654564"
+                }
+              },
+              "land" : {
+                "label" : {
+                  "en" : "What is the ID-number of JORDISK PEDAGOG in Danmark?",
+                  "nb" : "Hva er id-nummeret til JORDISK PEDAGOG i Danmark?",
+                  "nn" : "Kva er id-nummeret til JORDISK PEDAGOG i Danmark?"
+                },
+                "verdi" : {
+                  "nb" : "DNK",
+                  "nn" : "DNK",
+                  "en" : "DNK"
+                }
+              }
+            }
+          }
+        },
+        {
+          "label" : {
+            "en" : "What is the ID-number of JORDISK PEDAGOG in Finland?",
+            "nb" : "Hva er id-nummeret til JORDISK PEDAGOG i Finland?",
+            "nn" : "Kva er id-nummeret til JORDISK PEDAGOG i Finland?"
+          },
+          "verdi" : {
+            "nb" : {
+              "idNummer" : {
+                "label" : {
+                  "en" : "What is the ID-number of JORDISK PEDAGOG in Finland?",
+                  "nb" : "Hva er id-nummeret til JORDISK PEDAGOG i Finland?",
+                  "nn" : "Kva er id-nummeret til JORDISK PEDAGOG i Finland?"
+                },
+                "verdi" : {
+                  "nb" : "56465456456",
+                  "nn" : "56465456456",
+                  "en" : "56465456456"
+                }
+              },
+              "land" : {
+                "label" : {
+                  "en" : "What is the ID-number of JORDISK PEDAGOG in Finland?",
+                  "nb" : "Hva er id-nummeret til JORDISK PEDAGOG i Finland?",
+                  "nn" : "Kva er id-nummeret til JORDISK PEDAGOG i Finland?"
+                },
+                "verdi" : {
+                  "nb" : "FIN",
+                  "nn" : "FIN",
+                  "en" : "FIN"
+                }
+              }
+            },
+            "nn" : {
+              "idNummer" : {
+                "label" : {
+                  "en" : "What is the ID-number of JORDISK PEDAGOG in Finland?",
+                  "nb" : "Hva er id-nummeret til JORDISK PEDAGOG i Finland?",
+                  "nn" : "Kva er id-nummeret til JORDISK PEDAGOG i Finland?"
+                },
+                "verdi" : {
+                  "nb" : "56465456456",
+                  "nn" : "56465456456",
+                  "en" : "56465456456"
+                }
+              },
+              "land" : {
+                "label" : {
+                  "en" : "What is the ID-number of JORDISK PEDAGOG in Finland?",
+                  "nb" : "Hva er id-nummeret til JORDISK PEDAGOG i Finland?",
+                  "nn" : "Kva er id-nummeret til JORDISK PEDAGOG i Finland?"
+                },
+                "verdi" : {
+                  "nb" : "FIN",
+                  "nn" : "FIN",
+                  "en" : "FIN"
+                }
+              }
+            },
+            "en" : {
+              "idNummer" : {
+                "label" : {
+                  "en" : "What is the ID-number of JORDISK PEDAGOG in Finland?",
+                  "nb" : "Hva er id-nummeret til JORDISK PEDAGOG i Finland?",
+                  "nn" : "Kva er id-nummeret til JORDISK PEDAGOG i Finland?"
+                },
+                "verdi" : {
+                  "nb" : "56465456456",
+                  "nn" : "56465456456",
+                  "en" : "56465456456"
+                }
+              },
+              "land" : {
+                "label" : {
+                  "en" : "What is the ID-number of JORDISK PEDAGOG in Finland?",
+                  "nb" : "Hva er id-nummeret til JORDISK PEDAGOG i Finland?",
+                  "nn" : "Kva er id-nummeret til JORDISK PEDAGOG i Finland?"
+                },
+                "verdi" : {
+                  "nb" : "FIN",
+                  "nn" : "FIN",
+                  "en" : "FIN"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "andreForelder" : {
+        "kanIkkeGiOpplysninger" : {
+          "label" : {
+            "en" : "I am unable to provide information about the other parent",
+            "nb" : "Jeg kan ikke gi opplysninger om den andre forelderen",
+            "nn" : "Eg kan ikkje gje opplysningar om den andre forelderen"
+          },
+          "verdi" : {
+            "nb" : "JA",
+            "nn" : "JA",
+            "en" : "JA"
+          }
+        },
+        "navn" : null,
+        "fnr" : null,
+        "fødselsdato" : null,
+        "pensjonUtland" : null,
+        "arbeidUtlandet" : null,
+        "pensjonNorge" : null,
+        "arbeidNorge" : null,
+        "andreUtbetalinger" : null,
+        "pågåendeSøknadFraAnnetEøsLand" : null,
+        "pågåendeSøknadHvilketLand" : null,
+        "barnetrygdFraEøs" : null,
+        "skriftligAvtaleOmDeltBosted" : {
+          "label" : {
+            "en" : "Do you and the other parent have a written agreement on dual residence for JORDISK PEDAGOG?",
+            "nb" : "Har du og den andre forelderen skriftlig avtale om delt bosted for JORDISK PEDAGOG?",
+            "nn" : "Har du og den andre forelderen skriftleg avtale om delt bustad for JORDISK PEDAGOG?"
+          },
+          "verdi" : {
+            "nb" : "NEI",
+            "nn" : "NEI",
+            "en" : "NEI"
+          }
+        },
+        "adresse" : null,
+        "utvidet" : {
+          "søkerHarBoddMedAndreForelder" : null,
+          "søkerFlyttetFraAndreForelderDato" : null
+        },
+        "arbeidsperioderUtland" : [],
+        "pensjonsperioderUtland" : [],
+        "arbeidsperioderNorge" : [],
+        "pensjonsperioderNorge" : [],
+        "andreUtbetalingsperioder" : [],
+        "eøsBarnetrygdsperioder" : [],
+        "idNummer" : []
+      },
+      "omsorgsperson" : null,
+      "spørsmål" : {
+        "erFosterbarn" : {
+          "label" : {
+            "en" : "Which of the children are foster children?",
+            "nb" : "Hvem av barna er fosterbarn?",
+            "nn" : "Kven av barna er fosterbarn?"
+          },
+          "verdi" : {
+            "nb" : "NEI",
+            "nn" : "NEI",
+            "en" : "NEI"
+          }
+        },
+        "erAdoptertFraUtland" : {
+          "label" : {
+            "en" : "Which of the children are adopted from abroad?",
+            "nb" : "Hvem av barna er adoptert fra utlandet?",
+            "nn" : "Kven av barna er adoptert frå utlandet?"
+          },
+          "verdi" : {
+            "nb" : "NEI",
+            "nn" : "NEI",
+            "en" : "NEI"
+          }
+        },
+        "erAsylsøker" : {
+          "label" : {
+            "en" : "For which of the children has an application for asylum been submitted?",
+            "nb" : "Hvem av barna er det søkt om asyl for?",
+            "nn" : "Kven av barna er det søkt om asyl for?"
+          },
+          "verdi" : {
+            "nb" : "NEI",
+            "nn" : "NEI",
+            "en" : "NEI"
+          }
+        },
+        "barnetrygdFraAnnetEøsland" : {
+          "label" : {
+            "en" : "For which of the children are you receiving, have received or have applied for child benefit?",
+            "nb" : "Hvem av barna får du, har du fått eller har du søkt om barnetrygd for?",
+            "nn" : "Kven av barna får du, har du fått eller har du søkt om barnetrygd for?"
+          },
+          "verdi" : {
+            "nb" : "JA",
+            "nn" : "JA",
+            "en" : "JA"
+          }
+        },
+        "andreForelderErDød" : {
+          "label" : {
+            "en" : "Which of the children is your previous spouse/cohabiting partner the parent of?",
+            "nb" : "Hvem av barna er din tidligere ektefelle/samboer forelder til?",
+            "nn" : "Kven av barna er din tidlegare ektefelle/sambuar forelder til?"
+          },
+          "verdi" : {
+            "nb" : "NEI",
+            "nn" : "NEI",
+            "en" : "NEI"
+          }
+        },
+        "oppholderSegIInstitusjon" : {
+          "label" : {
+            "en" : "Which of the children are in an institution?",
+            "nb" : "Hvem av barna er i institusjon?",
+            "nn" : "Kven av barna er seg i institusjon?"
+          },
+          "verdi" : {
+            "nb" : "NEI",
+            "nn" : "NEI",
+            "en" : "NEI"
+          }
+        },
+        "institusjonIUtland" : {
+          "label" : {
+            "en" : "The institution is outside of Norway",
+            "nb" : "Institusjonen er i utlandet",
+            "nn" : "Institusjonen er i utlandet"
+          },
+          "verdi" : {
+            "nb" : "NEI",
+            "nn" : "NEI",
+            "en" : "NEI"
+          }
+        },
+        "boddMindreEnn12MndINorge" : {
+          "label" : {
+            "en" : "Which of the children have stayed outside of Norway during the last twelve months?",
+            "nb" : "Hvem av barna har oppholdt seg utenfor Norge i løpet av de siste tolv månedene?",
+            "nn" : "Kven av barna har oppheldt seg utanfor Noreg i løpet av dei siste tolv månadene?"
+          },
+          "verdi" : {
+            "nb" : "NEI",
+            "nn" : "NEI",
+            "en" : "NEI"
+          }
+        },
+        "pågåendeSøknadFraAnnetEøsLand" : {
+          "label" : {
+            "en" : "Do you have an active application for child benefit from another EEA country?",
+            "nb" : "Har du en pågående søknad om barnetrygd fra et annet EU/EØS land?",
+            "nn" : "Har du ein pågåande søknad om barnetrygd frå eit anna EU/EØS-land?"
+          },
+          "verdi" : {
+            "nb" : "JA",
+            "nn" : "JA",
+            "en" : "JA"
+          }
+        },
+        "pågåendeSøknadHvilketLand" : {
+          "label" : {
+            "en" : "What country have you applied for child benefit from?",
+            "nb" : "Hvilket land har du søkt om barnetrygd fra?",
+            "nn" : "Kva land har du søkt om barnetrygd frå?"
+          },
+          "verdi" : {
+            "nb" : "Finland",
+            "nn" : "Finland",
+            "en" : "Finland"
+          }
+        },
+        "mottarEllerMottokEøsBarnetrygd" : {
+          "label" : {
+            "en" : "Are you receiving or have you received child benefit from another EEA country?",
+            "nb" : "Får du eller har du fått barnetrygd fra et annet EU/EØS land?",
+            "nn" : "Får du eller har du fått barnetrygd frå eit anna EU/EØS-land?"
+          },
+          "verdi" : {
+            "nb" : "JA",
+            "nn" : "JA",
+            "en" : "JA"
+          }
+        },
+        "borFastMedSøker" : {
+          "label" : {
+            "en" : "Does JORDISK PEDAGOG live with you on a permanent basis?",
+            "nb" : "Bor JORDISK PEDAGOG fast sammen med deg?",
+            "nn" : "Bur JORDISK PEDAGOG fast saman med deg?"
+          },
+          "verdi" : {
+            "nb" : "JA",
+            "nn" : "JA",
+            "en" : "JA"
+          }
+        },
+        "søkersSlektsforhold" : {
+          "label" : {
+            "en" : "What is your relation to JORDISK PEDAGOG?",
+            "nb" : "Hva er slektsforholdet ditt til JORDISK PEDAGOG?",
+            "nn" : "Kva er slektsforholdet ditt til JORDISK PEDAGOG?"
+          },
+          "verdi" : {
+            "en" : "Other family relationship",
+            "nb" : "Annen familierelasjon",
+            "nn" : "Anna familierelasjon"
+          }
+        },
+        "borMedAndreForelder" : {
+          "label" : {
+            "en" : "Is JORDISK PEDAGOG staying with their other parent?",
+            "nb" : "Bor JORDISK PEDAGOG sammen med den andre forelderen?",
+            "nn" : "Bur JORDISK PEDAGOG saman med den andre forelderen?"
+          },
+          "verdi" : {
+            "nb" : "NEI",
+            "nn" : "NEI",
+            "en" : "NEI"
+          }
+        },
+        "borMedOmsorgsperson" : {
+          "label" : {
+            "en" : "Is JORDISK PEDAGOG staying with another caregiver?",
+            "nb" : "Bor JORDISK PEDAGOG sammen med en annen omsorgsperson?",
+            "nn" : "Bur JORDISK PEDAGOG saman med ein anna omsorgsperson?"
+          },
+          "verdi" : {
+            "nb" : "NEI",
+            "nn" : "NEI",
+            "en" : "NEI"
+          }
+        },
+        "institusjonOppholdSluttdato" : {
+          "label" : {
+            "en" : "When is the stay at the institution ending?",
+            "nb" : "Når avsluttes institusjonsoppholdet?",
+            "nn" : "Når avsluttast institusjonsopphaldet?"
+          },
+          "verdi" : {
+            "nb" : "",
+            "nn" : "",
+            "en" : ""
+          }
+        },
+        "adresse" : {
+          "label" : {
+            "en" : "Where is JORDISK PEDAGOG's living during the period for which you are applying for child benefit?",
+            "nb" : "Hvor bor JORDISK PEDAGOG i perioden det søkes om barnetrygd?",
+            "nn" : "Kor bur JORDISK PEDAGOG i perioden det vert søkt om barnetrygd?"
+          },
+          "verdi" : {
+            "nb" : "",
+            "nn" : "",
+            "en" : ""
+          }
+        }
+      }
+    }
+  ],
+  "spørsmål" : {
+    "erNoenAvBarnaFosterbarn" : {
+      "label" : {
+        "en" : "Are any of the children foster children?",
+        "nb" : "Er noen av barna fosterbarn?",
+        "nn" : "Er nokre av barna fosterbarn?"
+      },
+      "verdi" : {
+        "nb" : "NEI",
+        "nn" : "NEI",
+        "en" : "NEI"
+      }
+    },
+    "søktAsylForBarn" : {
+      "label" : {
+        "en" : "Has an application for asylum been submitted for any of the children?",
+        "nb" : "Er det søkt om asyl i Norge for noen av barna?",
+        "nn" : "Er det søkt om asyl i Noreg for nokre av barna?"
+      },
+      "verdi" : {
+        "nb" : "NEI",
+        "nn" : "NEI",
+        "en" : "NEI"
+      }
+    },
+    "oppholderBarnSegIInstitusjon" : {
+      "label" : {
+        "en" : "Are any of the children in a child welfare institution or other institution?",
+        "nb" : "Er noen av barna i barnverninstitusjon eller i annen institusjon?",
+        "nn" : "Er nokre av barna i barneverninstitusjon eller i anna institusjon?"
+      },
+      "verdi" : {
+        "nb" : "NEI",
+        "nn" : "NEI",
+        "en" : "NEI"
+      }
+    },
+    "barnOppholdtSegTolvMndSammenhengendeINorge" : {
+      "label" : {
+        "en" : "Have the children stayed continuously in Norway during the last twelve months?",
+        "nb" : "Har barna oppholdt seg sammenhengende i Norge de siste tolv månedene?",
+        "nn" : "Har barna oppheldt seg samanhengande i Noreg dei siste tolv månadene?"
+      },
+      "verdi" : {
+        "nb" : "JA",
+        "nn" : "JA",
+        "en" : "JA"
+      }
+    },
+    "erBarnAdoptertFraUtland" : {
+      "label" : {
+        "en" : "Are any of the children adopted from abroad?",
+        "nb" : "Er noen av barna adoptert fra utlandet?",
+        "nn" : "Er nokre av barna adoptert frå utlandet?"
+      },
+      "verdi" : {
+        "nb" : "NEI",
+        "nn" : "NEI",
+        "en" : "NEI"
+      }
+    },
+    "mottarBarnetrygdForBarnFraAnnetEøsland" : {
+      "label" : {
+        "en" : "Are you receiving, have you received or have you applied for child benefit for some of the children from another EEA country?",
+        "nb" : "Får, har du fått eller har du søkt om barnetrygd for noen av barna fra et annet EØS land?",
+        "nn" : "Får du, har du fått eller har du søkt om barnetrygd for nokre av barna frå eit anna EØS land?"
+      },
+      "verdi" : {
+        "nb" : "JA",
+        "nn" : "JA",
+        "en" : "JA"
+      }
+    },
+    "erAvdødPartnerForelder" : {
+      "label" : {
+        "en" : "You are registered as a widow/widower in the Norwegian National Registry (folkeregisteret). Is your previous spouse the parent of any of the children you are applying for child benefit for?",
+        "nb" : "Du er folkeregistrert som enke/enkemann. Er din tidligere ektefelle forelder til noen av barna du søker barnetrygd for?",
+        "nn" : "Du er folkeregistrert som enke/enkemann. Er din tidlegare ektefelle forelder til nokre av barna du søker barnetrygd for?"
+      },
+      "verdi" : {
+        "nb" : null,
+        "nn" : null,
+        "en" : null
+      }
+    },
+    "lestOgForståttBekreftelse" : {
+      "label" : {
+        "en" : "I am aware that I may lose my right to Child Benefit if I provide incorrect information. I am also aware that I will have to pay back any money I receive that I am not entitled to, that I have received if I have failed to provide information or have provided incorrect information.",
+        "nb" : "Det er viktig at du gir oss riktige opplysninger slik at vi kan behandle saken din.",
+        "nn" : "Det er viktig at du gir oss riktige opplysningar slik at me kan behandla saka di."
+      },
+      "verdi" : {
+        "en" : "I confirm that I will provide correct and complete information.",
+        "nb" : "Jeg vil svare så godt jeg kan på spørsmålene i søknaden.",
+        "nn" : "Eg svara så godt eg kan på spørsmåla i søknaden."
+      }
+    }
+  },
+  "dokumentasjon" : [
+    {
+      "dokumentasjonsbehov" : "ANNEN_DOKUMENTASJON",
+      "harSendtInn" : false,
+      "opplastedeVedlegg" : [],
+      "dokumentasjonSpråkTittel" : {
+        "en" : "Other documentation",
+        "nn" : "Anna dokumentasjon",
+        "nb" : "Annen dokumentasjon"
+      }
+    }
+  ],
+  "teksterUtenomSpørsmål" : {
+    "hvilkebarn.barn.bosted.adressesperre" : {
+      "en" : "The child is registered with a blocked address.",
+      "nb" : "Barnet er registrert med adressesperre.",
+      "nn" : "Barnet er registrert med adressesperre."
+    },
+    "ombarnet.fosterbarn" : {
+      "en" : "You have stated that {navn} is a foster child",
+      "nb" : "Du har opplyst at {navn} er fosterbarn",
+      "nn" : "Du har opplyst at {navn} er fosterbarn"
+    },
+    "ombarnet.institusjon" : {
+      "en" : "You have stated that {navn} is in an institution",
+      "nb" : "Du har opplyst at {navn} er i institusjon",
+      "nn" : "Du har opplyst at {navn} er i institusjon"
+    },
+    "ombarnet.opplystatbarnutlandopphold.info" : {
+      "en" : "You have stated that {navn} has stayed outside of Norway during the last twelve months",
+      "nb" : "Du har opplyst at {navn} har oppholdt seg utenfor Norge i løpet av de siste tolv månedene",
+      "nn" : "Du har opplyst at {navn} har oppheldt seg utanfor Noreg i løpet av dei siste tolv månadene"
+    },
+    "ombarnet.barnetrygd-eøs" : {
+      "en" : "You have stated that you are receiving, have received or have applied for child benefit for {navn} from another EEA country.",
+      "nb" : "Du har opplyst at du får, har fått eller har søkt om barnetrygd for {navn} fra et annet EØS land.",
+      "nn" : "Du har opplyst at du får, har fått eller har søkt om barnetrygd for {navn} frå eit anna EØS land."
+    },
+    "omdeg.annensamboer.spm" : {
+      "en" : "Have you had a cohabiting partner earlier during the period for which you are applying for child benefit?",
+      "nb" : "Har du hatt samboer tidligere i perioden du søker barnetrygd for?",
+      "nn" : "Har du hatt sambuar tidlegare i perioden du søker barnetrygd for?"
+    },
+    "omdeg.personopplysninger.adressesperre.alert" : {
+      "en" : "You are registered with a blocked address",
+      "nb" : "Du er registrert med adressesperre",
+      "nn" : "Du er registrert med adressesperre"
+    },
+    "omdeg.personopplysninger.ikke-registrert.alert" : {
+      "en" : "You are not registered with a residential address in Norway",
+      "nb" : "Du er ikke registrert med bostedsadresse i Norge",
+      "nn" : "Du er ikkje registrert med bustadsadresse i Noreg"
+    },
+    "pdf.andreforelder.seksjonstittel" : {
+      "en" : "Child's other parent",
+      "nb" : "Barnets andre forelder",
+      "nn" : "Barnet sin andre forelder"
+    },
+    "pdf.hvilkebarn.seksjonstittel" : {
+      "en" : "Which children are you applying for?",
+      "nb" : "Hvilke barn søker du for?",
+      "nn" : "Kva barn søker du for?"
+    },
+    "pdf.hvilkebarn.registrert-på-adresse" : {
+      "en" : "Registered on applicant's address",
+      "nb" : "Registrert på søkers adresse",
+      "nn" : "Registrert på søkars adresse"
+    },
+    "pdf.hvilkebarn.ikke-registrert-på-adresse" : {
+      "en" : "Not registered on applicant's address",
+      "nb" : "Ikke registrert på søkers adresse",
+      "nn" : "Ikkje registrert på søkars adresse"
+    },
+    "pdf.ombarnet.seksjonstittel" : {
+      "en" : "About {navn}",
+      "nb" : "Om {navn}",
+      "nn" : "Om {navn}"
+    },
+    "pdf.omdeg.seksjonstittel" : {
+      "en" : "About you",
+      "nb" : "Om deg",
+      "nn" : "Om deg"
+    },
+    "pdf.bosted.seksjonstittel" : {
+      "en" : "Place of residence",
+      "nb" : "Bosted",
+      "nn" : "Bustad"
+    },
+    "pdf.ombarna.seksjonstittel" : {
+      "en" : "About your children",
+      "nb" : "Om barna dine",
+      "nn" : "Om barna dine"
+    },
+    "pdf.søker.seksjonstittel" : {
+      "en" : "Applicant",
+      "nb" : "Søker",
+      "nn" : "Søkar"
+    },
+    "pdf.vedlegg.seksjonstittel" : {
+      "en" : "List of attachments",
+      "nb" : "Liste over vedlegg",
+      "nn" : "Liste over vedlegg"
+    },
+    "pdf.vedlegg.lastet-opp-antall" : {
+      "en" : "Uploaded {antall} attachments",
+      "nb" : "Lastet opp {antall} vedlegg",
+      "nn" : "Lasta opp {antall} vedlegg"
+    },
+    "pdf.vedlegg.nummerering" : {
+      "en" : "Attachment {x} of {total}",
+      "nb" : "Vedlegg {x} av {total}",
+      "nn" : "Vedlegg {x} av {total}"
+    },
+    "dokumentasjon.har-sendt-inn.spm" : {
+      "en" : "I have already submitted this documentation to Nav in the past",
+      "nb" : "Jeg har sendt inn denne dokumentasjonen til Nav tidligere",
+      "nn" : "Eg har sendt inn denne dokumentasjonen til Nav tidlegare"
+    },
+    "dinlivssituasjon.sidetittel" : {
+      "en" : "Your life situation",
+      "nb" : "Livssituasjonen din",
+      "nn" : "Livssituasjonen din"
+    },
+    "pdf.dinlivssituasjon.tidligeresamboer.seksjonstittel" : {
+      "en" : "Former cohabitant {x}",
+      "nb" : "Tidligere samboer {x}",
+      "nn" : "Tidlegare sambuar {x}"
+    },
+    "eøs-om-deg.sidetittel" : {
+      "en" : "Child benefit by the EEA-regulations - About you",
+      "nb" : "Barnetrygd etter EØS-reglene - Om deg",
+      "nn" : "Barnetrygd etter EØS-reglane - Om deg"
+    },
+    "eøs-om-barn.sidetittel" : {
+      "en" : "Child benefit by the EEA-regulations - About {barn}",
+      "nb" : "Barnetrygd etter EØS-reglene - Om {barn}",
+      "nn" : "Barnetrygd etter EØS-reglane - Om {barn}"
+    },
+    "felles.sivilstatus.kode.GIFT" : {
+      "en" : "Married",
+      "nb" : "Gift",
+      "nn" : "Gift"
+    },
+    "felles.sivilstatus.kode.ENKE_ELLER_ENKEMANN" : {
+      "en" : "Widow(er)",
+      "nb" : "Enke/Enkemann",
+      "nn" : "Enke/enkemann"
+    },
+    "felles.sivilstatus.kode.SKILT" : {
+      "en" : "Divorced",
+      "nb" : "Skilt",
+      "nn" : "Skilt"
+    },
+    "felles.sivilstatus.kode.SEPARERT" : {
+      "en" : "Separated",
+      "nb" : "Separert",
+      "nn" : "Separert"
+    },
+    "felles.sivilstatus.kode.REGISTRERT_PARTNER" : {
+      "en" : "Registered partner",
+      "nb" : "Registrert partner",
+      "nn" : "Registrert partner"
+    },
+    "felles.sivilstatus.kode.SEPARERT_PARTNER" : {
+      "en" : "Separated partner",
+      "nb" : "Separert partner",
+      "nn" : "Separert partner"
+    },
+    "felles.sivilstatus.kode.SKILT_PARTNER" : {
+      "en" : "Divorced partner",
+      "nb" : "Skilt partner",
+      "nn" : "Skilt partner"
+    },
+    "felles.sivilstatus.kode.GJENLEVENDE_PARTNER" : {
+      "en" : "Surviving partner",
+      "nb" : "Gjenlevende partner",
+      "nn" : "Attlevande partner"
+    },
+    "felles.sivilstatus.kode.UGIFT" : {
+      "en" : "Unmarried",
+      "nb" : "Ugift",
+      "nn" : "Ugift"
+    },
+    "felles.sivilstatus.kode.UOPPGITT" : {
+      "en" : "Not specified",
+      "nb" : "Ikke oppgitt",
+      "nn" : "Ikkje oppgitt"
+    },
+    "felles.svaralternativ.ja" : {
+      "en" : "Yes",
+      "nb" : "Ja",
+      "nn" : "Ja"
+    },
+    "felles.svaralternativ.nei" : {
+      "en" : "No",
+      "nb" : "Nei",
+      "nn" : "Nei"
+    },
+    "felles.svaralternativ.vetikke" : {
+      "en" : "Don't know",
+      "nb" : "Jeg vet ikke",
+      "nn" : "Eg veit ikkje"
+    },
+    "skjermetAdresse" : {
+      "en" : "Blocked address",
+      "nn" : "Skjerma adresse",
+      "nb" : "Skjermet adresse"
+    }
+  },
+  "originalSpråk" : "nb"
+}
