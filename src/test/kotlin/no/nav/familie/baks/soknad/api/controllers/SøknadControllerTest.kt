@@ -6,6 +6,7 @@ import no.nav.familie.baks.soknad.api.services.BarnetrygdSøknadTestData
 import no.nav.familie.baks.soknad.api.services.BarnetrygdSøknadTestData.søknadsfelt
 import no.nav.familie.baks.soknad.api.services.KontantstøtteSøknadService
 import no.nav.familie.baks.soknad.api.services.KontantstøtteSøknadTestData
+import no.nav.familie.baks.soknad.api.validators.valider
 import no.nav.familie.kontrakter.ba.søknad.v9.BarnetrygdSøknad
 import no.nav.familie.kontrakter.felles.Ressurs
 import no.nav.familie.kontrakter.felles.objectMapper
