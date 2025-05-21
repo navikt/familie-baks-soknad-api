@@ -16,9 +16,9 @@ fun KontantstøtteSøknad.valider() {
             barn.adresse
         ).forEach { textField ->
             // valider alle verdier i tekstfelt
-            validerVerdiITextfelt(textField)
+            textField.validerVerdiITextfelt()
             // valider alle labler i tekstfelt
-            validerLabel(textField)
+            textField.validerLabel()
         }
     }
 
@@ -30,9 +30,9 @@ fun KontantstøtteSøknad.valider() {
         søker.adresse
     ).forEach { textField ->
         // valider alle verdier i tekstfelt
-        validerVerdiITextfelt(textField)
+        textField.validerVerdiITextfelt()
         // valider alle labler i tekstfelt
-        validerLabel(textField)
+        textField.validerLabel()
     }
     listOfNotNull(
         søker.andreUtbetalingsperioder,
@@ -45,9 +45,9 @@ fun KontantstøtteSøknad.valider() {
     ).forEach { liste ->
         liste.forEach { textField ->
             // valider alle verider i tekstfelt
-            validerVerdiITextfelt(textField)
+            textField.validerVerdiITextfelt()
             // valider alle labler i tekstfelt
-            validerLabel(textField)
+            textField.validerLabel()
         }
     }
 }

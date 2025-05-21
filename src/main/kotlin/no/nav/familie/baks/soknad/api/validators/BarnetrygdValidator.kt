@@ -16,9 +16,9 @@ fun BarnetrygdSøknad.valider() {
             barn.navn
         ).forEach { textField ->
             // valider alle verdier i tekstfelt
-            validerVerdiITextfelt(textField)
+            textField.validerVerdiITextfelt()
             // valider alle labler i tekstfelt
-            validerLabel(textField)
+            textField.validerLabel()
         }
     }
 
@@ -31,9 +31,9 @@ fun BarnetrygdSøknad.valider() {
         søker.nåværendeSamboer
     ).forEach { textField ->
         // valider alle labler i tekstfelt
-        validerVerdiITextfelt(textField)
+        textField.validerVerdiITextfelt()
         // valider alle verdier i tekstfelt
-        validerLabel(textField)
+        textField.validerLabel()
     }
     listOfNotNull(
         søker.andreUtbetalingsperioder,
@@ -48,11 +48,11 @@ fun BarnetrygdSøknad.valider() {
         liste.forEach { søknadsfelt ->
             val mapAvLabels = søknadsfelt.label
             søknadsfelt.label.keys.forEach { locale ->
-                validerLabel(mapAvLabels.getValue(locale))
+                mapAvLabels.getValue(locale).validerLabel()
             }
             val mapAvVerdier = søknadsfelt.verdi
             mapAvVerdier.keys.forEach { locale ->
-                validerTextfelt(mapAvLabels.getValue(locale))
+                mapAvLabels.getValue(locale).validerVerdiITextfelt()
             }
         }
     }

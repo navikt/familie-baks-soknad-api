@@ -2,36 +2,32 @@ package no.nav.familie.baks.soknad.api.validators
 
 import no.nav.familie.kontrakter.felles.søknad.Søknadsfelt
 
-internal fun validerLabel(
-    textField: Søknadsfelt<out Any?>,
+internal fun Søknadsfelt<out Any?>.validerLabel(
     length: Int = 200
 ) {
-    textField.label.values.forEach { label ->
-        validerLabel(label, length)
+    this.label.values.forEach { label ->
+        label.validerLabel(length)
     }
 }
 
-internal fun validerLabel(
-    label: String,
+internal fun String.validerLabel(
     length: Int = 200
 ) {
-    require(label.length < length) { "Tekstfelt(label) er for langt. $label" }
-    require(!Regex("[<>\"]").containsMatchIn(label)) { "Tekstfelt(label) inneholder ugyldige tegn. $label " }
+    require(this.length < length) { "Tekstfelt(label) er for langt. $this" }
+    require(!Regex("[<>\"]").containsMatchIn(this)) { "Tekstfelt(label) inneholder ugyldige tegn. $this " }
 }
 
-internal fun validerVerdiITextfelt(
-    textField: Søknadsfelt<out Any?>,
+internal fun Søknadsfelt<out Any?>.validerVerdiITextfelt(
     length: Int = 200
 ) {
-    textField.verdi.values.forEach { verdi ->
-        validerTextfelt(verdi.toString(), length)
+    this.verdi.values.forEach { verdi ->
+        verdi.toString().validerVerdiITextfelt(length)
     }
 }
 
-internal fun validerTextfelt(
-    verdi: String,
+internal fun String.validerVerdiITextfelt(
     length: Int = 200
 ) {
-    require(verdi.length < length) { "Tekstfelt er for langt. $verdi " }
-    require(!Regex("[<>'\"]").containsMatchIn(verdi.toString())) { "Tekstfelt inneholder ugyldige tegn, $verdi " }
+    require(this.length < length) { "Tekstfelt er for langt. $this " }
+    require(!Regex("[<>'\"]").containsMatchIn(this)) { "Tekstfelt inneholder ugyldige tegn, $this " }
 }
