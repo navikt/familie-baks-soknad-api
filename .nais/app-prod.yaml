@@ -45,6 +45,8 @@ spec:
         - application: familie-baks-mottak
         - application: sokos-kontoregister-person
           namespace: okonomi
+        - application: logging
+          namespace: nais-system
       external:
         - host: pdl-api.prod-fss-pub.nais.io
         - host: kodeverk-api.nav.no
