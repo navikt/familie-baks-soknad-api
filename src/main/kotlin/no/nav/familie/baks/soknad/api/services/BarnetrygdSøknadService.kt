@@ -7,9 +7,8 @@ import no.nav.familie.baks.soknad.api.services.pdl.PersonopplysningerService
 import no.nav.familie.kontrakter.felles.Ressurs
 import no.nav.familie.sikkerhet.EksternBrukerUtils
 import org.springframework.stereotype.Service
-import no.nav.familie.kontrakter.ba.søknad.v9.BarnetrygdSøknad as BarnetrygdSøknadV9
 import no.nav.familie.kontrakter.ba.søknad.v10.BarnetrygdSøknad as BarnetrygdSøknadV10
-
+import no.nav.familie.kontrakter.ba.søknad.v9.BarnetrygdSøknad as BarnetrygdSøknadV9
 
 @Service
 class BarnetrygdSøknadService(

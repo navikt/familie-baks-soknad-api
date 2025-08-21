@@ -2,14 +2,14 @@ package no.nav.familie.baks.soknad.api.services
 
 import no.nav.familie.kontrakter.ba.søknad.v1.SIVILSTANDTYPE
 import no.nav.familie.kontrakter.ba.søknad.v1.SøknadAdresse
+import no.nav.familie.kontrakter.ba.søknad.v10.BarnetrygdSøknad
+import no.nav.familie.kontrakter.ba.søknad.v10.Søker
 import no.nav.familie.kontrakter.ba.søknad.v4.Søknadstype
 import no.nav.familie.kontrakter.ba.søknad.v5.RegistrertBostedType
 import no.nav.familie.kontrakter.ba.søknad.v7.Dokumentasjonsbehov
 import no.nav.familie.kontrakter.ba.søknad.v7.Søknaddokumentasjon
 import no.nav.familie.kontrakter.ba.søknad.v7.Søknadsvedlegg
 import no.nav.familie.kontrakter.ba.søknad.v8.Barn
-import no.nav.familie.kontrakter.ba.søknad.v10.Søker
-import no.nav.familie.kontrakter.ba.søknad.v10.BarnetrygdSøknad
 import no.nav.familie.kontrakter.felles.søknad.Søknadsfelt
 
 object BarnetrygdSøknadTestData {
