@@ -16,6 +16,7 @@ import org.springframework.web.client.RestOperations
 import org.springframework.web.client.exchange
 import java.net.URI
 import no.nav.familie.kontrakter.ba.søknad.v9.BarnetrygdSøknad as BarnetrygdSøknadV9
+import no.nav.familie.kontrakter.ba.søknad.v10.BarnetrygdSøknad as BarnetrygdSøknadV10
 import no.nav.familie.kontrakter.ks.søknad.v5.KontantstøtteSøknad as KontantstøtteSøknadV5
 
 @Component
@@ -33,6 +34,11 @@ class MottakClient(
             LOG.warn("Ping mot familie-baks-mottak feilet")
             throw IllegalStateException("Ping mot familie-baks-mottak feilet", e)
         }
+    }
+
+    fun sendBarnetrygdSøknad(søknad: BarnetrygdSøknadV10): Ressurs<Kvittering> {
+        val uri: URI = UriUtil.uri(URI.create(mottakBaseUrl), "api/soknad/v10")
+        return håndterSendingAvSøknad(uri = uri, søknad = søknad)
     }
 
     fun sendBarnetrygdSøknad(søknad: BarnetrygdSøknadV9): Ressurs<Kvittering> {

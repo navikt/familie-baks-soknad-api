@@ -8,8 +8,8 @@ import no.nav.familie.kontrakter.ba.søknad.v7.Dokumentasjonsbehov
 import no.nav.familie.kontrakter.ba.søknad.v7.Søknaddokumentasjon
 import no.nav.familie.kontrakter.ba.søknad.v7.Søknadsvedlegg
 import no.nav.familie.kontrakter.ba.søknad.v8.Barn
-import no.nav.familie.kontrakter.ba.søknad.v8.Søker
-import no.nav.familie.kontrakter.ba.søknad.v9.BarnetrygdSøknad
+import no.nav.familie.kontrakter.ba.søknad.v10.Søker
+import no.nav.familie.kontrakter.ba.søknad.v10.BarnetrygdSøknad
 import no.nav.familie.kontrakter.felles.søknad.Søknadsfelt
 
 object BarnetrygdSøknadTestData {
@@ -18,7 +18,7 @@ object BarnetrygdSøknadTestData {
         barn: List<Barn> = barn()
     ) = BarnetrygdSøknad(
         antallEøsSteg = 3,
-        kontraktVersjon = 9,
+        kontraktVersjon = 10,
         søknadstype = Søknadstype.ORDINÆR,
         søker = søker,
         barn = barn,
@@ -67,6 +67,7 @@ object BarnetrygdSøknadTestData {
             spørsmål = mapOf(),
             nåværendeSamboer = null,
             tidligereSamboere = listOf(),
+            svalbardOppholdPerioder = listOf(),
             arbeidsperioderUtland = listOf()
         )
 
