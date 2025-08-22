@@ -25,8 +25,8 @@
         <mockk.version>1.14.5</mockk.version>
         <token-validation-spring.version>5.0.34</token-validation-spring.version>
         <start-class>no.nav.familie.baks.soknad.api.LauncherKt</start-class>
-        <kotlin.version>2.2.0</kotlin.version>
-        <bytebuddy.version>1.17.6</bytebuddy.version>
+        <kotlin.version>2.2.10</kotlin.version>
+        <bytebuddy.version>1.17.7</bytebuddy.version>
         <!-- Må settes for å kunne kjøre opp mock-oauth2-server i unit-tester -->
         <okhttp3.version>4.9.1</okhttp3.version>
         <!-- Må settes for å kunne kjøre opp mock-oauth2-server i unit-tester -->
