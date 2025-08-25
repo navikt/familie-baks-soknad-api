@@ -7,7 +7,7 @@ import io.mockk.slot
 import no.nav.familie.baks.soknad.api.clients.mottak.MottakClient
 import no.nav.familie.baks.soknad.api.domene.Person
 import no.nav.familie.baks.soknad.api.services.pdl.PersonopplysningerService
-import no.nav.familie.kontrakter.ba.søknad.v9.BarnetrygdSøknad
+import no.nav.familie.kontrakter.ba.søknad.v10.BarnetrygdSøknad
 import no.nav.familie.sikkerhet.EksternBrukerUtils
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
