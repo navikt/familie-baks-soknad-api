@@ -15,8 +15,8 @@ jobs:
       contents: read
     uses: navikt/familie-baks-gha-workflows/.github/workflows/ktlint.yaml@pull-request # ratchet:exclude
     secrets: inherit
-  pull-request:
-    name: Unit test
+  test:
+    name: Test
     permissions:
       contents: read
       id-token: write
