@@ -20,12 +20,12 @@
         <changelist>-SNAPSHOT</changelist>
         <jvmTarget>21</jvmTarget>
         <java.version>21</java.version>
-        <kontrakter.version>3.0_20250828110046_0cd2211</kontrakter.version>
-        <felles.version>3.20250804101327_a0f5fad</felles.version>
+        <kontrakter.version>3.0_20250908122449_a228daf</kontrakter.version>
+        <felles.version>3.20250909155158_81fc464</felles.version>
         <mockk.version>1.14.5</mockk.version>
         <token-validation-spring.version>5.0.34</token-validation-spring.version>
         <start-class>no.nav.familie.baks.soknad.api.LauncherKt</start-class>
-        <kotlin.version>2.2.10</kotlin.version>
+        <kotlin.version>2.2.20</kotlin.version>
         <bytebuddy.version>1.17.7</bytebuddy.version>
         <!-- Må settes for å kunne kjøre opp mock-oauth2-server i unit-tester -->
         <okhttp3.version>4.9.1</okhttp3.version>
@@ -309,7 +309,7 @@
             <plugin>
                 <groupId>com.rudikershaw.gitbuildhook</groupId>
                 <artifactId>git-build-hook-maven-plugin</artifactId>
-                <version>3.5.0</version>
+                <version>3.6.0</version>
                 <configuration>
                     <installHooks>
                         <pre-commit>hooks/pre-commit.sh</pre-commit>
