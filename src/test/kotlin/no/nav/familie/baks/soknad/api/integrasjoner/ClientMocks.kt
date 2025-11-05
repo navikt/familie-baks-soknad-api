@@ -29,7 +29,7 @@ import org.springframework.context.annotation.Primary
 import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 import java.time.LocalDateTime
-import no.nav.familie.kontrakter.ba.søknad.v9.BarnetrygdSøknad as BarnetrygdSøknadV9
+import no.nav.familie.kontrakter.ba.søknad.v10.BarnetrygdSøknad as BarnetrygdSøknadV10
 import no.nav.familie.kontrakter.ks.søknad.v5.KontantstøtteSøknad as KontantstøtteSøknadV5
 
 @Component
@@ -40,7 +40,7 @@ class ClientMocks {
     fun mockMottakClient(): MottakClient {
         val mockMottakClient = mockk<MottakClient>()
         every { mockMottakClient.ping() } just Runs
-        every { mockMottakClient.sendBarnetrygdSøknad(any<BarnetrygdSøknadV9>()) } returns
+        every { mockMottakClient.sendBarnetrygdSøknad(any<BarnetrygdSøknadV10>()) } returns
             Ressurs.success(Kvittering("søknad mottatt OK", LocalDateTime.now()))
         every { mockMottakClient.sendKontantstøtteSøknad(any<KontantstøtteSøknadV5>()) } returns
             Ressurs.success(Kvittering("søknad mottatt OK", LocalDateTime.now()))
