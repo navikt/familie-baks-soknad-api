@@ -5,7 +5,7 @@ import no.nav.familie.kontrakter.ks.søknad.v1.RegistrertBostedType
 import no.nav.familie.kontrakter.ks.søknad.v1.SIVILSTANDTYPE
 import no.nav.familie.kontrakter.ks.søknad.v4.Barn
 import no.nav.familie.kontrakter.ks.søknad.v4.Søker
-import no.nav.familie.kontrakter.ks.søknad.v5.KontantstøtteSøknad
+import no.nav.familie.kontrakter.ks.søknad.v6.KontantstøtteSøknad
 
 object KontantstøtteSøknadTestData {
     fun kontantstøtteSøknad(
@@ -13,7 +13,7 @@ object KontantstøtteSøknadTestData {
         barn: List<Barn> = barn()
     ): KontantstøtteSøknad =
         KontantstøtteSøknad(
-            kontraktVersjon = 5,
+            kontraktVersjon = 6,
             antallEøsSteg = 2,
             søker = søker,
             barn = barn,

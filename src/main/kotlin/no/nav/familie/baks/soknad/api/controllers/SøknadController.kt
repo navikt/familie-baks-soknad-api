@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import no.nav.familie.kontrakter.ba.søknad.v10.BarnetrygdSøknad as BarnetrygdSøknadV10
 import no.nav.familie.kontrakter.ba.søknad.v9.BarnetrygdSøknad as BarnetrygdSøknadV9
+import no.nav.familie.kontrakter.ks.søknad.v6.KontantstøtteSøknad as KontantstøtteSøknadV6
 import no.nav.familie.kontrakter.ks.søknad.v5.KontantstøtteSøknad as KontantstøtteSøknadV5
 
 @RestController
@@ -56,6 +57,21 @@ class SøknadController(
             secureLogger.info("Validering av barnetrygd-søknad feilet", e)
         }
         return ResponseEntity.ok().body(barnetrygdSøknadService.mottaOgSendBarnetrygdsøknad(søknad))
+    }
+
+    @PostMapping("/soknad/kontantstotte/v6")
+    fun søknadsmottakKontantstøtte(
+        @RequestBody(required = true)
+        kontantstøtteSøknad: KontantstøtteSøknadV6
+    ): ResponseEntity<Ressurs<Kvittering>> {
+        try {
+            kontantstøtteSøknad.valider()
+        } catch (e: Exception) {
+            logger.info("Validering av kontantstøtte-søknad feilet. Søknaden sendes videre til journalføring, men man bør se på hvorfor det feiler. Se securelogs for detaljer.")
+            secureLogger.info("Validering av kontantstøtte-søknad feilet", e)
+        }
+
+        return ResponseEntity.ok().body(kontantstøtteSøknadService.mottaOgSendKontantstøttesøknad(kontantstøtteSøknad))
     }
 
     @PostMapping("/soknad/kontantstotte/v5")
@@ -166,6 +182,56 @@ fun BarnetrygdSøknadV9.valider() {
         søker.arbeidsperioderNorge,
         søker.pensjonsperioderUtland,
         søker.tidligereSamboere,
+        søker.utenlandsperioder,
+        søker.arbeidsperioderUtland
+    ).forEach { liste ->
+        liste.forEach { textField ->
+            // valider alle verider i tekstfelt
+            validerVerdiITextfelt(textField)
+            // valider alle labler i tekstfelt
+            validerLabel(textField)
+        }
+    }
+}
+
+fun KontantstøtteSøknadV6.valider() {
+    søker.ident.verdi.values.forEach { fnr ->
+        require(fnr.all { it.isDigit() }) { "Ugyldig format på søker fødselsnummer" }
+    }
+
+    barn.forEach { barn ->
+        barn.ident.verdi.values.forEach { fnr ->
+            require(fnr.all { it.isDigit() }) { "Ugyldig format på barnets fødselsnummer" }
+        }
+        listOfNotNull(
+            barn.navn,
+            barn.adresse
+        ).forEach { textField ->
+            // valider alle verdier i tekstfelt
+            validerVerdiITextfelt(textField)
+            // valider alle labler i tekstfelt
+            validerLabel(textField)
+        }
+    }
+
+    // XSS prevention - sanitize text fields
+    listOfNotNull(
+        søker.navn,
+        søker.statsborgerskap,
+        søker.sivilstand,
+        søker.adresse
+    ).forEach { textField ->
+        // valider alle verdier i tekstfelt
+        validerVerdiITextfelt(textField)
+        // valider alle labler i tekstfelt
+        validerLabel(textField)
+    }
+    listOfNotNull(
+        søker.andreUtbetalingsperioder,
+        søker.pensjonsperioderNorge,
+        søker.idNummer,
+        søker.arbeidsperioderNorge,
+        søker.pensjonsperioderUtland,
         søker.utenlandsperioder,
         søker.arbeidsperioderUtland
     ).forEach { liste ->
