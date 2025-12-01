@@ -4,19 +4,17 @@ import no.nav.familie.http.interceptor.BearerTokenClientCredentialsClientInterce
 import no.nav.familie.http.interceptor.BearerTokenExchangeClientInterceptor
 import no.nav.familie.http.interceptor.ConsumerIdClientInterceptor
 import no.nav.familie.http.interceptor.MdcValuesPropagatingClientInterceptor
-import no.nav.familie.kontrakter.felles.objectMapper
 import no.nav.familie.log.NavSystemtype
 import no.nav.familie.log.filter.LogFilter
 import no.nav.security.token.support.client.spring.oauth2.EnableOAuth2Client
 import org.slf4j.LoggerFactory
 import org.springframework.boot.SpringBootConfiguration
-import org.springframework.boot.web.client.RestTemplateBuilder
+import org.springframework.boot.restclient.RestTemplateBuilder
 import org.springframework.boot.web.servlet.FilterRegistrationBean
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Import
 import org.springframework.context.annotation.Primary
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter
 import org.springframework.web.client.RestOperations
 import java.time.Duration
 import java.time.temporal.ChronoUnit
@@ -35,7 +33,7 @@ internal class ApplicationConfig {
     fun logFilter(): FilterRegistrationBean<LogFilter> {
         logger.info("Registering LogFilter filter")
         val filterRegistration: FilterRegistrationBean<LogFilter> = FilterRegistrationBean()
-        filterRegistration.filter = LogFilter(NavSystemtype.NAV_EKSTERN_BRUKERFLATE)
+        filterRegistration.setFilter(LogFilter(NavSystemtype.NAV_EKSTERN_BRUKERFLATE))
         filterRegistration.order = 1
         return filterRegistration
     }
@@ -47,8 +45,7 @@ internal class ApplicationConfig {
             .interceptors(
                 consumerIdClientInterceptor,
                 MdcValuesPropagatingClientInterceptor()
-            ).additionalMessageConverters(MappingJackson2HttpMessageConverter(objectMapper))
-            .build()
+            ).build()
 
     @Bean("clientCredential")
     fun clientCredentialRestTemplateMedApiKey(
