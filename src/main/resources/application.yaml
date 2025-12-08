@@ -6,6 +6,7 @@ server:
   port: 8080
 
 spring:
+  autoconfigure.exclude: org.springframework.boot.webmvc.autoconfigure.error.ErrorMvcAutoConfiguration
   main.banner-mode: "off"
   jackson:
     deserialization:
