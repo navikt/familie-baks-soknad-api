@@ -6,11 +6,11 @@ server:
   port: 8080
 
 spring:
-  autoconfigure.exclude: org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConfiguration
+  autoconfigure.exclude: org.springframework.boot.webmvc.autoconfigure.error.ErrorMvcAutoConfiguration
   main.banner-mode: "off"
   jackson:
     deserialization:
-      FAIL_ON_UNKNOWN_PROPERTIES: false
+      FAIL_ON_NULL_FOR_PRIMITIVES: false
 
 management:
   endpoint.health.show-details: always
