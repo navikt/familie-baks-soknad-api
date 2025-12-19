@@ -23,7 +23,7 @@
         <kontrakter.version>3.0_20251208150204_158920b</kontrakter.version>
         <felles.version>4.20251203153147_ca40cc5</felles.version>
         <mockk.version>1.14.6</mockk.version>
-        <nav.security.version>6.0.0</nav.security.version>
+        <nav.security.version>6.0.1</nav.security.version>
         <start-class>no.nav.familie.baks.soknad.api.LauncherKt</start-class>
         <kotlin.version>2.2.21</kotlin.version>
         <bytebuddy.version>1.18.2</bytebuddy.version>
