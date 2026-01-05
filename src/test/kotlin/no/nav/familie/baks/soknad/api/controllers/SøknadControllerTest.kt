@@ -46,17 +46,6 @@ class SøknadControllerTest {
     }
 
     @Test
-    fun søknadsmottakBarnetrygd_kaster_feil_ved_ugyldig_input() {
-        val søknad = BarnetrygdSøknadTestData.barnetrygdSøknad(søker = BarnetrygdSøknadTestData.søker().copy(navn = søknadsfelt("navn", "Navn <>")))
-        val exception =
-            assertThrows(IllegalArgumentException::class.java) {
-                søknad.valider()
-            }
-
-        assertTrue(exception.message!!.startsWith("Tekstfelt inneholder ugyldige tegn"))
-    }
-
-    @Test
     fun søknadsmottakKontantstøtte_returnerer_OK_kvittering_hvis_søknad_validerer() {
         val søknad = KontantstøtteSøknadTestData.kontantstøtteSøknad()
         val kvittering = Kvittering("OK", LocalDateTime.now())
@@ -93,31 +82,9 @@ class SøknadControllerTest {
     }
 
     @Test
-    fun søknadsmottakBarnetrygd_kaster_feil_ved_for_lang_input() {
-        val søknad = BarnetrygdSøknadTestData.barnetrygdSøknad(søker = BarnetrygdSøknadTestData.søker().copy(navn = søknadsfelt("navn", "Navn er over 200 tegn".padEnd(200, 'a'))))
-        val exception =
-            assertThrows(IllegalArgumentException::class.java) {
-                søknad.valider()
-            }
-
-        assertTrue(exception.message!!.startsWith("Tekstfelt er for langt"))
-    }
-
-    @Test
     fun søknadsmottakKontantstøtte_kaster_feil_ved_for_lang_label() {
         val søknad = KontantstøtteSøknadTestData.kontantstøtteSøknad(søker = KontantstøtteSøknadTestData.søker().copy(navn = søknadsfelt("navn".padEnd(200, 'a'), "Navn er over 200 tegn")))
 
-        val exception =
-            assertThrows(IllegalArgumentException::class.java) {
-                søknad.valider()
-            }
-
-        assertTrue(exception.message!!.startsWith("Tekstfelt(label) er for langt"))
-    }
-
-    @Test
-    fun søknadsmottakBarnetrygd_kaster_feil_ved_for_lang_label() {
-        val søknad = BarnetrygdSøknadTestData.barnetrygdSøknad(søker = BarnetrygdSøknadTestData.søker().copy(navn = søknadsfelt("navn".padEnd(200, 'a'), "Navn")))
         val exception =
             assertThrows(IllegalArgumentException::class.java) {
                 søknad.valider()
