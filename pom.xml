@@ -20,8 +20,8 @@
         <changelist>-SNAPSHOT</changelist>
         <jvmTarget>21</jvmTarget>
         <java.version>21</java.version>
-        <kontrakter.version>3.0_20260105094547_ba7be0b</kontrakter.version>
-        <felles.version>4.20251203153147_ca40cc5</felles.version>
+        <kontrakter.version>4.0_20260114160523_30f07e4</kontrakter.version>
+        <felles.version>4.20260113213435_0e5b861</felles.version>
         <mockk.version>1.14.6</mockk.version>
         <nav.security.version>6.0.0</nav.security.version>
         <start-class>no.nav.familie.baks.soknad.api.LauncherKt</start-class>
@@ -55,6 +55,10 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jetty</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jackson</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -98,7 +102,7 @@
         </dependency>
         <dependency>
             <groupId>no.nav.familie.felles</groupId>
-            <artifactId>http-client</artifactId>
+            <artifactId>rest-klient</artifactId>
             <version>${felles.version}</version>
         </dependency>
         <dependency>
