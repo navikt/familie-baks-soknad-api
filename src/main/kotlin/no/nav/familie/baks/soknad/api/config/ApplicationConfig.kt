@@ -15,7 +15,6 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Import
 import org.springframework.context.annotation.Primary
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter
 import org.springframework.web.client.RestOperations
 import java.time.Duration
 import java.time.temporal.ChronoUnit
@@ -46,8 +45,7 @@ internal class ApplicationConfig {
             .interceptors(
                 consumerIdClientInterceptor,
                 MdcValuesPropagatingClientInterceptor()
-            ).additionalMessageConverters(MappingJackson2HttpMessageConverter())
-            .build()
+            ).build()
 
     @Bean("clientCredential")
     fun clientCredentialRestTemplateMedApiKey(
