@@ -1,7 +1,7 @@
 package no.nav.familie.baks.soknad.api.clients.mottak
 
-import no.nav.familie.http.client.AbstractRestClient
-import no.nav.familie.http.util.UriUtil
+import no.nav.familie.restklient.client.AbstractRestClient
+import no.nav.familie.restklient.util.UriUtil
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
