@@ -1,6 +1,5 @@
 package no.nav.familie.baks.soknad.api.clients.mottak
 
-import com.fasterxml.jackson.databind.JsonNode
 import no.nav.familie.baks.soknad.api.domene.Kvittering
 import no.nav.familie.kontrakter.felles.Ressurs
 import no.nav.familie.restklient.client.AbstractPingableRestClient
@@ -14,6 +13,7 @@ import org.springframework.stereotype.Component
 import org.springframework.util.MultiValueMap
 import org.springframework.web.client.RestOperations
 import org.springframework.web.client.exchange
+import tools.jackson.databind.JsonNode
 import java.net.URI
 import no.nav.familie.kontrakter.ba.søknad.v10.BarnetrygdSøknad as BarnetrygdSøknadV10
 import no.nav.familie.kontrakter.ba.søknad.v9.BarnetrygdSøknad as BarnetrygdSøknadV9
