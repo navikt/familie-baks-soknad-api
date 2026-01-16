@@ -2,9 +2,9 @@ package no.nav.familie.baks.soknad.api.clients.pdl
 
 import com.fasterxml.jackson.databind.JsonNode
 import no.nav.familie.baks.soknad.api.domene.Ytelse
-import no.nav.familie.http.client.AbstractPingableRestClient
-import no.nav.familie.http.client.Pingable
-import no.nav.familie.http.util.UriUtil
+import no.nav.familie.restklient.client.AbstractPingableRestClient
+import no.nav.familie.restklient.client.Pingable
+import no.nav.familie.restklient.util.UriUtil
 import org.apache.commons.lang3.StringUtils
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory

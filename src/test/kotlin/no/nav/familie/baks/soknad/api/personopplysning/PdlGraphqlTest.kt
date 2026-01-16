@@ -1,20 +1,19 @@
 package no.nav.familie.baks.soknad.api.personopplysning
 
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import no.nav.familie.baks.soknad.api.clients.pdl.ADRESSEBESKYTTELSEGRADERING
 import no.nav.familie.baks.soknad.api.clients.pdl.Adressebeskyttelse
 import no.nav.familie.baks.soknad.api.clients.pdl.PdlDoedsafall
 import no.nav.familie.baks.soknad.api.clients.pdl.PdlHentPersonResponse
 import no.nav.familie.baks.soknad.api.clients.pdl.PdlNavn
 import no.nav.familie.baks.soknad.api.clients.pdl.PdlStatsborgerskap
+import no.nav.familie.kontrakter.felles.jsonMapper
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import java.io.File
 
 class PdlGraphqlTest {
-    private val mapper = ObjectMapper().registerKotlinModule()
+    private val mapper = jsonMapper
 
     @Test
     fun testDeserialization() {
