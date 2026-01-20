@@ -18,6 +18,7 @@ import java.net.URI
 import no.nav.familie.kontrakter.ba.søknad.v10.BarnetrygdSøknad as BarnetrygdSøknadV10
 import no.nav.familie.kontrakter.ba.søknad.v9.BarnetrygdSøknad as BarnetrygdSøknadV9
 import no.nav.familie.kontrakter.ks.søknad.v5.KontantstøtteSøknad as KontantstøtteSøknadV5
+import no.nav.familie.kontrakter.ks.søknad.v6.KontantstøtteSøknad as KontantstøtteSøknadV6
 
 @Component
 class MottakClient(
@@ -44,6 +45,11 @@ class MottakClient(
     fun sendBarnetrygdSøknad(søknad: BarnetrygdSøknadV9): Ressurs<Kvittering> {
         val uri: URI = UriUtil.uri(URI.create(mottakBaseUrl), "api/soknad/v9")
         return håndterSendingAvSøknad(uri = uri, søknad = søknad)
+    }
+
+    fun sendKontantstøtteSøknad(kontantstøtteSøknad: KontantstøtteSøknadV6): Ressurs<Kvittering> {
+        val uri: URI = UriUtil.uri(URI.create(mottakBaseUrl), "api/kontantstotte/soknad/v6")
+        return håndterSendingAvSøknad(uri = uri, søknad = kontantstøtteSøknad)
     }
 
     fun sendKontantstøtteSøknad(kontantstøtteSøknad: KontantstøtteSøknadV5): Ressurs<Kvittering> {

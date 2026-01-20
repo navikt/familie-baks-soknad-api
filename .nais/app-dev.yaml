@@ -22,8 +22,6 @@ spec:
   prometheus:
     enabled: true
     path: /internal/prometheus
-  secureLogs:
-    enabled: true
   tokenx:
     enabled: true
   azure:

@@ -14,11 +14,19 @@ updates:
       interval: weekly
       day: monday
       time: "06:00"
+    cooldown:
+      default-days: 4
+      exclude:
+        - "no.nav.familie*"
     open-pull-requests-limit: 10
   - package-ecosystem: maven
     directory: "/"
     schedule:
       interval: "daily"
+    cooldown:
+      default-days: 4
+      exclude:
+        - "no.nav.familie*"
     open-pull-requests-limit: 10
     registries:
       - familie-felles
@@ -33,6 +41,7 @@ updates:
       prod-avhengigheter:
         dependency-type: "production"
         exclude-patterns:
+          - "org.springframework*"
           - "no.nav.security*"
       utvikler-avhengigheter:
         dependency-type: "development"
