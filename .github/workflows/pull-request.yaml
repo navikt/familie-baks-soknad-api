@@ -13,11 +13,11 @@ jobs:
     name: Ktlint
     permissions:
       contents: read
-    uses: navikt/familie-baks-gha-workflows/.github/workflows/ktlint.yaml@pull-request # ratchet:exclude
+    uses: navikt/familie-baks-gha-workflows/.github/workflows/ktlint.yaml@main # ratchet:exclude
     secrets: inherit
   test:
     name: Test
     permissions:
       contents: read
-    uses: navikt/familie-baks-gha-workflows/.github/workflows/pull-request-maven.yaml@pull-request # ratchet:exclude
+    uses: navikt/familie-baks-gha-workflows/.github/workflows/pull-request-maven.yaml@main # ratchet:exclude
     secrets: inherit
