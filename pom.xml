@@ -11,7 +11,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>4.0.1</version>
+        <version>4.0.2</version>
     </parent>
 
     <properties>
@@ -20,16 +20,13 @@
         <changelist>-SNAPSHOT</changelist>
         <jvmTarget>21</jvmTarget>
         <java.version>21</java.version>
-        <kontrakter.version>3.0_20260105094547_ba7be0b</kontrakter.version>
-        <felles.version>4.20251203153147_ca40cc5</felles.version>
+        <kontrakter.version>4.0_20260127095609_7f1d60a</kontrakter.version>
+        <felles.version>4.20260128165036_0708695</felles.version>
         <mockk.version>1.14.6</mockk.version>
         <nav.security.version>6.0.1</nav.security.version>
         <start-class>no.nav.familie.baks.soknad.api.LauncherKt</start-class>
         <kotlin.version>2.2.21</kotlin.version>
         <bytebuddy.version>1.18.2</bytebuddy.version>
-        <!-- Må settes for å kunne kjøre opp mock-oauth2-server i unit-tester -->
-        <okhttp3.version>4.9.1</okhttp3.version>
-        <!-- Må settes for å kunne kjøre opp mock-oauth2-server i unit-tester -->
     </properties>
 
 
@@ -55,6 +52,10 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jetty</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jackson</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -98,7 +99,7 @@
         </dependency>
         <dependency>
             <groupId>no.nav.familie.felles</groupId>
-            <artifactId>http-client</artifactId>
+            <artifactId>rest-klient</artifactId>
             <version>${felles.version}</version>
         </dependency>
         <dependency>

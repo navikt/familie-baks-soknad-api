@@ -20,8 +20,8 @@ import no.nav.familie.baks.soknad.api.domene.Ytelse
 import no.nav.familie.baks.soknad.api.services.kodeverk.CachedKodeverkService
 import no.nav.familie.baks.soknad.api.services.pdl.PersonopplysningerService
 import no.nav.familie.baks.soknad.api.services.pdl.mapper.PdlBarnMapper
+import no.nav.familie.kontrakter.felles.jsonMapper
 import no.nav.familie.kontrakter.felles.kodeverk.KodeverkDto
-import no.nav.familie.kontrakter.felles.objectMapper
 import no.nav.familie.kontrakter.felles.personopplysning.Bostedsadresse
 import no.nav.familie.kontrakter.felles.personopplysning.Matrikkeladresse
 import no.nav.familie.kontrakter.felles.personopplysning.UkjentBosted
@@ -41,7 +41,7 @@ class PersonopplysningerServiceTest {
     private lateinit var barnePdlClient: PdlApp2AppClient
     private lateinit var kodeverkClient: KodeverkClient
     private lateinit var kodeverkService: CachedKodeverkService
-    private val mapper = objectMapper
+    private val mapper = jsonMapper
     private val gyldigBostedAdresse =
         Bostedsadresse(
             matrikkeladresse = Matrikkeladresse(3, "E67", "tillegg", "1456", "1223")

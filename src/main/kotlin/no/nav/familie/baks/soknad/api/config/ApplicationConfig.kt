@@ -1,11 +1,11 @@
 package no.nav.familie.baks.soknad.api.config
 
-import no.nav.familie.http.interceptor.BearerTokenClientCredentialsClientInterceptor
-import no.nav.familie.http.interceptor.BearerTokenExchangeClientInterceptor
-import no.nav.familie.http.interceptor.ConsumerIdClientInterceptor
-import no.nav.familie.http.interceptor.MdcValuesPropagatingClientInterceptor
 import no.nav.familie.log.NavSystemtype
 import no.nav.familie.log.filter.LogFilter
+import no.nav.familie.restklient.interceptor.BearerTokenClientCredentialsClientInterceptor
+import no.nav.familie.restklient.interceptor.BearerTokenExchangeClientInterceptor
+import no.nav.familie.restklient.interceptor.ConsumerIdClientInterceptor
+import no.nav.familie.restklient.interceptor.MdcValuesPropagatingClientInterceptor
 import no.nav.security.token.support.client.spring.oauth2.EnableOAuth2Client
 import org.slf4j.LoggerFactory
 import org.springframework.boot.SpringBootConfiguration
@@ -15,7 +15,6 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Import
 import org.springframework.context.annotation.Primary
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter
 import org.springframework.web.client.RestOperations
 import java.time.Duration
 import java.time.temporal.ChronoUnit
@@ -46,8 +45,7 @@ internal class ApplicationConfig {
             .interceptors(
                 consumerIdClientInterceptor,
                 MdcValuesPropagatingClientInterceptor()
-            ).additionalMessageConverters(MappingJackson2HttpMessageConverter())
-            .build()
+            ).build()
 
     @Bean("clientCredential")
     fun clientCredentialRestTemplateMedApiKey(

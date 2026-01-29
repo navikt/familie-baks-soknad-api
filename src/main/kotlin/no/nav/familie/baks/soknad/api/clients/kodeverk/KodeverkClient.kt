@@ -1,9 +1,9 @@
 package no.nav.familie.baks.soknad.api.clients.kodeverk
 
-import no.nav.familie.http.client.AbstractPingableRestClient
-import no.nav.familie.http.client.Pingable
-import no.nav.familie.http.util.UriUtil
 import no.nav.familie.kontrakter.felles.kodeverk.KodeverkDto
+import no.nav.familie.restklient.client.AbstractPingableRestClient
+import no.nav.familie.restklient.client.Pingable
+import no.nav.familie.restklient.util.UriUtil
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
