@@ -153,4 +153,34 @@ PDF-genereringen fortsatt fungerer som den skal før man går "live". Det finnes
 `familie-baks-dokgen` som burde oppdateres i henhold til ny kontrakt. Man burde også manuelt teste PDF ved innsendelse i
 dev.
 
+Den største utfordringen her er å generere JSON-inputen til `familie-baks-dokgen` i henhold til ny kontrakt. Dette har
+vi fått til tidligere ved å legge inn følgende kode rett før `return` i metoden `lagBarnetrygdPdf()`/
+`lagKontantstøttePdf()`
+i [PdfService](https://github.com/navikt/familie-baks-mottak/blob/main/src/main/kotlin/no/nav/familie/baks/mottak/s%C3%B8knad/PdfService.kt):
+
+```kotlin
+println(jsonMapper.writeValueAsString(barnetrygdSøknadMapForSpråk + ekstraFelterMap))
+```
+
+For å få dette til å fungere må man kjøre opp `familie-baks-soknad-api` og `familie-baks-mottak` lokalt, slik at man
+treffer `familie-baks-mottak` ved innsendelse av lokal søknad. Eventuelt må man logge ut JSON som
+`familie-baks-soknad-api` ville sendt til `familie-baks-mottak` også manuelt kalt på lokalt kjørende
+`familie-baks-mottak`. Da må man isåfall midlertidig skru av krav om autentisering/token i `familie-baks-mottak`.
+
+## Eksempel på PR'er relatert til oppdatering av søknadskontrakten for kontantstøtte til versjon 6
+
+- familie-kontrakter (Steg 1. Alle andre endringer krever at disse endringene er rullet ut først.):
+    1. https://github.com/navikt/familie-kontrakter/pull/1087
+    2. https://github.com/navikt/familie-kontrakter/pull/1089
+    3. https://github.com/navikt/familie-kontrakter/pull/1090
+- familie-baks-soknad-api:
+    - https://github.com/navikt/familie-baks-soknad-api/pull/480
+- familie-baks-mottak:
+    - https://github.com/navikt/familie-baks-mottak/pull/1482
+- familie-dokgen:
+    - https://github.com/navikt/familie-baks-dokgen/pull/248
+- familie-integrasjoner:
+    - https://github.com/navikt/familie-integrasjoner/pull/1191
+- familie-ks-soknad (Denne må ikke merges før de andre endringene er rullet ut):
+    - https://github.com/navikt/familie-ks-soknad/pull/1189
 
