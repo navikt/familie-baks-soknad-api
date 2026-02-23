@@ -11,7 +11,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>4.0.2</version>
+        <version>4.0.3</version>
     </parent>
 
     <properties>
@@ -23,7 +23,7 @@
         <kontrakter.version>4.0_20260127095609_7f1d60a</kontrakter.version>
         <felles.version>4.20260128165036_0708695</felles.version>
         <mockk.version>1.14.9</mockk.version>
-        <nav.security.version>6.0.2</nav.security.version>
+        <nav.security.version>6.0.3</nav.security.version>
         <start-class>no.nav.familie.baks.soknad.api.LauncherKt</start-class>
         <kotlin.version>2.3.0</kotlin.version>
         <bytebuddy.version>1.18.4</bytebuddy.version>
