@@ -25,8 +25,8 @@
         <mockk.version>1.14.9</mockk.version>
         <nav.security.version>6.0.2</nav.security.version>
         <start-class>no.nav.familie.baks.soknad.api.LauncherKt</start-class>
-        <kotlin.version>2.3.0</kotlin.version>
-        <bytebuddy.version>1.18.4</bytebuddy.version>
+        <kotlin.version>2.3.10</kotlin.version>
+        <bytebuddy.version>1.18.5</bytebuddy.version>
     </properties>
 
 
@@ -259,7 +259,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.5.4</version>
+                <version>3.5.5</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
