@@ -20,6 +20,6 @@ jobs:
       contents: write # to write sarif
       security-events: write # push sarif to github security
       id-token: write # nais/login
-    uses: navikt/familie-baks-gha-workflows/.github/workflows/scan-vulnerabilities-maven.yaml@main # ratchet:exclude
+    uses: navikt/familie-baks-gha-workflows/.github/workflows/scan-vulnerabilities-maven.yaml@bump-trivy # ratchet:exclude
     secrets: inherit
 
