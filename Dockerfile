@@ -1,4 +1,4 @@
-FROM europe-north1-docker.pkg.dev/cgr-nav/pull-through/nav.no/jre:openjdk-25
+FROM europe-north1-docker.pkg.dev/cgr-nav/pull-through/nav.no/jre:openjdk-25@sha256:cf6229132f6cad307f3ce535d08b625bad6b97caaae57fd30dae7d84e6abc1d4
 
 ENV APP_NAME=familie-baks-soknad-api
 

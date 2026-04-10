@@ -1,0 +1,16 @@
+name: Digestabot updates
+
+on:
+  workflow_dispatch:
+  schedule:
+    # At the end of every day
+    - cron: "0 0 * * *"
+
+jobs:
+  digest-update:
+    permissions:
+      contents: write
+      pull-requests: write
+      id-token: write
+    uses: navikt/familie-baks-gha-workflows/.github/workflows/digestabot.yaml@main
+    secrets: inherit
