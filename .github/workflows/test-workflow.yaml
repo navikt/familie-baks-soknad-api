@@ -5,9 +5,9 @@ on:
   workflow_dispatch:
 jobs:
   test-workflow:
-    permissions:
-      contents: write
-      pull-requests: write
-      id-token: write
-    uses: navikt/familie-baks-gha-workflows/.github/workflows/digestabot.yaml@main
-    secrets: inherit
+    name: Test workflow
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run script
+        run: |
+          echo "This is a workflow"
