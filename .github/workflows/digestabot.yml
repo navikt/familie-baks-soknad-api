@@ -13,4 +13,7 @@ jobs:
       pull-requests: write
       id-token: write
     uses: navikt/familie-baks-gha-workflows/.github/workflows/digestabot.yaml@main
-    secrets: inherit
+    with:
+      digestabot-app-id: ${{ vars.DIGESTABOT_APP_ID }}
+    secrets:
+      DIGESTABOT_PRIVATE_KEY: ${{ secrets.DIGESTABOT_PRIVATE_KEY }}
