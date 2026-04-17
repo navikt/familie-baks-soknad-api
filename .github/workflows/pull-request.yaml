@@ -13,7 +13,7 @@ jobs:
     name: Ktlint
     permissions:
       contents: read
-    uses: navikt/familie-baks-gha-workflows/.github/workflows/ktlint.yaml@main # ratchet:exclude
+    uses: navikt/familie-baks-gha-workflows/.github/workflows/ktlint.yaml@skip-digestabot # ratchet:exclude
     with:
       java-version: '25'
     secrets: inherit
@@ -21,7 +21,7 @@ jobs:
     name: Test
     permissions:
       contents: read
-    uses: navikt/familie-baks-gha-workflows/.github/workflows/pull-request-maven.yaml@main # ratchet:exclude
+    uses: navikt/familie-baks-gha-workflows/.github/workflows/pull-request-maven.yaml@skip-digestabot # ratchet:exclude
     with:
       java-version: '25'
     secrets: inherit
