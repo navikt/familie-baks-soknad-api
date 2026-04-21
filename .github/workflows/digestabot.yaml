@@ -14,6 +14,6 @@ jobs:
       id-token: write
     uses: navikt/familie-baks-gha-workflows/.github/workflows/digestabot.yaml@main
     with:
-      digestabot-app-id: ${{ vars.DIGESTABOT_APP_ID }}
+      digestabot-client-id: ${{ vars.DIGESTABOT_CLIENT_ID }}
     secrets:
       DIGESTABOT_PRIVATE_KEY: ${{ secrets.DIGESTABOT_PRIVATE_KEY }}
