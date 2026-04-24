@@ -20,7 +20,7 @@
         <changelist>-SNAPSHOT</changelist>
         <jvmTarget>25</jvmTarget>
         <java.version>25</java.version>
-        <kontrakter.version>4.0_20260127095609_7f1d60a</kontrakter.version>
+        <kontrakter.version>4.0_20260423205840_8dec2cb</kontrakter.version>
         <felles.version>4.20260301040348_4280733</felles.version>
         <mockk.version>1.14.9</mockk.version>
         <nav.security.version>6.0.4</nav.security.version>
