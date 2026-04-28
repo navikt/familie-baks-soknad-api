@@ -20,12 +20,12 @@
         <changelist>-SNAPSHOT</changelist>
         <jvmTarget>25</jvmTarget>
         <java.version>25</java.version>
-        <kontrakter.version>4.0_20260424102717_a34ce11</kontrakter.version>
+        <kontrakter.version>4.0_20260427083013_f53660d</kontrakter.version>
         <felles.version>4.20260420125050_76c5fea</felles.version>
         <mockk.version>1.14.9</mockk.version>
         <nav.security.version>6.0.4</nav.security.version>
         <start-class>no.nav.familie.baks.soknad.api.LauncherKt</start-class>
-        <kotlin.version>2.3.20</kotlin.version> <!-- Ved bumping sjekk støtte i CodeQL -->
+        <kotlin.version>2.3.21</kotlin.version> <!-- Ved bumping sjekk støtte i CodeQL -->
         <bytebuddy.version>1.18.7</bytebuddy.version>
     </properties>
 
