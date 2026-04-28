@@ -21,7 +21,7 @@
         <jvmTarget>21</jvmTarget>
         <java.version>21</java.version>
         <kontrakter.version>3.0_20250401151544_aae9e33</kontrakter.version>
-        <felles.version>3.20250330150138_0502cea</felles.version>
+        <felles.version>4.20260428092133_557f62f</felles.version>
         <mockk.version>1.14.0</mockk.version>
         <token-validation-spring.version>5.0.20</token-validation-spring.version>
         <start-class>no.nav.familie.baks.soknad.api.LauncherKt</start-class>
@@ -99,6 +99,11 @@
         <dependency>
             <groupId>no.nav.familie.felles</groupId>
             <artifactId>http-client</artifactId>
+            <version>${felles.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>no.nav.familie.felles</groupId>
+            <artifactId>sikkerhet-token-support</artifactId>
             <version>${felles.version}</version>
         </dependency>
         <dependency>
