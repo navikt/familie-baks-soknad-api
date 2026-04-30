@@ -11,3 +11,15 @@ jobs:
       - name: Run script
         run: |
           echo "This is a workflow"
+  varsle-slack:
+    name: Slack-melding ved feil
+    permissions: {}
+    uses: navikt/familie-baks-gha-workflows/.github/workflows/notify-failed-workflow.yaml@slack-varsling # ratchet:exclude
+    secrets:
+      BAKS_DEPLOYMENTS_SLACK_WEBHOOK: ${{ secrets.BAKS_DEPLOYMENTS_SLACK_WEBHOOK }}
+  notify-audit:
+    name: Slack-melding hvis ikke main branch
+    permissions: {}
+    uses: navikt/familie-baks-gha-workflows/.github/workflows/notify-audited-deploy.yaml@slack-varsling # ratchet:exclude
+    secrets:
+      BAKS_AUDIT_ALERTS_SLACK_WEBHOOK: ${{ secrets.BAKS_AUDIT_ALERTS_SLACK_WEBHOOK }}
