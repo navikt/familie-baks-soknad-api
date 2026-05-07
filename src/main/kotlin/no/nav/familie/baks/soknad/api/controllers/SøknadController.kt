@@ -39,8 +39,9 @@ class SøknadController(
     ): ResponseEntity<Ressurs<Kvittering>> {
         val valideringsfeil = BarnetrygdSøknadV10Validator.valider(søknad)
         if (valideringsfeil.isNotEmpty()) {
-            logger.info("Søknad av barnetrygd(v10) mottatt med ${valideringsfeil.size} valideringsfeil. Søknaden sendes videre til journalføring, men man bør se på hvorfor det feiler. Se securelogs for detaljer.")
-            secureLogger.info("Validering av barnetrygd-søknad feilet:\n $valideringsfeil")
+            logger.error("Søknad av barnetrygd(v10) avvist med ${valideringsfeil.size} valideringsfeil")
+            secureLogger.error("Validering av barnetrygd-søknad feilet:\n $valideringsfeil")
+            return ResponseEntity.badRequest().body(Ressurs.failure("Søknaden har valideringsfeil i objectPaths: ${valideringsfeil.joinToString("\n") { it.objectPath }}"))
         }
         return ResponseEntity.ok().body(barnetrygdSøknadService.mottaOgSendBarnetrygdsøknad(søknad))
     }
@@ -57,8 +58,9 @@ class SøknadController(
     ): ResponseEntity<Ressurs<Kvittering>> {
         val valideringsfeil = KontantstøtteSøknadV6Validator.valider(kontantstøtteSøknad)
         if (valideringsfeil.isNotEmpty()) {
-            logger.info("Søknad av kontantstøtte(v6) mottatt med ${valideringsfeil.size} valideringsfeil. Søknaden sendes videre til journalføring, men man bør se på hvorfor det feiler. Se securelogs for detaljer.")
-            secureLogger.info("Validering av kontantstøtte-søknad feilet:\n $valideringsfeil")
+            logger.error("Søknad av kontantstøtte(v6) avvist med ${valideringsfeil.size} valideringsfeil")
+            secureLogger.error("Validering av kontantstøtte-søknad feilet:\n $valideringsfeil")
+            return ResponseEntity.badRequest().body(Ressurs.failure("Søknaden har valideringsfeil i objectPaths: ${valideringsfeil.joinToString("\n") { it.objectPath }}"))
         }
 
         return ResponseEntity.ok().body(kontantstøtteSøknadService.mottaOgSendKontantstøttesøknad(kontantstøtteSøknad))
