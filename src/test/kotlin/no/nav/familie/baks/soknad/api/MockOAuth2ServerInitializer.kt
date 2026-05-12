@@ -20,11 +20,11 @@ class MockOAuth2ServerInitializer : ApplicationContextInitializer<ConfigurableAp
             mapOf<String, Any>(
                 "TOKEN_X_ISSUER" to server.issuerUrl("tokenx").toString(),
                 "TOKEN_X_CLIENT_ID" to "aud-localhost",
-                "TOKEN_X_JWKS_URI" to server.jwksUrl("tokenx").toString(),
+                "TOKEN_X_JWKS_URI" to server.jwksUrl("tokenx").toString()
             )
 
         applicationContext.environment.propertySources.addFirst(
-            MapPropertySource("mockOAuth2Server", properties),
+            MapPropertySource("mockOAuth2Server", properties)
         )
 
         applicationContext.beanFactory.registerSingleton("mockOAuth2Server", server)

@@ -13,6 +13,6 @@ fun main(args: Array<String>) {
             "mock-pdl",
             "mock-kodeverk",
             "mock-mottak",
-            "mock-kontoregister",
+            "mock-kontoregister"
         ).run(*args)
 }

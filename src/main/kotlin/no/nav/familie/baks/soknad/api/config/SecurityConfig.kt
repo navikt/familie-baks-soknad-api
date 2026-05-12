@@ -1,8 +1,8 @@
 package no.nav.familie.baks.soknad.api.config
 
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpStatus
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
@@ -23,7 +23,7 @@ import org.springframework.security.web.authentication.HttpStatusEntryPoint
 class SecurityConfig(
     @param:Value("\${TOKEN_X_ISSUER}") private val tokenXIssuer: String,
     @param:Value("\${TOKEN_X_CLIENT_ID}") private val tokenXClientId: String,
-    @param:Value("\${TOKEN_X_JWKS_URI}") private val tokenXJwksUri: String,
+    @param:Value("\${TOKEN_X_JWKS_URI}") private val tokenXJwksUri: String
 ) {
     @Bean
     fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
@@ -51,8 +51,8 @@ class SecurityConfig(
             DelegatingOAuth2TokenValidator(
                 JwtValidators.createDefaultWithIssuer(tokenXIssuer),
                 JwtAudienceValidator(tokenXClientId),
-                JwtClaimValidator<String>("acr") { acr -> acr == LEVEL4 || acr == IDPORTEN_LOA_HIGH },
-            ),
+                JwtClaimValidator<String>("acr") { acr -> acr == LEVEL4 || acr == IDPORTEN_LOA_HIGH }
+            )
         )
         return decoder
     }
