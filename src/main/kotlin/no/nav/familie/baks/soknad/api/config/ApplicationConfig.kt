@@ -6,7 +6,7 @@ import no.nav.familie.restklient.interceptor.BearerTokenClientCredentialsClientI
 import no.nav.familie.restklient.interceptor.BearerTokenExchangeClientInterceptor
 import no.nav.familie.restklient.interceptor.ConsumerIdClientInterceptor
 import no.nav.familie.restklient.interceptor.MdcValuesPropagatingClientInterceptor
-import no.nav.familie.sikkerhet.context.FamilieFellesNavTokenSupportKonfigurasjon
+import no.nav.familie.sikkerhet.context.FamilieFellesSpringSecurityKonfigurasjon
 import no.nav.security.token.support.client.spring.oauth2.EnableOAuth2Client
 import org.slf4j.LoggerFactory
 import org.springframework.boot.SpringBootConfiguration
@@ -27,7 +27,7 @@ import java.time.temporal.ChronoUnit
     ConsumerIdClientInterceptor::class,
     BearerTokenExchangeClientInterceptor::class,
     BearerTokenClientCredentialsClientInterceptor::class,
-    FamilieFellesNavTokenSupportKonfigurasjon::class
+    FamilieFellesSpringSecurityKonfigurasjon::class
 )
 @EnableOAuth2Client(cacheEnabled = true)
 internal class ApplicationConfig {
