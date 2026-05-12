@@ -8,7 +8,6 @@ class LokalLauncher
 
 fun main(args: Array<String>) {
     SpringApplicationBuilder(LokalLauncher::class.java)
-        .initializers(MockOAuth2ServerInitializer())
         .profiles(
             "lokal",
             "mock-pdl",
