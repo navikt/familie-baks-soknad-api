@@ -9,6 +9,7 @@ import org.springframework.security.core.context.SecurityContextHolder.getContex
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken
 
 // TODO: Fjern denne klassen når alle klienter er skrevet om til å bruke Texas.
+
 /**
  * Midlertidig konfigurasjon i overgangen fra Nav token-support til Spring Security.
  *
