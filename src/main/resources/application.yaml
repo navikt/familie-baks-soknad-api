@@ -24,11 +24,11 @@ PDL_URL: dummy
 KODEVERK_URL: dummy
 KODEVERK_SCOPE: "dummy-scope"
 
+TOKEN_X_ISSUER: dummy
+TOKEN_X_CLIENT_ID: dummy
+TOKEN_X_JWKS_URI: dummy
+
 no.nav.security.jwt:
-  issuer:
-    tokenx:
-      discovery-url: ${TOKEN_X_WELL_KNOWN_URL}
-      accepted-audience: ${TOKEN_X_CLIENT_ID}
   client:
     registration:
       mottak-clientcredentials:
