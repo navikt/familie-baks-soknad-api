@@ -12,7 +12,6 @@ import org.springframework.security.oauth2.core.DelegatingOAuth2TokenValidator
 import org.springframework.security.oauth2.jwt.JwtAudienceValidator
 import org.springframework.security.oauth2.jwt.JwtClaimValidator
 import org.springframework.security.oauth2.jwt.JwtDecoder
-import org.springframework.security.oauth2.jwt.JwtDecoders
 import org.springframework.security.oauth2.jwt.JwtValidators
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder
 import org.springframework.security.web.SecurityFilterChain
@@ -23,6 +22,7 @@ import org.springframework.security.web.authentication.HttpStatusEntryPoint
 class SecurityConfig(
     @param:Value($$"${TOKEN_X_ISSUER}") private val tokenXIssuer: String,
     @param:Value($$"${TOKEN_X_CLIENT_ID}") private val tokenXClientId: String,
+    @param:Value($$"${TOKEN_X_JWKS_URI}") private val tokenXJwksUri: String,
 ) {
     @Bean
     fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
@@ -45,7 +45,7 @@ class SecurityConfig(
 
     @Bean
     fun jwtDecoder(): JwtDecoder {
-        val decoder = JwtDecoders.fromIssuerLocation(tokenXIssuer) as NimbusJwtDecoder
+        val decoder = NimbusJwtDecoder.withJwkSetUri(tokenXJwksUri).build()
         decoder.setJwtValidator(
             DelegatingOAuth2TokenValidator(
                 JwtValidators.createDefaultWithIssuer(tokenXIssuer),
