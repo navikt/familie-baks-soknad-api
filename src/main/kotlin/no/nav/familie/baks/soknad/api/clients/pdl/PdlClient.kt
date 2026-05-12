@@ -5,7 +5,6 @@ import no.nav.familie.baks.soknad.api.domene.Ytelse
 import no.nav.familie.restklient.client.AbstractPingableRestClient
 import no.nav.familie.restklient.client.Pingable
 import no.nav.familie.restklient.util.UriUtil
-import org.apache.commons.lang3.StringUtils
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpHeaders
@@ -88,4 +87,5 @@ abstract class PdlClient(
     }
 }
 
-fun String.graphqlCompatible(): String = StringUtils.normalizeSpace(this.replace("\n", ""))
+// Kompakt, men lesbar query
+fun String.graphqlCompatible(): String = trimIndent().replace(Regex("\\s+"), " ")
