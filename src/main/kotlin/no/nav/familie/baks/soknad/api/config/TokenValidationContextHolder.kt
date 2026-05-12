@@ -21,7 +21,7 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtAut
  * det fungerer selv om Nav token-support ellers ikke er aktivt i applikasjonen.
  */
 @Configuration
-class TokenValidationContextHolder {
+class TokenValidationContextHolderConfig {
     @Bean
     fun tokenValidationContextHolder(): TokenValidationContextHolder = SpringSecurityTokenValidationContextHolder()
 
