@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpStatus
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
+import org.springframework.security.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration.jwtDecoder
 import org.springframework.security.config.annotation.web.invoke
 import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.oauth2.core.DelegatingOAuth2TokenValidator
@@ -20,9 +21,9 @@ import org.springframework.security.web.authentication.HttpStatusEntryPoint
 @Configuration
 @EnableWebSecurity
 class SecurityConfig(
-    @param:Value($$"${TOKEN_X_ISSUER}") private val tokenXIssuer: String,
-    @param:Value($$"${TOKEN_X_CLIENT_ID}") private val tokenXClientId: String,
-    @param:Value($$"${TOKEN_X_JWKS_URI}") private val tokenXJwksUri: String,
+    @param:Value("\${TOKEN_X_ISSUER}") private val tokenXIssuer: String,
+    @param:Value("\${TOKEN_X_CLIENT_ID}") private val tokenXClientId: String,
+    @param:Value("\${TOKEN_X_JWKS_URI}") private val tokenXJwksUri: String,
 ) {
     @Bean
     fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
