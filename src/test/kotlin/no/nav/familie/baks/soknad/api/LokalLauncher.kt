@@ -1,13 +1,9 @@
 package no.nav.familie.baks.soknad.api
 
-import no.nav.security.token.support.spring.api.EnableJwtTokenValidation
-import no.nav.security.token.support.spring.test.EnableMockOAuth2Server
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.builder.SpringApplicationBuilder
 
-@EnableMockOAuth2Server
 @SpringBootApplication(scanBasePackages = ["no.nav.familie.baks.soknad.api"])
-@EnableJwtTokenValidation
 class LokalLauncher
 
 /**
