@@ -2,24 +2,20 @@ package no.nav.familie.baks.soknad.api.clients.pdl
 
 import com.fasterxml.jackson.databind.JsonNode
 import no.nav.familie.baks.soknad.api.domene.Ytelse
-import no.nav.familie.restklient.client.AbstractPingableRestClient
-import no.nav.familie.restklient.client.Pingable
-import no.nav.familie.restklient.util.UriUtil
 import org.apache.commons.lang3.StringUtils
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import org.springframework.http.HttpHeaders
-import org.springframework.http.HttpMethod
-import org.springframework.web.client.RestOperations
-import org.springframework.web.client.exchange
+import org.springframework.http.MediaType
+import org.springframework.web.client.RestClient
+import org.springframework.web.client.body
 import java.net.URI
 
 abstract class PdlClient(
     pdlBaseUrl: String,
-    private val restOperations: RestOperations
-) : AbstractPingableRestClient(restOperations, "pdl.integrasjon"),
-    Pingable {
-    private val pdlUri = UriUtil.uri(base = URI.create(pdlBaseUrl), path = "graphql")
+    private val restClient: RestClient
+) {
+    private val pdlUri = URI.create("$pdlBaseUrl/graphql")
+    private val secureLogger: Logger = LoggerFactory.getLogger("secureLogger")
 
     fun hentPerson(
         personIdent: String,
@@ -38,11 +34,16 @@ abstract class PdlClient(
             )
 
         val response =
-            postForEntity<PdlHentPersonResponse>(
-                uri = pdlUri,
-                payload = pdlPersonRequest,
-                httpHeaders = httpHeaders(ytelse)
-            )
+            restClient
+                .post()
+                .uri(pdlUri)
+                .contentType(MediaType.APPLICATION_JSON)
+                .headers { headers ->
+                    headers.add("Tema", ytelse.tema.name)
+                    headers.add("behandlingsnummer", ytelse.tema.behandlingsnummer)
+                }.body(pdlPersonRequest)
+                .retrieve()
+                .body<PdlHentPersonResponse>()!!
 
         if (response.harFeil()) {
             LOG.error("Feil ved henting av person fra PDL. Se securelogs for detaljer.")
@@ -64,18 +65,13 @@ abstract class PdlClient(
         return response
     }
 
-    private fun httpHeaders(ytelse: Ytelse): HttpHeaders =
-        HttpHeaders().apply {
-            add("Tema", ytelse.tema.name)
-            add("behandlingsnummer", ytelse.tema.behandlingsnummer)
-        }
-
-    override val pingUri: URI
-        get() = pdlUri
-
-    override fun ping() {
+    fun ping() {
         try {
-            restOperations.exchange<JsonNode>(pdlUri, HttpMethod.OPTIONS)
+            restClient
+                .options()
+                .uri(pdlUri)
+                .retrieve()
+                .body<JsonNode>()
             LOG.debug("Ping mot PDL-API OK")
         } catch (e: Exception) {
             LOG.warn("Ping mot PDL-API feilet")

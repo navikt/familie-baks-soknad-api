@@ -1,24 +1,27 @@
-package no.nav.familie.baks.soknad.api.clients.mottak
+package no.nav.familie.baks.soknad.api.clients.kontoregister
 
-import no.nav.familie.restklient.client.AbstractRestClient
-import no.nav.familie.restklient.util.UriUtil
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.http.MediaType
 import org.springframework.stereotype.Component
-import org.springframework.web.client.RestOperations
+import org.springframework.web.client.RestClient
+import org.springframework.web.client.body
 import java.net.URI
 
 @Component
 class KontoregisterClient(
     @Value("\${KONTOREGISTER_URL}") private val kontoregisterBaseUrl: String,
-    @Qualifier("tokenExchange") private val restOperations: RestOperations
-) : AbstractRestClient(restOperations, "kontoregister") {
+    @Qualifier("kontoregisterTokenXRestClient") private val restClient: RestClient
+) {
     fun hentKontonummer(kontohaver: String): KontoregisterResponseDto {
-        val uri: URI = UriUtil.uri(URI.create(kontoregisterBaseUrl), "hent-aktiv-konto")
-        return postForEntity<KontoregisterResponseDto>(
-            uri = uri,
-            payload = KontoregisterRequestDto(kontohaver)
-        )
+        val uri = URI.create("$kontoregisterBaseUrl/hent-aktiv-konto")
+        return restClient
+            .post()
+            .uri(uri)
+            .contentType(MediaType.APPLICATION_JSON)
+            .body(KontoregisterRequestDto(kontohaver))
+            .retrieve()
+            .body<KontoregisterResponseDto>()!!
     }
 }
 

@@ -2,34 +2,26 @@ package no.nav.familie.baks.soknad.api.config
 
 import no.nav.familie.log.NavSystemtype
 import no.nav.familie.log.filter.LogFilter
-import no.nav.familie.restklient.interceptor.BearerTokenClientCredentialsClientInterceptor
-import no.nav.familie.restklient.interceptor.BearerTokenExchangeClientInterceptor
-import no.nav.familie.restklient.interceptor.ConsumerIdClientInterceptor
-import no.nav.familie.restklient.interceptor.MdcValuesPropagatingClientInterceptor
+import no.nav.familie.log.interceptor.ConsumerIdClientInterceptor
+import no.nav.familie.log.interceptor.MdcValuesPropagatingClientInterceptor
 import no.nav.familie.sikkerhet.context.FamilieFellesNavTokenSupportKonfigurasjon
-import no.nav.security.token.support.client.spring.oauth2.EnableOAuth2Client
 import org.slf4j.LoggerFactory
 import org.springframework.boot.SpringBootConfiguration
-import org.springframework.boot.restclient.RestTemplateBuilder
 import org.springframework.boot.web.servlet.FilterRegistrationBean
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Import
-import org.springframework.context.annotation.Primary
-import org.springframework.web.client.RestOperations
-import java.time.Duration
-import java.time.temporal.ChronoUnit
 
 @SpringBootConfiguration
-@ComponentScan(ApplicationConfig.PAKKENAVN)
+@ComponentScan(
+    ApplicationConfig.PAKKENAVN,
+    "no.nav.familie.felles.tokenklient"
+)
 @Import(
     MdcValuesPropagatingClientInterceptor::class,
     ConsumerIdClientInterceptor::class,
-    BearerTokenExchangeClientInterceptor::class,
-    BearerTokenClientCredentialsClientInterceptor::class,
     FamilieFellesNavTokenSupportKonfigurasjon::class
 )
-@EnableOAuth2Client(cacheEnabled = true)
 internal class ApplicationConfig {
     @Bean
     fun logFilter(): FilterRegistrationBean<LogFilter> {
@@ -39,45 +31,6 @@ internal class ApplicationConfig {
         filterRegistration.order = 1
         return filterRegistration
     }
-
-    @Bean
-    @Primary
-    fun restTemplate(consumerIdClientInterceptor: ConsumerIdClientInterceptor): RestOperations =
-        RestTemplateBuilder()
-            .interceptors(
-                consumerIdClientInterceptor,
-                MdcValuesPropagatingClientInterceptor()
-            ).build()
-
-    @Bean("clientCredential")
-    fun clientCredentialRestTemplateMedApiKey(
-        consumerIdClientInterceptor: ConsumerIdClientInterceptor,
-        bearerTokenClientCredentialsClientInterceptor: BearerTokenClientCredentialsClientInterceptor,
-        mdcValuesPropagatingClientInterceptor: MdcValuesPropagatingClientInterceptor
-    ): RestOperations =
-        RestTemplateBuilder()
-            .connectTimeout(Duration.of(5, ChronoUnit.SECONDS))
-            .readTimeout(Duration.of(25, ChronoUnit.SECONDS))
-            .interceptors(
-                consumerIdClientInterceptor,
-                bearerTokenClientCredentialsClientInterceptor,
-                mdcValuesPropagatingClientInterceptor
-            ).build()
-
-    @Bean("tokenExchange")
-    fun tokenExchangeRestTemplate(
-        bearerTokenExchangeClientInterceptor: BearerTokenExchangeClientInterceptor,
-        mdcValuesPropagatingClientInterceptor: MdcValuesPropagatingClientInterceptor,
-        consumerIdClientInterceptor: ConsumerIdClientInterceptor
-    ): RestOperations =
-        RestTemplateBuilder()
-            .connectTimeout(Duration.of(5, ChronoUnit.SECONDS))
-            .readTimeout(Duration.of(25, ChronoUnit.SECONDS))
-            .interceptors(
-                bearerTokenExchangeClientInterceptor,
-                mdcValuesPropagatingClientInterceptor,
-                consumerIdClientInterceptor
-            ).build()
 
     companion object {
         private val logger = LoggerFactory.getLogger(ApplicationConfig::class.java)

@@ -23,57 +23,15 @@ FAMILIE_BAKS_MOTTAK_URL: dummy
 PDL_URL: dummy
 KODEVERK_URL: dummy
 KODEVERK_SCOPE: "dummy-scope"
+PDL_SCOPE: "dummy-scope"
+PDL_TOKENX_SCOPE: "dummy-scope"
+MOTTAK_SCOPE: "dummy-scope"
+KONTOREGISTER_SCOPE: "dummy-scope"
 
 no.nav.security.jwt:
   issuer:
     tokenx:
       discovery-url: ${TOKEN_X_WELL_KNOWN_URL}
       accepted-audience: ${TOKEN_X_CLIENT_ID}
-  client:
-    registration:
-      mottak-clientcredentials:
-        resource-url: ${FAMILIE_BAKS_MOTTAK_URL}
-        well-known-url: ${TOKEN_X_WELL_KNOWN_URL}
-        grant-type: urn:ietf:params:oauth:grant-type:token-exchange
-        authentication:
-          client-id: ${TOKEN_X_CLIENT_ID}
-          client-auth-method: private_key_jwt
-          client-jwk: ${TOKEN_X_PRIVATE_JWK}
-      kontoregister-clientcredentials:
-        resource-url: ${KONTOREGISTER_URL}
-        well-known-url: ${TOKEN_X_WELL_KNOWN_URL}
-        grant-type: urn:ietf:params:oauth:grant-type:token-exchange
-        authentication:
-          client-id: ${TOKEN_X_CLIENT_ID}
-          client-auth-method: private_key_jwt
-          client-jwk: ${TOKEN_X_PRIVATE_JWK}
-      pdl:
-        resource-url: ${PDL_URL}
-        well-known-url: ${TOKEN_X_WELL_KNOWN_URL}
-        grant-type: urn:ietf:params:oauth:grant-type:token-exchange
-        token-exchange:
-          audience: ${PDL_AUDIENCE}
-        authentication:
-          client-id: ${TOKEN_X_CLIENT_ID}
-          client-auth-method: private_key_jwt
-          client-jwk: ${TOKEN_X_PRIVATE_JWK}
-      pdl-clientcredentials:
-        resource-url: ${PDL_URL}
-        token-endpoint-url: ${AZURE_OPENID_CONFIG_TOKEN_ENDPOINT}
-        grant-type: client_credentials
-        scope: ${PDL_SCOPE}
-        authentication:
-          client-id: ${AZURE_APP_CLIENT_ID}
-          client-secret: ${AZURE_APP_CLIENT_SECRET}
-          client-auth-method: client_secret_basic
-      kodeverk-clientcredentials:
-        resource-url: ${KODEVERK_URL}
-        token-endpoint-url: ${AZURE_OPENID_CONFIG_TOKEN_ENDPOINT}
-        grant-type: client_credentials
-        scope: ${KODEVERK_SCOPE}
-        authentication:
-          client-id: ${AZURE_APP_CLIENT_ID}
-          client-secret: ${AZURE_APP_CLIENT_SECRET}
-          client-auth-method: client_secret_basic
 
 logging.level.no.nav.security: DEBUG

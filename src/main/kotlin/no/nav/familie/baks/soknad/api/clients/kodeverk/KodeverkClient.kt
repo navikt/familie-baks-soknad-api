@@ -1,21 +1,18 @@
 package no.nav.familie.baks.soknad.api.clients.kodeverk
 
 import no.nav.familie.kontrakter.felles.kodeverk.KodeverkDto
-import no.nav.familie.restklient.client.AbstractPingableRestClient
-import no.nav.familie.restklient.client.Pingable
-import no.nav.familie.restklient.util.UriUtil
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
-import org.springframework.web.client.RestOperations
+import org.springframework.web.client.RestClient
+import org.springframework.web.client.body
 import java.net.URI
 
 @Component
 class KodeverkClient(
     @Value("\${KODEVERK_URL}") private val kodeverkBaseUrl: String,
-    @Qualifier("clientCredential") private val restOperations: RestOperations
-) : AbstractPingableRestClient(restOperations, "integrasjon"),
-    Pingable {
+    @Qualifier("kodeverkRestClient") private val restClient: RestClient
+) {
     private val kodeverkUri: URI = URI.create(kodeverkBaseUrl)
 
     fun hentAlleLand(): KodeverkDto = getForEntity(uri = kodeverkUri("Landkoder"))
@@ -24,16 +21,27 @@ class KodeverkClient(
 
     fun hentPostnummer(): KodeverkDto = getForEntity(uri = kodeverkUri("Postnummer"))
 
+    fun ping() {
+        restClient
+            .get()
+            .uri(URI.create("$kodeverkBaseUrl/$PATH_PING"))
+            .retrieve()
+            .body<String>()
+    }
+
+    private fun getForEntity(uri: URI): KodeverkDto =
+        restClient
+            .get()
+            .uri(uri)
+            .retrieve()
+            .body<KodeverkDto>()!!
+
     fun kodeverkUri(
         kodeverksnavn: String,
         medHistorikk: Boolean = false
     ): URI {
         val query = if (medHistorikk) QUERY_MED_HISTORIKK else QUERY
-        return UriUtil.uri(
-            base = kodeverkUri,
-            path = "api/v1/kodeverk/$kodeverksnavn/koder/betydninger",
-            query = query
-        )
+        return URI.create("$kodeverkUri/api/v1/kodeverk/$kodeverksnavn/koder/betydninger?$query")
     }
 
     companion object {
@@ -41,6 +49,4 @@ class KodeverkClient(
         private const val QUERY = "ekskluderUgyldige=true&spraak=nb"
         private const val QUERY_MED_HISTORIKK = "ekskluderUgyldige=false&spraak=nb"
     }
-
-    override val pingUri: URI = UriUtil.uri(kodeverkUri, PATH_PING)
 }

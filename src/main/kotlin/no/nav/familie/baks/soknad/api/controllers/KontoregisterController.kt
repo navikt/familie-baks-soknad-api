@@ -1,7 +1,7 @@
 package no.nav.familie.baks.soknad.api.controllers
 
-import no.nav.familie.baks.soknad.api.clients.mottak.KontoregisterClient
-import no.nav.familie.baks.soknad.api.clients.mottak.KontoregisterResponseDto
+import no.nav.familie.baks.soknad.api.clients.kontoregister.KontoregisterClient
+import no.nav.familie.baks.soknad.api.clients.kontoregister.KontoregisterResponseDto
 import no.nav.familie.kontrakter.felles.Ressurs
 import no.nav.familie.sikkerhet.EksternBrukerUtils
 import no.nav.security.token.support.core.api.ProtectedWithClaims
