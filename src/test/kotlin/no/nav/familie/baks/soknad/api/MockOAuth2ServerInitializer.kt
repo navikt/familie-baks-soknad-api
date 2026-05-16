@@ -21,7 +21,7 @@ class MockOAuth2ServerInitializer : ApplicationContextInitializer<ConfigurableAp
                 "TOKEN_X_ISSUER" to server.issuerUrl("tokenx").toString(),
                 "TOKEN_X_CLIENT_ID" to "aud-localhost",
                 "TOKEN_X_JWKS_URI" to server.jwksUrl("tokenx").toString(),
-                "TOKEN_X_WELL_KNOWN_URL" to server.wellKnownUrl("tokenx").toString(),
+                "TOKEN_X_WELL_KNOWN_URL" to server.wellKnownUrl("tokenx").toString()
             )
 
         applicationContext.environment.propertySources.addFirst(

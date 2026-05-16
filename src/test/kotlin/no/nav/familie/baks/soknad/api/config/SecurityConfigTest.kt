@@ -20,7 +20,6 @@ import org.springframework.web.client.RestClient
 @ActiveProfiles("test")
 @ContextConfiguration(initializers = [MockOAuth2ServerInitializer::class])
 class SecurityConfigTest {
-
     @LocalServerPort
     private var port: Int = 0
 
@@ -38,7 +37,7 @@ class SecurityConfigTest {
         issuerId: String = "tokenx",
         audience: String = "aud-localhost",
         claims: Map<String, Any> = mapOf("acr" to SecurityConfig.IDPORTEN_LOA_HIGH),
-        expiry: Long = 3600,
+        expiry: Long = 3600
     ): String =
         mockOAuth2Server
             .issueToken(
@@ -50,13 +49,13 @@ class SecurityConfigTest {
                         subject = "12345678901",
                         audience = listOf(audience),
                         claims = claims,
-                        expiry = expiry,
-                    ),
+                        expiry = expiry
+                    )
             ).serialize()
 
     private fun getMedToken(
         path: String,
-        token: String?,
+        token: String?
     ) = restClient
         .get()
         .uri("http://localhost:$port$path")
