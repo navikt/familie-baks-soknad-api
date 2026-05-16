@@ -87,5 +87,7 @@ abstract class PdlClient(
     }
 }
 
+private val WHITESPACE_REGEX = Regex("\\s+")
+
 // Kompakt, men lesbar query
-fun String.graphqlCompatible(): String = trimIndent().replace(Regex("\\s+"), " ")
+fun String.graphqlCompatible(): String = trimIndent().replace(WHITESPACE_REGEX, " ")
