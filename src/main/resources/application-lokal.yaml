@@ -12,4 +12,6 @@ NAIS_TOKEN_ENDPOINT: http://localhost
 NAIS_TOKEN_EXCHANGE_ENDPOINT: http://localhost
 
 TOKEN_X_WELL_KNOWN_URL: https://fakedings.intern.dev.nav.no/fake/.well-known/openid-configuration
-TOKEN_X_CLIENT_ID: dev-local:teamfamilie:familie-baks-soknad-api
+TOKEN_X_ISSUER: https://fakedings.intern.dev.nav.no/fake
+TOKEN_X_CLIENT_ID: dev-gcp:teamfamilie:familie-baks-soknad-api
+TOKEN_X_JWKS_URI: https://fakedings.intern.dev.nav.no/fake/jwks
