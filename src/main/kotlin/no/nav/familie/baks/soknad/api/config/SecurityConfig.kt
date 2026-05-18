@@ -1,9 +1,12 @@
 package no.nav.familie.baks.soknad.api.config
 
+import no.nav.familie.kontrakter.felles.Ressurs
+import no.nav.familie.kontrakter.felles.jsonMapper
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpStatus
+import org.springframework.http.MediaType
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.invoke
@@ -16,14 +19,14 @@ import org.springframework.security.oauth2.jwt.JwtIssuerValidator
 import org.springframework.security.oauth2.jwt.JwtTimestampValidator
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder
 import org.springframework.security.web.SecurityFilterChain
-import org.springframework.security.web.authentication.HttpStatusEntryPoint
+import org.springframework.security.web.AuthenticationEntryPoint
 
 @Configuration
 @EnableWebSecurity
 class SecurityConfig(
     @param:Value("\${TOKEN_X_ISSUER}") private val tokenXIssuer: String,
     @param:Value("\${TOKEN_X_CLIENT_ID}") private val tokenXClientId: String,
-    @param:Value("\${TOKEN_X_JWKS_URI}") private val tokenXJwksUri: String
+    @param:Value("\${TOKEN_X_JWKS_URI}") private val tokenXJwksUri: String,
 ) {
     @Bean
     fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
@@ -38,7 +41,13 @@ class SecurityConfig(
                 jwt { jwtDecoder = jwtDecoder() }
             }
             exceptionHandling {
-                authenticationEntryPoint = HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)
+                authenticationEntryPoint = AuthenticationEntryPoint { _, response, authException ->
+                    response.status = HttpStatus.UNAUTHORIZED.value()
+                    response.contentType = MediaType.APPLICATION_JSON_VALUE
+                    response.writer.write(
+                        jsonMapper.writeValueAsString(Ressurs.failure<String>(authException.message ?: "Ikke autentisert")),
+                    )
+                }
             }
         }
         return http.build()
