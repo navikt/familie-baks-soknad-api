@@ -1,19 +1,11 @@
 FAMILIE_BAKS_MOTTAK_URL: http://familie-baks-mottak
 PDL_URL: https://pdl-api.dev-fss-pub.nais.io
-PDL_AUDIENCE: dev-fss:pdl:pdl-api
 PDL_SCOPE: api://dev-fss.pdl.pdl-api/.default
+PDL_TOKENX_SCOPE: dev-fss:pdl:pdl-api
 KODEVERK_URL: https://kodeverk-api.nav.no
 KODEVERK_SCOPE: api://dev-gcp.team-rocket.kodeverk-api/.default
 KONTOREGISTER_URL: http://sokos-kontoregister-person.okonomi/api/borger/v1
-
-no.nav.security.jwt:
-  client:
-    registration:
-      mottak-clientcredentials:
-        token-exchange:
-          audience: dev-gcp:teamfamilie:familie-baks-mottak
-      kontoregister-clientcredentials:
-        token-exchange:
-          audience: dev-gcp:okonomi:sokos-kontoregister-person
+KONTOREGISTER_SCOPE: dev-gcp:okonomi:sokos-kontoregister-person
+MOTTAK_SCOPE: dev-gcp:teamfamilie:familie-baks-mottak
 
 logging.level.no.nav.security: INFO
