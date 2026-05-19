@@ -11,12 +11,11 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.invoke
 import org.springframework.security.config.http.SessionCreationPolicy
-import org.springframework.security.oauth2.core.DelegatingOAuth2TokenValidator
 import org.springframework.security.oauth2.jwt.JwtAudienceValidator
 import org.springframework.security.oauth2.jwt.JwtClaimValidator
 import org.springframework.security.oauth2.jwt.JwtDecoder
 import org.springframework.security.oauth2.jwt.JwtIssuerValidator
-import org.springframework.security.oauth2.jwt.JwtTimestampValidator
+import org.springframework.security.oauth2.jwt.JwtValidators.createDefaultWithValidators
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder
 import org.springframework.security.web.AuthenticationEntryPoint
 import org.springframework.security.web.SecurityFilterChain
@@ -58,8 +57,7 @@ class SecurityConfig(
     fun jwtDecoder(): JwtDecoder {
         val decoder = NimbusJwtDecoder.withJwkSetUri(tokenXJwksUri).build()
         decoder.setJwtValidator(
-            DelegatingOAuth2TokenValidator(
-                JwtTimestampValidator(),
+            createDefaultWithValidators(
                 JwtIssuerValidator(tokenXIssuer),
                 JwtAudienceValidator(tokenXClientId),
                 JwtClaimValidator<String>("acr") { acr -> acr == LEVEL4 || acr == IDPORTEN_LOA_HIGH }
