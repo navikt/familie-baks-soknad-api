@@ -1,29 +1,21 @@
 package no.nav.familie.baks.soknad.api.config
 
-import no.nav.familie.baks.soknad.api.MockOAuth2ServerInitializer
-import no.nav.security.mock.oauth2.MockOAuth2Server
+import no.nav.familie.baks.soknad.api.MockOAuth2ServerConfig
 import no.nav.security.mock.oauth2.token.DefaultOAuth2TokenCallback
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.web.server.LocalServerPort
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.HttpStatusCode
-import org.springframework.test.context.ContextConfiguration
 import org.springframework.web.client.RestClient
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@ContextConfiguration(initializers = [MockOAuth2ServerInitializer::class])
-class SecurityConfigTest {
+class SecurityConfigTest : MockOAuth2ServerConfig() {
     @LocalServerPort
     private var port: Int = 0
-
-    @Suppress("SpringJavaInjectionPointsAutowiringInspection") // Kjører OK, men IntelliJ er forvirret
-    @Autowired
-    private lateinit var mockOAuth2Server: MockOAuth2Server
 
     private val restClient =
         RestClient
