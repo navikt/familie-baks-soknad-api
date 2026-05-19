@@ -4,7 +4,7 @@ import no.nav.familie.log.NavSystemtype
 import no.nav.familie.log.filter.LogFilter
 import no.nav.familie.log.interceptor.ConsumerIdClientInterceptor
 import no.nav.familie.log.interceptor.MdcValuesPropagatingClientInterceptor
-import no.nav.familie.sikkerhet.context.FamilieFellesNavTokenSupportKonfigurasjon
+import no.nav.familie.sikkerhet.context.FamilieFellesSpringSecurityKonfigurasjon
 import org.slf4j.LoggerFactory
 import org.springframework.boot.SpringBootConfiguration
 import org.springframework.boot.web.servlet.FilterRegistrationBean
@@ -20,7 +20,7 @@ import org.springframework.context.annotation.Import
 @Import(
     MdcValuesPropagatingClientInterceptor::class,
     ConsumerIdClientInterceptor::class,
-    FamilieFellesNavTokenSupportKonfigurasjon::class
+    FamilieFellesSpringSecurityKonfigurasjon::class
 )
 internal class ApplicationConfig {
     @Bean

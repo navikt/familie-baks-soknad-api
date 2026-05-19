@@ -2,7 +2,6 @@ package no.nav.familie.baks.soknad.api.clients.pdl
 
 import com.fasterxml.jackson.databind.JsonNode
 import no.nav.familie.baks.soknad.api.domene.Ytelse
-import org.apache.commons.lang3.StringUtils
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.http.MediaType
@@ -84,4 +83,7 @@ abstract class PdlClient(
     }
 }
 
-fun String.graphqlCompatible(): String = StringUtils.normalizeSpace(this.replace("\n", ""))
+private val WHITESPACE_REGEX = Regex("\\s+")
+
+// Kompakt, men lesbar query
+fun String.graphqlCompatible(): String = trimIndent().replace(WHITESPACE_REGEX, " ")

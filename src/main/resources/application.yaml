@@ -22,16 +22,19 @@ management:
 FAMILIE_BAKS_MOTTAK_URL: dummy
 PDL_URL: dummy
 KODEVERK_URL: dummy
+KONTOREGISTER_URL: dummy
 KODEVERK_SCOPE: "dummy-scope"
 PDL_SCOPE: "dummy-scope"
 PDL_TOKENX_SCOPE: "dummy-scope"
 MOTTAK_SCOPE: "dummy-scope"
 KONTOREGISTER_SCOPE: "dummy-scope"
 
-no.nav.security.jwt:
-  issuer:
-    tokenx:
-      discovery-url: ${TOKEN_X_WELL_KNOWN_URL}
-      accepted-audience: ${TOKEN_X_CLIENT_ID}
+NAIS_TOKEN_ENDPOINT: http://localhost
+NAIS_TOKEN_EXCHANGE_ENDPOINT: http://localhost
+
+TOKEN_X_WELL_KNOWN_URL: dummy
+TOKEN_X_ISSUER: dummy
+TOKEN_X_CLIENT_ID: dummy
+TOKEN_X_JWKS_URI: dummy
 
 logging.level.no.nav.security: DEBUG
