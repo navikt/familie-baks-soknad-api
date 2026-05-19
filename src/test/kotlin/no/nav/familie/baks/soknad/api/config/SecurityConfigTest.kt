@@ -1,7 +1,6 @@
 package no.nav.familie.baks.soknad.api.config
 
 import no.nav.familie.baks.soknad.api.MockOAuth2ServerConfig
-import no.nav.security.mock.oauth2.token.DefaultOAuth2TokenCallback
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -22,26 +21,6 @@ class SecurityConfigTest : MockOAuth2ServerConfig() {
             .builder()
             .defaultStatusHandler(HttpStatusCode::isError) { _, _ -> }
             .build()
-
-    private fun lagTestToken(
-        issuerId: String = "tokenx",
-        audience: String = "aud-localhost",
-        claims: Map<String, Any> = mapOf("acr" to SecurityConfig.IDPORTEN_LOA_HIGH),
-        expiry: Long = 3600
-    ): String =
-        mockOAuth2Server
-            .issueToken(
-                issuerId = issuerId,
-                clientId = "test-client",
-                tokenCallback =
-                    DefaultOAuth2TokenCallback(
-                        issuerId = issuerId,
-                        subject = "12345678901",
-                        audience = listOf(audience),
-                        claims = claims,
-                        expiry = expiry
-                    )
-            ).serialize()
 
     private fun getMedToken(
         path: String,
