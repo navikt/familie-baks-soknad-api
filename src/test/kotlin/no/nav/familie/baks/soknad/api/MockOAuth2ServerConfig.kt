@@ -30,7 +30,7 @@ abstract class MockOAuth2ServerConfig {
         issuerId: String = "tokenx",
         audience: String = "aud-localhost",
         claims: Map<String, Any> = mapOf("acr" to SecurityConfig.IDPORTEN_LOA_HIGH),
-        expiry: Long = 3600,
+        expiry: Long = 3600
     ): String =
         mockOAuth2Server
             .issueToken(
@@ -42,7 +42,7 @@ abstract class MockOAuth2ServerConfig {
                         subject = "12345678901",
                         audience = listOf(audience),
                         claims = claims,
-                        expiry = expiry,
-                    ),
+                        expiry = expiry
+                    )
             ).serialize()
 }
