@@ -2,6 +2,7 @@ package no.nav.familie.baks.soknad.api.config
 
 import no.nav.familie.felles.tokenklient.entraid.EntraIDRestClientFactory
 import no.nav.familie.felles.tokenklient.tokenx.TokenXClient
+import no.nav.familie.felles.tokenklient.tokenx.TokenXInterceptor
 import no.nav.familie.log.interceptor.ConsumerIdClientInterceptor
 import no.nav.familie.log.interceptor.MdcValuesPropagatingClientInterceptor
 import no.nav.familie.sikkerhet.EksternBrukerUtils
@@ -50,12 +51,8 @@ class RestClientConfig(
     ): RestClient =
         RestClient
             .builder()
-            .requestInterceptor { request, body, execution ->
-                val userToken = EksternBrukerUtils.getBearerTokenForLoggedInUser()
-                val token = tokenXClient.hentToken(scope, userToken)
-                request.headers.setBearerAuth(token)
-                execution.execute(request, body)
-            }.requestInterceptor(consumerIdClientInterceptor)
+            .requestInterceptor(TokenXInterceptor(tokenXClient, scope) { EksternBrukerUtils.getBearerTokenForLoggedInUser() })
+            .requestInterceptor(consumerIdClientInterceptor)
             .requestInterceptor(mdcValuesPropagatingClientInterceptor)
             .build()
 }
