@@ -27,7 +27,7 @@
         <start-class>no.nav.familie.baks.soknad.api.LauncherKt</start-class>
         <kotlin.version>2.3.21</kotlin.version> <!-- Ved bumping sjekk støtte i CodeQL -->
         <bytebuddy.version>1.18.8</bytebuddy.version>
-        <mock-oauth2-server.version>3.0.3</mock-oauth2-server.version>
+        <mock-oauth2-server.version>4.0.0</mock-oauth2-server.version>
     </properties>
 
 
