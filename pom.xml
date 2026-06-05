@@ -22,11 +22,11 @@
         <java.version>25</java.version>
         <kontrakter.version>4.0_20260527090809_893fcba</kontrakter.version>
         <felles.version>4.20260529121328_2754f7c</felles.version>
-        <mockk.version>1.14.9</mockk.version>
+        <mockk.version>1.14.11</mockk.version>
         <nav.security.version>6.0.7</nav.security.version>
         <start-class>no.nav.familie.baks.soknad.api.LauncherKt</start-class>
         <kotlin.version>2.3.21</kotlin.version> <!-- Ved bumping sjekk støtte i CodeQL -->
-        <bytebuddy.version>1.18.8</bytebuddy.version>
+        <bytebuddy.version>1.18.9</bytebuddy.version>
         <mock-oauth2-server.version>4.0.0</mock-oauth2-server.version>
     </properties>
 
