@@ -11,7 +11,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>4.0.6</version>
+        <version>4.1.0</version>
     </parent>
 
     <properties>
@@ -27,7 +27,7 @@
         <start-class>no.nav.familie.baks.soknad.api.LauncherKt</start-class>
         <kotlin.version>2.4.0</kotlin.version> <!-- Ved bumping sjekk støtte i CodeQL -->
         <bytebuddy.version>1.18.10</bytebuddy.version>
-        <mock-oauth2-server.version>4.0.0</mock-oauth2-server.version>
+        <mock-oauth2-server.version>4.0.1</mock-oauth2-server.version>
     </properties>
 
 
