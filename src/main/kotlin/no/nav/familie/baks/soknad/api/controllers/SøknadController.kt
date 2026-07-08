@@ -33,8 +33,8 @@ class SøknadController(
     ): ResponseEntity<Ressurs<Kvittering>> {
         val valideringsfeil = BarnetrygdSøknadV10Validator.valider(søknad)
         if (valideringsfeil.isNotEmpty()) {
-            logger.error("Søknad av barnetrygd(v10) avvist med ${valideringsfeil.size} valideringsfeil")
-            secureLogger.error("Validering av barnetrygd-søknad feilet:\n $valideringsfeil")
+            logger.warn("Søknad av barnetrygd(v10) avvist med ${valideringsfeil.size} valideringsfeil")
+            secureLogger.warn("Validering av barnetrygd-søknad feilet:\n $valideringsfeil")
             return ResponseEntity.badRequest().body(Ressurs.failure("Søknaden har valideringsfeil i objectPaths: ${valideringsfeil.joinToString("\n") { it.objectPath }}"))
         }
         return ResponseEntity.ok().body(barnetrygdSøknadService.mottaOgSendBarnetrygdsøknad(søknad))
@@ -52,8 +52,8 @@ class SøknadController(
     ): ResponseEntity<Ressurs<Kvittering>> {
         val valideringsfeil = KontantstøtteSøknadV6Validator.valider(kontantstøtteSøknad)
         if (valideringsfeil.isNotEmpty()) {
-            logger.error("Søknad av kontantstøtte(v6) avvist med ${valideringsfeil.size} valideringsfeil")
-            secureLogger.error("Validering av kontantstøtte-søknad feilet:\n $valideringsfeil")
+            logger.warn("Søknad av kontantstøtte(v6) avvist med ${valideringsfeil.size} valideringsfeil")
+            secureLogger.warn("Validering av kontantstøtte-søknad feilet:\n $valideringsfeil")
             return ResponseEntity.badRequest().body(Ressurs.failure("Søknaden har valideringsfeil i objectPaths: ${valideringsfeil.joinToString("\n") { it.objectPath }}"))
         }
 
