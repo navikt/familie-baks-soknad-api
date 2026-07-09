@@ -9,7 +9,9 @@ import no.nav.familie.sikkerhet.EksternBrukerUtils
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.http.client.JettyClientHttpRequestFactory
 import org.springframework.web.client.RestClient
+import java.time.Duration
 
 @Configuration
 class RestClientConfig(
@@ -31,7 +33,19 @@ class RestClientConfig(
     fun mottakTokenXRestClient(
         tokenXClient: TokenXClient,
         @Value("\${MOTTAK_SCOPE}") scope: String
-    ): RestClient = lagTokenXRestClient(tokenXClient, scope)
+    ): RestClient {
+        val requestFactory =
+            JettyClientHttpRequestFactory().apply {
+                setReadTimeout(Duration.ofSeconds(45))
+            }
+        return RestClient
+            .builder()
+            .requestFactory(requestFactory)
+            .requestInterceptor(TokenXInterceptor(tokenXClient, scope) { EksternBrukerUtils.getBearerTokenForLoggedInUser() })
+            .requestInterceptor(consumerIdClientInterceptor)
+            .requestInterceptor(mdcValuesPropagatingClientInterceptor)
+            .build()
+    }
 
     @Bean("kontoregisterTokenXRestClient")
     fun kontoregisterTokenXRestClient(
