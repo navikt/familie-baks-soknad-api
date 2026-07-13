@@ -15,7 +15,8 @@ import org.springframework.context.annotation.Import
 @SpringBootConfiguration
 @ComponentScan(
     ApplicationConfig.PAKKENAVN,
-    "no.nav.familie.felles.tokenklient"
+    "no.nav.familie.felles.tokenklient.entraid",
+    "no.nav.familie.felles.tokenklient.tokenx"
 )
 @Import(
     MdcValuesPropagatingClientInterceptor::class,
