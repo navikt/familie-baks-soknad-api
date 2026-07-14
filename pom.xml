@@ -20,8 +20,8 @@
         <changelist>-SNAPSHOT</changelist>
         <jvmTarget>25</jvmTarget>
         <java.version>25</java.version>
-        <kontrakter.version>4.0_20260611084408_a47ed94</kontrakter.version>
-        <felles.version>4.20260529121328_2754f7c</felles.version>
+        <kontrakter.version>4.0_20260702124405_ce34af2</kontrakter.version>
+        <felles.version>4.20260713110202_d334ba8</felles.version>
         <mockk.version>1.14.11</mockk.version>
         <nav.security.version>6.0.7</nav.security.version>
         <start-class>no.nav.familie.baks.soknad.api.LauncherKt</start-class>
