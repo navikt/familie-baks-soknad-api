@@ -47,14 +47,18 @@ object PdlBarnMapper {
                             ?.foedselsdato,
                     borMedSøker =
                         when (barnHarAdresseBeskyttelse) {
-                            true -> false
-                            false ->
+                            true -> {
+                                false
+                            }
+
+                            false -> {
                                 borBarnMedSoeker(
                                     soekerAdresse = soekerAdresse,
                                     barneAdresser =
                                         barnRespons.data.person.bostedsadresse
                                             .filterNotNull()
                                 )
+                            }
                         },
                     adressebeskyttelse = barnHarAdresseBeskyttelse
                 )

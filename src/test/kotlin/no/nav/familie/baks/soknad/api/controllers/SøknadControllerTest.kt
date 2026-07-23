@@ -10,8 +10,7 @@ import no.nav.familie.baks.soknad.api.services.KontantstøtteSøknadService
 import no.nav.familie.baks.soknad.api.services.KontantstøtteSøknadTestData
 import no.nav.familie.kontrakter.felles.Ressurs
 import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertThrows
-import org.junit.jupiter.api.Assertions.assertTrue
+import org.springframework.http.HttpStatus
 import java.time.LocalDateTime
 import kotlin.test.Test
 
@@ -34,15 +33,15 @@ class SøknadControllerTest {
     }
 
     @Test
-    fun søknadsmottakBarnetrygd_logger_men_kaster_ikke_feil_ved_ugyldig_input() {
+    fun søknadsmottakBarnetrygd_returnerer_bad_request_ved_ugyldig_input() {
         val søknad = BarnetrygdSøknadTestData.barnetrygdSøknad(søker = BarnetrygdSøknadTestData.søker().copy(navn = søknadsfelt("navn", "Navn <>")))
         val kvittering = Kvittering("OK", LocalDateTime.now())
         every { barnetrygdSøknadService.mottaOgSendBarnetrygdsøknad(søknad) } returns Ressurs.success(kvittering)
 
         val response = søknadController.søknadsmottakBarnetrygd(søknad)
 
-        assertEquals(200, response.statusCode.value())
-        assertEquals(kvittering, response.body?.data)
+        assertEquals(HttpStatus.BAD_REQUEST.value(), response.statusCode.value())
+        assertEquals("Søknaden har valideringsfeil i objectPaths: søker.navn.verdi", response.body?.melding)
     }
 
     @Test
@@ -56,41 +55,5 @@ class SøknadControllerTest {
 
         assertEquals(200, response.statusCode.value())
         assertEquals(kvittering, response.body?.data)
-    }
-
-    @Test
-    fun søknadsmottakKontantstøtte_kaster_feil_ved_ugyldig_input() {
-        val søknad = KontantstøtteSøknadTestData.kontantstøtteSøknad(søker = KontantstøtteSøknadTestData.søker().copy(navn = søknadsfelt("navn", "Navn <>")))
-
-        val exception =
-            assertThrows(IllegalArgumentException::class.java) {
-                søknad.valider()
-            }
-
-        assertTrue(exception.message!!.startsWith("Tekstfelt inneholder ugyldige tegn"))
-    }
-
-    @Test
-    fun søknadsmottakKontantstøtte_kaster_feil_ved_for_lang_input() {
-        val søknad = KontantstøtteSøknadTestData.kontantstøtteSøknad(søker = KontantstøtteSøknadTestData.søker().copy(navn = søknadsfelt("navn", "Navn er over 200 tegn".padEnd(200, 'a'))))
-
-        val exception =
-            assertThrows(IllegalArgumentException::class.java) {
-                søknad.valider()
-            }
-
-        assertTrue(exception.message!!.startsWith("Tekstfelt er for langt"))
-    }
-
-    @Test
-    fun søknadsmottakKontantstøtte_kaster_feil_ved_for_lang_label() {
-        val søknad = KontantstøtteSøknadTestData.kontantstøtteSøknad(søker = KontantstøtteSøknadTestData.søker().copy(navn = søknadsfelt("navn".padEnd(200, 'a'), "Navn er over 200 tegn")))
-
-        val exception =
-            assertThrows(IllegalArgumentException::class.java) {
-                søknad.valider()
-            }
-
-        assertTrue(exception.message!!.startsWith("Tekstfelt(label) er for langt"))
     }
 }

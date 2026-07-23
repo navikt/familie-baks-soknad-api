@@ -1,4 +1,4 @@
-FROM gcr.io/distroless/java21:nonroot
+FROM europe-north1-docker.pkg.dev/cgr-nav/pull-through/nav.no/jre:openjdk-25@sha256:32ca8f96972f340f8e5aa97eb8e39f1864a1f9d0bae30f26a200ab02256999b4
 
 ENV APP_NAME=familie-baks-soknad-api
 

@@ -46,7 +46,6 @@ spec:
         - application: logging
           namespace: nais-system
       external:
-        - host: api-gw-q1.oera.no
         - host: login.microsoftonline.com
         - host: pdl-api.dev-fss-pub.nais.io
         - host: kodeverk-api.nav.no

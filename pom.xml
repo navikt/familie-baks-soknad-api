@@ -11,22 +11,23 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>4.0.2</version>
+        <version>4.1.0</version>
     </parent>
 
     <properties>
         <revision>1.0</revision>
         <sha1/>
         <changelist>-SNAPSHOT</changelist>
-        <jvmTarget>21</jvmTarget>
-        <java.version>21</java.version>
-        <kontrakter.version>4.0_20260127095609_7f1d60a</kontrakter.version>
-        <felles.version>4.20260128165036_0708695</felles.version>
-        <mockk.version>1.14.9</mockk.version>
-        <nav.security.version>6.0.2</nav.security.version>
+        <jvmTarget>25</jvmTarget>
+        <java.version>25</java.version>
+        <kontrakter.version>4.0_20260702124405_ce34af2</kontrakter.version>
+        <felles.version>4.20260713110202_d334ba8</felles.version>
+        <mockk.version>1.14.11</mockk.version>
+        <nav.security.version>6.0.7</nav.security.version>
         <start-class>no.nav.familie.baks.soknad.api.LauncherKt</start-class>
-        <kotlin.version>2.3.0</kotlin.version>
-        <bytebuddy.version>1.18.4</bytebuddy.version>
+        <kotlin.version>2.4.0</kotlin.version> <!-- Ved bumping sjekk støtte i CodeQL -->
+        <bytebuddy.version>1.18.11</bytebuddy.version>
+        <mock-oauth2-server.version>5.0.2</mock-oauth2-server.version>
     </properties>
 
 
@@ -75,6 +76,14 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
+        </dependency>
 
         <!-- NAV-internt -->
         <dependency>
@@ -99,23 +108,22 @@
         </dependency>
         <dependency>
             <groupId>no.nav.familie.felles</groupId>
-            <artifactId>rest-klient</artifactId>
+            <artifactId>token-klient</artifactId>
             <version>${felles.version}</version>
         </dependency>
         <dependency>
-            <groupId>no.nav.security</groupId>
-            <artifactId>token-validation-spring</artifactId>
-            <version>${nav.security.version}</version>
+            <groupId>com.github.ben-manes.caffeine</groupId>
+            <artifactId>caffeine</artifactId>
         </dependency>
         <dependency>
-            <groupId>no.nav.security</groupId>
-            <artifactId>token-client-spring</artifactId>
-            <version>${nav.security.version}</version>
+            <groupId>no.nav.familie.felles</groupId>
+            <artifactId>sikkerhet</artifactId>
+            <version>${felles.version}</version>
         </dependency>
         <dependency>
-            <groupId>no.nav.security</groupId>
-            <artifactId>token-client-core</artifactId>
-            <version>${nav.security.version}</version>
+            <groupId>no.nav.familie.felles</groupId>
+            <artifactId>sikkerhet-spring-security</artifactId>
+            <version>${felles.version}</version>
         </dependency>
         <!-- https://github.com/spring-projects/spring-boot/issues/33044#issuecomment-1379812611 -->
         <dependency>
@@ -144,8 +152,8 @@
         </dependency>
         <dependency>
             <groupId>no.nav.security</groupId>
-            <artifactId>token-validation-spring-test</artifactId>
-            <version>${nav.security.version}</version>
+            <artifactId>mock-oauth2-server</artifactId>
+            <version>${mock-oauth2-server.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -259,7 +267,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.5.4</version>
+                <version>3.5.6</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -302,7 +310,7 @@
                     <dependency>
                         <groupId>com.pinterest.ktlint</groupId>
                         <artifactId>ktlint-cli</artifactId>
-                        <version>1.7.1</version>
+                        <version>1.8.0</version>
                     </dependency>
                     <!-- additional 3rd party ruleset(s) can be specified here -->
                 </dependencies>
