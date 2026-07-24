@@ -1,48 +1,134 @@
 # Oppdatering av søknad for BAKS
 
 Ved innsendelse av søknad for barnetrygd eller kontantstøtte, krever vi at innsendelsen følger et forhåndsdefinert
-format, som vi kaller `søknadskontrakten`. Søknadskontraktene til barnetrygd og kontantstøtte
-forvaltes gjennom repoet `familie-kontrakter`. Her er det egne moduler for hver av ytelsene, og i hver modul ligger egne
-mapper per versjon av søknadskontrakten for den enkelte yteslen. Grunnen til at vi har valgt å versjonere
+format, som vi kaller `søknadskontrakten`. Søknadskontraktene til barnetrygd og kontantstøtte forvaltes gjennom repoet [
+`familie-kontrakter`](https://github.com/navikt/familie-kontrakter). Her er det egne moduler
+for hver av ytelsene, og i hver modul ligger egne mapper per versjon av søknadskontrakten for den enkelte yteslen.
+Grunnen til at vi har valgt å versjonere
 søknadskontrakene er for å kunne være sikre på hva slags informasjon vi til enhver tid kan forvente at ligger i
 søknaden.
 
 ## Serialisering og deserialisering av søknadskontrakten
 
-For å enklere kunne håndtere ulike versjoner av søknadskontrakten har vi definert en `sealed class` som "wrapper"
-søknadskontrakten i en felles klasse uavhengig av versjon. `VersjonertBarnetrygdSøknad` og
-`VersjonertKontantstøtteSøknad`. For hver versjon av søknadskontrakten er det opprettet en `data class` som arver fra
+For å enklere kunne håndtere ulike versjoner av søknadskontrakten har vi definert en 'sealed class' som wrapper
+søknadskontrakten i en felles klasse uavhengig av versjon. [
+`VersjonertBarnetrygdSøknad`](https://github.com/navikt/familie-kontrakter/blob/main/barnetrygd/src/main/kotlin/no/nav/familie/kontrakter/ba/s%C3%B8knad/VersjonertBarnetrygdS%C3%B8knad.kt)
+og
+[
+`VersjonertKontantstøtteSøknad`](https://github.com/navikt/familie-kontrakter/blob/main/kontantstotte/src/main/kotlin/no/nav/familie/kontrakter/ks/s%C3%B8knad/VersjonertKontantst%C3%B8tteS%C3%B8knad.kt).
+For hver versjon av søknadskontrakten er det opprettet en klasse som arver fra
 `VersjonertBarnetrygdSøknad`/`VersjonertKontantstøtteSøknad`. Eksempelvis `VersjonertBarnetrygdSøknadV10` og
-`VersjonertKontantstøtteSøknadV6`. Vi har også definert en egen `sealed class` `StøttetVersjonertBarnetrygdSøknad`/
+`VersjonertKontantstøtteSøknadV6`. Vi har også definert en egen 'sealed class' `StøttetVersjonertBarnetrygdSøknad`/
 `StøttetVersjonertKontantstøtteSøknad` som arver fra `VersjonertBarnetrygdSøknad`/`VersjonertKontantstøtteSøknad`, og
 inneholder alle versjonene av søknadskontrakten som vi støtter i BAKS. Tanken
 er man stort sett skal bruke `StøttetVersjonertBarnetrygdSøknad`/`StøttetVersjonertKontantstøtteSøknad` når man jobber
-med søknaden i kode, og at man da bruker `when`
-når man skal gå inn i detaljene til en bestemt versjon.
+med søknaden i kode, og at man da bruker 'when' når man skal gå inn i detaljene til en bestemt versjon.
 
 For at utveksling av klassen `VersjonertBarnetrygdSøknad`/`VersjonertKontantstøtteSøknad` skal fungere mellom apper
 er det opprettet egendefinert serialisering og deserialisering av denne. Klassen er igjen annotert med `@JsonSerialize`
 og `@JsonDeserialize` for å spesifisere at det er den egendefinserte serialiseringen og deserialiseringen som skal
 benyttes.
 
+```kotlin
+class VersjonertBarnetrygdSøknadSerializer : JsonSerializer<VersjonertBarnetrygdSøknad>() {
+    override fun serialize(
+        value: VersjonertBarnetrygdSøknad,
+        jsonGenerator: JsonGenerator,
+        serializers: SerializerProvider,
+    ) {
+        jsonGenerator.writePOJO(value.barnetrygdSøknad)
+    }
+}
+
+class VersjonertBarnetrygdSøknadDeserializer : JsonDeserializer<VersjonertBarnetrygdSøknad>() {
+    /**
+     * @throws MissingVersionException `kontraktVersjon` ikke finnes i JSON-string.
+     * @throws UnsupportedVersionException dersom `kontraktVersjon` ikke er støttet.
+     */
+    override fun deserialize(
+        p: JsonParser,
+        ctxt: DeserializationContext,
+    ): VersjonertBarnetrygdSøknad {
+        val node: JsonNode = p.codec.readTree(p)
+        val versjon =
+            node.get("kontraktVersjon")?.asInt()
+                ?: throw MissingVersionException("JSON-string mangler feltet 'kontraktVersjon' og kan ikke deserialiseres. $node")
+
+        return when (versjon) {
+            7 -> VersjonertBarnetrygdSøknadV7(
+                barnetrygdSøknad = p.codec.treeToValue(
+                    node,
+                    BarnetrygdSøknadV7::class.java
+                )
+            )
+            8 -> VersjonertBarnetrygdSøknadV8(
+                barnetrygdSøknad = p.codec.treeToValue(
+                    node,
+                    BarnetrygdSøknadV8::class.java
+                )
+            )
+            9 -> VersjonertBarnetrygdSøknadV9(
+                barnetrygdSøknad = p.codec.treeToValue(
+                    node,
+                    BarnetrygdSøknadV9::class.java
+                )
+            )
+            10 -> VersjonertBarnetrygdSøknadV10(
+                barnetrygdSøknad = p.codec.treeToValue(
+                    node,
+                    BarnetrygdSøknadV10::class.java
+                )
+            )
+            else -> throw UnsupportedVersionException("Mangler implementasjon for versjon: $versjon av BarnetrygdSøknad.")
+        }
+    }
+}
+
+@JsonSerialize(using = VersjonertBarnetrygdSøknadSerializer::class)
+@JsonDeserialize(using = VersjonertBarnetrygdSøknadDeserializer::class)
+sealed class VersjonertBarnetrygdSøknad(
+    open val barnetrygdSøknad: BaSøknadBase,
+)
+
+// Egen sealed class for versjoner av barnetrygdsøknad vi støtter ved mottak. Dette vil være de 2 siste versjonene til enhver tid.
+sealed class StøttetVersjonertBarnetrygdSøknad(
+    override val barnetrygdSøknad: BaSøknadBase,
+) : VersjonertBarnetrygdSøknad(barnetrygdSøknad = barnetrygdSøknad)
+
+data class VersjonertBarnetrygdSøknadV7(
+    override val barnetrygdSøknad: BarnetrygdSøknadV7,
+) : VersjonertBarnetrygdSøknad(barnetrygdSøknad = barnetrygdSøknad)
+
+data class VersjonertBarnetrygdSøknadV8(
+    override val barnetrygdSøknad: BarnetrygdSøknadV8,
+) : StøttetVersjonertBarnetrygdSøknad(barnetrygdSøknad = barnetrygdSøknad)
+
+data class VersjonertBarnetrygdSøknadV9(
+    override val barnetrygdSøknad: BarnetrygdSøknadV9,
+) : StøttetVersjonertBarnetrygdSøknad(barnetrygdSøknad = barnetrygdSøknad)
+
+data class VersjonertBarnetrygdSøknadV10(
+    override val barnetrygdSøknad: BarnetrygdSøknadV10,
+) : StøttetVersjonertBarnetrygdSøknad(barnetrygdSøknad = barnetrygdSøknad)
+```
+
 ## Opprette ny versjon av søknadskontrakten
 
 Når det eksempelvis skal legges til et nytt spørsmål eller vi ønsker å endre på strukturen i søknadskontrakten, må det
 opprettes en ny versjon av søknadskontrakten. Dette gjør man ved å opprette en ny mappe under ytelsen med navn lik den
-nye
-versjonen, eksempelvis `v11` for barnetrygd og `v7` for kontantstøtte. Der må man opprette en ny `data class` med navnet
-`BarnetrygdSøknad`/`KontantstøtteSøknad` som arver fra `interfacet` `BaSøknadBase`/`KsSøknadBase`. Vanligvis vil man her
+nye versjonen, eksempelvis `v11` for barnetrygd og `v7` for kontantstøtte. Der må man opprette en ny klasse med navnet
+`BarnetrygdSøknad`/`KontantstøtteSøknad` som arver fra `BaSøknadBase`/`KsSøknadBase`. Vanligvis vil man her
 kopiere
-tilsvarende `data class` fra forrige versjon først, også vil man modifisere på eventuelt nye felter eller legge til nye
+tilsvarende klasse fra forrige versjon først, også vil man modifisere på eventuelt nye felter eller legge til nye
 versjoner av sub-typer. Dersom endringen i den nye versjonen av søknadskontrakten eksempelvis gjelder et nytt spørsmål
 på barnet,
-vil man i samme fil opprette en ny `data class` for `Barn` og gjøre nødvendige justeringer der i forhold til forrige
-versjon av `Barn`. Se for eksempel på disse versjonene
+vil man i samme fil opprette en ny klasse for `Barn` og gjøre nødvendige justeringer der i forhold til forrige versjon
+av `Barn`. Se for eksempel på disse versjonene
 av [BA](https://github.com/navikt/familie-kontrakter/blob/main/barnetrygd/src/main/kotlin/no/nav/familie/kontrakter/ba/s%C3%B8knad/v10/BarnetrygdS%C3%B8knad.kt)
 og [KS](https://github.com/navikt/familie-kontrakter/blob/main/kontantstotte/src/main/kotlin/no/nav/familie/kontrakter/ks/s%C3%B8knad/v6/Kontantst%C3%B8tteS%C3%B8knad.kt)
 søknadene.
 
-Når den nye versjonen av søknadskontrakten er opprettet, må det opprettes en ny `data class`
+Når den nye versjonen av søknadskontrakten er opprettet, må det opprettes en ny klasse
 `VersjonertBarnetrygdSøknadV?`/`VersjonertKontantstøtteSøknadV?` som arver fra `StøttetVersjonertBarnetrygdSøknad`/
 `StøttetVersjonertKontantstøtteSøknad`. Deretter må den nye versjonerte søknaden legges inn i den egendefinerte
 serialiseringen og deserialiseringen, før man lager PR og releaser ny versjon av `familie-kontrakter`.
@@ -50,11 +136,12 @@ serialiseringen og deserialiseringen, før man lager PR og releaser ny versjon a
 TLDR:
 
 * Opprett ny mappe for versjon av søknadskontrakten.
-* Opprett fil `BarnetrygdSøknad`/`KontantstøtteSøknad` under den nye mappa og definer ny `data class`
+* Opprett fil `BarnetrygdSøknad`/`KontantstøtteSøknad` under den nye mappa og definer ny klasse
   `BarnetrygdSøknad`/`KontantstøtteSøknad` for søknadskontrakten som arver fra `BaSøknadBase`/`KsSøknadBase`.
-* Opprett eventuelt nye `data class` for sub-typer som er endret i den nye versjonen av søknadskontrakten i samme fil.
-* Opprett ny `data class` `VersjonertBarnetrygdSøknadV?`/`VersjonertKontantstøtteSøknadV?` som arver fra
+* Opprett eventuelt nye klasse for sub-typer som er endret i den nye versjonen av søknadskontrakten i samme fil.
+* Opprett ny klasse `VersjonertBarnetrygdSøknadV?`/`VersjonertKontantstøtteSøknadV?` som arver fra
   `StøttetVersjonertBarnetrygdSøknad`/`StøttetVersjonertKontantstøtteSøknad`.
+
 * Legg inn den nye versjonerte søknaden i den egendefinerte serialiseringen og deserialiseringen.
 * Opprett PR og release ny versjon av `familie-kontrakter`.
 
