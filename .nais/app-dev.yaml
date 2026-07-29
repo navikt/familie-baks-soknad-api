@@ -38,6 +38,9 @@ spec:
       rules:
         - application: familie-ba-soknad
         - application: familie-ks-soknad
+        - application: tokenx-token-generator
+          namespace: nais
+          cluster: dev-gcp
     outbound:
       rules:
         - application: familie-baks-mottak
