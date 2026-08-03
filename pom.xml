@@ -25,7 +25,7 @@
         <mockk.version>1.14.11</mockk.version>
         <nav.security.version>6.0.7</nav.security.version>
         <start-class>no.nav.familie.baks.soknad.api.LauncherKt</start-class>
-        <kotlin.version>2.4.0</kotlin.version> <!-- Ved bumping sjekk støtte i CodeQL -->
+        <kotlin.version>2.4.10</kotlin.version> <!-- Ved bumping sjekk støtte i CodeQL -->
         <bytebuddy.version>1.18.11</bytebuddy.version>
         <mock-oauth2-server.version>5.0.2</mock-oauth2-server.version>
     </properties>
