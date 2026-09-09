@@ -4,29 +4,36 @@ import com.github.benmanes.caffeine.cache.Caffeine
 import io.github.bucket4j.Bandwidth
 import io.github.bucket4j.Bucket
 import io.github.bucket4j.ConsumptionProbe
+import io.github.bucket4j.TimeMeter
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
-import java.time.Duration
 import java.util.concurrent.TimeUnit
 
 /**
- * Per-bruker (fnr) rate-limiter for søknadsinnsending.
- *
- * Bruker Bucket4j (token bucket) med Caffeine som in-memory lager. Merk at grensen dermed gjelder
- * per pod: med N replicas blir effektiv grense ~ N * [RateLimitingProperties.kapasitet]. Det er godt
- * nok for å hindre spam/doble innsendinger. Ved behov for eksakt global grense kan Bucket4j-backend
- * byttes til Valkey/Redis.
+ * Begrensning per bruker og pod, ikke en global kvote eller beskyttelse mot dobbeltinnsending.
+ * Kvoten nullstilles når en pod starter på nytt eller en bruker fjernes fra cachen.
  */
 @Component
-class SøknadRateLimiter(
-    private val rateLimitingProperties: RateLimitingProperties
+class SøknadRateLimiter internal constructor(
+    rateLimitingProperties: RateLimitingProperties,
+    private val timeMeter: TimeMeter
 ) {
+    @Autowired
+    constructor(rateLimitingProperties: RateLimitingProperties) : this(rateLimitingProperties, TimeMeter.SYSTEM_NANOTIME)
+
+    private val grense =
+        Bandwidth
+            .builder()
+            .capacity(rateLimitingProperties.kapasitet)
+            .refillGreedy(rateLimitingProperties.kapasitet, rateLimitingProperties.refillPeriode)
+            .build()
+
     private val bøtter =
         Caffeine
             .newBuilder()
-            .expireAfterAccess(
-                rateLimitingProperties.refillPeriode.multipliedBy(2).toSeconds(),
-                TimeUnit.SECONDS
-            ).maximumSize(MAKS_ANTALL_SPOREDE_BRUKERE)
+            .ticker { timeMeter.currentTimeNanos() }
+            .expireAfterAccess(rateLimitingProperties.refillPeriode)
+            .maximumSize(MAKS_ANTALL_SPOREDE_BRUKERE)
             .build<String, Bucket>()
 
     fun forsøkForbruk(nøkkel: String): Forbruksresultat {
@@ -35,22 +42,16 @@ class SøknadRateLimiter(
         return Forbruksresultat(
             tillatt = probe.isConsumed,
             sekunderTilNyttForsøk =
-                Duration
-                    .ofNanos(probe.nanosToWaitForRefill)
-                    .toSeconds()
-                    .coerceAtLeast(1)
+                Math.ceilDiv(probe.nanosToWaitForRefill, TimeUnit.SECONDS.toNanos(1)).coerceAtLeast(1)
         )
     }
 
-    private fun lagBøtte(): Bucket {
-        val grense =
-            Bandwidth
-                .builder()
-                .capacity(rateLimitingProperties.kapasitet)
-                .refillGreedy(rateLimitingProperties.kapasitet, rateLimitingProperties.refillPeriode)
-                .build()
-        return Bucket.builder().addLimit(grense).build()
-    }
+    private fun lagBøtte(): Bucket =
+        Bucket
+            .builder()
+            .addLimit(grense)
+            .withCustomTimePrecision(timeMeter)
+            .build()
 
     companion object {
         private const val MAKS_ANTALL_SPOREDE_BRUKERE = 100_000L

@@ -8,6 +8,7 @@ import no.nav.familie.sikkerhet.EksternBrukerUtils
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpHeaders
+import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.stereotype.Component
@@ -23,26 +24,17 @@ class SøknadRateLimitInterceptor(
         response: HttpServletResponse,
         handler: Any
     ): Boolean {
-        if (!rateLimitingProperties.enabled) {
+        if (!rateLimitingProperties.enabled || request.method != HttpMethod.POST.name()) {
             return true
         }
 
-        val fnr =
-            try {
-                EksternBrukerUtils.hentFnrFraToken()
-            } catch (exception: Exception) {
-                // Rate-limiting skal aldri blokkere en innsending på grunn av egne feil - slipper igjennom.
-                secureLogger.warn("Kunne ikke hente fnr for rate-limiting, slipper forespørselen igjennom", exception)
-                return true
-            }
-
+        val fnr = EksternBrukerUtils.hentFnrFraToken()
         val resultat = søknadRateLimiter.forsøkForbruk(fnr)
         if (resultat.tillatt) {
             return true
         }
 
         logger.warn("Avviste søknadsinnsending på grunn av rate-limiting (429)")
-        secureLogger.warn("Avviste søknadsinnsending for bruker på grunn av rate-limiting")
         skrivForMangeForespørsler(response, resultat.sekunderTilNyttForsøk)
         return false
     }
@@ -64,6 +56,5 @@ class SøknadRateLimitInterceptor(
 
     companion object {
         private val logger: Logger = LoggerFactory.getLogger(SøknadRateLimitInterceptor::class.java)
-        private val secureLogger: Logger = LoggerFactory.getLogger("secureLogger")
     }
 }

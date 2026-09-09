@@ -45,6 +45,32 @@ tilgang til `read:packages`.
 Applikasjonen kjører i clusteret `dev-gcp`. Deploy gjøres via Github Actions, der det er satt opp to ulike workflows. Den ene
 workflowen kjører for brancher med en åpen pull request. Den andre kjører ved push til main.
 
+## Rate-limiting av søknadsinnsending
+
+`POST /api/soknad/**` har en felles kvote per innlogget bruker (fnr fra token) og pod,
+på tvers av kontraktversjoner, barnetrygd og kontantstøtte. Alle forsøk teller, også når
+validering eller videre behandling feiler. Andre HTTP-metoder bruker ikke kvoten.
+
+Konfigurasjon under `rate-limiting.soknad` i `application.yaml`:
+
+| Egenskap | Standard | Betydning |
+| --- | --- | --- |
+| `enabled` | `true` | Sett til `false` for å deaktivere begrensningen |
+| `kapasitet` | `10` | Antall tokens i en full bøtte, må være større enn null |
+| `refill-periode` | `1m` | Tid for å fylle en tom bøtte, må være positiv |
+
+Tokens fylles på kontinuerlig: standardverdiene tillater ti kall umiddelbart og deretter
+ett nytt kall hvert sjette sekund per pod. Ved tom bøtte returneres HTTP 429 med
+`Retry-After` rundet opp til hele sekunder. Et senere forsøk kan fortsatt avvises dersom
+andre samtidige kall har brukt opp kvoten.
+
+Kvoten ligger i minnet og deles ikke mellom pods. Oppstart og cache-utkastelse nullstiller
+kvoten; inaktive brukere fjernes etter én refill-periode, når bøtten uansett ville vært full.
+Dette begrenser trafikkmengden, men gir **ikke idempotens eller garanti mot dobbeltinnsending**.
+
+Ugyldig konfigurasjon stopper oppstart. Uventede feil propageres til vanlig feilhåndtering,
+ikke gjennom en fail-open-mekanisme. Limiteren logger ikke fnr.
+
 ## Kodestil
 
 Du må bruke prosjektets kodestil for å få deployet koden. Denne skal kjøre automatisk som git-hook, men kan også kjøres manuelt
