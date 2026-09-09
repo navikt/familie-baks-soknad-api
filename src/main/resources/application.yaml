@@ -19,6 +19,12 @@ management:
     base-path: "/internal"
   metrics.export.prometheus.enabled: true
 
+rate-limiting:
+  soknad:
+    enabled: true
+    kapasitet: 10
+    refill-periode: 1m
+
 FAMILIE_BAKS_MOTTAK_URL: dummy
 PDL_URL: dummy
 KODEVERK_URL: dummy

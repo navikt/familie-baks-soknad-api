@@ -28,6 +28,7 @@
         <kotlin.version>2.4.10</kotlin.version> <!-- Ved bumping sjekk støtte i CodeQL -->
         <bytebuddy.version>1.18.11</bytebuddy.version>
         <mock-oauth2-server.version>6.0.2</mock-oauth2-server.version>
+        <bucket4j.version>8.19.0</bucket4j.version>
     </properties>
 
 
@@ -114,6 +115,11 @@
         <dependency>
             <groupId>com.github.ben-manes.caffeine</groupId>
             <artifactId>caffeine</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.bucket4j</groupId>
+            <artifactId>bucket4j_jdk17-core</artifactId>
+            <version>${bucket4j.version}</version>
         </dependency>
         <dependency>
             <groupId>no.nav.familie.felles</groupId>
