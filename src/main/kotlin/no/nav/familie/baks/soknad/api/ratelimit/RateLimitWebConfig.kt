@@ -13,6 +13,10 @@ class RateLimitWebConfig(
     override fun addInterceptors(registry: InterceptorRegistry) {
         registry
             .addInterceptor(søknadRateLimitInterceptor)
-            .addPathPatterns("/api/soknad/**")
+            .addPathPatterns(
+                "/api/soknad/v10",
+                "/api/soknad/v9",
+                "/api/soknad/kontantstotte/v6"
+            )
     }
 }

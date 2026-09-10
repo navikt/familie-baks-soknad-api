@@ -47,9 +47,16 @@ workflowen kjører for brancher med en åpen pull request. Den andre kjører ved
 
 ## Rate-limiting av søknadsinnsending
 
-`POST /api/soknad/**` har en felles kvote per innlogget bruker (fnr fra token) og pod,
+Rate-limiting gjelder kun disse innsendingsendepunktene:
+
+- `POST /api/soknad/v10` (barnetrygd)
+- `POST /api/soknad/v9` (eldre barnetrygdversjon)
+- `POST /api/soknad/kontantstotte/v6` (kontantstøtte)
+
+Endepunktene har en felles kvote per innlogget bruker (fnr fra token) og pod,
 på tvers av kontraktversjoner, barnetrygd og kontantstøtte. Alle forsøk teller, også når
-validering eller videre behandling feiler. Andre HTTP-metoder bruker ikke kvoten.
+validering eller videre behandling feiler. Andre stier og HTTP-metoder bruker ikke kvoten.
+Nye innsendingsendepunkter må legges eksplisitt til i `RateLimitWebConfig`.
 
 Konfigurasjon under `rate-limiting.soknad` i `application.yaml`:
 
