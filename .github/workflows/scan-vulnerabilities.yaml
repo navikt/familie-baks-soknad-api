@@ -23,5 +23,4 @@ jobs:
     uses: navikt/familie-baks-gha-workflows/.github/workflows/scan-vulnerabilities-maven.yaml@main # ratchet:exclude
     with:
       java-version: '25'
-    secrets: inherit
 
