@@ -16,7 +16,6 @@ jobs:
     uses: navikt/familie-baks-gha-workflows/.github/workflows/ktlint.yaml@main # ratchet:exclude
     with:
       java-version: '25'
-    secrets: inherit
   test:
     name: Test
     permissions:
@@ -24,4 +23,3 @@ jobs:
     uses: navikt/familie-baks-gha-workflows/.github/workflows/pull-request-maven.yaml@main # ratchet:exclude
     with:
       java-version: '25'
-    secrets: inherit
