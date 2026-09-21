@@ -45,6 +45,25 @@ tilgang til `read:packages`.
 Applikasjonen kjører i clusteret `dev-gcp`. Deploy gjøres via Github Actions, der det er satt opp to ulike workflows. Den ene
 workflowen kjører for brancher med en åpen pull request. Den andre kjører ved push til main.
 
+## Rate-limiting
+
+Rate-limiting gjøres på ingress-nivå (HAProxy) via nais-native annotasjoner i `.nais/app-dev.yaml`
+og `.nais/app-prod.yaml`, ikke i applikasjonskoden:
+
+```yaml
+metadata:
+  annotations:
+    haproxy.org/rate-limit-requests: "200"
+    haproxy.org/rate-limit-period: "1m"
+    haproxy.org/rate-limit-status-code: "429"
+```
+
+Grensen gjelder **per kilde-IP** for hele ingressen (alle stier), ikke per innlogget bruker (fnr).
+Overskrides grensen svarer HAProxy med HTTP 429. Se
+[nais ingress-dokumentasjonen](https://docs.nais.io/workloads/application/reference/ingress/) og
+[HAProxy rate-limit-annotasjonene](https://github.com/haproxytech/kubernetes-ingress/blob/master/documentation/annotations.md#rate-limit)
+for detaljer og tuning.
+
 ## Kodestil
 
 Du må bruke prosjektets kodestil for å få deployet koden. Denne skal kjøre automatisk som git-hook, men kan også kjøres manuelt
