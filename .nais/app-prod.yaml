@@ -5,6 +5,10 @@ metadata:
   namespace: teamfamilie
   labels:
     team: teamfamilie
+  annotations:
+    haproxy.org/rate-limit-requests: "200"
+    haproxy.org/rate-limit-period: "1m"
+    haproxy.org/rate-limit-status-code: "429"
 spec:
   image: {{ image }}
   port: 8080
