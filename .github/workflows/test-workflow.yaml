@@ -3,6 +3,7 @@
 name: Test workflow
 on:
   workflow_dispatch:
+permissions: {}
 jobs:
   test-workflow:
     name: Test workflow
