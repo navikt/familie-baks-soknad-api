@@ -33,7 +33,10 @@ class SecurityConfig(
             csrf { disable() }
             sessionManagement { sessionCreationPolicy = SessionCreationPolicy.STATELESS }
             authorizeHttpRequests {
-                authorize("/internal/**", permitAll)
+                authorize("/internal", permitAll)
+                authorize("/internal/health/**", permitAll)
+                authorize("/internal/metrics/**", permitAll)
+                authorize("/internal/prometheus", permitAll)
                 authorize(anyRequest, authenticated)
             }
             oauth2ResourceServer {
