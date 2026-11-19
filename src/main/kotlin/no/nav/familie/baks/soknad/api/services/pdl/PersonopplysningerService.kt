@@ -1,6 +1,5 @@
 package no.nav.familie.baks.soknad.api.services.pdl
 
-import no.nav.familie.baks.soknad.api.clients.kodeverk.KodeverkClient
 import no.nav.familie.baks.soknad.api.clients.pdl.PdlApp2AppClient
 import no.nav.familie.baks.soknad.api.clients.pdl.PdlBrukerClient
 import no.nav.familie.baks.soknad.api.clients.pdl.PdlDoedsafall
@@ -12,6 +11,7 @@ import no.nav.familie.baks.soknad.api.services.pdl.mapper.PdlBarnMapper
 import no.nav.familie.baks.soknad.api.services.pdl.mapper.PdlMapper
 import no.nav.familie.kontrakter.felles.personopplysning.Bostedsadresse
 import org.springframework.stereotype.Service
+import java.time.Clock
 import java.time.LocalDate
 import java.time.Period
 import java.time.format.DateTimeFormatter
@@ -20,10 +20,9 @@ import java.time.format.DateTimeFormatter
 class PersonopplysningerService(
     private val pdlClient: PdlBrukerClient,
     private val pdlApp2AppClient: PdlApp2AppClient,
-    kodeverkClient: KodeverkClient
+    private val kodeverkService: CachedKodeverkService,
+    private val clock: Clock = Clock.systemDefaultZone()
 ) {
-    val kodeverkService = CachedKodeverkService(kodeverkClient)
-
     fun hentPersoninfo(
         personIdent: String,
         ytelse: Ytelse,
@@ -82,7 +81,7 @@ class PersonopplysningerService(
         if (fødselsdato == null) {
             return false
         }
-        val alder = Period.between(fødselsdato, LocalDate.now())
+        val alder = Period.between(fødselsdato, LocalDate.now(clock))
         return alder.toTotalMonths() < ytelse.aldersgrense.toTotalMonths()
     }
 

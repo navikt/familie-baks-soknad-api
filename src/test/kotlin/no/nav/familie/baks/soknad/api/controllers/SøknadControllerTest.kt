@@ -2,6 +2,7 @@ package no.nav.familie.baks.soknad.api.controllers
 
 import io.mockk.every
 import io.mockk.mockk
+import io.mockk.verify
 import no.nav.familie.baks.soknad.api.domene.Kvittering
 import no.nav.familie.baks.soknad.api.services.BarnetrygdSøknadService
 import no.nav.familie.baks.soknad.api.services.BarnetrygdSøknadTestData
@@ -13,6 +14,8 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.springframework.http.HttpStatus
 import java.time.LocalDateTime
 import kotlin.test.Test
+import no.nav.familie.kontrakter.ba.søknad.v10.BarnetrygdSøknad as BarnetrygdSøknadV10
+import no.nav.familie.kontrakter.ks.søknad.v6.KontantstøtteSøknad as KontantstøtteSøknadV6
 
 class SøknadControllerTest {
     private val kontantstøtteSøknadService = mockk<KontantstøtteSøknadService>()
@@ -35,13 +38,11 @@ class SøknadControllerTest {
     @Test
     fun søknadsmottakBarnetrygd_returnerer_bad_request_ved_ugyldig_input() {
         val søknad = BarnetrygdSøknadTestData.barnetrygdSøknad(søker = BarnetrygdSøknadTestData.søker().copy(navn = søknadsfelt("navn", "Navn <>")))
-        val kvittering = Kvittering("OK", LocalDateTime.now())
-        every { barnetrygdSøknadService.mottaOgSendBarnetrygdsøknad(søknad) } returns Ressurs.success(kvittering)
-
         val response = søknadController.søknadsmottakBarnetrygd(søknad)
 
         assertEquals(HttpStatus.BAD_REQUEST.value(), response.statusCode.value())
         assertEquals("Søknaden har valideringsfeil i objectPaths: søker.navn.verdi", response.body?.melding)
+        verify(exactly = 0) { barnetrygdSøknadService.mottaOgSendBarnetrygdsøknad(any<BarnetrygdSøknadV10>()) }
     }
 
     @Test
@@ -55,5 +56,16 @@ class SøknadControllerTest {
 
         assertEquals(200, response.statusCode.value())
         assertEquals(kvittering, response.body?.data)
+    }
+
+    @Test
+    fun `ugyldig kontantstøttesøknad avvises uten videresending`() {
+        val søker = KontantstøtteSøknadTestData.søker().copy(navn = KontantstøtteSøknadTestData.søknadsfelt("Navn", "Navn <>"))
+        val søknad = KontantstøtteSøknadTestData.kontantstøtteSøknad(søker = søker)
+
+        val response = søknadController.søknadsmottakKontantstøtte(søknad)
+
+        assertEquals(HttpStatus.BAD_REQUEST, response.statusCode)
+        verify(exactly = 0) { kontantstøtteSøknadService.mottaOgSendKontantstøttesøknad(any<KontantstøtteSøknadV6>()) }
     }
 }
