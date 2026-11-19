@@ -1,6 +1,6 @@
 # familie-baks-soknad-api
 
-API for søknadsdialog for barnetrygd og kontantstøtte.
+API for søknadsdialog for barnetrygd og kontantstøtte
 
 ## Kjøring lokalt
 
