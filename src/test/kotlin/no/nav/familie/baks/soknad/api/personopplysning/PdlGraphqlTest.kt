@@ -35,33 +35,33 @@ class PdlGraphqlTest {
         )
         assertEquals(
             "FYR",
-            resp.data.person!!
+            resp.data.person
                 .navn
                 .first()
                 .etternavn
         )
         assertEquals(
             2,
-            resp.data.person!!
+            resp.data.person
                 .forelderBarnRelasjon.size
         )
         assertEquals(
             null,
-            resp.data.person!!
+            resp.data.person
                 .bostedsadresse
                 .first()!!
                 .matrikkeladresse
         )
         assertEquals(
             null,
-            resp.data.person!!
+            resp.data.person
                 .bostedsadresse
                 .first()!!
                 .ukjentBosted
         )
         assertEquals(
             3,
-            resp.data.person!!
+            resp.data.person
                 .bostedsadresse
                 .first()!!
                 .vegadresse!!
@@ -69,17 +69,17 @@ class PdlGraphqlTest {
         )
         assertEquals(
             "E22",
-            resp.data.person!!
+            resp.data.person
                 .bostedsadresse
                 .first()!!
                 .vegadresse!!
                 .husnummer
         )
-        assertEquals(listOf(Adressebeskyttelse(ADRESSEBESKYTTELSEGRADERING.UGRADERT)), resp.data.person!!.adressebeskyttelse)
-        assertEquals(listOf(PdlStatsborgerskap("NOR")), resp.data.person!!.statsborgerskap)
+        assertEquals(listOf(Adressebeskyttelse(ADRESSEBESKYTTELSEGRADERING.UGRADERT)), resp.data.person.adressebeskyttelse)
+        assertEquals(listOf(PdlStatsborgerskap("NOR")), resp.data.person.statsborgerskap)
         assertEquals(
             "GIFT",
-            resp.data.person!!
+            resp.data.person
                 .sivilstand
                 ?.firstOrNull()
                 ?.type

@@ -11,6 +11,24 @@ import java.time.LocalDate.now
 
 class KodeverkUtilTest {
     @Test
+    fun `tom betydningsliste gir tom term uten å fjerne koden`() {
+        val kodeverk = KodeverkDto(mapOf("NOR" to emptyList()))
+
+        assertThat(kodeverk.mapTerm()).containsExactlyEntriesOf(mapOf("NOR" to ""))
+    }
+
+    @Test
+    fun `historikk uten gjeldende betydning gir tom term`() {
+        val historikk =
+            listOf(
+                BetydningDto(LocalDate.of(2000, 1, 1), LocalDate.of(2001, 1, 1), mapOf("nb" to BeskrivelseDto("Gammel", ""))),
+                BetydningDto(LocalDate.of(2001, 1, 2), LocalDate.of(2002, 1, 1), mapOf("nb" to BeskrivelseDto("Også gammel", "")))
+            )
+
+        assertThat(KodeverkDto(mapOf("NOR" to historikk)).mapTerm()).containsExactlyEntriesOf(mapOf("NOR" to ""))
+    }
+
+    @Test
     internal fun `KodeverkDto mapTerm mapper nykkel til term`() {
         val betydninger =
             mapOf(
