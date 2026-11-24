@@ -4,6 +4,8 @@ import no.nav.familie.baks.soknad.api.clients.pdl.PdlHentPersonResponse
 import no.nav.familie.baks.soknad.api.domene.Barn
 import no.nav.familie.baks.soknad.api.services.pdl.mapper.PdlMapper.harPersonAdresseBeskyttelse
 import no.nav.familie.kontrakter.felles.personopplysning.Bostedsadresse
+import no.nav.familie.kontrakter.felles.personopplysning.DeltBosted
+import java.time.LocalDate
 
 object PdlBarnMapper {
     fun borBarnMedSoeker(
@@ -22,7 +24,8 @@ object PdlBarnMapper {
 
     fun mapBarn(
         barnRespons: PdlHentPersonResponse,
-        soekerAdresse: Bostedsadresse?
+        soekerAdresse: Bostedsadresse?,
+        dagensDato: LocalDate
     ): Barn =
         Result
             .runCatching {
@@ -56,7 +59,10 @@ object PdlBarnMapper {
                                     soekerAdresse = soekerAdresse,
                                     barneAdresser =
                                         barnRespons.data.person.bostedsadresse
-                                            .filterNotNull()
+                                            .filterNotNull() +
+                                            barnRespons.data.person.deltBosted
+                                                .filter { it.gjelderPå(dagensDato) }
+                                                .map { Bostedsadresse(vegadresse = it.vegadresse, matrikkeladresse = it.matrikkeladresse) }
                                 )
                             }
                         },
@@ -66,4 +72,10 @@ object PdlBarnMapper {
                 onSuccess = { it },
                 onFailure = { throw it }
             )
+
+    private fun DeltBosted.gjelderPå(dato: LocalDate): Boolean {
+        val startdato = startdatoForKontrakt
+        val sluttdato = sluttdatoForKontrakt
+        return (startdato == null || startdato <= dato) && (sluttdato == null || sluttdato >= dato)
+    }
 }

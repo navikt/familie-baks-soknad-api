@@ -49,7 +49,7 @@ class PdlClientTest {
             .andExpect { request ->
                 val body = jsonMapper.readValue((request as MockClientHttpRequest).bodyAsString, PdlPersonRequest::class.java)
                 assertThat(body.variables.ident).isEqualTo("test-subject")
-                assertThat(body.query).contains("hentPerson(ident: ${'$'}ident)", "adressebeskyttelse", "forelderBarnRelasjon")
+                assertThat(body.query).contains("hentPerson(ident: ${'$'}ident)", "adressebeskyttelse", "forelderBarnRelasjon", "deltBosted")
             }.andRespond(withSuccess(response, MediaType.APPLICATION_JSON))
 
         val person = client.hentPerson("test-subject", Ytelse.BARNETRYGD)

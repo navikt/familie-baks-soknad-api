@@ -46,5 +46,17 @@ query ($ident: ID!) {
                 kommunenummer
             }
         }
+        deltBosted {
+            startdatoForKontrakt
+            sluttdatoForKontrakt
+            vegadresse {
+                matrikkelId
+                bruksenhetsnummer
+            }
+            matrikkeladresse {
+                matrikkelId
+                bruksenhetsnummer
+            }
+        }
     }
 }

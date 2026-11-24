@@ -338,10 +338,30 @@ class PersonopplysningerServiceTest {
 
     @Test
     fun `hentPerson sine barn har adressebeskyttelse og barnets navn blir null`() {
-        val barn = PdlBarnMapper.mapBarn(pdlMockFor("pdlBarnHarAdresseBeskyttelse"), gyldigBostedAdresse)
+        val barn = PdlBarnMapper.mapBarn(pdlMockFor("pdlBarnHarAdresseBeskyttelse"), gyldigBostedAdresse, LocalDate.now(clock))
         assertEquals(null, barn.navn)
         assertFalse(barn.borMedSøker)
         assertTrue(barn.adressebeskyttelse)
+    }
+
+    @ParameterizedTest
+    @CsvSource("2024-12-31, false", "2025-01-01, true", "2026-12-31, true", "2027-01-01, false")
+    fun `borMedSøker er true bare når avtalen om delt bosted hos søker gjelder i dag`(
+        dagensDato: LocalDate,
+        forventet: Boolean
+    ) {
+        // Arrange
+        val fastKlokke = Clock.fixed(dagensDato.atStartOfDay(clock.zone).toInstant(), clock.zone)
+        val service = PersonopplysningerService(pdlClient, barnePdlClient, kodeverkService, fastKlokke)
+        every { pdlClient.hentPerson(any(), Ytelse.BARNETRYGD) } returns pdlMockFor("pdlPersonMedFlereRelasjoner")
+        every { barnePdlClient.hentPerson("12345678910", Ytelse.BARNETRYGD) } returns pdlMockFor("pdlBarnMedDeltBosted")
+        every { kodeverkClient.hentPostnummer() } returns kodeverkMockFor("kodeverkPostnummerRespons")
+
+        // Act
+        val person = service.hentPersoninfo("1", Ytelse.BARNETRYGD)
+
+        // Assert
+        assertEquals(forventet, person.barn.single().borMedSøker)
     }
 
     @Test
