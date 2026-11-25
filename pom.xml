@@ -21,7 +21,7 @@
         <jvmTarget>25</jvmTarget>
         <java.version>25</java.version>
         <kontrakter.version>4.0_20261122100524_f432e73</kontrakter.version>
-        <felles.version>4.20261026180911_c3ff6d9</felles.version>
+        <felles.version>4.20261125133723_a8841ff</felles.version>
         <mockk.version>1.14.12</mockk.version>
         <nav.security.version>6.0.7</nav.security.version>
         <start-class>no.nav.familie.baks.soknad.api.LauncherKt</start-class>
