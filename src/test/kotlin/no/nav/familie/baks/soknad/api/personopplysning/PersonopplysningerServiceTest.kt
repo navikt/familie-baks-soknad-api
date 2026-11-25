@@ -193,7 +193,13 @@ class PersonopplysningerServiceTest {
     fun `borMedSøker skal returnere false når søkerAdressen er null`() {
         val søkerAdresse = null
         val barneAdresse = Bostedsadresse()
-        val borMedSøker = PdlBarnMapper.borBarnMedSoeker(søkerAdresse, listOf(barneAdresse))
+        val borMedSøker =
+            PdlBarnMapper.borBarnMedSoeker(
+                soekerAdresse = søkerAdresse,
+                bostedsadresser = listOf(barneAdresse),
+                deltBosted = emptyList(),
+                dagensDato = LocalDate.now(clock)
+            )
 
         assertFalse(borMedSøker)
     }
@@ -203,7 +209,9 @@ class PersonopplysningerServiceTest {
         val borMedSøker =
             PdlBarnMapper.borBarnMedSoeker(
                 soekerAdresse = gyldigBostedAdresse,
-                barneAdresser = listOf(gyldigBostedAdresse)
+                bostedsadresser = listOf(gyldigBostedAdresse),
+                deltBosted = emptyList(),
+                dagensDato = LocalDate.now(clock)
             )
 
         assertTrue(borMedSøker)
@@ -225,7 +233,9 @@ class PersonopplysningerServiceTest {
         val borMedSøker =
             PdlBarnMapper.borBarnMedSoeker(
                 soekerAdresse = gyldigBostedAdresse,
-                barneAdresser = listOf(barneAdresse)
+                bostedsadresser = listOf(barneAdresse),
+                deltBosted = emptyList(),
+                dagensDato = LocalDate.now(clock)
             )
 
         assertFalse(borMedSøker)
@@ -237,7 +247,9 @@ class PersonopplysningerServiceTest {
         val borMedSøker =
             PdlBarnMapper.borBarnMedSoeker(
                 soekerAdresse = ukjentAdresse,
-                barneAdresser = listOf(ukjentAdresse)
+                bostedsadresser = listOf(ukjentAdresse),
+                deltBosted = emptyList(),
+                dagensDato = LocalDate.now(clock)
             )
 
         assertFalse(borMedSøker)
@@ -262,7 +274,9 @@ class PersonopplysningerServiceTest {
         val borMedSøker =
             PdlBarnMapper.borBarnMedSoeker(
                 soekerAdresse = søkerAdresse,
-                barneAdresser = listOf(gyldigBostedAdresse)
+                bostedsadresser = listOf(gyldigBostedAdresse),
+                deltBosted = emptyList(),
+                dagensDato = LocalDate.now(clock)
             )
 
         assertTrue(borMedSøker)

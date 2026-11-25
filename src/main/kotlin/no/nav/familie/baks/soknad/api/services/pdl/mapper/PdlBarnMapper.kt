@@ -10,16 +10,19 @@ import java.time.LocalDate
 object PdlBarnMapper {
     fun borBarnMedSoeker(
         soekerAdresse: Bostedsadresse?,
-        barneAdresser: List<Bostedsadresse>
+        bostedsadresser: List<Bostedsadresse>,
+        deltBosted: List<DeltBosted>,
+        dagensDato: LocalDate
     ): Boolean {
-        fun adresseListe(bostedsadresse: Bostedsadresse): List<Any?> = listOfNotNull(bostedsadresse.matrikkeladresse, bostedsadresse.vegadresse)
+        if (soekerAdresse == null) return false
 
-        return if (soekerAdresse == null || barneAdresser.isEmpty()) {
-            false
-        } else {
-            val alleBarnetsAdresser = barneAdresser.flatMap { adresseListe(it) }
-            adresseListe(soekerAdresse).any { alleBarnetsAdresser.contains(it) }
-        }
+        val alleBarnetsAdresser =
+            bostedsadresser.flatMap { listOfNotNull(it.matrikkeladresse, it.vegadresse) } +
+                deltBosted
+                    .filter { it.gjelderPå(dagensDato) }
+                    .flatMap { listOfNotNull(it.matrikkeladresse, it.vegadresse) }
+
+        return listOfNotNull(soekerAdresse.matrikkeladresse, soekerAdresse.vegadresse).any { it in alleBarnetsAdresser }
     }
 
     fun mapBarn(
@@ -57,12 +60,11 @@ object PdlBarnMapper {
                             false -> {
                                 borBarnMedSoeker(
                                     soekerAdresse = soekerAdresse,
-                                    barneAdresser =
+                                    bostedsadresser =
                                         barnRespons.data.person.bostedsadresse
-                                            .filterNotNull() +
-                                            barnRespons.data.person.deltBosted
-                                                .filter { it.gjelderPå(dagensDato) }
-                                                .map { Bostedsadresse(vegadresse = it.vegadresse, matrikkeladresse = it.matrikkeladresse) }
+                                            .filterNotNull(),
+                                    deltBosted = barnRespons.data.person.deltBosted,
+                                    dagensDato = dagensDato
                                 )
                             }
                         },
