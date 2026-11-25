@@ -4,25 +4,31 @@ import no.nav.familie.baks.soknad.api.clients.pdl.PdlHentPersonResponse
 import no.nav.familie.baks.soknad.api.domene.Barn
 import no.nav.familie.baks.soknad.api.services.pdl.mapper.PdlMapper.harPersonAdresseBeskyttelse
 import no.nav.familie.kontrakter.felles.personopplysning.Bostedsadresse
+import no.nav.familie.kontrakter.felles.personopplysning.DeltBosted
+import java.time.LocalDate
 
 object PdlBarnMapper {
     fun borBarnMedSoeker(
         soekerAdresse: Bostedsadresse?,
-        barneAdresser: List<Bostedsadresse>
+        bostedsadresser: List<Bostedsadresse>,
+        deltBosted: List<DeltBosted>,
+        dagensDato: LocalDate
     ): Boolean {
-        fun adresseListe(bostedsadresse: Bostedsadresse): List<Any?> = listOfNotNull(bostedsadresse.matrikkeladresse, bostedsadresse.vegadresse)
+        if (soekerAdresse == null) return false
 
-        return if (soekerAdresse == null || barneAdresser.isEmpty()) {
-            false
-        } else {
-            val alleBarnetsAdresser = barneAdresser.flatMap { adresseListe(it) }
-            adresseListe(soekerAdresse).any { alleBarnetsAdresser.contains(it) }
-        }
+        val alleBarnetsAdresser =
+            bostedsadresser.flatMap { listOfNotNull(it.matrikkeladresse, it.vegadresse) } +
+                deltBosted
+                    .filter { it.gjelderPå(dagensDato) }
+                    .flatMap { listOfNotNull(it.matrikkeladresse, it.vegadresse) }
+
+        return listOfNotNull(soekerAdresse.matrikkeladresse, soekerAdresse.vegadresse).any { it in alleBarnetsAdresser }
     }
 
     fun mapBarn(
         barnRespons: PdlHentPersonResponse,
-        soekerAdresse: Bostedsadresse?
+        soekerAdresse: Bostedsadresse?,
+        dagensDato: LocalDate
     ): Barn =
         Result
             .runCatching {
@@ -54,9 +60,11 @@ object PdlBarnMapper {
                             false -> {
                                 borBarnMedSoeker(
                                     soekerAdresse = soekerAdresse,
-                                    barneAdresser =
+                                    bostedsadresser =
                                         barnRespons.data.person.bostedsadresse
-                                            .filterNotNull()
+                                            .filterNotNull(),
+                                    deltBosted = barnRespons.data.person.deltBosted,
+                                    dagensDato = dagensDato
                                 )
                             }
                         },
@@ -66,4 +74,10 @@ object PdlBarnMapper {
                 onSuccess = { it },
                 onFailure = { throw it }
             )
+
+    private fun DeltBosted.gjelderPå(dato: LocalDate): Boolean {
+        val startdato = startdatoForKontrakt
+        val sluttdato = sluttdatoForKontrakt
+        return (startdato == null || startdato <= dato) && (sluttdato == null || sluttdato >= dato)
+    }
 }

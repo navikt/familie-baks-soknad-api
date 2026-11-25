@@ -2,6 +2,7 @@ package no.nav.familie.baks.soknad.api.clients.pdl
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import no.nav.familie.kontrakter.felles.personopplysning.Bostedsadresse
+import no.nav.familie.kontrakter.felles.personopplysning.DeltBosted
 
 data class PdlHentPersonResponse(
     val data: PdlPerson,
@@ -26,6 +27,7 @@ data class PdlPersonData(
     val forelderBarnRelasjon: List<PdlFamilierelasjon> = emptyList(),
     val foedselsdato: List<PdlFødselsDato>,
     val bostedsadresse: List<Bostedsadresse?>,
+    val deltBosted: List<DeltBosted> = emptyList(),
     val statsborgerskap: List<PdlStatsborgerskap>,
     val sivilstand: List<PdlSivilstand>?,
     val doedsfall: List<PdlDoedsafall>?,

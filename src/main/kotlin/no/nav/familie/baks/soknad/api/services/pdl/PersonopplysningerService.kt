@@ -69,7 +69,7 @@ class PersonopplysningerService(
                         ),
                         ytelse
                     )
-            }.map { PdlBarnMapper.mapBarn(it, sokerAdresse) }
+            }.map { PdlBarnMapper.mapBarn(it, sokerAdresse, LocalDate.now(clock)) }
             .toSet()
 
     private fun erBarnILive(doedsfall: List<PdlDoedsafall>?): Boolean = doedsfall?.firstOrNull()?.doedsdato == null
